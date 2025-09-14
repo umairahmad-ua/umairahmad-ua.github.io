@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    if: github.repository == 'umairahmad-ua/site'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - name: Content QA
+        run: npm run qa
+      - name: Type check and build
+        run: npx astro check && npx astro build

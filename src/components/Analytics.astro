@@ -1,0 +1,15 @@
+---
+import { extras } from "@/site.extras";
+const { analytics } = extras;
+---
+
+{
+  analytics.enabled && analytics.goatcounterCode && (
+    <script
+      is:inline
+      data-goatcounter={`https://${analytics.goatcounterCode}.goatcounter.com/count`}
+      async
+      src="//gc.zgo.at/count.js"
+    />
+  )
+}

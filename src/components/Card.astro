@@ -1,0 +1,7 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Entry from "./Entry.astro";
+type Props = { variant?: "h2" | "h3"; showKind?: boolean; layout?: string; highlight?: boolean } & CollectionEntry<"posts">;
+const { variant, showKind, layout, highlight, ...post } = Astro.props;
+---
+<Entry post={post as CollectionEntry<"posts">} showYear showExcerpt />

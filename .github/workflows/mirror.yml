@@ -1,0 +1,24 @@
+name: Mirror to public site repo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    if: github.repository == 'umairahmad-ua/site'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Push main to the public Pages repo
+        env:
+          KEY: ${{ secrets.PUBLIC_SITE_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git push --force git@github.com:umairahmad-ua/umairahmad-ua.github.io.git HEAD:main

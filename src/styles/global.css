@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}
+
+/* ---- Site personality: quiet, text first ---- */
+h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.005em; color: var(--primary); }
+a { color: inherit; }
+.app-prose a { color: var(--accent); }
+pre, code, kbd { font-family: var(--font-mono); }
+@utility max-w-app { @apply max-w-[44rem]; }
+@utility pill { @apply text-muted-foreground inline-block text-xs tracking-wide uppercase; }
+@utility entry { @apply flex flex-col gap-0.5 py-2 sm:flex-row sm:items-baseline sm:gap-4; }
+@utility entry-date { @apply text-accent-2 w-24 shrink-0 text-sm font-medium tabular-nums; }
+@utility month-head { @apply font-heading text-accent mt-10 mb-2 text-sm font-semibold tracking-wide uppercase first:mt-4; }
+@utility btn-primary { @apply bg-accent text-accent-foreground inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium hover:opacity-90; }
+@utility card { @apply border-border rounded-lg border p-5; }
+@utility card-hover { @apply hover:border-accent/60; }
+@utility section-title { @apply font-heading text-2xl font-semibold; }
+@utility section-title-bar { @apply hidden; }

@@ -1,0 +1,35 @@
+---
+type Source = { title: string; url: string; date: Date };
+type Props = { sources: Source[] };
+const { sources } = Astro.props;
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+---
+
+{
+  sources.length > 0 && (
+    <section id="sources" class="my-8">
+      <h2 class="mb-2 text-lg font-semibold">Sources</h2>
+      <ol class="text-muted-foreground list-decimal space-y-1 ps-5 text-sm">
+        {sources.map(s => (
+          <li>
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-accent decoration-dashed underline-offset-4 hover:underline"
+            >
+              {s.title}
+            </a>
+            <span> ({fmt(s.date)})</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
