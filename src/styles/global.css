@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-wavy decoration-2 underline-offset-8;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}
+
+/* ---- Site personality ---- */
+h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.01em; }
+pre, code, kbd { font-family: var(--font-mono); }
+
+@utility card {
+  @apply bg-card border-border rounded-xl border p-5 transition-transform duration-200 ease-out;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+}
+@utility card-hover {
+  @apply hover:-translate-y-0.5 hover:border-accent/50;
+}
+@utility section-title {
+  @apply font-heading flex items-center gap-3 text-2xl font-bold tracking-tight;
+}
+@utility section-title-bar {
+  @apply bg-accent-2 inline-block h-6 w-1.5 rounded-full;
+}
+@utility pill {
+  @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide;
+}
+@utility btn-primary {
+  @apply bg-accent text-accent-foreground inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition hover:opacity-90;
+}
+@utility btn-ghost {
+  @apply border-border bg-card inline-flex items-center gap-2 rounded-lg border px-4 py-2 font-medium transition hover:border-accent hover:text-accent;
+}
+@utility hero-glow {
+  background:
+    radial-gradient(60% 80% at 10% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
+    radial-gradient(50% 70% at 100% 20%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 70%);
+}
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 0.5s ease-out both; }
+.rise-2 { animation: rise 0.5s 0.08s ease-out both; }
+.rise-3 { animation: rise 0.5s 0.16s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .rise, .rise-2, .rise-3 { animation: none; } }

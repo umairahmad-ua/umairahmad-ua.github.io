@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import { isArticle } from "@/utils/byKind";
+import config from "@/config";
+
+const articles = getSortedPosts(await getCollection("posts")).filter(isArticle);
+
+// Themes are matched in order by tags and title keywords; an article lands in the first theme that matches.
+const themes: { title: string; blurb: string; tags: string[]; words: string[] }[] = [
+  { title: "What does this look like in a real industry?", blurb: "Healthcare, finance, supply chain, legal and media use cases.", tags: ["healthcare", "supply-chain", "finance", "legal", "media", "fraud"], words: ["healthcare", "clinical", "payer", "fraud", "kyc", "fintech", "contract", "legal", "apparel", "supply", "retail", "marketing", "campaign", "voice", "help desk", "rfp", "demand", "materials", "finance will trust", "data quality", "stored procedures", "reconciliation"] },
+  { title: "How do I know the agent works, and what it costs?", blurb: "Evals, observability, cost per task, caching, incidents.", tags: ["cost"], words: ["eval", "cost", "cache", "caching", "observability", "incident", "postmortem", "routing", "shadow", "budgets", "production traffic"] },
+  { title: "Leading the work", blurb: "Presales, code review, retrospectives, writing in public.", tags: ["leadership", "writing"], words: ["presales", "code review", "writing in public", "one year", "year end", "what i got wrong"] },
+  { title: "Google Cloud, Gemini and Claude", blurb: "Platform moves, certifications and what to adopt now.", tags: ["gemini", "openai", "fine-tuning"], words: ["cloud next", "certified", "fine-tuning", "long context", "agent skills", "managed agents", "migrating scout", "gemini enterprise", "fable", "multi-model", "chains to adk"] },
+  { title: "How do agents reach tools and data safely?", blurb: "MCP, A2A, retrieval, guardrails, permissions and PII.", tags: ["mcp", "rag", "security", "a2a"], words: ["mcp", "a2a", "retrieval", "rag", "guardrail", "permission", "pii", "tool", "grounding", "text-to-sql", "connectors", "streaming", "structured outputs", "prompt management"] },
+  { title: "How should I structure a multi-agent system?", blurb: "Orchestration, handoffs, memory and the shape of the system.", tags: ["adk", "agents"], words: [] },
+];
+const placed = new Set<string>();
+const groups = themes.map(t => {
+  const items = articles.filter(a => {
+    if (placed.has(a.id)) return false;
+    const title = a.data.title.toLowerCase();
+    return a.data.tags.some(tag => t.tags.includes(tag)) || t.words.some(w => title.includes(w));
+  });
+  items.forEach(a => placed.add(a.id));
+  return { ...t, items };
+});
+const rest = articles.filter(a => !placed.has(a.id));
+if (rest.length) groups.push({ title: "Everything else", blurb: "", tags: [], items: rest });
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+---
+
+<Layout title={`Start here | ${config.site.title}`} description="A guided path through the articles, grouped by the question they answer.">
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle="Start here" pageDesc={`${articles.length} articles and a note every week. Start with the question you have.`}>
+    <div class="grid gap-6">
+      {groups.filter(g => g.items.length).map(g => (
+        <section class="card">
+          <h2 class="section-title text-xl"><span class="section-title-bar"></span>{g.title}</h2>
+          {g.blurb && <p class="text-muted-foreground mt-1 text-sm">{g.blurb}</p>}
+          <ul class="mt-3 grid gap-2">
+            {g.items.map(a => (
+              <li class="flex flex-wrap items-baseline gap-x-3">
+                <a class="text-accent font-medium decoration-dashed underline-offset-4 hover:underline" href={getPostUrl(a.id, a.filePath, config.site.lang)}>{a.data.title}</a>
+                <span class="text-muted-foreground text-xs">{fmt(a.data.pubDatetime)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+    <p class="mt-8">Prefer chronology? <a class="text-accent underline decoration-dashed underline-offset-4" href="/notes/">Read the weekly notes in order</a>, or browse by <a class="text-accent underline decoration-dashed underline-offset-4" href="/tags/">tag</a>. Every note lists dated sources, so you can check anything I claim.</p>
+  </Main>
+  <Footer />
+</Layout>

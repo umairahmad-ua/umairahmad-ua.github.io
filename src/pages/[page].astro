@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages", ({ id }) => id !== "about");
+  return pages.map(page => ({ params: { page: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Layout
+  title={`${page.data.title} | ${config.site.title}`}
+  description={page.data.description}
+  ogImage={page.data.ogImage}
+  canonicalURL={page.data.canonicalURL}
+>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle={page.data.title} class="app-prose">
+    <Content />
+  </Main>
+  <Footer />
+</Layout>

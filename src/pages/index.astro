@@ -1,0 +1,132 @@
+---
+import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import Card from "@/components/Card.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Newsletter from "@/components/Newsletter.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { isArticle, isNote } from "@/utils/byKind";
+import config from "@/config";
+
+const locale = Astro.currentLocale ?? config.site.lang;
+const url = (p: string) => getRelativeLocaleUrl(locale, p);
+
+const posts = getSortedPosts(await getCollection("posts"));
+const allArticles = posts.filter(isArticle);
+const allNotes = posts.filter(isNote);
+const articles = allArticles.slice(0, 4);
+const notes = allNotes.slice(0, 5);
+const allProjects = await getCollection("projects");
+const projects = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+const stats = [
+  { n: allNotes.length, label: "weekly notes, every Sunday" },
+  { n: allArticles.length, label: "articles on agent systems" },
+  { n: allProjects.length, label: "production projects" },
+  { n: "8+", label: "years taking AI to production" },
+];
+const homePath = url("");
+---
+
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index" data-home-path={homePath} class="app-layout my-1">
+    <section id="hero" class="hero-glow rise -mx-4 rounded-2xl px-4 pt-8 pb-8 sm:px-8 sm:pt-10">
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="from-accent to-accent-2 font-heading text-accent-foreground flex size-14 items-center justify-center rounded-2xl bg-linear-to-br text-xl font-bold shadow-md">UA</div>
+        <div>
+          <p class="font-heading text-lg font-semibold leading-tight">Umair Ahmad</p>
+          <p class="text-muted-foreground text-sm">Principal AI Engineer · Houston, TX</p>
+        </div>
+        <span class="pill bg-card border-border ms-auto border">
+          <span class="relative flex size-2"><span class="bg-accent-2 absolute inline-flex size-full animate-ping rounded-full opacity-60"></span><span class="bg-accent-2 relative inline-flex size-2 rounded-full"></span></span>
+          Building agents at Zazmic
+        </span>
+      </div>
+
+      <h1 class="font-heading mt-6 text-3xl font-bold tracking-tight sm:text-5xl sm:leading-[1.08]">
+        I take AI ideas from the meeting where someone first says them out loud to{" "}
+        <span class="from-accent to-accent-2 bg-linear-to-r bg-clip-text text-transparent">systems a business runs on.</span>
+      </h1>
+
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed">
+        Multi-agent systems on Google ADK, the Gemini Enterprise Agent Platform and Claude, for clients in media, healthcare, finance and retail supply chains. Zazmic is a Google Cloud Premier Partner. I lead and mentor the ML engineers, and I still write the code.
+      </p>
+      <p class="text-muted-foreground mt-3 max-w-2xl">
+        Before this: medical claims automation at 50K claims a day, code security agents with Qwiet AI, demand forecasting that moved real inventory. The domain is always new. The ability to figure it out is not.
+      </p>
+
+      <div class="rise-2 mt-6 flex flex-wrap items-center gap-3">
+        <a class="btn-primary" href={url("notes")}>Read this week's note <IconArrowRight class="size-4" /></a>
+        <a class="btn-ghost" href={url("start-here")}>Start here</a>
+        <a class="btn-ghost" href={url("projects")}>Projects</a>
+        <div class="ms-auto flex items-center gap-2"><span class="text-muted-foreground text-sm">Find me</span><Socials /></div>
+      </div>
+
+      <dl class="rise-3 mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {stats.map(s => (
+          <div class="card py-4">
+            <dt class="font-heading text-accent text-3xl font-bold">{s.n}</dt>
+            <dd class="text-muted-foreground mt-1 text-sm leading-snug">{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section id="weekly-notes" class="pt-12">
+      <div class="flex items-baseline justify-between">
+        <h2 class="section-title"><span class="section-title-bar"></span>This week, and the weeks before</h2>
+        <a class="hover:text-accent text-sm font-medium" href={url("notes")}>All notes <IconArrowRight class="inline-block size-4" /></a>
+      </div>
+      <p class="text-muted-foreground mt-2">One short note every Sunday since September 2025. What changed in AI that week and what I make of it from inside client work. Every claim has a dated source.</p>
+      <ul class="mt-4 grid gap-3">
+        {notes.map((data, i) => (
+          <Card variant="h3" layout="row" highlight={i === 0} {...data} />
+        ))}
+      </ul>
+    </section>
+
+    <section id="latest-articles" class="pt-12">
+      <div class="flex items-baseline justify-between">
+        <h2 class="section-title"><span class="section-title-bar"></span>Latest articles</h2>
+        <a class="hover:text-accent text-sm font-medium" href={url("articles")}>All articles <IconArrowRight class="inline-block size-4" /></a>
+      </div>
+      <p class="text-muted-foreground mt-2">Long pieces on how I design, evaluate and run agent systems for real companies. Architecture, evals, cost, and the parts that only show up in production.</p>
+      <ul class="mt-4 grid gap-4 sm:grid-cols-2">
+        {articles.map(data => (
+          <Card variant="h3" layout="tile" showKind={false} {...data} />
+        ))}
+      </ul>
+    </section>
+
+    {projects.length > 0 && (
+      <section id="projects" class="pt-12 pb-6">
+        <div class="flex items-baseline justify-between">
+          <h2 class="section-title"><span class="section-title-bar"></span>Selected work</h2>
+          <a class="hover:text-accent text-sm font-medium" href={url("projects")}>All projects <IconArrowRight class="inline-block size-4" /></a>
+        </div>
+        <ul class="mt-4 grid gap-4">
+          {projects.map(project => <ProjectCard {project} compact />)}
+        </ul>
+      </section>
+    )}
+
+    <Newsletter />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)?.dataset;
+    const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+    if (indexLayout?.layout) sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
+  });
+</script>
