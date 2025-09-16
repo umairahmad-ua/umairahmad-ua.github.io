@@ -56,3 +56,13 @@ class PriorAuthRequest(BaseModel):
 
 **Present.** The reviewer's screen shows the criteria table, the evidence quotes with page links, and the recommendation. The recommendation is one of three values and a short paragraph. Nothing else.
 
+## The hard part was not the model
+
+The model work took three weeks. The next two months went into three things.
+
+**Confidence that means something.** Early on, the extractor reported 0.9 confidence on a member ID it had read off a cover sheet for a different patient. We added cross-checks: the member ID has to exist in the eligibility system, the provider NPI has to be active, the dates have to be in a plausible window. Failures drop the case into a manual intake queue before the agent touches it. About one request in twelve goes there.
+
+**Policy versioning.** Medical policies change. A request evaluated on Tuesday against version 14 of a policy has to show version 14 forever, even after version 15 lands on Thursday. We snapshot the retrieved policy text into the case record. The audit log is the case record. Nothing is recomputed later.
+
+**The review queue.** Nurses will not use a tool that slows them down. We spent two weeks with three reviewers watching them work. The result was a queue sorted by urgency and by how many criteria came back unknown. Cases with all criteria met go to the top and take a minute. Cases with three unknowns go to a nurse who specializes in that service line.
+
