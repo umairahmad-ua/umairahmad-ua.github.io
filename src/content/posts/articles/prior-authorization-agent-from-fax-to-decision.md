@@ -10,3 +10,49 @@ sources: []
 
 ## Table of contents
 
+## The fax machine is still there
+
+A regional health payer came to us in the summer with a problem I recognized. Prior authorization requests arrive by fax. Thousands a week. A clinician's office sends a request for a procedure, a nurse reviewer reads it, checks it against the payer's medical policy, and approves, denies, or asks for more information. The average turnaround was four business days. The regulator wanted two.
+
+I had spent two years at Developers Inc on medical claims. That system reads more than 50,000 claims a day and cut rejections by 35 percent. Prior authorization is the same documents, one step earlier in the process. The codes are the same. The policy language is the same. The difference is that a claim is a fact about care that already happened. A prior auth is a judgment about care that has not happened yet. That judgment stays with a human. Our job was to get the human everything they need in one screen.
+
+## What the agent does and does not do
+
+The design rule from the first meeting: the agent never makes the final decision. It prepares one. A nurse reviewer sees the request, the extracted clinical facts, the matching policy criteria, and a recommendation with the evidence for each criterion. The nurse clicks approve, deny, or request information. Every click is logged with what the nurse saw.
+
+That rule shaped everything. We were not building a decision engine. We were building a reviewer's assistant that has read the policy manual and the fax.
+
+## The pipeline
+
+Stack for this project:
+
+- Document AI for OCR and layout on faxed PDFs
+- A fine-tuned BERT model for ICD-10, CPT and NPI extraction, ported from the claims work
+- Vertex AI Search over the payer's medical policy documents
+- Google ADK for the review agent, running Gemini
+- Cloud Run for the API, Pub/Sub for the queue, Firestore for case state
+- BigQuery for the audit log and reporting
+- Pydantic for every structured output
+
+The flow has four stages.
+
+**Ingest.** Faxes land as multi-page TIFFs or PDFs in a Cloud Storage bucket. Document AI returns text with bounding boxes. Fax quality is bad. Skewed pages, handwritten additions, cover sheets that belong to a different patient. We keep the bounding boxes so a reviewer can click any extracted fact and see where on the page it came from.
+
+**Extract.** The BERT model pulls diagnosis codes, procedure codes, the requesting provider, the member ID, and dates. It was trained on claims, and prior auth forms use the same code sets, so the port was mostly new training data for the form layouts. A Gemini call handles the free text: the clinical justification paragraph, prior treatments tried, and anything the structured extractor missed. Both write into one Pydantic model.
+
+```python
+class PriorAuthRequest(BaseModel):
+    member_id: str
+    requesting_npi: str
+    diagnosis_codes: list[CodeSpan]      # code + page + bbox
+    procedure_codes: list[CodeSpan]
+    clinical_justification: str
+    prior_treatments: list[str]
+    urgency: Literal["standard", "expedited"]
+    extraction_confidence: float
+```
+
+**Match.** For each procedure code, the agent retrieves the relevant policy sections from Vertex AI Search. The payer's policies are long PDFs with numbered criteria. The agent turns each criterion into a yes, no, or unknown, with a quote from the request as evidence. Unknown is a valid answer. A criterion the fax does not address becomes a "request information" item, not a denial.
+
+**Present.** The reviewer's screen shows the criteria table, the evidence quotes with page links, and the recommendation. The recommendation is one of three values and a short paragraph. Nothing else.
+
