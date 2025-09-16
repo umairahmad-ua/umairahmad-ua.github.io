@@ -66,3 +66,15 @@ The model work took three weeks. The next two months went into three things.
 
 **The review queue.** Nurses will not use a tool that slows them down. We spent two weeks with three reviewers watching them work. The result was a queue sorted by urgency and by how many criteria came back unknown. Cases with all criteria met go to the top and take a minute. Cases with three unknowns go to a nurse who specializes in that service line.
 
+## Evaluation
+
+We built the eval set from six months of historical requests with the nurse's decision attached. The agent's recommendation matched the historical decision on 91 percent of standard requests. That number is not the goal. The goal is that the 9 percent are visible and explained, and that the nurse can overrule in one click.
+
+We also measure recall on the extraction separately. A missed procedure code is worse than a wrong recommendation, because the nurse may never see it. Extraction recall on codes sits above 98 percent on the held-out set. Every week the misses are reviewed and the worst category gets more training data.
+
+## What changed for the payer
+
+Median turnaround went from four business days to under one for standard requests. Expedited requests, which are a quarter of volume, are now handled the same day. The reviewers process more cases and spend their time on the hard ones.
+
+The number I care most about is the overrule rate. Nurses change the agent's recommendation on about 8 percent of cases. If that number dropped to zero I would worry that they stopped reading. If it rose to 30 percent I would know the policy retrieval was broken. It has stayed between 6 and 10 for three months.
+
