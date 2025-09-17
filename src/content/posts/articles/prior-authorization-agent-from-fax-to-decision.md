@@ -82,3 +82,10 @@ The number I care most about is the overrule rate. Nurses change the agent's rec
 
 For anyone building the same thing, the ADK structure is small. A root agent owns the case. It calls an extraction tool that wraps the BERT service, a policy retrieval tool that wraps Vertex AI Search, and a criteria evaluator that is a Gemini call with a strict output schema. There is no free-form planning loop. The root agent runs the three steps in order and stops. We tried a planning agent that decided which steps to run. It saved nothing and made the traces harder to read. A fixed sequence with typed handoffs is the right shape when the process itself is fixed by regulation.
 
+## What I would do differently
+
+I would build the reviewer screen first and the agent second. We built the agent first, and the first version of the screen showed too much. Nurses do not want the model's reasoning. They want the criteria, the evidence, and a button.
+
+I would also budget more time for fax quality. Half our extraction errors trace back to the OCR stage, not the models downstream. Document AI is good. Faxes are worse.
+
+The model is the easy part. Getting a regulated decision process to trust a recommendation is the work.
