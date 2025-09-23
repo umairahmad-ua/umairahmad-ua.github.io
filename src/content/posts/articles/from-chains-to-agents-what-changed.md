@@ -18,3 +18,5 @@ In July I sat in a review with a client team and drew a box diagram on the white
 
 That was the moment I understood that I had spent two years designing chains, and the problem in front of me was not a chain.
 
+## Table of contents
+
