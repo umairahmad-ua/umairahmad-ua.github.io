@@ -20,3 +20,11 @@ That was the moment I understood that I had spent two years designing chains, an
 
 ## Table of contents
 
+## Where I was coming from
+
+At Developers Inc I built retrieval and orchestration systems on LangChain for two years. Document ingestion with OCR. Recursive and semantic chunking. Pinecone with namespace isolation. Custom chains for multi-step reasoning with Pydantic output parsing. It worked. The medical claims system I led there still runs at 50K claims a day, and rejections fell 35 percent after we put it in.
+
+A chain is a directed graph you draw in advance. Each node has a prompt. Each edge is a decision you made before any user showed up. That is the strength. You can read the graph and know what the system will do. You can test each node in isolation. You can put a price on a run because the path is fixed.
+
+It is also the weakness. Every new question shape means a new path. Every new path is a code change. The graph grows until nobody can hold it in their head.
+
