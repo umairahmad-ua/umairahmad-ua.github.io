@@ -78,11 +78,3 @@ root = Agent(
 
 The interesting line is the last instruction. In a chain, routing is code. Here, routing is a sentence. That sentence is now the most important artifact in the system, and it is not covered by a type checker.
 
-## What stayed the same
-
-Two things did not change at all.
-
-Retrieval quality still decides everything. An agent with a bad index gives confident wrong answers faster than a chain does. The chunking, the hybrid dense and sparse retrieval, the reranking step, the citation format: all of it moved over unchanged from my LangChain years. The agent sits on top of retrieval. It does not replace it.
-
-Evals still decide whether you can change anything. I had an eval set for every chain node at Developers Inc. I have an eval set for every agent at Zazmic. The cases look different. The habit is identical. If you cannot measure the change, you have not made a change. You have made a guess.
-
