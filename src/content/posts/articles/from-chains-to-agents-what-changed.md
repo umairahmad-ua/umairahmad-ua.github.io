@@ -28,3 +28,61 @@ A chain is a directed graph you draw in advance. Each node has a prompt. Each ed
 
 It is also the weakness. Every new question shape means a new path. Every new path is a code change. The graph grows until nobody can hold it in their head.
 
+## What an agent is, in practice
+
+I joined Zazmic in June 2025 and started on Google's Agent Development Kit. The mental model is different in one important way. You do not draw the path. You describe the participants.
+
+A root agent receives the request. It has an instruction, a model, a set of tools, and a set of sub-agents. The model reads the instruction and the request, then decides whether to call a tool, answer directly, or hand off to a sub-agent. The sub-agent does the same with its own tools. Session state travels with the conversation, so a sub-agent can read what an earlier agent found.
+
+Here is the shape of it. This is close to what I write on a normal day.
+
+```python
+from google.adk.agents import Agent, SequentialAgent
+from google.adk.tools import FunctionTool
+
+
+def query_dashboard(metric: str, days: int = 30) -> dict:
+    """Return the last N days of a dashboard metric for the current account."""
+    # real implementation calls BigQuery scoped by session account id
+    ...
+
+
+researcher = Agent(
+    name="research_assistant",
+    model="gemini-2.0-flash",
+    instruction="Pull the numbers the question needs. Do not interpret them.",
+    tools=[FunctionTool(query_dashboard)],
+)
+
+author = Agent(
+    name="research_author",
+    model="gemini-2.0-flash",
+    instruction="Write the finding in two paragraphs. Cite every number.",
+)
+
+analysis = SequentialAgent(
+    name="data_analysis",
+    sub_agents=[researcher, author],
+)
+
+root = Agent(
+    name="response_agent",
+    model="gemini-2.0-flash",
+    instruction=(
+        "Route analysis questions to data_analysis. "
+        "Answer product questions yourself. Refuse anything else."
+    ),
+    sub_agents=[analysis],
+)
+```
+
+The interesting line is the last instruction. In a chain, routing is code. Here, routing is a sentence. That sentence is now the most important artifact in the system, and it is not covered by a type checker.
+
+## What stayed the same
+
+Two things did not change at all.
+
+Retrieval quality still decides everything. An agent with a bad index gives confident wrong answers faster than a chain does. The chunking, the hybrid dense and sparse retrieval, the reranking step, the citation format: all of it moved over unchanged from my LangChain years. The agent sits on top of retrieval. It does not replace it.
+
+Evals still decide whether you can change anything. I had an eval set for every chain node at Developers Inc. I have an eval set for every agent at Zazmic. The cases look different. The habit is identical. If you cannot measure the change, you have not made a change. You have made a guess.
+
