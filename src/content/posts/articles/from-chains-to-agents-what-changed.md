@@ -78,3 +78,21 @@ root = Agent(
 
 The interesting line is the last instruction. In a chain, routing is code. Here, routing is a sentence. That sentence is now the most important artifact in the system, and it is not covered by a type checker.
 
+## What stayed the same
+
+Two things did not change at all.
+
+Retrieval quality still decides everything. An agent with a bad index gives confident wrong answers faster than a chain does. The chunking, the hybrid dense and sparse retrieval, the reranking step, the citation format: all of it moved over unchanged from my LangChain years. The agent sits on top of retrieval. It does not replace it.
+
+Evals still decide whether you can change anything. I had an eval set for every chain node at Developers Inc. I have an eval set for every agent at Zazmic. The cases look different. The habit is identical. If you cannot measure the change, you have not made a change. You have made a guess.
+
+## What broke
+
+Three things broke, and I want to be honest about them because the marketing around agents does not mention any of it.
+
+Debugging got harder. A chain fails at a node and you read that node's input and output. An agent fails somewhere in a conversation between four models, and the trace is a transcript. Tracing tools help. Reading the transcript still takes ten times longer than reading a stack trace.
+
+Cost stopped being predictable. A chain costs the same on every run because the path is fixed. An agent might call a tool once or six times depending on how the model reads the request. The first week we had sessions that cost forty times the median. Nothing was wrong. The model was being thorough. Thorough is expensive.
+
+Ownership got blurry. When a chain gives a bad answer, the node owner fixes the prompt. When an agent gives a bad answer, was it the router's instruction, the sub-agent's instruction, the tool's description, or the tool's return format? The first month of any agent project is the team learning to answer that question quickly.
+
