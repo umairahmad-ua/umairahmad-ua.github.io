@@ -96,3 +96,13 @@ Cost stopped being predictable. A chain costs the same on every run because the 
 
 Ownership got blurry. When a chain gives a bad answer, the node owner fixes the prompt. When an agent gives a bad answer, was it the router's instruction, the sub-agent's instruction, the tool's description, or the tool's return format? The first month of any agent project is the team learning to answer that question quickly.
 
+## Three rules I use now
+
+I am not going to pretend I have a method. I have three rules that have survived three months of production, and I expect to revise them.
+
+**One agent, one verb.** A sub-agent should do one thing you can name with a verb. Research. Write. Classify. Route. When I catch myself writing an instruction with "and also" in it, I split the agent. The Scout system my team runs has eight sub-agents under one root. Every one of them is a single verb. The root is the only one allowed to be a noun.
+
+**Tools return facts, not prose.** A tool that returns a paragraph invites the model to paraphrase it and lose the number. A tool that returns a typed dict with the number in a named field survives the round trip. I learned this at Adspirer, where we translated natural language into executable SQL and validated the result against the schema before showing it. The same discipline applies here. Structure in, structure out, and the model narrates at the end.
+
+**Every handoff writes to state.** When an agent hands off, it should write what it learned into session state under a named key before the next agent starts. Otherwise the next agent re-derives it from the transcript and sometimes gets it wrong. This is the boring rule. It is also the one that removed the most bugs.
+
