@@ -106,3 +106,10 @@ I am not going to pretend I have a method. I have three rules that have survived
 
 **Every handoff writes to state.** When an agent hands off, it should write what it learned into session state under a named key before the next agent starts. Otherwise the next agent re-derives it from the transcript and sometimes gets it wrong. This is the boring rule. It is also the one that removed the most bugs.
 
+## What I am watching
+
+The whole field moved to agents this year. OpenAI put out GPT-5-Codex on September 15 as a coding agent built for long autonomous runs. Google's ADK is what I use every day. The frameworks disagree on names and agree on shape: a model, some tools, some children, some state.
+
+I do not think chains are dead. The medical claims pipeline is a chain and will stay one. It has a fixed path and needs a fixed cost. I think the honest answer is that chains are for workflows you can draw, and agents are for conversations you cannot. Most enterprise systems need both, with the agent on the outside and chains as its tools.
+
+Two years ago I could draw every system I built. Now I describe them and read what they did. That is the change. I am still deciding whether I like it.
