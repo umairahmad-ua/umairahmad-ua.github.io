@@ -69,3 +69,37 @@ drop:
 
 Keep means pass through. Tokenize means reversible. Drop means replaced with a category label and never stored in the mapping table at all. Nothing downstream of this agent should ever need a social security number, so nothing downstream can have one.
 
+## Testing recall, not just running it
+
+The layer is only useful if we can say how often it misses. We test three ways.
+
+**Synthetic injection.** We take real documents that have already been redacted and reviewed, inject known synthetic identifiers into them at random positions, and measure how many the detectors catch. This runs on every change to the recognizers. Recall on injected identifiers is above 99.5 percent for structured types and above 97 percent for names.
+
+**Human audit sample.** Every week a compliance analyst at the client reviews a random sample of fifty redacted documents. They mark anything that should have been caught. This is the number that matters to the client. It has found two real misses in four months, both handwritten annotations that OCR turned into unusual strings.
+
+**Adversarial formats.** A member ID written as `MBR 1234 5678` instead of `MBR12345678`. A phone number with the area code on the previous line. We keep a growing test file of these. Every miss the audit finds becomes a permanent test case.
+
+## Where the layer sits
+
+The redaction service runs on Cloud Run and is called by every agent before the first model call. It is not optional and it is not inside the agent code. An agent developer on my team cannot forget to redact, because the model client they import routes through the service.
+
+```
+document -> OCR -> redaction service -> agent (tokens only) -> output -> re-identification (role gated) -> reviewer
+```
+
+The re-identification step has its own access log. Who saw which original values, when, and for which case. That log is what the compliance team actually reads.
+
+## Handling what OCR does to identifiers
+
+The two real misses the audit found were both OCR artifacts. A handwritten member ID became `M8R 1Z34 S678` after Document AI read it. No regex matches that. No NER model flags it. It reached the model as a meaningless string, which is arguably fine for privacy, but the compliance analyst rightly counted it as a miss because a person could still read it.
+
+We added a third stage for scanned documents. Before detection, a Gemini call reads each OCR line that contains a suspicious mix of letters and digits and asks one question: could this be an identifier? Anything it flags gets tokenized as `UNKNOWN_ID_xxxx`. The stage costs a few cents per document and only runs on scanned input. Recall on handwritten identifiers in the audit sample moved from roughly 80 percent to above 95.
+
+## Working with the client's security team
+
+The layer only earned trust because the client's own security engineers could inspect it. We gave them read access to the recognizer configuration, the test corpus, and the weekly recall report. They added four custom patterns in the first month for internal identifier formats we had never seen. That collaboration is why the audit sample is fifty documents a week and not five hundred. They trust the tests because they wrote some of them.
+
+## Costs and latency
+
+Redaction adds about 400 milliseconds per page and a small DLP charge. For a batch workload nobody notices. For an interactive agent it is noticeable, so we redact at ingest time and cache the tokenized document. The agent never waits on redaction during a conversation.
+
