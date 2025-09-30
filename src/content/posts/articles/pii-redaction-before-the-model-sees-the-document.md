@@ -89,13 +89,3 @@ document -> OCR -> redaction service -> agent (tokens only) -> output -> re-iden
 
 The re-identification step has its own access log. Who saw which original values, when, and for which case. That log is what the compliance team actually reads.
 
-## Handling what OCR does to identifiers
-
-The two real misses the audit found were both OCR artifacts. A handwritten member ID became `M8R 1Z34 S678` after Document AI read it. No regex matches that. No NER model flags it. It reached the model as a meaningless string, which is arguably fine for privacy, but the compliance analyst rightly counted it as a miss because a person could still read it.
-
-We added a third stage for scanned documents. Before detection, a Gemini call reads each OCR line that contains a suspicious mix of letters and digits and asks one question: could this be an identifier? Anything it flags gets tokenized as `UNKNOWN_ID_xxxx`. The stage costs a few cents per document and only runs on scanned input. Recall on handwritten identifiers in the audit sample moved from roughly 80 percent to above 95.
-
-## Working with the client's security team
-
-The layer only earned trust because the client's own security engineers could inspect it. We gave them read access to the recognizer configuration, the test corpus, and the weekly recall report. They added four custom patterns in the first month for internal identifier formats we had never seen. That collaboration is why the audit sample is fifty documents a week and not five hundred. They trust the tests because they wrote some of them.
-
