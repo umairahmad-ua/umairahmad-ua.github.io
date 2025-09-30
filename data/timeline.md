@@ -6,3 +6,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-09-15 — OpenAI releases GPT-5-Codex (agentic coding variant of GPT-5) — https://openai.com/index/introducing-upgrades-to-codex/
 - 2025-09-12 — Anthropic adds memory to Claude for Team/Enterprise plus Incognito chat — https://www.axios.com/2025/10/23/anthropic-claude-memory-subscribers
 
+## Week of 2025-09-22
+- 2025-09-22 — OpenAI and NVIDIA letter of intent: 10 GW of NVIDIA systems, up to $100B investment — https://openai.com/index/openai-nvidia-systems-partnership/
+- 2025-09-24 — Alibaba launches Qwen3-Max (1T+ params); Qwen3-VL and Qwen3-Omni open-sourced — https://www.alibabacloud.com/blog/qwen3-max-just-scale-it_602621
+- 2025-09-24 — Microsoft adds Claude Sonnet 4 and Opus 4.1 to Microsoft 365 Copilot — https://www.microsoft.com/en-us/microsoft-365/blog/2025/09/24/expanding-model-choice-in-microsoft-365-copilot/
+- 2025-09-25 — OpenAI launches ChatGPT Pulse (preview, Pro) — https://openai.com/index/introducing-chatgpt-pulse/
+
