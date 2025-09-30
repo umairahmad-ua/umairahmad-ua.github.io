@@ -79,13 +79,3 @@ The layer is only useful if we can say how often it misses. We test three ways.
 
 **Adversarial formats.** A member ID written as `MBR 1234 5678` instead of `MBR12345678`. A phone number with the area code on the previous line. We keep a growing test file of these. Every miss the audit finds becomes a permanent test case.
 
-## Where the layer sits
-
-The redaction service runs on Cloud Run and is called by every agent before the first model call. It is not optional and it is not inside the agent code. An agent developer on my team cannot forget to redact, because the model client they import routes through the service.
-
-```
-document -> OCR -> redaction service -> agent (tokens only) -> output -> re-identification (role gated) -> reviewer
-```
-
-The re-identification step has its own access log. Who saw which original values, when, and for which case. That log is what the compliance team actually reads.
-
