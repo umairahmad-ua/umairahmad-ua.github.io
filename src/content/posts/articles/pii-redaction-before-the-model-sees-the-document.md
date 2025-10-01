@@ -103,3 +103,8 @@ The layer only earned trust because the client's own security engineers could in
 
 Redaction adds about 400 milliseconds per page and a small DLP charge. For a batch workload nobody notices. For an interactive agent it is noticeable, so we redact at ingest time and cache the tokenized document. The agent never waits on redaction during a conversation.
 
+## What this bought us
+
+The second meeting with a regulated client now goes differently. We show the policy file, the audit sample results, and the access log. The compliance officer asks two questions instead of twenty. The project starts a month earlier.
+
+The model was never the risk. The document was. Handle the document first.
