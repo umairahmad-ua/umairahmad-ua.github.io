@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import config from "@/config";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Layout
+  title={`Projects | ${config.site.title}`}
+  description="Systems I have led or built, from multi-agent platforms on Google Cloud to medical claims automation and code security."
+>
+  <Header />
+  <Breadcrumb />
+  <Main
+    pageTitle="Projects"
+    pageDesc="Systems I led or built. Team sizes and timelines are real. Client names appear where I am allowed to use them."
+  >
+    <ul class="grid gap-4">
+      {projects.map(project => <ProjectCard {project} />)}
+    </ul>
+  </Main>
+  <Footer />
+</Layout>
