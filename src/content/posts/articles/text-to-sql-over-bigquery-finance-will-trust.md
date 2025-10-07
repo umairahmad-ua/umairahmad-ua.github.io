@@ -41,3 +41,46 @@ The agent generates SQL against the views, never the source tables. If a questio
 
 The warehouse has several hundred tables. Putting the schema in the prompt is a common mistake. We index the catalog entries, the view schemas, and a curated set of example questions with their known-good SQL in Vertex AI Search. For each question the agent retrieves the five most relevant metrics and views, plus three similar solved examples. The prompt stays small and the examples do most of the work.
 
+## Generate, validate, run
+
+The pipeline uses Google ADK with three agents under an orchestrator.
+
+**Planner.** Reads the question, retrieves catalog entries, writes a short plan in plain English: which metric, which grain, which filters, which time range. The plan is shown to the user before any SQL runs. A controller who cannot read SQL can read "net revenue by product line for Q3 2025, EMEA only".
+
+**Writer.** Turns the plan into SQL against the semantic views. Outputs a Pydantic model with the SQL, the metrics used, and the assumptions made.
+
+**Validator.** Does four things before anything executes:
+
+1. Dry run against BigQuery to catch syntax and permission errors and to get the bytes scanned.
+2. Static checks: only semantic views are referenced, no `SELECT *`, a time filter exists, the result is bounded.
+3. A cost gate. Queries over a threshold need a confirmation click.
+4. A judge model, different from the writer, that compares the SQL to the plan and to the catalog definition and returns agree or disagree with a reason.
+
+If the judge disagrees, the writer gets one retry with the reason. If it disagrees again the user sees both the plan and the SQL and a message that says the tool is not confident. That message is rare and it is honest.
+
+```python
+class SqlCandidate(BaseModel):
+    sql: str
+    metrics: list[str]
+    grain: list[str]
+    time_range: TimeRange
+    assumptions: list[str]
+
+def validate(c: SqlCandidate, plan: Plan) -> Verdict:
+    dry = bq.query(c.sql, dry_run=True)
+    if dry.errors: return Verdict.fail(dry.errors)
+    if not only_semantic_views(c.sql): return Verdict.fail("raw table reference")
+    if dry.total_bytes_processed > COST_GATE: return Verdict.confirm(dry.total_bytes_processed)
+    return judge.compare(plan, c)
+```
+
+## Row-level security stays in BigQuery
+
+The agent runs queries as the user, not as a service account. BigQuery row-level security policies decide what each user can see. A regional controller asking for global revenue gets their region. The agent does not know about the policy and does not need to. That decision removed an entire class of prompt injection risk. There is no way to talk the model into showing data the user cannot query.
+
+## The eval set came from the finance team
+
+We asked the FP&A team for the fifty questions they answer most often, with the SQL they use and last quarter's results. That became the regression suite. Every change to the catalog, the prompts, or the model runs those fifty questions and compares result tables, not just SQL text. Two queries can differ in text and agree in result. That is a pass.
+
+At launch the suite passed 46 of 50. The four failures were all metric definition disagreements inside the finance team, not model errors. The tool surfaced that the team had two definitions of gross margin. They picked one. That was worth the project by itself.
+
