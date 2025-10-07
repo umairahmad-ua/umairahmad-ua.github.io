@@ -98,7 +98,3 @@ Every query, plan, judge verdict, and result hash is logged to BigQuery. A Looke
 
 Analysts wanted to keep working after the answer. Every result has an "open in Looker" action that builds an explore with the same metric, grain, and filters. The agent gets the question answered. Looker gets the follow-up analysis. We did not try to make the agent do charts.
 
-## Numbers after a quarter
-
-About 60 percent of the finance team's routine questions now go through the agent. The judge rejects roughly one in twenty first drafts. Users escalate to a human analyst on about 5 percent of questions, mostly for metrics not in the catalog. The catalog has grown from forty metrics to sixty-eight, each one a definition the finance team agreed on.
-
