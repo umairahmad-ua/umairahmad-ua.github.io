@@ -78,23 +78,3 @@ def validate(c: SqlCandidate, plan: Plan) -> Verdict:
 
 The agent runs queries as the user, not as a service account. BigQuery row-level security policies decide what each user can see. A regional controller asking for global revenue gets their region. The agent does not know about the policy and does not need to. That decision removed an entire class of prompt injection risk. There is no way to talk the model into showing data the user cannot query.
 
-## The eval set came from the finance team
-
-We asked the FP&A team for the fifty questions they answer most often, with the SQL they use and last quarter's results. That became the regression suite. Every change to the catalog, the prompts, or the model runs those fifty questions and compares result tables, not just SQL text. Two queries can differ in text and agree in result. That is a pass.
-
-At launch the suite passed 46 of 50. The four failures were all metric definition disagreements inside the finance team, not model errors. The tool surfaced that the team had two definitions of gross margin. They picked one. That was worth the project by itself.
-
-## Ambiguity is answered with a question
-
-"Revenue last quarter" has three readings in this company. Calendar quarter, fiscal quarter, and the trailing ninety days a sales leader means when they say quarter. The planner does not guess. When a term maps to more than one catalog entry with the same synonym, the agent asks. "Do you mean fiscal Q3, which ended September 27, or calendar Q3?" One click. The choice is stored in session state so the next question in the conversation uses the same reading.
-
-This felt slow in the first demo. In practice it prevents the worst failure, a confident answer to a different question than the one asked. The finance team told us they have the same clarification conversation with new analysts. The agent is doing what a careful analyst does.
-
-## Watching it in production
-
-Every query, plan, judge verdict, and result hash is logged to BigQuery. A Looker dashboard for the FP&A lead shows daily question volume, judge rejection rate, cost gate hits, and escalations. When the rejection rate jumped one Tuesday, the log showed a new view had been deployed with a renamed column. The catalog was fixed within the hour. Without the log it would have surfaced as wrong numbers in a Friday report.
-
-## Handoff to Looker
-
-Analysts wanted to keep working after the answer. Every result has an "open in Looker" action that builds an explore with the same metric, grain, and filters. The agent gets the question answered. Looker gets the follow-up analysis. We did not try to make the agent do charts.
-
