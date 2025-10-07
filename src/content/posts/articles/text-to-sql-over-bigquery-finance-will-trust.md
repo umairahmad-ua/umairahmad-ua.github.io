@@ -90,3 +90,7 @@ At launch the suite passed 46 of 50. The four failures were all metric definitio
 
 This felt slow in the first demo. In practice it prevents the worst failure, a confident answer to a different question than the one asked. The finance team told us they have the same clarification conversation with new analysts. The agent is doing what a careful analyst does.
 
+## Watching it in production
+
+Every query, plan, judge verdict, and result hash is logged to BigQuery. A Looker dashboard for the FP&A lead shows daily question volume, judge rejection rate, cost gate hits, and escalations. When the rejection rate jumped one Tuesday, the log showed a new view had been deployed with a renamed column. The catalog was fixed within the hour. Without the log it would have surfaced as wrong numbers in a Friday report.
+
