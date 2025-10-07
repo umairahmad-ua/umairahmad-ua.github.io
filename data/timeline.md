@@ -12,3 +12,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-09-24 — Microsoft adds Claude Sonnet 4 and Opus 4.1 to Microsoft 365 Copilot — https://www.microsoft.com/en-us/microsoft-365/blog/2025/09/24/expanding-model-choice-in-microsoft-365-copilot/
 - 2025-09-25 — OpenAI launches ChatGPT Pulse (preview, Pro) — https://openai.com/index/introducing-chatgpt-pulse/
 
+## Week of 2025-09-29
+- 2025-09-29 — Anthropic releases Claude Sonnet 4.5; Claude Code 2.0 (checkpoints, VS Code extension); Claude Code SDK renamed Claude Agent SDK — https://www.anthropic.com/news/claude-sonnet-4-5 ; https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously
+- 2025-09-29 — DeepSeek-V3.2-Exp with DeepSeek Sparse Attention — https://api-docs.deepseek.com/news/news250929/
+- 2025-09-30 — OpenAI releases Sora 2 and the Sora app — https://community.openai.com/t/devday-2025-apps-sdk-sora-2-gpt-5-pro-agentkit-new-image-generation-and-speech-to-speech-mini-models-and-more/1361279
+
