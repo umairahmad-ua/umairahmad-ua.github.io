@@ -84,3 +84,9 @@ We asked the FP&A team for the fifty questions they answer most often, with the 
 
 At launch the suite passed 46 of 50. The four failures were all metric definition disagreements inside the finance team, not model errors. The tool surfaced that the team had two definitions of gross margin. They picked one. That was worth the project by itself.
 
+## Ambiguity is answered with a question
+
+"Revenue last quarter" has three readings in this company. Calendar quarter, fiscal quarter, and the trailing ninety days a sales leader means when they say quarter. The planner does not guess. When a term maps to more than one catalog entry with the same synonym, the agent asks. "Do you mean fiscal Q3, which ended September 27, or calendar Q3?" One click. The choice is stored in session state so the next question in the conversation uses the same reading.
+
+This felt slow in the first demo. In practice it prevents the worst failure, a confident answer to a different question than the one asked. The finance team told us they have the same clarification conversation with new analysts. The agent is doing what a careful analyst does.
+
