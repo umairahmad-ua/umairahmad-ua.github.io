@@ -42,11 +42,3 @@ class SessionState(BaseModel):
 
 The summary field is the bridge between layers. Every few turns a small model rewrites the summary from the previous summary plus the new turns. The summary replaces old turns in the context window. The state object holds the facts we would not trust a summary to preserve.
 
-## What goes into long-term memory
-
-Nothing goes in automatically. That is the rule that resolved the second complaint.
-
-An agent may propose a memory. "You have asked for EMEA three sessions in a row. Should I default to EMEA?" The user says yes or no. Only a yes writes. The user can see the full list of stored memories and delete any of them. For the healthcare client, long-term memory is disabled entirely. A reviewer's preferences are not worth the retention question.
-
-This is slower than silent learning. It is also the only version a compliance team accepted.
-
