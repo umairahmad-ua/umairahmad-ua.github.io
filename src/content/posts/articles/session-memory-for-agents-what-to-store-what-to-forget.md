@@ -11,3 +11,11 @@ sources:
     date: 2025-10-09
 ---
 
+## Table of contents
+
+## The two complaints
+
+Users of a new agent complain about memory in two opposite ways within the first week. It forgot what I said three messages ago. It remembered something I told it last month and I did not expect that.
+
+Both are design failures. The first is a context problem. The second is a policy problem. My team has now built session memory for a marketing intelligence agent, a supply chain planner, and a healthcare reviewer's assistant. The patterns are the same across all three. This is what we settled on.
+
