@@ -94,13 +94,3 @@ turns:
 
 We have about forty scenarios per agent. They run in CI with every prompt or tool change. They catch the class of bug that a single-turn suite never sees.
 
-## Cost of memory
-
-Memory is not free in tokens. A rolling summary plus a state object costs less than replaying the full transcript, but the summarization calls add up on long sessions. We measured a planning session with sixty turns. Replaying the full transcript at each turn would have cost about four times what the summary approach cost. The summary approach also kept the context window small enough that the model's attention stayed on the current question. Longer context did not help. It hurt.
-
-We summarize every five turns and cap the summary at a fixed token budget. When the cap is hit the oldest facts in the summary are dropped, but only if they are already captured in the state object. The state object never drops anything during a session. That is the point of having it.
-
-## Memory across agents
-
-In a multi-agent system the question becomes which agent owns which memory. In Scout, the root agent owns the session state and passes a read-only view to sub-agents. A sub-agent may propose a state change by returning it in its structured output. The root agent applies it or rejects it. No sub-agent writes to the store directly. This felt bureaucratic when we designed it. It has prevented every category of race condition we had seen before.
-
