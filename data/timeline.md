@@ -17,3 +17,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-09-29 — DeepSeek-V3.2-Exp with DeepSeek Sparse Attention — https://api-docs.deepseek.com/news/news250929/
 - 2025-09-30 — OpenAI releases Sora 2 and the Sora app — https://community.openai.com/t/devday-2025-apps-sdk-sora-2-gpt-5-pro-agentkit-new-image-generation-and-speech-to-speech-mini-models-and-more/1361279
 
+## Week of 2025-10-06
+- 2025-10-06 — OpenAI DevDay 2025: Apps SDK (built on MCP), AgentKit, GPT-5 Pro in API, gpt-realtime-mini, Codex GA — https://openai.com/index/introducing-agentkit/
+- 2025-10-07 — Google releases Gemini 2.5 Computer Use model (preview) — https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-computer-use-model/
+- 2025-10-09 — Google Cloud launches Gemini Enterprise (Agentspace successor) — https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise
+
