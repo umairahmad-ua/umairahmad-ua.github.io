@@ -65,3 +65,13 @@ Retention windows are per client and per layer:
 
 These numbers came out of the client's data retention policy, not out of our preferences. The agent's memory has to fit the company's existing rules, not the other way around.
 
+## Memory is a source of bugs
+
+The hardest bugs we have hit in agents this year were memory bugs, not model bugs.
+
+A planner agent kept applying a filter the user had removed two turns earlier. The summary had preserved "user is looking at Jordan plant" and the state object had not been updated when the filter was cleared. Fix: the state object is the only source of truth for filters, and the summary is regenerated from state plus turns, never the other way around.
+
+A marketing agent answered a question about one client account with data from another. Two sessions from the same user, both open, both writing to the same state key. Fix: state keyed by session, not by user, and account scope checked on every tool call, not just at session start.
+
+Both bugs were invisible in the eval suite because the suite ran single-turn cases. We now have multi-turn eval scenarios that set state, change it, and check the agent honors the change.
+
