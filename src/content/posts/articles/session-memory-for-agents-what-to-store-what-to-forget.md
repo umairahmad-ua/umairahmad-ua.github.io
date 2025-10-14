@@ -100,3 +100,11 @@ Memory is not free in tokens. A rolling summary plus a state object costs less t
 
 We summarize every five turns and cap the summary at a fixed token budget. When the cap is hit the oldest facts in the summary are dropped, but only if they are already captured in the state object. The state object never drops anything during a session. That is the point of having it.
 
+## Memory across agents
+
+In a multi-agent system the question becomes which agent owns which memory. In Scout, the root agent owns the session state and passes a read-only view to sub-agents. A sub-agent may propose a state change by returning it in its structured output. The root agent applies it or rejects it. No sub-agent writes to the store directly. This felt bureaucratic when we designed it. It has prevented every category of race condition we had seen before.
+
+## Where the platform helps
+
+Agent Engine's session and memory services took a real chunk of infrastructure off our plate. Sessions, per-user memory, and the plumbing between them are managed. Google's launch of [Gemini Enterprise](https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise) last week signals more of this. Memory and identity across agents are becoming platform features. I welcome that. The policy decisions stay ours.
+
