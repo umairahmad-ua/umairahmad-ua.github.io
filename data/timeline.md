@@ -22,3 +22,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-10-07 — Google releases Gemini 2.5 Computer Use model (preview) — https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-computer-use-model/
 - 2025-10-09 — Google Cloud launches Gemini Enterprise (Agentspace successor) — https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise
 
+## Week of 2025-10-13
+- 2025-10-13 — Amazon Bedrock AgentCore reaches GA — https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available
+- 2025-10-15 — Anthropic releases Claude Haiku 4.5 — https://en.wikipedia.org/wiki/Claude_(language_model)
+- 2025-10-15 — Google releases Veo 3.1 — https://techcrunch.com/2025/10/15/google-releases-veo-3-1-adds-it-to-flow-video-editor/
+- 2025-10-16 — Anthropic launches Agent Skills — https://thenewstack.io/agent-skills-anthropics-next-bid-to-define-ai-standards/
+
