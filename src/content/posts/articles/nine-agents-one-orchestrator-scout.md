@@ -19,3 +19,11 @@ A brand strategist opens a dashboard full of short-form video trends and asks on
 
 Scout is the system my team built to sit next to that dashboard and have the opinion. This is how it is put together. I am writing it down because most multi-agent write-ups describe a demo, and this one has been in production for a while with real marketers from brands like Apple, Sephora and Mondelez asking it real questions.
 
+## Table of contents
+
+## What Scout is for
+
+Let's Forage is a cultural-intelligence platform. It analyzes short video across TikTok, Instagram and YouTube Shorts, then turns what it finds into campaign material. It plugs into Meta's ads ecosystem on the delivery side. Zazmic built the platform on Google Cloud. Scout is the conversational layer on top.
+
+The job is narrow on purpose. Scout answers questions about the client's own trend data, drafts campaign ideas grounded in that data, and explains the platform to new users. It does not browse the web. It does not make things up about competitors. When a question falls outside those three jobs, it says so.
+
