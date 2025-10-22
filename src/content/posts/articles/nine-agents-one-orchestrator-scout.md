@@ -46,3 +46,11 @@ root_agent (response_agent)
 
 Nine agents. One root, seven specialists, and one of the specialists is itself a pair.
 
+## Why the analysis agent is a sequence
+
+The first version of Scout had one analysis agent. It pulled the data and wrote the answer in a single turn. It was fast and it was wrong in a specific way. The model would fetch the numbers, start writing, and then round or reinterpret a figure halfway through the paragraph. The number in the sentence did not match the number in the tool result.
+
+Splitting it fixed that. The research assistant has one instruction: get the data the question needs and do not interpret it. It writes the raw result into session state. The research author reads that state and writes the finding. It is not allowed to call the data tool. It can only cite what the assistant found.
+
+This is the generate, verify, gate pattern I first saw work on the Autofix project at Qwiet AI, where a patch generator, a semantic evaluator and a regression tester each did one job before a human saw the result. The analysis pair is the same idea with two steps instead of three. Separate the agent that finds from the agent that says.
+
