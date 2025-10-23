@@ -54,3 +54,34 @@ Splitting it fixed that. The research assistant has one instruction: get the dat
 
 This is the generate, verify, gate pattern I first saw work on the Autofix project at Qwiet AI, where a patch generator, a semantic evaluator and a regression tester each did one job before a human saw the result. The analysis pair is the same idea with two steps instead of three. Separate the agent that finds from the agent that says.
 
+## Why the prompts live outside the code
+
+Every agent's instruction is stored in Vertex AI Prompt Management, not in the Python source. The code loads the prompt by name and version at startup.
+
+This felt like overhead on day one. It stopped feeling like overhead on the day a client asked us to change how the big idea agent phrased its recommendations. The strategist on our side edited the prompt, we ran the eval suite against the new version, and it went live without a deploy. The engineers did not touch it.
+
+The other reason is history. When an answer looks wrong in a trace, I want to know which prompt version produced it. A prompt in a Git file has a commit hash. A prompt in Prompt Management has a version number that the trace records automatically. The second one is faster at two in the morning.
+
+## How routing works
+
+The root agent is the only one that sees the raw user message. Its instruction describes each specialist in one line and tells it when to hand off. That is the whole router. There is no intent classifier in front of it.
+
+I resisted this for a while. At Developers Inc I built intent classifiers as separate models, with training data and confusion matrices. It felt more rigorous. In practice the model-as-router was more accurate on the long tail, because it could read the whole message instead of matching a label. The cost is that routing decisions are now in a prompt, and the eval set for the root agent is mostly routing cases.
+
+The one hard rule in the root instruction is about what it does itself. It answers nothing about data. If a number is needed, it hands off. This keeps the root cheap and keeps every number traceable to the research assistant.
+
+Here is the config shape for one specialist. Real values are redacted.
+
+```yaml
+agent: big_idea_agent
+model: gemini-2.0-flash
+prompt: prompts/big_idea@v14
+tools: []
+reads_state: [trend_summary, brand_context]
+writes_state: [big_idea]
+grounding:
+  datastore: projects/.../dataStores/forage-trends
+  max_chunks: 8
+handoff_to: [campaign_author_agent]
+```
+
