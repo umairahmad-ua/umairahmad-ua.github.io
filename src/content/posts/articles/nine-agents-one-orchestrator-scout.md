@@ -91,3 +91,13 @@ The retrieval layer is Vertex AI Search, the product that used to be called Disc
 
 The rule we enforce is that every claim about a trend must carry a reference to a chunk. If the model cannot find support, it says the data does not show that. This is checked in evals with a groundedness rubric, and it is the metric I watch most closely. A confident campaign idea built on a trend the client's data does not contain is worse than no idea at all.
 
+## The hard parts
+
+Three things took most of the engineering time, and none of them were the model.
+
+**Handoff.** When the root hands to the analysis pair and the pair hands to the campaign author, what does the author know? Early on, the answer was "whatever it could infer from the transcript." That produced briefs that quietly dropped the key number. Now every handoff writes named keys to session state and the receiving agent's instruction names the keys it should read. Boring. Effective.
+
+**Grounding.** Getting the model to cite was easy. Getting it to refuse when there was nothing to cite was hard. Models want to be helpful. We spent weeks on the refusal case, and the eval set has more refusal scenarios than success scenarios because of it.
+
+**Cost per session.** A strategist can ask ten questions in a row. Each one might trigger three agents and two retrievals. We trace cost per agent per session and show it on a dashboard next to satisfaction ratings. Some weeks the best change we made was shortening a prompt.
+
