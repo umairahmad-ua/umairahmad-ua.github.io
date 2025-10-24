@@ -62,3 +62,32 @@ This felt like overhead on day one. It stopped feeling like overhead on the day 
 
 The other reason is history. When an answer looks wrong in a trace, I want to know which prompt version produced it. A prompt in a Git file has a commit hash. A prompt in Prompt Management has a version number that the trace records automatically. The second one is faster at two in the morning.
 
+## How routing works
+
+The root agent is the only one that sees the raw user message. Its instruction describes each specialist in one line and tells it when to hand off. That is the whole router. There is no intent classifier in front of it.
+
+I resisted this for a while. At Developers Inc I built intent classifiers as separate models, with training data and confusion matrices. It felt more rigorous. In practice the model-as-router was more accurate on the long tail, because it could read the whole message instead of matching a label. The cost is that routing decisions are now in a prompt, and the eval set for the root agent is mostly routing cases.
+
+The one hard rule in the root instruction is about what it does itself. It answers nothing about data. If a number is needed, it hands off. This keeps the root cheap and keeps every number traceable to the research assistant.
+
+Here is the config shape for one specialist. Real values are redacted.
+
+```yaml
+agent: big_idea_agent
+model: gemini-2.0-flash
+prompt: prompts/big_idea@v14
+tools: []
+reads_state: [trend_summary, brand_context]
+writes_state: [big_idea]
+grounding:
+  datastore: projects/.../dataStores/forage-trends
+  max_chunks: 8
+handoff_to: [campaign_author_agent]
+```
+
+## Grounding in the client's own data
+
+The retrieval layer is Vertex AI Search, the product that used to be called Discovery Engine. Each client has a data store built from their dashboard exports and campaign history. When a specialist needs context, it queries that store and gets back chunks with source references.
+
+The rule we enforce is that every claim about a trend must carry a reference to a chunk. If the model cannot find support, it says the data does not show that. This is checked in evals with a groundedness rubric, and it is the metric I watch most closely. A confident campaign idea built on a trend the client's data does not contain is worse than no idea at all.
+
