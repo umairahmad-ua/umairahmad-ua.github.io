@@ -101,3 +101,9 @@ Three things took most of the engineering time, and none of them were the model.
 
 **Cost per session.** A strategist can ask ten questions in a row. Each one might trigger three agents and two retrievals. We trace cost per agent per session and show it on a dashboard next to satisfaction ratings. Some weeks the best change we made was shortening a prompt.
 
+## What changed around us this month
+
+Google launched Gemini Enterprise on October 9 as the successor to Agentspace, which puts a first-party agent front end in the same platform we deploy to. LangChain and LangGraph reached 1.0 on October 22, which I note because two years of my career ran on the 0.x versions and it is good to see them stable.
+
+Neither changes Scout's architecture. Both confirm the shape. A root, some specialists, tools, state, and a very short list of things each agent is allowed to say.
+
