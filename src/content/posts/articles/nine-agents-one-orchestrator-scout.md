@@ -107,3 +107,8 @@ Google launched Gemini Enterprise on October 9 as the successor to Agentspace, w
 
 Neither changes Scout's architecture. Both confirm the shape. A root, some specialists, tools, state, and a very short list of things each agent is allowed to say.
 
+## What I would do differently
+
+I would split the analysis agent on day one instead of week three. I would put prompts in Prompt Management before the first client saw the system, not after. I would write the refusal evals first.
+
+I would not change the tree. Nine agents sounds like a lot until you try to merge two of them and watch the instruction grow an "and also." One verb per agent. The tree is the cost of that rule, and the rule has paid for itself.
