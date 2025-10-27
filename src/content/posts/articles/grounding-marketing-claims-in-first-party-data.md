@@ -33,21 +33,3 @@ The data the agents may cite:
 
 Not on the list: anything the model knows from training. General marketing wisdom is allowed as framing. It is not allowed as a number.
 
-## The retrieval layer
-
-All citable content is indexed in Vertex AI Search with a data store per client. Each document is a small, self-contained fact with metadata:
-
-```json
-{
-  "id": "trend_2025_10_21_unpolished_creative",
-  "client_id": "acme",
-  "type": "trend_metric",
-  "text": "Unpolished creative formats had 2.3x the engagement rate of polished formats among tracked 18 to 24 audiences, Oct 7 to Oct 21, 2025, n=1,842 videos.",
-  "as_of": "2025-10-21",
-  "source_view": "dashboard.trends.format_engagement",
-  "url": "/dashboard/trends/formats?range=2025-10-07..2025-10-21"
-}
-```
-
-The text is written by a templating layer from the dashboard's own numbers, not by a model. That matters. The thing being cited is a deterministic sentence generated from a query. When the agent quotes it, the quote is true by construction.
-
