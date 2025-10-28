@@ -28,3 +28,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-10-15 — Google releases Veo 3.1 — https://techcrunch.com/2025/10/15/google-releases-veo-3-1-adds-it-to-flow-video-editor/
 - 2025-10-16 — Anthropic launches Agent Skills — https://thenewstack.io/agent-skills-anthropics-next-bid-to-define-ai-standards/
 
+## Week of 2025-10-20
+- 2025-10-20 — Claude Code on the web (research preview, Pro/Max) — https://claude.com/blog/claude-code-on-the-web
+- 2025-10-21 — OpenAI launches ChatGPT Atlas browser (macOS) — https://openai.com/index/introducing-chatgpt-atlas/
+- 2025-10-22 — LangChain 1.0 and LangGraph 1.0 GA (Python and JS) — https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available
+- 2025-10-23 — Anthropic and Google Cloud deal for up to 1M TPUs — https://www.googlecloudpresscorner.com/2025-10-23-Anthropic-to-Expand-Use-of-Google-Cloud-TPUs-and-Services
+
