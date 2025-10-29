@@ -78,21 +78,3 @@ The judge sees the claim text and the evidence texts and answers one question: d
 
 Our eval threshold is 95 percent fully supported on the quantitative claims in the suite. A prompt change that drops below that does not merge. In production, the sampled judge rate has stayed between 94 and 97 percent since we introduced the structured output. Before it, the same measure was closer to 70.
 
-## Refusal as a feature
-
-The hardest product decision was letting Scout say no. A marketer asks how their audience compares with a competitor's on a metric the platform does not track for that competitor. The old behavior was to answer anyway from general knowledge. The new behavior:
-
-> Your dashboard tracks format engagement for your brand and two competitors, but not for the one you named. I can compare against the two tracked competitors, or you can add the third in settings.
-
-Users were annoyed for about a week. Then the team lead who caught the original problem told us this was the first AI tool his team trusted with a client deck. Refusal built more trust than any answer.
-
-## Freshness is part of grounding
-
-A citation to a number from six weeks ago is a weaker citation than one from yesterday. Every fact carries an `as_of` date, and the agent is instructed to prefer recent facts and to state the window when it quotes one. The UI shows the date next to the underline. Marketers read that date. In one review a strategist caught that a trend claim was two campaign cycles old, which was exactly the kind of catch the system was designed to enable.
-
-Stale facts also expire. The indexing job rewrites the data store daily from the dashboard and drops facts older than the client's chosen window. An agent cannot cite what is not in the index.
-
-## What it took to build
-
-The retrieval layer and the structured output took about six weeks of my team's time. The templating layer that turns dashboard queries into citable sentences was the surprising chunk. Each metric needed a sentence template, a test against the dashboard's own numbers, and a review by the Let's Forage analytics team. We wrote about eighty templates. That work is boring and it is what makes the whole system honest.
-
