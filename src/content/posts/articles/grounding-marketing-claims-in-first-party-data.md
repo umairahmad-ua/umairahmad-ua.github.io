@@ -86,3 +86,22 @@ The hardest product decision was letting Scout say no. A marketer asks how their
 
 Users were annoyed for about a week. Then the team lead who caught the original problem told us this was the first AI tool his team trusted with a client deck. Refusal built more trust than any answer.
 
+## Freshness is part of grounding
+
+A citation to a number from six weeks ago is a weaker citation than one from yesterday. Every fact carries an `as_of` date, and the agent is instructed to prefer recent facts and to state the window when it quotes one. The UI shows the date next to the underline. Marketers read that date. In one review a strategist caught that a trend claim was two campaign cycles old, which was exactly the kind of catch the system was designed to enable.
+
+Stale facts also expire. The indexing job rewrites the data store daily from the dashboard and drops facts older than the client's chosen window. An agent cannot cite what is not in the index.
+
+## What it took to build
+
+The retrieval layer and the structured output took about six weeks of my team's time. The templating layer that turns dashboard queries into citable sentences was the surprising chunk. Each metric needed a sentence template, a test against the dashboard's own numbers, and a review by the Let's Forage analytics team. We wrote about eighty templates. That work is boring and it is what makes the whole system honest.
+
+## Where the industry is heading
+
+The tooling around this is maturing. LangChain's [1.0 release](https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available) last week makes structured output and citations first-class in the graph API. We build Scout on Google ADK, but the direction is the same everywhere. Agents will be judged on what they can prove, not on what they can say.
+
+## The rule
+
+Numbers come from the client's data or they do not appear. Every number links to where it came from. A second model checks that the link holds. The agent is allowed to say it does not know.
+
+Marketing agents are prone to confident generalization because marketing writing is. The fix is not a better prompt. It is a data contract the agent cannot break.
