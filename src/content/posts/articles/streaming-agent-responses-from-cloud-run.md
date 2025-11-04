@@ -90,3 +90,25 @@ The `tool` event needs a label a user can read. The raw tool call is not that. "
 
 Each tool declares a human label template. The runtime fills it from the arguments it is allowed to show. `Searching your campaign data for "Gen Z skincare"` is fine. The filter is not shown. This is a small design choice that saved us from a support ticket later, when a client asked why they could see another brand's identifier in a progress message during a staging test. They could not, because the label template never included it. I like problems that were prevented before they became a story.
 
+## What idle sockets cost
+
+Cloud Run bills for instance time while a request is open. A WebSocket is an open request. A user who opens Scout at nine and leaves the tab open until five holds an instance slot for eight hours.
+
+We measured it. Before we changed anything, roughly a third of our billed instance time was sockets with no traffic. That is not a rounding error.
+
+Three changes brought it down:
+
+1. The client sends a heartbeat every thirty seconds. The server closes any socket that misses two.
+2. A socket with no agent run in progress and no activity for five minutes is closed. The client reconnects on the next user action.
+3. Minimum instances stays at zero for the streaming service. Cold starts add about two seconds to the first event. That is acceptable for a tool people use a few times a day. It would not be for a support chat.
+
+After these changes idle time dropped to a small fraction of what it was. The cost line went with it.
+
+## What I would do differently
+
+Start with the event schema, not the transport. We started with the socket and bolted the event types on. The schema is what the frontend, the logs, and the evals all depend on. It should have been the first commit.
+
+Log every event with its sequence number. When a client says the stream froze at "Campaign author is writing", the log tells you whether the author agent was slow or whether the socket dropped after event forty-one. Without sequence numbers you are guessing.
+
+Do not stream from the agent process. Publish, and let a thin forwarder own the socket. It feels like an extra hop. It is what makes reconnects boring.
+
