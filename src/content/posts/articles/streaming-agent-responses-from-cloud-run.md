@@ -21,3 +21,72 @@ Nothing was broken. The system was doing exactly what we designed. It just did n
 
 That was the week I stopped treating streaming as polish. For a multi-agent system, streaming is the difference between a user who trusts the tool and a user who refreshes. This article is how we built it on Cloud Run, and the parts I would do differently.
 
+## What to stream
+
+A chat product streams tokens. An agent system has more to say than tokens.
+
+We settled on four event types over one WebSocket:
+
+- `token`: a partial chunk of the final answer.
+- `agent`: which agent is active and why it was chosen.
+- `tool`: a tool call started, finished, or failed, with a short label.
+- `done`: the final message, citations, and the cost summary.
+
+The `agent` and `tool` events matter more than the tokens. A user who sees "Research assistant is searching your campaign data" at second three will wait forty seconds. A user who sees nothing will not wait ten.
+
+Here is the shape we send:
+
+```python
+from pydantic import BaseModel, Literal
+
+class StreamEvent(BaseModel):
+    type: Literal["token", "agent", "tool", "done", "error"]
+    session_id: str
+    seq: int
+    agent: str | None = None
+    label: str | None = None
+    text: str | None = None
+    payload: dict | None = None
+```
+
+The `seq` field looks unnecessary until the first reconnect. Then it is the only thing that lets the client know what it missed.
+
+## The Cloud Run part
+
+Cloud Run supports WebSockets. It also has opinions about them.
+
+Requests have a timeout, and a WebSocket is a long request. We set the timeout to the maximum of sixty minutes and treat any socket older than fifteen minutes as suspect. Session affinity is available but not guaranteed. A reconnect can land on a different instance, which means the instance that holds your in-flight agent run is not the one you are now talking to.
+
+The fix is to never let a Cloud Run instance own the stream. The agent run publishes events to Redis pub/sub on a channel keyed by session. Any instance that holds a socket for that session subscribes and forwards. If the socket drops and the client reconnects to a different instance, that instance subscribes to the same channel and picks up from the next event.
+
+```python
+async def forward(session_id: str, ws: WebSocket, last_seq: int):
+    channel = f"scout:stream:{session_id}"
+    async with redis.pubsub() as sub:
+        await sub.subscribe(channel)
+        # replay anything the client missed from a short-lived list
+        for raw in await redis.lrange(f"{channel}:buf", 0, -1):
+            ev = StreamEvent.model_validate_json(raw)
+            if ev.seq > last_seq:
+                await ws.send_text(raw)
+        async for msg in sub.listen():
+            if msg["type"] == "message":
+                await ws.send_text(msg["data"])
+```
+
+The buffer list holds the last two hundred events with a ten minute expiry. That covers every reconnect we have seen in production. It does not cover a user who closes the laptop and comes back after lunch. For that case the `done` event is also written to Firestore, and the client fetches the finished answer on load.
+
+## Reconnects are the normal case
+
+I expected reconnects to be rare. They are not. Corporate Wi-Fi, laptop sleep, a browser tab in the background for six minutes, a load balancer that recycles connections. Something like one session in twelve reconnects at least once.
+
+The client sends `last_seq` on reconnect. The server replays from the buffer. The user sees the stream continue. Before we added this, the user saw the stream restart from the beginning or, worse, saw nothing because the events had already been published to a socket that no longer existed.
+
+One more thing about reconnects. The agent run must not care whether anyone is listening. Early on we had a run that awaited the socket send inside the agent loop. When the socket dropped, the run raised, the agent stopped, and the work was lost. Now the run publishes to Redis and moves on. Whether a human is at the other end is not the agent's problem.
+
+## Tool progress without leaking
+
+The `tool` event needs a label a user can read. The raw tool call is not that. "vertex_search(query='Q3 Gen Z skincare TikTok', filter='brand_id=...')" is not something a brand strategist should see, and in a multi-tenant system it can leak a query that belongs to a different tenant if the routing is wrong.
+
+Each tool declares a human label template. The runtime fills it from the arguments it is allowed to show. `Searching your campaign data for "Gen Z skincare"` is fine. The filter is not shown. This is a small design choice that saved us from a support ticket later, when a client asked why they could see another brand's identifier in a progress message during a staging test. They could not, because the label template never included it. I like problems that were prevented before they became a story.
+
