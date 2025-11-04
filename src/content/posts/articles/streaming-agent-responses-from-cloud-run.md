@@ -104,11 +104,3 @@ Three changes brought it down:
 
 After these changes idle time dropped to a small fraction of what it was. The cost line went with it.
 
-## What I would do differently
-
-Start with the event schema, not the transport. We started with the socket and bolted the event types on. The schema is what the frontend, the logs, and the evals all depend on. It should have been the first commit.
-
-Log every event with its sequence number. When a client says the stream froze at "Campaign author is writing", the log tells you whether the author agent was slow or whether the socket dropped after event forty-one. Without sequence numbers you are guessing.
-
-Do not stream from the agent process. Publish, and let a thin forwarder own the socket. It feels like an extra hop. It is what makes reconnects boring.
-
