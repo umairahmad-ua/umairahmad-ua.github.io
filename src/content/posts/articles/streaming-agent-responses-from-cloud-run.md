@@ -84,23 +84,3 @@ The client sends `last_seq` on reconnect. The server replays from the buffer. Th
 
 One more thing about reconnects. The agent run must not care whether anyone is listening. Early on we had a run that awaited the socket send inside the agent loop. When the socket dropped, the run raised, the agent stopped, and the work was lost. Now the run publishes to Redis and moves on. Whether a human is at the other end is not the agent's problem.
 
-## Tool progress without leaking
-
-The `tool` event needs a label a user can read. The raw tool call is not that. "vertex_search(query='Q3 Gen Z skincare TikTok', filter='brand_id=...')" is not something a brand strategist should see, and in a multi-tenant system it can leak a query that belongs to a different tenant if the routing is wrong.
-
-Each tool declares a human label template. The runtime fills it from the arguments it is allowed to show. `Searching your campaign data for "Gen Z skincare"` is fine. The filter is not shown. This is a small design choice that saved us from a support ticket later, when a client asked why they could see another brand's identifier in a progress message during a staging test. They could not, because the label template never included it. I like problems that were prevented before they became a story.
-
-## What idle sockets cost
-
-Cloud Run bills for instance time while a request is open. A WebSocket is an open request. A user who opens Scout at nine and leaves the tab open until five holds an instance slot for eight hours.
-
-We measured it. Before we changed anything, roughly a third of our billed instance time was sockets with no traffic. That is not a rounding error.
-
-Three changes brought it down:
-
-1. The client sends a heartbeat every thirty seconds. The server closes any socket that misses two.
-2. A socket with no agent run in progress and no activity for five minutes is closed. The client reconnects on the next user action.
-3. Minimum instances stays at zero for the streaming service. Cold starts add about two seconds to the first event. That is acceptable for a tool people use a few times a day. It would not be for a support chat.
-
-After these changes idle time dropped to a small fraction of what it was. The cost line went with it.
-
