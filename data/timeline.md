@@ -34,3 +34,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-10-22 — LangChain 1.0 and LangGraph 1.0 GA (Python and JS) — https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available
 - 2025-10-23 — Anthropic and Google Cloud deal for up to 1M TPUs — https://www.googlecloudpresscorner.com/2025-10-23-Anthropic-to-Expand-Use-of-Google-Cloud-TPUs-and-Services
 
+## Week of 2025-10-27
+- 2025-10-27 — MiniMax M2 open-weights release — https://www.minimax.io/news/minimax-m2
+- 2025-10-28 — OpenAI completes for-profit recapitalization; OpenAI Foundation; new Microsoft agreement — https://openai.com/index/built-to-benefit-everyone/
+- 2025-10-29 — Cursor 2.0 and in-house Composer model — https://cursor.com/blog/2-0
+
