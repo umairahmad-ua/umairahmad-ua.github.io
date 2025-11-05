@@ -76,11 +76,3 @@ async def forward(session_id: str, ws: WebSocket, last_seq: int):
 
 The buffer list holds the last two hundred events with a ten minute expiry. That covers every reconnect we have seen in production. It does not cover a user who closes the laptop and comes back after lunch. For that case the `done` event is also written to Firestore, and the client fetches the finished answer on load.
 
-## Reconnects are the normal case
-
-I expected reconnects to be rare. They are not. Corporate Wi-Fi, laptop sleep, a browser tab in the background for six minutes, a load balancer that recycles connections. Something like one session in twelve reconnects at least once.
-
-The client sends `last_seq` on reconnect. The server replays from the buffer. The user sees the stream continue. Before we added this, the user saw the stream restart from the beginning or, worse, saw nothing because the events had already been published to a socket that no longer existed.
-
-One more thing about reconnects. The agent run must not care whether anyone is listening. Early on we had a run that awaited the socket send inside the agent loop. When the socket dropped, the run raised, the agent stopped, and the work was lost. Now the run publishes to Redis and moves on. Whether a human is at the other end is not the agent's problem.
-
