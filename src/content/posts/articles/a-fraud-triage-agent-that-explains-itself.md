@@ -46,3 +46,44 @@ Each tool returns a typed result. The agent's job is to call the right ones, ass
 
 The narrative model is Gemini. The detection models are the same gradient boosting and anomaly models the client already ran. Nothing about the fraud decision changed. What changed is that the analyst opens one screen instead of five.
 
+## What a case file looks like
+
+The output is a structured document, not a chat message. A Pydantic model with fixed sections:
+
+- Summary: two sentences on what was flagged and why.
+- Signals: the top contributing features in plain language, with the raw values.
+- Context: what is normal for this customer and how this transaction differs.
+- Precedent: up to three similar closed cases and how they were resolved.
+- Recommendation: block, hold, release, or escalate, with a confidence band.
+- Open questions: what the agent could not determine.
+
+The last section is the one analysts told us they read first. An agent that says "I could not verify the device because the fingerprint service timed out" is more useful than one that pretends it knows.
+
+The SHAP values do most of the explanatory work. The model says the transaction is anomalous because the amount is nine times the customer's ninety day median, the merchant category is new for this customer, and the session came from a device first seen four minutes ago. The agent turns those three facts into a paragraph. It does not invent a fourth.
+
+## The hard part was precedent
+
+Scores and features are deterministic. Precedent is retrieval, and retrieval is where the quality lives or dies.
+
+The client had six years of closed cases with free-text analyst notes. We embedded the notes and indexed them alongside structured fields like merchant category and resolution. The agent searches with a hybrid query: dense similarity on the narrative plus filters on category and amount band.
+
+The first version surfaced cases that were textually similar and practically useless. Two cases that both mentioned "gift card" matched even when one was a chargeback dispute and the other was account takeover. We added the resolution type and the fraud typology as required filters, and the reranker started earning its cost.
+
+Precedent is also where the analyst feedback loop pays off. When an analyst marks a surfaced case as "not relevant", that pair goes into the eval set. The retrieval configuration that lowers the not-relevant rate wins.
+
+## The feedback loop
+
+Every case file has two buttons at the bottom. Agree with the recommendation. Disagree, with a reason.
+
+Agreement rate is the headline metric for the agent. It is not a fraud metric. The detection models still own recall and false positives. Agreement measures whether the explanation and recommendation match what a trained analyst concludes from the same evidence.
+
+Disagreements are gold. Each one is a labeled example of the agent reasoning badly or missing context. We review them weekly. Some become new tools, like the merchant profile tool that did not exist until analysts kept disagreeing on cases where the merchant's own chargeback rate explained everything.
+
+The corrections also feed the case notes index. An analyst's written reason for disagreeing becomes the note attached to that case. Six months in, the precedent search is better than it was, because the analysts have been teaching it without knowing that is what they were doing.
+
+## What changed for the analysts
+
+Time per case dropped from around twelve minutes to about four. That number came from the client's own queue metrics, not from us. Analysts spend the saved time on the cases the agent marks as escalate, which is where their judgment matters.
+
+Nobody lost the ability to look at raw data. Every section of the case file links to the underlying tool result. Trust came from being able to check, not from being told to trust.
+
