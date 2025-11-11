@@ -39,3 +39,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-10-28 — OpenAI completes for-profit recapitalization; OpenAI Foundation; new Microsoft agreement — https://openai.com/index/built-to-benefit-everyone/
 - 2025-10-29 — Cursor 2.0 and in-house Composer model — https://cursor.com/blog/2-0
 
+## Week of 2025-11-03
+- 2025-11-03 — OpenAI and AWS $38B multi-year compute partnership — https://openai.com/index/aws-and-openai-partnership/
+- 2025-11-06 — Moonshot releases Kimi K2 Thinking — https://simonwillison.net/2025/Nov/6/kimi-k2-thinking/
+
