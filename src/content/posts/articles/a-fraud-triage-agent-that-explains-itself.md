@@ -81,9 +81,3 @@ Disagreements are gold. Each one is a labeled example of the agent reasoning bad
 
 The corrections also feed the case notes index. An analyst's written reason for disagreeing becomes the note attached to that case. Six months in, the precedent search is better than it was, because the analysts have been teaching it without knowing that is what they were doing.
 
-## What changed for the analysts
-
-Time per case dropped from around twelve minutes to about four. That number came from the client's own queue metrics, not from us. Analysts spend the saved time on the cases the agent marks as escalate, which is where their judgment matters.
-
-Nobody lost the ability to look at raw data. Every section of the case file links to the underlying tool result. Trust came from being able to check, not from being told to trust.
-
