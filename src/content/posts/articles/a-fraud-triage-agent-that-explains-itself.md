@@ -97,3 +97,6 @@ I also assumed analysts wanted less text. They wanted less clicking. The case fi
 
 If you have a model that works and a queue that does not, do not replace the model. Wrap it. Make the model a tool. Make the case file a typed document with a section for what the agent could not determine. Put two buttons at the bottom and treat every disagreement as a labeled example. Keep every number linked to the raw result so the analyst can check it in one click. The detection numbers will not move. The minutes per case will.
 
+## Aside
+
+OpenAI released [GPT-5.1](https://openai.com/index/gpt-5-1/) today. I read the notes between two review sessions. The models keep getting better at writing. That helps the narrative layer. It does nothing for the retrieval layer, the tool contracts or the feedback loop, which is where most of this project's effort went. The detection models are still XGBoost and an autoencoder. Boring works.
