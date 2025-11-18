@@ -22,9 +22,3 @@ This post is about that harness. It is not clever. It is the least clever thing 
 
 ## Table of contents
 
-## The rule
-
-No prompt, tool description, tool schema, model swap or retrieval config change reaches production without passing the eval suite for every agent it touches. That is the whole rule. It is enforced in CI, not in code review, because code review does not run the agent.
-
-I brought this habit from Developers Inc. The medical claims system there had an active learning loop: flagged claims went to reviewers, corrections came back as training data, and the model retrained weekly. We never let a retrained model out without scoring it on a held-out set first. The agent harness is the same idea with a different scorer.
-
