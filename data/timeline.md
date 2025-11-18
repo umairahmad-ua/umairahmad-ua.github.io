@@ -43,3 +43,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-11-03 — OpenAI and AWS $38B multi-year compute partnership — https://openai.com/index/aws-and-openai-partnership/
 - 2025-11-06 — Moonshot releases Kimi K2 Thinking — https://simonwillison.net/2025/Nov/6/kimi-k2-thinking/
 
+## Week of 2025-11-10
+- 2025-11-12 — OpenAI releases GPT-5.1 (Instant/Thinking) — https://openai.com/index/gpt-5-1/
+- 2025-11-12 — Anthropic commits $50B to US data centers — https://www.anthropic.com/news/anthropic-invests-50-billion-in-american-ai-infrastructure
+- 2025-11-13 — Anthropic discloses AI-orchestrated cyber-espionage campaign using Claude Code — https://www.anthropic.com/news/disrupting-AI-espionage
+- 2025-11-13 — Baidu unveils ERNIE 5.0 — https://www.hpcwire.com/aiwire/2025/11/13/baidu-unveils-ernie-5-0-and-a-series-of-ai-applications-at-baidu-world-2025/
+
