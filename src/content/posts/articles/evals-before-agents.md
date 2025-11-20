@@ -87,3 +87,11 @@ For every case that hits the data store, we compute context precision and contex
 
 The split matters in practice. When groundedness drops and context recall is flat, someone changed a prompt. When both drop, someone changed chunking or the index. The dashboard tells you which room to walk into.
 
+## Thresholds and what happens when they fail
+
+Each agent has a threshold per rubric dimension and a floor on the retrieval metrics. A pull request fails if any dimension for any touched agent falls below threshold, or if the mean drops more than two points from the main branch.
+
+The failing run posts a table to the PR. Each row is a case, the old score, the new score, and the judge's one-sentence reason. The engineer reads the reasons before reading the numbers. The numbers say something moved. The reasons say what.
+
+We do not allow overriding a failed threshold with a comment. You either fix the change, or you open a separate PR that changes the threshold and explains why. That second PR gets reviewed by someone who did not write the first one.
+
