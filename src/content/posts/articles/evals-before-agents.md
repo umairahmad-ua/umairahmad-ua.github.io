@@ -22,3 +22,60 @@ This post is about that harness. It is not clever. It is the least clever thing 
 
 ## Table of contents
 
+## The rule
+
+No prompt, tool description, tool schema, model swap or retrieval config change reaches production without passing the eval suite for every agent it touches. That is the whole rule. It is enforced in CI, not in code review, because code review does not run the agent.
+
+I brought this habit from Developers Inc. The medical claims system there had an active learning loop: flagged claims went to reviewers, corrections came back as training data, and the model retrained weekly. We never let a retrained model out without scoring it on a held-out set first. The agent harness is the same idea with a different scorer.
+
+## What a case looks like
+
+Each agent has a directory of cases. A case is a scenario, an expected behavior, and a rubric weight. Here is one for the analysis pair, trimmed.
+
+```yaml
+id: analysis-042
+agent: data_analysis_agent
+scenario:
+  session_state:
+    brand_context: "Mid-price skincare, US and UK, launch in March"
+  user: "Is the glass skin trend still growing or has it peaked?"
+  datastore_fixture: fixtures/trends-2025-q3.jsonl
+expect:
+  must_call_tool: query_dashboard
+  must_cite: true
+  must_not_claim: ["competitor", "sales figure"]
+  tone: "direct, no hedging beyond what the data supports"
+rubric:
+  groundedness: 0.4
+  task_completion: 0.3
+  tool_choice: 0.2
+  tone: 0.1
+```
+
+The fixture is the important part. Every case runs against a frozen snapshot of retrieval data. If the live index changes, the eval does not move. If the eval moves, a prompt or a model moved it.
+
+We have between forty and ninety cases per agent. The refusal cases outnumber the success cases for every agent that can cite data. That ratio was a deliberate choice after the first month, when the agents were confidently helpful about things the data did not say.
+
+## The judge
+
+A second model scores each run against the rubric. It sees the scenario, the agent's full transcript including tool calls, the retrieved chunks, and the rubric. It returns a score per dimension and one sentence of reasoning per dimension.
+
+The rubric is prose, not a formula. This is the groundedness section as the judge sees it.
+
+```text
+Groundedness (0 to 1)
+1.0  Every factual claim about trends or numbers points to a retrieved
+     chunk that supports it. Refuses when no chunk supports the claim.
+0.7  Claims are supported but one citation is loose or the number is
+     rounded differently from the source.
+0.4  At least one claim has no supporting chunk.
+0.0  The response asserts a trend or figure the fixture does not contain,
+     or fabricates a citation.
+```
+
+Two things I learned about judges.
+
+The judge must not be the model under test. When the judge and the agent share a model, they share blind spots. The judge agrees with the agent's reasoning because it would have reasoned the same way. We run the judge on a different model family from the agent, and we rotate which one.
+
+The judge needs the tool calls, not just the final answer. Half of the failures we care about are an agent answering correctly for the wrong reason. It skipped the tool and guessed from context. The final answer looks fine. The trace shows it never looked.
+
