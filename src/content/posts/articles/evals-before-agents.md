@@ -95,3 +95,17 @@ The failing run posts a table to the PR. Each row is a case, the old score, the 
 
 We do not allow overriding a failed threshold with a comment. You either fix the change, or you open a separate PR that changes the threshold and explains why. That second PR gets reviewed by someone who did not write the first one.
 
+## Where humans still sit
+
+The judge is a model. It is wrong sometimes. We catch that two ways.
+
+Every week, someone on the team samples twenty judged runs and scores them by hand without seeing the judge's score. When human and judge disagree by more than 0.3 on a dimension, the case goes into a disagreement file. When the same kind of disagreement shows up three times, we rewrite that part of the rubric.
+
+And every new case gets a human-written expected behavior before the judge ever sees it. The judge scores against that expectation. It does not decide what good looks like. People decide that. The judge just applies it 400 times faster than we could.
+
+## Models we now evaluate against
+
+Part of the harness's job is telling us when to switch models. Anthropic released Claude Sonnet 4.5 on September 29. Google released Gemini 3 Pro on November 18. Both went straight into the harness as candidate models for agents where quality matters more than cost.
+
+The result is a table, not a verdict. A model can win on groundedness and lose on tool choice. It can win on both and cost three times more per case. The harness gives me the table. The decision is still mine, per agent, and it is usually different for the router than for the author.
+
