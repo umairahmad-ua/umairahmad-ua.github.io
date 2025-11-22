@@ -103,3 +103,15 @@ Every week, someone on the team samples twenty judged runs and scores them by ha
 
 And every new case gets a human-written expected behavior before the judge ever sees it. The judge scores against that expectation. It does not decide what good looks like. People decide that. The judge just applies it 400 times faster than we could.
 
+## Models we now evaluate against
+
+Part of the harness's job is telling us when to switch models. Anthropic released Claude Sonnet 4.5 on September 29. Google released Gemini 3 Pro on November 18. Both went straight into the harness as candidate models for agents where quality matters more than cost.
+
+The result is a table, not a verdict. A model can win on groundedness and lose on tool choice. It can win on both and cost three times more per case. The harness gives me the table. The decision is still mine, per agent, and it is usually different for the router than for the author.
+
+## What it costs
+
+The full suite for Scout is roughly 600 cases across nine agents. It runs in about six minutes on CI and costs a few dollars in model calls per run. We run it on every PR. I have never once thought it was too expensive.
+
+I have thought the opposite. The first month, before the harness existed, we found problems in production that a case would have caught in a minute. Every one of those became a case. The suite is a list of ways we were wrong, kept so we do not repeat them.
+
