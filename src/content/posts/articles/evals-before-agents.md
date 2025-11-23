@@ -115,3 +115,8 @@ The full suite for Scout is roughly 600 cases across nine agents. It runs in abo
 
 I have thought the opposite. The first month, before the harness existed, we found problems in production that a case would have caught in a minute. Every one of those became a case. The suite is a list of ways we were wrong, kept so we do not repeat them.
 
+## If you are starting
+
+Write the refusal cases first. Freeze your retrieval fixture. Judge with a different model than you test. Put the tool calls in front of the judge. Set a threshold and refuse to override it in a comment.
+
+None of that requires a framework. It requires deciding that an agent is software, and software gets tested before it reaches someone else's users. The eleven-word diff would have gone out. It did not. That is the harness doing the only thing I ask of it.
