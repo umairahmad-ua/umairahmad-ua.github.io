@@ -17,3 +17,5 @@ sources:
     date: 2025-11-25
 ---
 
+## Table of contents
+
