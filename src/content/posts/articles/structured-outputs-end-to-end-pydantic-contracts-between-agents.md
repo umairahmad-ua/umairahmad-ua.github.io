@@ -17,15 +17,3 @@ sources:
     date: 2025-11-25
 ---
 
-## Table of contents
-
-## The handoff that dropped the budget
-
-In Scout, the research assistant agent gathers data and passes findings to the research author agent, which writes the analysis. For two weeks in September the author kept producing recommendations with no budget context. The strategist would ask about a campaign with a fixed spend, and the author would suggest ideas that cost three times that.
-
-The research assistant had the budget. It said so in its output, in a sentence, somewhere in paragraph four. The author agent did not always find it.
-
-That is a handoff failure. The information existed and was lost in transit because the transit was prose. We fixed it in an afternoon by making the handoff a typed object with a required `budget` field. The author cannot miss a field. The assistant cannot omit it.
-
-This article is about doing that everywhere.
-
