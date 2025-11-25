@@ -37,30 +37,3 @@ A typed contract fixes all three. A must produce every required field or the val
 
 This is not a new idea. It is what every API does. Agents somehow made us forget it for a year.
 
-## The contract
-
-Every agent in our systems has an input model and an output model. Pydantic, because the whole team knows it and because the Gemini and Claude APIs both accept a JSON schema derived from it.
-
-```python
-from pydantic import BaseModel, Field
-from typing import Literal
-
-class Finding(BaseModel):
-    claim: str = Field(description="One factual statement about the audience or market.")
-    evidence_ids: list[str] = Field(min_length=1, description="Source record ids from the search tool.")
-    confidence: Literal["high", "medium", "low"]
-
-class ResearchBrief(BaseModel):
-    schema_version: Literal["2"] = "2"
-    brand_id: str
-    question: str
-    budget_usd: int | None = Field(description="Null only if the user did not state one.")
-    time_window: str
-    findings: list[Finding] = Field(min_length=3, max_length=12)
-    gaps: list[str] = Field(description="Questions the research could not answer.")
-```
-
-The `evidence_ids` requirement is the important one. A finding without evidence cannot be constructed. The author agent can only cite what the assistant grounded. Hallucinated findings do not get a field to live in.
-
-The `gaps` list is the second most important. An agent that must list what it did not find is an agent that is allowed to say so. Without the field, the model fills the silence with something plausible.
-
