@@ -102,3 +102,7 @@ Very deep nesting. Models handle two or three levels well. Beyond that, complian
 
 Latency-sensitive paths. Validation plus retry adds time. For a help desk agent answering a factual question, we accept a looser contract and a faster answer. For a research brief that will drive a campaign, we take the extra seconds.
 
+## A note on tooling
+
+We generate the JSON schema from the Pydantic model at build time and check it into the repo next to the prompt. A schema diff in a pull request is reviewed like an API change, because it is one. The eval set for each agent includes the contract check, so a prompt that produces valid prose and invalid objects fails before merge. None of this needed a framework. Pydantic, a schema file, a counter and a graph.
+
