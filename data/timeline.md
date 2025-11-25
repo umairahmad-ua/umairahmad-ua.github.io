@@ -49,3 +49,10 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-11-13 — Anthropic discloses AI-orchestrated cyber-espionage campaign using Claude Code — https://www.anthropic.com/news/disrupting-AI-espionage
 - 2025-11-13 — Baidu unveils ERNIE 5.0 — https://www.hpcwire.com/aiwire/2025/11/13/baidu-unveils-ernie-5-0-and-a-series-of-ai-applications-at-baidu-world-2025/
 
+## Week of 2025-11-17
+- 2025-11-17 — xAI releases Grok 4.1 — https://data.x.ai/2025-11-17-grok-4-1-model-card.pdf
+- 2025-11-18 — Google releases Gemini 3 Pro; Google Antigravity IDE; Gemini 3 in Search, CLI, Vertex — https://blog.google/products-and-platforms/products/gemini/gemini-3-collection/
+- 2025-11-18 — Microsoft, NVIDIA, Anthropic partnership ($30B Azure commitment) — https://blogs.microsoft.com/blog/2025/11/18/microsoft-nvidia-and-anthropic-announce-strategic-partnerships/
+- 2025-11-19 — OpenAI GPT-5.1-Codex-Max — https://openai.com/index/gpt-5-1-codex-max/
+- 2025-11-20 — Google Nano Banana Pro (Gemini 3 Pro Image) — https://blog.google/innovation-and-ai/products/nano-banana-pro/
+
