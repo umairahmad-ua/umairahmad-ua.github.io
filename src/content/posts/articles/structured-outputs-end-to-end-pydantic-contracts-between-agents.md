@@ -19,3 +19,48 @@ sources:
 
 ## Table of contents
 
+## The handoff that dropped the budget
+
+In Scout, the research assistant agent gathers data and passes findings to the research author agent, which writes the analysis. For two weeks in September the author kept producing recommendations with no budget context. The strategist would ask about a campaign with a fixed spend, and the author would suggest ideas that cost three times that.
+
+The research assistant had the budget. It said so in its output, in a sentence, somewhere in paragraph four. The author agent did not always find it.
+
+That is a handoff failure. The information existed and was lost in transit because the transit was prose. We fixed it in an afternoon by making the handoff a typed object with a required `budget` field. The author cannot miss a field. The assistant cannot omit it.
+
+This article is about doing that everywhere.
+
+## Prose is a lossy channel
+
+When agent A writes a paragraph and agent B reads it, three things go wrong at once. A decides what to include and might leave something out. B decides what to extract and might miss something. Neither failure produces an error. The system keeps running and the output is a little worse.
+
+A typed contract fixes all three. A must produce every required field or the validation fails. B receives fields, not prose, and does not have to extract anything. A missing or malformed value is an error, logged and counted.
+
+This is not a new idea. It is what every API does. Agents somehow made us forget it for a year.
+
+## The contract
+
+Every agent in our systems has an input model and an output model. Pydantic, because the whole team knows it and because the Gemini and Claude APIs both accept a JSON schema derived from it.
+
+```python
+from pydantic import BaseModel, Field
+from typing import Literal
+
+class Finding(BaseModel):
+    claim: str = Field(description="One factual statement about the audience or market.")
+    evidence_ids: list[str] = Field(min_length=1, description="Source record ids from the search tool.")
+    confidence: Literal["high", "medium", "low"]
+
+class ResearchBrief(BaseModel):
+    schema_version: Literal["2"] = "2"
+    brand_id: str
+    question: str
+    budget_usd: int | None = Field(description="Null only if the user did not state one.")
+    time_window: str
+    findings: list[Finding] = Field(min_length=3, max_length=12)
+    gaps: list[str] = Field(description="Questions the research could not answer.")
+```
+
+The `evidence_ids` requirement is the important one. A finding without evidence cannot be constructed. The author agent can only cite what the assistant grounded. Hallucinated findings do not get a field to live in.
+
+The `gaps` list is the second most important. An agent that must list what it did not find is an agent that is allowed to say so. Without the field, the model fills the silence with something plausible.
+
