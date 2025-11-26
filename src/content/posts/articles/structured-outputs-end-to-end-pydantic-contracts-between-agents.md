@@ -84,25 +84,3 @@ This felt like ceremony when we started. It stopped feeling like ceremony the fi
 
 The MCP specification released [yesterday](https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/) takes a similar view for tools. Typed inputs and outputs, declared capabilities, version negotiation. The protocol is formalizing what we were already doing between agents. That is a good sign for the pattern.
 
-## Validation failures are a metric
-
-The most useful thing we did was count.
-
-Every validation failure, shape or meaning, first attempt or retry, goes to a metric labeled by agent, schema and field. We graph it next to task success rate and cost.
-
-The graph tells stories. A spike in `evidence_ids` failures on the research assistant after a prompt change means the change made the model sloppier about grounding, even if the final output looked fine. A slow climb in `budget_usd` nulls means users stopped stating budgets, which is a product question, not a model question.
-
-Before we counted, a schema failure was an exception in a log. After, it is a signal we act on. Some of our best prompt fixes came from noticing which field failed most.
-
-## Where this does not work
-
-Free-form creative output. The big idea agent in Scout produces campaign concepts. Forcing that into a rigid schema made the concepts worse, flatter, more list-like. We type the metadata around the concept, like the audience it targets and the evidence it draws on, and leave the concept itself as a string.
-
-Very deep nesting. Models handle two or three levels well. Beyond that, compliance drops and retries climb. When a schema wants to go deeper, that is usually a sign the agent is doing two jobs and should be two agents.
-
-Latency-sensitive paths. Validation plus retry adds time. For a help desk agent answering a factual question, we accept a looser contract and a faster answer. For a research brief that will drive a campaign, we take the extra seconds.
-
-## A note on tooling
-
-We generate the JSON schema from the Pydantic model at build time and check it into the repo next to the prompt. A schema diff in a pull request is reviewed like an API change, because it is one. The eval set for each agent includes the contract check, so a prompt that produces valid prose and invalid objects fails before merge. None of this needed a framework. Pydantic, a schema file, a counter and a graph.
-
