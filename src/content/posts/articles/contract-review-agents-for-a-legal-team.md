@@ -13,11 +13,3 @@ sources:
 
 ## Table of contents
 
-## Five thousand contracts and three lawyers
-
-A corporate legal team at a mid-sized enterprise had a problem I have seen before in a different costume. Thousands of vendor and customer contracts, a handful of lawyers, and a quarterly question from finance: what are we obligated to pay, deliver or renew in the next ninety days?
-
-The answer lived inside PDFs. Finding it meant a paralegal reading contracts for a week. Most quarters the answer was late and partly wrong.
-
-This is document intelligence, which is where I started my career. It is also an agent problem, because the question is not "extract this field" but "read these documents and tell me what we owe." What follows is how we built it, and where the lawyers pushed back.
-
