@@ -56,3 +56,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-11-19 — OpenAI GPT-5.1-Codex-Max — https://openai.com/index/gpt-5-1-codex-max/
 - 2025-11-20 — Google Nano Banana Pro (Gemini 3 Pro Image) — https://blog.google/innovation-and-ai/products/nano-banana-pro/
 
+## Week of 2025-11-24
+- 2025-11-24 — Anthropic releases Claude Opus 4.5 — https://en.wikipedia.org/wiki/Claude_(language_model)
+- 2025-11-25 — MCP specification 2025-11-25 (Tasks experimental, OIDC discovery, URL-mode elicitation, CIMD) — https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/
+
