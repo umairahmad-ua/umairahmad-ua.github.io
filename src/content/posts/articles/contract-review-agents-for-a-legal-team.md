@@ -60,3 +60,29 @@ The agent translates the question into structured filters on the obligation grap
 
 It also states what it is unsure about. Contracts with extraction confidence below a threshold appear in a separate "needs review" list rather than silently in the main table. Finance sees the certain answer and the uncertain remainder. That framing is what made them stop asking the paralegal to double check everything.
 
+## The human gate
+
+The legal team's condition for going live was simple. No obligation enters the graph until a lawyer has approved the clause extraction for that contract.
+
+We built the review screen around that. A lawyer opens a contract and sees the extracted clauses down the left, the source PDF on the right, with spans highlighted. Approve, edit, reject per clause. Bulk approve for high-confidence clauses on standard templates.
+
+The first month was slow. Every contract was new. By the third month, standard vendor templates were bulk-approved in minutes and lawyer time went to the bespoke contracts, which is where their time belongs.
+
+Every edit is a training signal. Corrections feed back into the classifier and into the extraction prompts as few-shot examples for that clause type. Extraction quality on the client's specific templates improved month over month without us changing the base model.
+
+## Where the lawyers pushed back
+
+Risk scoring. My first design included a risk score per contract, a number from one to ten. The lawyers rejected it in the first review. A number implies a judgment, and a judgment from a system without a bar license is a liability. We replaced the score with a list of flagged clauses and the reason for each flag. Same information, no verdict. They accepted that.
+
+Summaries. The agent originally produced an executive summary per contract. Lawyers read them, found them accurate, and asked us to remove them. A summary that is 95 percent right is a summary someone will rely on without reading the clause, and the 5 percent is where the lawsuits are. The summary is gone. The clause table and citations remain.
+
+Both of these are the same lesson. In a regulated domain, the system's job is to make the human faster and better cited. Not to conclude.
+
+## Evaluation
+
+Three eval sets. Clause classification against a lawyer-labeled sample. Extraction field accuracy against the same sample, per field. Question answering against a set of finance questions with known answers from a quarter the paralegal had already done by hand.
+
+The third set is the one the client cared about. The agent matched the manual answer on the large majority of questions and found several obligations the manual pass had missed. It also produced two wrong rows, both traced to a scanned contract with a bad OCR pass. Those went into the needs review list after we tightened the confidence threshold.
+
+I noticed [AWS announced evaluation tooling for agents](https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates) at re:Invent this week. We are on Google Cloud, so I read it as a signal rather than a tool. Every platform is converging on the same view. An agent without an eval set is a demo.
+
