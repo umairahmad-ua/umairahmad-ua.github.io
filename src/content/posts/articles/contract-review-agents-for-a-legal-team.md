@@ -78,11 +78,3 @@ Summaries. The agent originally produced an executive summary per contract. Lawy
 
 Both of these are the same lesson. In a regulated domain, the system's job is to make the human faster and better cited. Not to conclude.
 
-## Evaluation
-
-Three eval sets. Clause classification against a lawyer-labeled sample. Extraction field accuracy against the same sample, per field. Question answering against a set of finance questions with known answers from a quarter the paralegal had already done by hand.
-
-The third set is the one the client cared about. The agent matched the manual answer on the large majority of questions and found several obligations the manual pass had missed. It also produced two wrong rows, both traced to a scanned contract with a bad OCR pass. Those went into the needs review list after we tightened the confidence threshold.
-
-I noticed [AWS announced evaluation tooling for agents](https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates) at re:Invent this week. We are on Google Cloud, so I read it as a signal rather than a tool. Every platform is converging on the same view. An agent without an eval set is a demo.
-
