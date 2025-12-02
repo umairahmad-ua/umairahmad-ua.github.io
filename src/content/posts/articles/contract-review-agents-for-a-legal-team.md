@@ -70,11 +70,3 @@ The first month was slow. Every contract was new. By the third month, standard v
 
 Every edit is a training signal. Corrections feed back into the classifier and into the extraction prompts as few-shot examples for that clause type. Extraction quality on the client's specific templates improved month over month without us changing the base model.
 
-## Where the lawyers pushed back
-
-Risk scoring. My first design included a risk score per contract, a number from one to ten. The lawyers rejected it in the first review. A number implies a judgment, and a judgment from a system without a bar license is a liability. We replaced the score with a list of flagged clauses and the reason for each flag. Same information, no verdict. They accepted that.
-
-Summaries. The agent originally produced an executive summary per contract. Lawyers read them, found them accurate, and asked us to remove them. A summary that is 95 percent right is a summary someone will rely on without reading the clause, and the 5 percent is where the lawsuits are. The summary is gone. The clause table and citations remain.
-
-Both of these are the same lesson. In a regulated domain, the system's job is to make the human faster and better cited. Not to conclude.
-
