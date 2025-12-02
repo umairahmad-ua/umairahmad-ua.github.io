@@ -11,5 +11,3 @@ sources:
     date: 2025-12-02
 ---
 
-## Table of contents
-
