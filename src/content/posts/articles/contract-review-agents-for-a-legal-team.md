@@ -42,3 +42,21 @@ class Clause(BaseModel):
 
 Every extracted value carries the page number and a character span. A lawyer can click any field and land on the source text. This mattered more than any accuracy number. Lawyers do not trust summaries. They trust citations.
 
+## Layer two: the obligation graph
+
+Clauses are facts. Obligations are relationships between facts. "Auto-renews for twelve months unless either party gives sixty days notice" is a renewal clause, a term clause and a termination condition tied together.
+
+The second layer is an agent that reads the clause records for one contract and produces an obligation graph. Nodes are obligations with a party, an action, a deadline and a trigger. Edges are dependencies. The renewal obligation depends on the notice condition, which depends on a date computed from the term end.
+
+The agent has three tools: the clause store, a date calculator, and a lookup into the counterparty master data. It cannot search the web. It cannot read other contracts. The scope is one contract and its clauses.
+
+The graph is stored in PostgreSQL with pgvector on the obligation text, so the third layer can search across all contracts semantically and structurally at once.
+
+## Layer three: the question answering agent
+
+This is the one finance talks to. "What renews in Q1?" "Which vendors can we terminate for convenience with under thirty days notice?" "Total committed spend with suppliers in the EU next year?"
+
+The agent translates the question into structured filters on the obligation graph, runs them, then uses hybrid search over the clause text to catch anything the structured extraction missed. Results come back as a table with a citation per row. Every row links to a clause, which links to a page.
+
+It also states what it is unsure about. Contracts with extraction confidence below a threshold appear in a separate "needs review" list rather than silently in the main table. Finance sees the certain answer and the uncertain remainder. That framing is what made them stop asking the paralegal to double check everything.
+
