@@ -90,3 +90,8 @@ I noticed [AWS announced evaluation tooling for agents](https://www.aboutamazon.
 
 Layout analysis with Document AI for scanned files and a PDF parser for native ones. A fine-tuned clause classifier on the client's labeled sample. Gemini for structured extraction with a strict response schema. PostgreSQL with pgvector for the obligation graph and clause embeddings. Elasticsearch with dense vectors for cross-contract search. A small FastAPI service in front of the review screen, deployed on Cloud Run. Evals run in Cloud Build on every prompt or schema change. Nothing exotic. The value is in the gate and the citations.
 
+## What finance gets now
+
+The quarterly question is answered in an afternoon. The answer comes with citations. The uncertain part is separated from the certain part. The paralegal reviews the uncertain part instead of reading everything.
+
+The lawyers get a system that makes them faster and never speaks for them. That was the deal, and it is the only deal that works in this domain.
