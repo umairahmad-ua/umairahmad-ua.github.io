@@ -23,3 +23,11 @@ That is the whole thesis of this post. The tool contract is part of the prompt. 
 
 ## Table of contents
 
+## Why now
+
+The Model Context Protocol had its first anniversary on November 25 with a new specification release. Tasks arrived as an experimental primitive, OpenID Connect discovery landed for auth, and elicitation gained a URL mode. Two weeks later, on December 9, Anthropic donated the protocol to the new Agentic AI Foundation under the Linux Foundation, alongside OpenAI's AGENTS.md and Block's goose.
+
+I read both announcements the same way. The protocol is now infrastructure. The tools you write against it will outlive the model that first calls them. So they had better be designed like infrastructure and not like a demo.
+
+Everything below is what I do on the tools my team exposes to agents at Zazmic, and what I wish I had done two years earlier on the LangChain tools I wrote at Developers Inc.
+
