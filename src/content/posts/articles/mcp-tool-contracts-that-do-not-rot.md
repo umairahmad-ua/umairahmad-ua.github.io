@@ -21,3 +21,5 @@ I deleted it. The replacement was four tools with boring names and typed argumen
 
 That is the whole thesis of this post. The tool contract is part of the prompt. It is the part you can type check.
 
+## Table of contents
+
