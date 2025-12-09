@@ -60,3 +60,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-11-24 — Anthropic releases Claude Opus 4.5 — https://en.wikipedia.org/wiki/Claude_(language_model)
 - 2025-11-25 — MCP specification 2025-11-25 (Tasks experimental, OIDC discovery, URL-mode elicitation, CIMD) — https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/
 
+## Week of 2025-12-01
+- 2025-12-01 — DeepSeek-V3.2 and V3.2-Speciale (arXiv 2512.02556) — https://api-docs.deepseek.com/news/news251201/
+- 2025-12-02 — Mistral 3 family: Mistral Large 3 (675B MoE, Apache 2.0) and Ministral 3 — https://mistral.ai/news/mistral-3/
+- 2025-12-01 to 05 — AWS re:Invent 2025: Nova 2, Trainium3, AgentCore Policy and Evaluations preview, Kiro — https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates
+- 2025-12-04 — Gemini 3 Deep Think rolls out to AI Ultra — https://blog.google/products-and-platforms/products/gemini/gemini-3-deep-think/
+
