@@ -31,3 +31,82 @@ I read both announcements the same way. The protocol is now infrastructure. The 
 
 Everything below is what I do on the tools my team exposes to agents at Zazmic, and what I wish I had done two years earlier on the LangChain tools I wrote at Developers Inc.
 
+## Name the verb and the noun
+
+A tool name is the first thing the model reads. `get_data` says nothing. `list_campaign_metrics` says what comes back and roughly how much of it.
+
+I use verb plus noun, and I keep the verb from a short list. `get` returns one thing by id. `list` returns many with a filter. `search` returns ranked results for a query. `create`, `update` and `delete` do what they say and nothing else. When a tool needs a verb outside that list, I stop and ask whether it is really two tools.
+
+The model does not need creativity from your names. It needs to predict what happens when it calls them.
+
+## Type the inputs, and type the outputs too
+
+Every MCP tool declares an input schema. Most people stop there. The output is where the rot sets in.
+
+A tool that returns free text forces the model to parse prose to find the number. Sometimes it finds a different number. A tool that returns a typed object with the number in a named field is one the model can quote without paraphrasing.
+
+Here is a bad one. It is close to what `get_data` looked like.
+
+```json
+{
+  "name": "get_data",
+  "description": "Gets data from the dashboard.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string" }
+    }
+  }
+}
+```
+
+Here is what replaced it, one of the four.
+
+```json
+{
+  "name": "list_campaign_metrics",
+  "description": "List daily metrics for one campaign over a date range. Returns at most 90 days per call. Use next_cursor to page.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["campaign_id", "start_date", "end_date"],
+    "properties": {
+      "campaign_id": { "type": "string", "pattern": "^cmp_[a-z0-9]{12}$" },
+      "start_date": { "type": "string", "format": "date" },
+      "end_date": { "type": "string", "format": "date" },
+      "metrics": {
+        "type": "array",
+        "items": { "type": "string", "enum": ["impressions", "clicks", "spend_usd", "conversions"] },
+        "default": ["impressions", "clicks", "spend_usd"]
+      },
+      "cursor": { "type": "string" }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["rows", "currency"],
+    "properties": {
+      "rows": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["date"],
+          "properties": {
+            "date": { "type": "string", "format": "date" },
+            "impressions": { "type": "integer" },
+            "clicks": { "type": "integer" },
+            "spend_usd": { "type": "number" },
+            "conversions": { "type": "integer" }
+          }
+        }
+      },
+      "currency": { "type": "string", "const": "USD" },
+      "next_cursor": { "type": ["string", "null"] }
+    }
+  }
+}
+```
+
+It is longer. It is also the last time anyone on the team asked what the tool returns.
+
+Three details in there earn their keep. The `pattern` on the id stops the model from inventing ids that look plausible. The `enum` on metrics stops it from asking for a metric that does not exist. The `const` on currency means the model never has to guess the unit, and the agent's answer never says "dollars" when it should say "cents."
+
