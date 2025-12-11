@@ -39,3 +39,95 @@ I use verb plus noun, and I keep the verb from a short list. `get` returns one t
 
 The model does not need creativity from your names. It needs to predict what happens when it calls them.
 
+## Type the inputs, and type the outputs too
+
+Every MCP tool declares an input schema. Most people stop there. The output is where the rot sets in.
+
+A tool that returns free text forces the model to parse prose to find the number. Sometimes it finds a different number. A tool that returns a typed object with the number in a named field is one the model can quote without paraphrasing.
+
+Here is a bad one. It is close to what `get_data` looked like.
+
+```json
+{
+  "name": "get_data",
+  "description": "Gets data from the dashboard.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string" }
+    }
+  }
+}
+```
+
+Here is what replaced it, one of the four.
+
+```json
+{
+  "name": "list_campaign_metrics",
+  "description": "List daily metrics for one campaign over a date range. Returns at most 90 days per call. Use next_cursor to page.",
+  "inputSchema": {
+    "type": "object",
+    "required": ["campaign_id", "start_date", "end_date"],
+    "properties": {
+      "campaign_id": { "type": "string", "pattern": "^cmp_[a-z0-9]{12}$" },
+      "start_date": { "type": "string", "format": "date" },
+      "end_date": { "type": "string", "format": "date" },
+      "metrics": {
+        "type": "array",
+        "items": { "type": "string", "enum": ["impressions", "clicks", "spend_usd", "conversions"] },
+        "default": ["impressions", "clicks", "spend_usd"]
+      },
+      "cursor": { "type": "string" }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "required": ["rows", "currency"],
+    "properties": {
+      "rows": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["date"],
+          "properties": {
+            "date": { "type": "string", "format": "date" },
+            "impressions": { "type": "integer" },
+            "clicks": { "type": "integer" },
+            "spend_usd": { "type": "number" },
+            "conversions": { "type": "integer" }
+          }
+        }
+      },
+      "currency": { "type": "string", "const": "USD" },
+      "next_cursor": { "type": ["string", "null"] }
+    }
+  }
+}
+```
+
+It is longer. It is also the last time anyone on the team asked what the tool returns.
+
+Three details in there earn their keep. The `pattern` on the id stops the model from inventing ids that look plausible. The `enum` on metrics stops it from asking for a metric that does not exist. The `const` on currency means the model never has to guess the unit, and the agent's answer never says "dollars" when it should say "cents."
+
+## Errors the model can act on
+
+Tools fail. The question is what the model does next.
+
+If the tool returns a stack trace, the model apologizes to the user and stops. If the tool returns a structured error with a code and a hint, the model can often recover without anyone noticing.
+
+```json
+{
+  "error": {
+    "code": "date_range_too_wide",
+    "message": "Range is 210 days. Maximum is 90.",
+    "hint": "Split the request into ranges of 90 days or fewer and call again.",
+    "retryable": true
+  }
+}
+```
+
+The `hint` field is written for the model. It is an instruction disguised as an error. The `retryable` flag tells the model whether trying again is even worth it. I have watched an agent read that hint, split the range into three calls, and merge the results without a prompt telling it to. That is the tool doing the prompting.
+
+Keep the code list short and stable. Every new error code is a new thing the model has to learn to handle. Ten codes is plenty. Fifty is a design smell.
+
