@@ -131,3 +131,11 @@ The `hint` field is written for the model. It is an instruction disguised as an 
 
 Keep the code list short and stable. Every new error code is a new thing the model has to learn to handle. Ten codes is plenty. Fifty is a design smell.
 
+## Idempotency, or the tool that charged the card twice
+
+Any tool that writes needs an idempotency key. The model will retry. Not because it is broken, but because retrying is what it does when a response is slow or a network call drops. If `create_campaign` is not idempotent, you will create two campaigns and learn about it from the client.
+
+The pattern is simple. The input schema has a required `request_id` string. The server stores the result under that id for a day. A second call with the same id returns the first result. The model does not need to understand this. It just needs the instruction to generate one id per intended action, which is one sentence in the agent prompt.
+
+Read tools should be idempotent by nature. If a `list` call returns different results for the same arguments within a session, the agent's reasoning becomes unreproducible and your evals become noise.
+
