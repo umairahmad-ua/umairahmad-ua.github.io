@@ -147,3 +147,11 @@ Two rules fix most of it. Return an explicit `next_cursor` that is null when the
 
 Do not paginate with offsets. Models increment them wrong. Cursors are opaque and the model treats them as tokens to pass back, which is exactly what you want.
 
+## Versioning without breaking the agent
+
+You will change a tool. When you do, the agent's prompt, its eval cases and possibly its fine-tuning data all encode the old shape.
+
+I version at the name level for breaking changes. `list_campaign_metrics` becomes `list_campaign_metrics_v2` and both run for a release. The agent prompt is updated to prefer v2. The eval suite runs against both. When the v1 call count in traces hits zero for two weeks, v1 is removed.
+
+Additive changes do not need a new name. A new optional input field or a new output field is safe as long as defaults are sensible. The `outputSchema` is what makes this safe. If a client parses by field name and the fields keep their names and types, nothing breaks.
+
