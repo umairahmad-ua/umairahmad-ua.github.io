@@ -139,3 +139,11 @@ The pattern is simple. The input schema has a required `request_id` string. The 
 
 Read tools should be idempotent by nature. If a `list` call returns different results for the same arguments within a session, the agent's reasoning becomes unreproducible and your evals become noise.
 
+## Pagination the model will actually follow
+
+Big result sets need paging. Models are bad at paging when the contract is implicit. They fetch page one and declare victory.
+
+Two rules fix most of it. Return an explicit `next_cursor` that is null when there is no more data, so the absence is a fact and not an inference. And put the page size limit in the tool description in plain words, as the example above does, so the model knows before the first call that more than one may be needed.
+
+Do not paginate with offsets. Models increment them wrong. Cursors are opaque and the model treats them as tokens to pass back, which is exactly what you want.
+
