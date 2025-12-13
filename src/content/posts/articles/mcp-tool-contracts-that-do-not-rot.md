@@ -155,3 +155,13 @@ I version at the name level for breaking changes. `list_campaign_metrics` become
 
 Additive changes do not need a new name. A new optional input field or a new output field is safe as long as defaults are sensible. The `outputSchema` is what makes this safe. If a client parses by field name and the fields keep their names and types, nothing breaks.
 
+## The gap between the schema and the model
+
+Everything above assumes the model reads the schema and does what it says. It mostly does. Not always.
+
+The description field is the part of the contract that does the most work and gets the least attention. The schema says what is allowed. The description says what is wise. "Returns at most 90 days per call" is not enforceable by a type. It is exactly the sentence that stops the model from asking for a year of data in one call.
+
+I write descriptions as instructions to a careful colleague who has never seen the system. What does this do. What does it not do. When should you call it instead of the similar-sounding tool next to it. That last one matters more as the tool count grows. Two tools with overlapping descriptions produce a model that flips a coin.
+
+And I test the description. The eval harness I wrote about last month has tool-choice as a rubric dimension. When a tool's description changes, the cases where the model should pick that tool run again. If it starts picking the neighbor, the description was the bug.
+
