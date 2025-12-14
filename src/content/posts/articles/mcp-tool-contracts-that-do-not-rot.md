@@ -165,3 +165,8 @@ I write descriptions as instructions to a careful colleague who has never seen t
 
 And I test the description. The eval harness I wrote about last month has tool-choice as a rubric dimension. When a tool's description changes, the cases where the model should pick that tool run again. If it starts picking the neighbor, the description was the bug.
 
+## The list
+
+Verb plus noun from a short list of verbs. Typed input and typed output. Constrain ids, enums and units in the schema. Errors with a code, a hint and a retryable flag. Idempotency keys on every write. Cursors, never offsets, and a null cursor at the end. Version by name for breaking changes. Write the description for a careful stranger, and test it.
+
+None of this is specific to MCP. MCP just made it the default way tools reach models, which means these decisions now outlive the project you made them in. `get_data` lived two weeks. Its replacements are still running. That is the difference a contract makes.
