@@ -14,3 +14,5 @@ sources:
     date: 2025-12-11
 ---
 
+## Table of contents
+
