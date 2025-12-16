@@ -66,3 +66,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-12-01 to 05 — AWS re:Invent 2025: Nova 2, Trainium3, AgentCore Policy and Evaluations preview, Kiro — https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates
 - 2025-12-04 — Gemini 3 Deep Think rolls out to AI Ultra — https://blog.google/products-and-platforms/products/gemini/gemini-3-deep-think/
 
+## Week of 2025-12-08
+- 2025-12-09 — Linux Foundation forms Agentic AI Foundation; Anthropic donates MCP; OpenAI AGENTS.md and Block goose join — https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation
+- 2025-12-09 — Mistral Devstral 2 and Mistral Vibe CLI — https://mistral.ai/news/devstral-2-vibe-cli/
+- 2025-12-11 — OpenAI releases GPT-5.2 — https://en.wikipedia.org/wiki/GPT-5.2
+
