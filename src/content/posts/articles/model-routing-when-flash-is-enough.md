@@ -75,3 +75,29 @@ These are shaped like our numbers but rounded and simplified, so read them as an
 
 The summarize and big idea steps stay on Pro. They are where quality is visible to the user. Everything else moved. Total cost dropped to under half with no measurable change in the end-to-end eval. The client's invoice question went away.
 
+## When Flash is not enough
+
+The eval threshold catches most of it. Three cases slipped through anyway and taught us where the threshold approach is thin.
+
+Long inputs. Flash cleared the threshold on the plan searches step with typical questions. It fell apart on a question with a two page pasted brief. The eval set had no long inputs. We added some, Flash failed them, and the step now routes on input length: Flash under two thousand tokens, Pro above.
+
+Ambiguity. The understand question step classifies intent. On clear questions Flash is as good as Pro. On ambiguous ones Flash picks confidently and wrongly, where Pro more often asks a clarifying question. The eval scored labels, not the decision to ask. We added "ask for clarification" as a valid label and reweighted the set. Flash's score dropped below threshold for ambiguous inputs. Now the step tries Flash and escalates to Pro when Flash's own confidence is low.
+
+Tone. The help desk agent answers factual questions about the product. Flash gets the facts right. Users rated its answers as curt. The judge rubric scored correctness, not tone. We added a tone dimension. Flash still passes, barely, with a revised prompt. Pro would pass easily. We kept Flash and changed the prompt because the cost difference is meaningful at that call volume. That is a judgment call, and the eval made it a visible one instead of a hidden one.
+
+## Fallbacks
+
+Every step has a fallback model, and a fallback is triggered by three things. A validation failure after retry. A timeout. A confidence signal below a floor, where the step exposes one.
+
+The fallback is always more expensive. That is fine. Fallbacks are supposed to be rare. When a step's fallback rate climbs above a few percent, that is a signal the primary model is wrong for the step, and the eval threshold probably needs to be tighter.
+
+We graph fallback rate per step. It is the second most useful chart on the dashboard, after cost per completed task.
+
+## The other side of the market
+
+OpenAI released [GPT-5.2](https://en.wikipedia.org/wiki/GPT-5.2) last week. We run on Google Cloud and use Gemini as the default with Claude for specific agents, so it does not enter our routing table. I still read the release notes, because every price and quality move at the top of the market pulls the rest of the tiers with it. Routing by eval means we are ready when a tier shifts. Routing by habit means we find out from an invoice.
+
+## How the routing is implemented
+
+The router is a thin function. It reads the step configuration, checks the input length and any confidence signal, picks a model, and records the choice on the trace. The agent code calls `route(step_name, input)` and gets back a model id. Nothing about the agent knows which model it is on, which is the point. When the cron job moves a step to a new model, the only diff is in the YAML. The trace carries the model id, so cost per completed task can be broken down by model after the fact.
+
