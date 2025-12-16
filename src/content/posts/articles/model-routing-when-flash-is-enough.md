@@ -93,11 +93,3 @@ The fallback is always more expensive. That is fine. Fallbacks are supposed to b
 
 We graph fallback rate per step. It is the second most useful chart on the dashboard, after cost per completed task.
 
-## The other side of the market
-
-OpenAI released [GPT-5.2](https://en.wikipedia.org/wiki/GPT-5.2) last week. We run on Google Cloud and use Gemini as the default with Claude for specific agents, so it does not enter our routing table. I still read the release notes, because every price and quality move at the top of the market pulls the rest of the tiers with it. Routing by eval means we are ready when a tier shifts. Routing by habit means we find out from an invoice.
-
-## How the routing is implemented
-
-The router is a thin function. It reads the step configuration, checks the input length and any confidence signal, picks a model, and records the choice on the trace. The agent code calls `route(step_name, input)` and gets back a model id. Nothing about the agent knows which model it is on, which is the point. When the cron job moves a step to a new model, the only diff is in the YAML. The trace carries the model id, so cost per completed task can be broken down by model after the fact.
-
