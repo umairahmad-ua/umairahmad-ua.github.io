@@ -51,3 +51,27 @@ research_assistant:
 
 The threshold is the score the step must reach on its eval set for the assigned model to stay assigned. Below that, the CI job fails and someone has to either fix the prompt or move the step up a tier.
 
+## How the eval decides
+
+Each step has a small eval set. Twenty to eighty cases with a known good output or a judge rubric. When we consider a model for a step, we run the set against every candidate and record score, latency and cost.
+
+Then the rule is mechanical. Pick the cheapest model whose score clears the threshold. If none does, pick the best and open a ticket.
+
+Google released [Gemini 3 Flash](https://en.wikipedia.org/wiki/Gemini_(language_model)) today. Tonight the eval job runs it against every step currently on Pro. Any step where Flash clears the threshold moves to Flash tomorrow. That is not a decision meeting. It is a cron job.
+
+This is what routing by eval buys. A new cheaper model is a cost reduction we get by running a script, not by re-architecting.
+
+## Illustrative numbers
+
+These are shaped like our numbers but rounded and simplified, so read them as an example.
+
+| Step | Calls per day | Model before | Model after | Cost before | Cost after |
+|---|---|---|---|---|---|
+| Understand question | 6,000 | Pro | Flash | $48 | $4 |
+| Plan searches | 6,000 | Pro | Flash | $72 | $6 |
+| Summarize | 1,500 | Pro | Pro | $90 | $90 |
+| Big idea | 400 | Pro | Pro | $60 | $60 |
+| Help desk answer | 3,000 | Pro | Flash | $36 | $3 |
+
+The summarize and big idea steps stay on Pro. They are where quality is visible to the user. Everything else moved. Total cost dropped to under half with no measurable change in the end-to-end eval. The client's invoice question went away.
+
