@@ -36,3 +36,11 @@ The pattern inside that 41 percent is consistent. The agent calls a tool that co
 
 We cut that number by half between September and December. Not with better prompts. With better tool descriptions and fewer tools. Two agents went from eleven tools to six. The judge score on tool choice rose for both. Every tool you add is a chance to pick the wrong one.
 
+## Cost per task fell, then rose, then fell
+
+This is the trend I find most useful. In June a completed task on Scout cost roughly three times what it costs today. Model price cuts explain some of that. Routing explains more. We moved the research and drafting steps to Flash in August and kept the expensive model for the final synthesis and the judge.
+
+Then cost went up in October. Not because of the model. Because we added a verification step that reruns the retrieval when the judge flags low groundedness. That step is worth it. It also doubled the token spend on the hardest fifteen percent of tasks. We had not noticed because we were watching averages. The median was fine. The p95 had doubled.
+
+We now track cost at p50, p95 and max per agent per week. The max is the one that gets discussed in the Monday review. One runaway loop in November cost more than a week of normal traffic before a budget cap killed it. That cap is now on every agent.
+
