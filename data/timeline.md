@@ -71,3 +71,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-12-09 — Mistral Devstral 2 and Mistral Vibe CLI — https://mistral.ai/news/devstral-2-vibe-cli/
 - 2025-12-11 — OpenAI releases GPT-5.2 — https://en.wikipedia.org/wiki/GPT-5.2
 
+## Week of 2025-12-15
+- 2025-12-17 — Google releases Gemini 3 Flash — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2025-12-18 — Anthropic releases Agent Skills as an open standard (agentskills.io) — https://siliconangle.com/2025/12/18/anthropic-makes-agent-skills-open-standard/
+- 2025-12-18 — OpenAI GPT-5.2-Codex — https://openai.com/index/introducing-gpt-5-2-codex/
+
