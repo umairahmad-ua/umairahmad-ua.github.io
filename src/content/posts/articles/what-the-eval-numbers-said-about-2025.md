@@ -36,19 +36,3 @@ The pattern inside that 41 percent is consistent. The agent calls a tool that co
 
 We cut that number by half between September and December. Not with better prompts. With better tool descriptions and fewer tools. Two agents went from eleven tools to six. The judge score on tool choice rose for both. Every tool you add is a chance to pick the wrong one.
 
-## Cost per task fell, then rose, then fell
-
-This is the trend I find most useful. In June a completed task on Scout cost roughly three times what it costs today. Model price cuts explain some of that. Routing explains more. We moved the research and drafting steps to Flash in August and kept the expensive model for the final synthesis and the judge.
-
-Then cost went up in October. Not because of the model. Because we added a verification step that reruns the retrieval when the judge flags low groundedness. That step is worth it. It also doubled the token spend on the hardest fifteen percent of tasks. We had not noticed because we were watching averages. The median was fine. The p95 had doubled.
-
-We now track cost at p50, p95 and max per agent per week. The max is the one that gets discussed in the Monday review. One runaway loop in November cost more than a week of normal traffic before a budget cap killed it. That cap is now on every agent.
-
-## The three surprises
-
-First. Judge disagreement is a better signal than judge score. We run two judges on a sample and log where they disagree. Those disagreements predicted the client complaints we later received better than any single low score did. When two judges cannot agree whether an answer is grounded, a human usually cannot either. We now route disagreements to a human reviewer by default.
-
-Second. Prompt changes are riskier than model changes. We swapped models under running agents four times this year. Eval movement each time was small and mostly positive. Prompt changes moved scores more, in both directions, and three of our five worst regressions this year were prompt edits that looked harmless in review. The eval gate caught all three. Code review caught none.
-
-Third. Most of our eval cases were written in June and July. They describe the problems we had then. When I checked which cases still fail sometimes, most were written after September. The June cases pass at 99 percent. They are not testing anything anymore. Half of them should be retired and replaced with cases drawn from real failures in the traces.
-
