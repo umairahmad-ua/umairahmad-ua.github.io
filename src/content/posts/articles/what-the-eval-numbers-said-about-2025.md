@@ -44,3 +44,21 @@ Then cost went up in October. Not because of the model. Because we added a verif
 
 We now track cost at p50, p95 and max per agent per week. The max is the one that gets discussed in the Monday review. One runaway loop in November cost more than a week of normal traffic before a budget cap killed it. That cap is now on every agent.
 
+## The three surprises
+
+First. Judge disagreement is a better signal than judge score. We run two judges on a sample and log where they disagree. Those disagreements predicted the client complaints we later received better than any single low score did. When two judges cannot agree whether an answer is grounded, a human usually cannot either. We now route disagreements to a human reviewer by default.
+
+Second. Prompt changes are riskier than model changes. We swapped models under running agents four times this year. Eval movement each time was small and mostly positive. Prompt changes moved scores more, in both directions, and three of our five worst regressions this year were prompt edits that looked harmless in review. The eval gate caught all three. Code review caught none.
+
+Third. Most of our eval cases were written in June and July. They describe the problems we had then. When I checked which cases still fail sometimes, most were written after September. The June cases pass at 99 percent. They are not testing anything anymore. Half of them should be retired and replaced with cases drawn from real failures in the traces.
+
+## What the table could not tell me
+
+Some questions the export could not answer, and I want to be honest about those too.
+
+It could not tell me whether a passing score meant a happy user. We log judge scores. We log human overrides where a human queue exists. We do not log whether the client's analyst found the answer useful ten minutes later. Two of our agents have no human queue at all, so for those the judge is the only opinion in the table. I do not fully trust an eval that has never been checked against a person.
+
+It could not tell me about the questions users stopped asking. If an agent gives a poor answer to a type of question, people learn not to ask it. The eval set does not shrink. The traffic does. I found one client where questions about a whole product line disappeared from the logs in October. Nobody reported a problem. They routed around it.
+
+And it could not separate model behavior from data behavior for the retrieval agents. When groundedness dips, was it the model, the reranker or a bad document that entered the corpus that week. We now snapshot the corpus hash on every run, but we only started that in November. Six months of runs have no way to tell.
+
