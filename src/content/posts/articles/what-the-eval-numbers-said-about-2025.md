@@ -62,3 +62,10 @@ It could not tell me about the questions users stopped asking. If an agent gives
 
 And it could not separate model behavior from data behavior for the retrieval agents. When groundedness dips, was it the model, the reranker or a bad document that entered the corpus that week. We now snapshot the corpus hash on every run, but we only started that in November. Six months of runs have no way to tell.
 
+## What I am changing for 2026
+
+Retire eval cases that have passed for ninety days and replace them from production traces. Track p95 cost per task as a gate, not just a dashboard. Cap tools per agent at eight unless someone argues for more in writing. Keep two judges on every sample and treat disagreement as a failure.
+
+None of this is new thinking. All of it was sitting in a table we already had. The numbers were there since June. Reading them took an afternoon nobody had until the labs went quiet.
+
+I will do this again in June. The next surprise is probably already in the table.
