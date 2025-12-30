@@ -76,3 +76,6 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2025-12-18 — Anthropic releases Agent Skills as an open standard (agentskills.io) — https://siliconangle.com/2025/12/18/anthropic-makes-agent-skills-open-standard/
 - 2025-12-18 — OpenAI GPT-5.2-Codex — https://openai.com/index/introducing-gpt-5-2-codex/
 
+## Week of 2025-12-22
+- No major verified frontier releases (holiday week).
+
