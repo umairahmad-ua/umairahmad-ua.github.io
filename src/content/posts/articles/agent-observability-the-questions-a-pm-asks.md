@@ -51,3 +51,13 @@ The product manager's Tuesday question was the first of five that now define wha
 
 **Where does the time go.** Latency per span, summed up the tree. Most of our end-to-end latency is not the model. It is sequential tool calls that could run in parallel and retrieval that could be cached.
 
+## What not to log
+
+Traces hold prompts. Prompts hold client data. For the healthcare and finance clients, the prompt can hold protected information.
+
+We run every span through a redaction step before export. Names, identifiers, account numbers and anything the DLP API flags get replaced with typed placeholders. The placeholder keeps the shape, so a replay still works, but the value is gone. The raw prompt is stored separately, encrypted, in the client's own project, with a fourteen-day retention.
+
+This was a hard argument inside the team. Engineers want raw traces. Debugging with placeholders is slower. The compliance team was right and we lost a few hours a month to it. We have not lost a client.
+
+We also do not log the full retrieval corpus into the span. We log document identifiers and the chunk hashes. The dashboards link back to the source. Traces stayed under a few kilobytes each instead of a few megabytes.
+
