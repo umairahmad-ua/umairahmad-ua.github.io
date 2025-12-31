@@ -61,3 +61,52 @@ This was a hard argument inside the team. Engineers want raw traces. Debugging w
 
 We also do not log the full retrieval corpus into the span. We log document identifiers and the chunk hashes. The dashboards link back to the source. Traces stayed under a few kilobytes each instead of a few megabytes.
 
+## Cost as a first-class attribute
+
+The single most useful decision was computing cost at write time. Every model span has a dollar value, from a price table that we version alongside the prompts. When a vendor cuts prices, we update the table and new spans reflect it. Old spans keep the old price, which is what actually was paid.
+
+That made cost a thing you can group and sort like latency. Cost per agent. Cost per client. Cost per prompt version. Cost per task type. When the finance person at a client asks what the agent costs per completed brief, we have the number by the end of the call.
+
+## The ADK hook, in practice
+
+For anyone on Google ADK, this is roughly where the instrumentation lives. Every agent gets the same callbacks. Nothing is instrumented by hand inside an agent.
+
+```python
+from opentelemetry import trace
+from google.adk.agents import Agent
+
+tracer = trace.get_tracer("agents")
+
+def before_model(ctx, request):
+    span = tracer.start_span("gen_ai.chat")
+    span.set_attribute("gen_ai.system", "gcp.vertex_ai")
+    span.set_attribute("gen_ai.request.model", request.model)
+    span.set_attribute("agent.name", ctx.agent_name)
+    span.set_attribute("prompt.version", ctx.state.get("prompt_version"))
+    ctx.state["_span"] = span
+
+def after_model(ctx, response):
+    span = ctx.state.pop("_span")
+    usage = response.usage_metadata
+    span.set_attribute("gen_ai.usage.input_tokens", usage.prompt_token_count)
+    span.set_attribute("gen_ai.usage.output_tokens", usage.candidates_token_count)
+    span.set_attribute("cost.usd", price(response.model, usage))
+    span.end()
+
+agent = Agent(
+    name="campaign_author",
+    model="gemini-2.0-flash",
+    before_model_callback=before_model,
+    after_model_callback=after_model,
+)
+```
+
+Tool callbacks look the same with a tool span. The redaction step runs inside an exporter wrapper so the agent code never sees it. When we added a Claude agent through its own SDK, we wrote the same two callbacks against that SDK's hooks and the dashboards did not change.
+
+The one thing I would do differently from the start is the price table. We began with prices hardcoded in the callback. They changed three times in the autumn. The table now lives in a config file with a version and an effective date, and the span records which version priced it.
+
+## What changed for the team
+
+Three things. Engineers now debug in the trace viewer, not in log search. A failure report comes with a trace link, not a description. And the eval harness reads from the same traces, so a production failure becomes an eval case in a few minutes instead of an afternoon of reconstruction.
+
+The product manager still asks hard questions. Now the answer is usually a link.
