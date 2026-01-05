@@ -8,5 +8,3 @@ tags: ["agents", "gcp", "infra"]
 sources: []
 ---
 
-## Table of contents
-
