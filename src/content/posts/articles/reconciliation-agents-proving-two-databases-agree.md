@@ -52,13 +52,3 @@ WHERE posting_date BETWEEN @start AND @end;
 
 The legacy side gets the same query in its own dialect. The translation agent writes both. The reconciliation agent runs them and compares.
 
-## Where the model actually helps
-
-Most of this is deterministic SQL. So why an agent at all.
-
-Three places. First, the agent reads the table schema and writes the check queries for both dialects. Hand-writing checks for thousands of tables is the work nobody would do, so it did not get done in previous migrations at this client.
-
-Second, when a check fails, the agent investigates before a human looks. It bisects by partition to find the date range where the mismatch starts. It compares the translated SQL to the original and proposes a cause. Common ones this month: a timezone difference in a date truncation, a different null handling in a string concatenation, a rounding mode. The agent writes a short explanation with the evidence. A human confirms or rejects.
-
-Third, the agent maintains the tolerance rules. When finance says a table can drift by half a percent, the agent records that with the name of the person who said it and the date. The rule lives next to the check. Six months from now nobody has to remember why that table is allowed to be a little off.
-
