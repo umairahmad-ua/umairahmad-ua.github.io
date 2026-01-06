@@ -79,3 +79,6 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 ## Week of 2025-12-22
 - No major verified frontier releases (holiday week).
 
+## Week of 2025-12-29
+- No major verified frontier releases (holiday week).
+
