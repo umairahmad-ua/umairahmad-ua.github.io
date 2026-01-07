@@ -70,3 +70,24 @@ The CFO signs page one. That signature is what allows the cutover. Nothing goes 
 
 We generate the document from the check results. A human reviews it before it goes out. That review has caught two things the agent missed, both cases where a tolerance rule was too loose for a table that turned out to feed a regulatory filing. The human in the loop is not a formality.
 
+## What the numbers looked like
+
+The first batch, in November, covered about two hundred tables. Sixty-one failed at least one check on the first run. Forty-four of those were translation errors the agent diagnosed correctly and the translation agent fixed on the next pass. Twelve were tolerance rules that were wrong. Five were actual bugs in the legacy system that had been producing quietly wrong numbers for years.
+
+Those five were the interesting conversation. The client had to decide whether BigQuery should reproduce the bug for continuity or fix it. They fixed three and kept two, with the reasons written into the tolerance rules.
+
+## Tolerances are a business document
+
+I want to spend a moment on tolerance rules because they were the surprise of this program.
+
+Engineers see a tolerance as a threshold. Finance sees it as a policy. When we asked the controller how much the daily revenue rollup could drift, the answer was not a number. It was a conversation about which downstream reports read that table, which of those go to the board, and which go to the regulator. The number came out of that conversation. It was zero for the regulatory feed and half a percent for the internal dashboard, which meant the table had to be split.
+
+So the tolerance file is written like a policy. Each entry has the table, the rule, the reason, the approver, the date, and the downstream consumers that were considered. The agent reads it to run checks. People read it to understand why the checks are what they are. Six months from now, when someone asks why a table is allowed to drift, the answer is in the file with a name on it.
+
+We also learned to version tolerances with the code. A tolerance loosened in December to get a batch through should tighten again once the underlying translation is fixed. We tag those as temporary with an expiry date. The agent flags expired tolerances on every run. Two have expired so far and both were tightened on schedule. Without the expiry, I am confident they would still be loose.
+
+## The lesson
+
+The translation agent made the migration fast. The reconciliation agent made it possible. When I scope a migration now, I budget more time for reconciliation than for translation, and I explain why in the first meeting. The client does not care how elegant the new SQL is. They care that the number on the invoice report is the same number it was last month.
+
+The agent is cheap. The trust is expensive. Reconciliation is how you buy it.
