@@ -52,3 +52,27 @@ WHERE posting_date BETWEEN @start AND @end;
 
 The legacy side gets the same query in its own dialect. The translation agent writes both. The reconciliation agent runs them and compares.
 
+## Where the model actually helps
+
+Most of this is deterministic SQL. So why an agent at all.
+
+Three places. First, the agent reads the table schema and writes the check queries for both dialects. Hand-writing checks for thousands of tables is the work nobody would do, so it did not get done in previous migrations at this client.
+
+Second, when a check fails, the agent investigates before a human looks. It bisects by partition to find the date range where the mismatch starts. It compares the translated SQL to the original and proposes a cause. Common ones this month: a timezone difference in a date truncation, a different null handling in a string concatenation, a rounding mode. The agent writes a short explanation with the evidence. A human confirms or rejects.
+
+Third, the agent maintains the tolerance rules. When finance says a table can drift by half a percent, the agent records that with the name of the person who said it and the date. The rule lives next to the check. Six months from now nobody has to remember why that table is allowed to be a little off.
+
+## The report the CFO reads
+
+The output is not a dashboard. It is a two-page document per cutover batch. Page one lists every table in the batch, its tolerance, its result and who approved the tolerance. Page two lists every mismatch that was found and how it was resolved, with the before and after numbers.
+
+The CFO signs page one. That signature is what allows the cutover. Nothing goes live without it.
+
+We generate the document from the check results. A human reviews it before it goes out. That review has caught two things the agent missed, both cases where a tolerance rule was too loose for a table that turned out to feed a regulatory filing. The human in the loop is not a formality.
+
+## What the numbers looked like
+
+The first batch, in November, covered about two hundred tables. Sixty-one failed at least one check on the first run. Forty-four of those were translation errors the agent diagnosed correctly and the translation agent fixed on the next pass. Twelve were tolerance rules that were wrong. Five were actual bugs in the legacy system that had been producing quietly wrong numbers for years.
+
+Those five were the interesting conversation. The client had to decide whether BigQuery should reproduce the bug for continuity or fix it. They fixed three and kept two, with the reasons written into the tolerance rules.
+
