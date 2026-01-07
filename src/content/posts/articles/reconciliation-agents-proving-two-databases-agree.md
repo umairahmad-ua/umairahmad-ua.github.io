@@ -70,9 +70,3 @@ The CFO signs page one. That signature is what allows the cutover. Nothing goes 
 
 We generate the document from the check results. A human reviews it before it goes out. That review has caught two things the agent missed, both cases where a tolerance rule was too loose for a table that turned out to feed a regulatory filing. The human in the loop is not a formality.
 
-## What the numbers looked like
-
-The first batch, in November, covered about two hundred tables. Sixty-one failed at least one check on the first run. Forty-four of those were translation errors the agent diagnosed correctly and the translation agent fixed on the next pass. Twelve were tolerance rules that were wrong. Five were actual bugs in the legacy system that had been producing quietly wrong numbers for years.
-
-Those five were the interesting conversation. The client had to decide whether BigQuery should reproduce the bug for continuity or fix it. They fixed three and kept two, with the reasons written into the tolerance rules.
-
