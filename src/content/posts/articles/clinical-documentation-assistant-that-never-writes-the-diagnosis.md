@@ -58,3 +58,19 @@ Evaluation       Judge on faithfulness to transcript, plus clinician edit distan
 
 Everything runs inside the client's own Google Cloud project. The model calls stay in region. No transcript leaves. That was a requirement before the first line of code.
 
+## Faithfulness, not accuracy
+
+We do not evaluate the assistant on whether the note is medically correct. That is not its job and we are not qualified to judge it. We evaluate faithfulness. Does every sentence in the draft trace to something said in the visit.
+
+The judge scores each field. Our gate is that no field may contain a claim without a transcript span behind it. During development the drafting model was very good at producing plausible exam findings that were never spoken. "Lungs clear to auscultation" appeared in drafts for visits where nobody examined the lungs. The validator catches this. The prompt alone did not.
+
+The other metric is clinician edit distance per field. How much did the clinician change before signing. High edit distance on a field means the draft is not helping. The plan section had the highest edit distance for the first two months. Clinicians say the plan in shorthand and the model was expanding it into full sentences they then cut back down. We changed the instruction to preserve the clinician's phrasing. Edit distance on that field dropped by more than half.
+
+## Consent and the recording itself
+
+Before any of the model work matters, there is the recording. The clinic app asks the patient for consent at the start of every visit, in plain words, and records the answer. If consent is declined, the assistant does not run and the clinician writes the note the old way. About one patient in twelve declines. That number has not moved since October, and we have not tried to move it.
+
+The audio goes to a bucket in the client's project with a retention rule. Once the note is signed, the audio is deleted. The transcript stays for the audit period, redacted. We argued about keeping audio longer for model improvement and decided against it. The assistant improves from clinician edits, not from replaying visits.
+
+Noisy rooms were a real problem. Exam rooms have running water, door knocks and a second conversation in the hallway. The primary transcription pass handles most of it. When the diarizer's confidence drops below a threshold, the audio goes through a second pass and the two transcripts are aligned. Fields drafted from low-confidence segments get a visual marker in the review UI so the clinician knows to check them.
+
