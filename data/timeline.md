@@ -82,3 +82,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 ## Week of 2025-12-29
 - No major verified frontier releases (holiday week).
 
+## Week of 2026-01-05
+- 2026-01-05 — NVIDIA CES keynote: Vera Rubin platform — https://www.axios.com/2026/01/05/nvidia-ces-2026-jensen-huang-speech-ai
+- 2026-01-07 — OpenAI launches ChatGPT Health — https://openai.com/index/introducing-chatgpt-health/
+- 2026-01-11 — Anthropic launches Claude for Healthcare (JPM26) — https://fortune.com/2026/01/11/anthropic-unveils-claude-for-healthcare-and-expands-life-science-features-partners-with-healthex-to-let-users-connect-medical-records/
+
