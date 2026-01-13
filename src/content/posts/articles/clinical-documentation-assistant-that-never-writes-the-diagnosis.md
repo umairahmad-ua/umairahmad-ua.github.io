@@ -82,7 +82,3 @@ Median review time settled around ninety seconds. That is not nothing, and it is
 
 We also added one deliberate friction. The sign button is disabled until every flagged field has been opened. A flagged field is one the validator blanked or the diarizer marked low confidence. Clinicians complained about this in week two. By week six nobody mentioned it. The flags are fewer now because the drafts are better, and the ones that remain are the ones worth a look.
 
-## What the launches got right
-
-Both the OpenAI and Anthropic healthcare products lead with what the model will not do. Neither claims to diagnose. Both route the person back to a clinician. I read that as the industry landing on the same conclusion my client reached in October. In this domain the boundaries are the product. A documentation assistant that is ninety-eight percent faithful and occasionally invents a finding is worse than no assistant, because the two percent is where the harm is.
-
