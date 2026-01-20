@@ -24,11 +24,3 @@ This is the kind of project where an LLM looks like a miracle on day one and a l
 
 ## Table of contents
 
-## The shape of the problem
-
-A migration like this has three kinds of objects. Stored procedures that transform data. Scheduled jobs that decide when things run and in what order. Reports and views that the business reads. Each kind fails differently when translated badly.
-
-A bad procedure translation gives you wrong numbers. A bad job translation gives you right numbers on the wrong day. A bad view translation gives you a dashboard that loads but shows a column with a different meaning. The last one is the most dangerous because it looks fine.
-
-So the design goal was never "translate SQL". The design goal was "prove that each translated object produces the same answer as the source, and keep proving it until the business signs off".
-
