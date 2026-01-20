@@ -87,3 +87,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-01-07 — OpenAI launches ChatGPT Health — https://openai.com/index/introducing-chatgpt-health/
 - 2026-01-11 — Anthropic launches Claude for Healthcare (JPM26) — https://fortune.com/2026/01/11/anthropic-unveils-claude-for-healthcare-and-expands-life-science-features-partners-with-healthex-to-let-users-connect-medical-records/
 
+## Week of 2026-01-12
+- 2026-01-12 — Anthropic launches Claude Cowork (research preview, macOS) — https://www.infoq.com/news/2026/01/claude-cowork/
+- 2026-01-12 — Apple and Google multi-year deal: Gemini to power next-gen Siri — https://techcrunch.com/2026/01/12/googles-gemini-to-power-apples-ai-features-like-siri/
+- 2026-01-13 — Google Veo 3.1 update (4K, vertical, Ingredients to Video) — https://blog.google/innovation-and-ai/technology/ai/veo-3-1-ingredients-to-video/
+
