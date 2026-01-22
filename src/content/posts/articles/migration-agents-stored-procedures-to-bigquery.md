@@ -44,3 +44,77 @@ The documentation agent reads the source, the translation and the validation rep
 
 Then a person looks at all three outputs and approves or rejects the cutover batch. Nothing goes live without that click.
 
+## What a translation looks like
+
+Here is a small procedure of the kind we saw hundreds of times. It computes month-to-date revenue by region and writes it to a summary table.
+
+```sql title="legacy_mtd_revenue.sql"
+CREATE PROCEDURE dbo.usp_mtd_revenue @as_of DATE
+AS
+BEGIN
+  DELETE FROM dbo.mtd_revenue WHERE as_of = @as_of;
+
+  INSERT INTO dbo.mtd_revenue (as_of, region, revenue)
+  SELECT @as_of,
+         r.region_name,
+         SUM(ISNULL(o.net_amount, 0))
+  FROM dbo.orders o
+  JOIN dbo.regions r ON r.region_id = o.region_id
+  WHERE o.order_date >= DATEADD(DAY, 1, EOMONTH(@as_of, -1))
+    AND o.order_date <= @as_of
+    AND o.status <> 'CANCELLED'
+  GROUP BY r.region_name;
+END
+```
+
+The translation agent produced this.
+
+```sql title="mtd_revenue.sql"
+CREATE OR REPLACE PROCEDURE finance.mtd_revenue(as_of DATE)
+BEGIN
+  DELETE FROM finance.mtd_revenue WHERE as_of = as_of_param;
+
+  INSERT INTO finance.mtd_revenue (as_of, region, revenue)
+  SELECT as_of,
+         r.region_name,
+         SUM(IFNULL(o.net_amount, 0))
+  FROM finance.orders AS o
+  JOIN finance.regions AS r ON r.region_id = o.region_id
+  WHERE o.order_date BETWEEN DATE_TRUNC(as_of, MONTH) AND as_of
+    AND o.status != 'CANCELLED'
+  GROUP BY r.region_name;
+END;
+```
+
+Two things to notice. The first version of this translation had a bug the agent introduced itself. The parameter name shadowed the column name in the DELETE, so the delete matched every row. The validation agent caught it because the row count in the target table dropped to one region's worth after a second run. We fixed the prompt to always suffix parameters. The bug never came back.
+
+The second thing is the assumptions list that came with it. The agent flagged that `ISNULL` and `IFNULL` behave the same for this case, that `EOMONTH(@as_of, -1) + 1 day` equals `DATE_TRUNC(as_of, MONTH)`, and that string comparison in the source was case-insensitive while BigQuery's is not. That last one mattered. Some rows had `Cancelled` in mixed case. The source excluded them. The naive translation did not.
+
+## What a reconciliation looks like
+
+The validation agent writes queries like this one for every numeric column and every business date in the sample.
+
+```sql title="reconcile_mtd_revenue.sql"
+WITH src AS (
+  SELECT region, revenue
+  FROM EXTERNAL_QUERY('projects/x/locations/us/connections/legacy',
+    'SELECT region, revenue FROM dbo.mtd_revenue WHERE as_of = ''2025-11-28''')
+),
+tgt AS (
+  SELECT region, revenue
+  FROM finance.mtd_revenue
+  WHERE as_of = DATE '2025-11-28'
+)
+SELECT
+  COALESCE(s.region, t.region) AS region,
+  s.revenue AS src_revenue,
+  t.revenue AS tgt_revenue,
+  ROUND(IFNULL(t.revenue, 0) - IFNULL(s.revenue, 0), 2) AS delta
+FROM src s
+FULL OUTER JOIN tgt t USING (region)
+WHERE ABS(IFNULL(t.revenue, 0) - IFNULL(s.revenue, 0)) > 0.01
+ORDER BY ABS(delta) DESC;
+```
+
+An empty result is a pass. A non-empty result goes into the report with the rows attached. Humans decide what a tolerable delta is. In finance it is usually zero.
+
