@@ -124,3 +124,7 @@ For every object in a cutover batch, both systems ran in parallel for at least t
 
 This is the expensive part. It is also the only part that made the business sign off. The agents produced translations in minutes. The trust took weeks, and no model shortens that. I have stopped trying to sell speed on the translation step. I sell the reconciliation report instead.
 
+## Rollback is a first-class output
+
+Every cutover batch produced a rollback plan as part of the documentation. Which downstream jobs to repoint, which tables to restore, which dashboards to flip. We tested one rollback for real in December when a currency conversion job started reading a table one day early because of a timezone default. We were back on the legacy path in under an hour. The plan was written by the documentation agent and reviewed by a person. Neither alone would have been enough.
+
