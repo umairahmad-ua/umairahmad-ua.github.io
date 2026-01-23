@@ -118,3 +118,9 @@ ORDER BY ABS(delta) DESC;
 
 An empty result is a pass. A non-empty result goes into the report with the rows attached. Humans decide what a tolerable delta is. In finance it is usually zero.
 
+## Dual run is not optional
+
+For every object in a cutover batch, both systems ran in parallel for at least two full closes. The target wrote to a shadow dataset. The reconciliation queries ran every night. The finance team saw a report every morning with three numbers per object. Rows compared, rows matching, rows differing.
+
+This is the expensive part. It is also the only part that made the business sign off. The agents produced translations in minutes. The trust took weeks, and no model shortens that. I have stopped trying to sell speed on the translation step. I sell the reconciliation report instead.
+
