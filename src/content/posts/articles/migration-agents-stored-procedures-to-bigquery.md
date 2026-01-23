@@ -128,3 +128,11 @@ This is the expensive part. It is also the only part that made the business sign
 
 Every cutover batch produced a rollback plan as part of the documentation. Which downstream jobs to repoint, which tables to restore, which dashboards to flip. We tested one rollback for real in December when a currency conversion job started reading a table one day early because of a timezone default. We were back on the legacy path in under an hour. The plan was written by the documentation agent and reviewed by a person. Neither alone would have been enough.
 
+## What the agents got wrong
+
+The translation agent overreached. Given a procedure with a cursor loop, it sometimes rewrote the logic into a set-based query. The set-based version was usually better. It was also different, and different needs proof. We changed the instruction to translate faithfully first and suggest improvements in a separate section.
+
+The validation agent under-sampled at first. It picked business dates uniformly. Month-end dates carry the edge cases, so we forced every sample to include the last three days of each month plus the first day of the next.
+
+The documentation agent wrote too much. Finance people do not want a paragraph on why `DATE_TRUNC` was chosen. They want the table of inputs and outputs. We cut its output to a fixed template.
+
