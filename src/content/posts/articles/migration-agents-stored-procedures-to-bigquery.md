@@ -136,3 +136,9 @@ The validation agent under-sampled at first. It picked business dates uniformly.
 
 The documentation agent wrote too much. Finance people do not want a paragraph on why `DATE_TRUNC` was chosen. They want the table of inputs and outputs. We cut its output to a fixed template.
 
+## The thesis
+
+Here is what I now believe about migration work with agents. The agent is cheap. The trust is expensive. A model can translate a thousand procedures over a weekend. It cannot make a controller sign a document saying the numbers are right. Only evidence does that. Reconciliation reports, dual-run periods and tested rollbacks are the product. The translation is an input to the product.
+
+If you are scoping a migration like this, budget the agent work at a fifth of the timeline. Budget the proving at the rest. Then tell the client that number before they hear the demo, because the demo will make them believe the opposite.
+
