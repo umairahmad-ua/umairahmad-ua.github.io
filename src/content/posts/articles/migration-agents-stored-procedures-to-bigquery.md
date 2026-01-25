@@ -142,3 +142,6 @@ Here is what I now believe about migration work with agents. The agent is cheap.
 
 If you are scoping a migration like this, budget the agent work at a fifth of the timeline. Budget the proving at the rest. Then tell the client that number before they hear the demo, because the demo will make them believe the opposite.
 
+## What is next
+
+The client's estate is about a third moved as I write this. The pipeline has settled into a rhythm of one batch per week. The next thing I want to try is letting the validation agent propose the sample dates itself, based on where it has found deltas before. That is a small change with a real payoff. It is also the kind of change I would only make now that the humans in the loop trust the reports they are reading.
