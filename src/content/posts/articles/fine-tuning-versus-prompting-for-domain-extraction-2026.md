@@ -19,11 +19,3 @@ A financial services client wants to extract structured fields from a few hundre
 
 Two years ago I would have said fine-tune without thinking. At Developers Inc I fine-tuned BERT for medical codes and QLoRA-tuned Llama 2 and Mistral for domain tasks, and it worked. Today my first answer is prompt, measure, and only then decide. This is the reasoning, and the cases where I still reach for QLoRA.
 
-## What changed
-
-Three things. Context windows grew until a whole document fits with room for a long schema and twenty examples. Structured output became a first-class API feature, so the model returns valid JSON against a schema instead of text you parse and hope. And the price of frontier inference fell far enough that running a large model over a few hundred thousand pages is a line item, not a project.
-
-Open models moved too. [Kimi K2.5](https://huggingface.co/blog/mlabonne/kimik25) came out yesterday as another trillion-parameter open weight release. The gap between what you can prompt and what you can host keeps narrowing from both sides.
-
-Fine-tuning did not get worse. Prompting got good enough for a larger share of tasks, and it is faster to iterate. A prompt change takes an hour and an eval run. A fine-tune takes a data pipeline, a training job on Vertex AI, and a day.
-
