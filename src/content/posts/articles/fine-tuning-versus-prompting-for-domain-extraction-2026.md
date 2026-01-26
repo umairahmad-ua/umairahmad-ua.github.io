@@ -13,9 +13,3 @@ sources:
 
 ## Table of contents
 
-## The question a client asked last week
-
-A financial services client wants to extract structured fields from a few hundred thousand legacy loan documents. Borrower details, terms, covenants, dates. Their engineering lead asked me whether we should fine-tune a model or prompt a frontier one.
-
-Two years ago I would have said fine-tune without thinking. At Developers Inc I fine-tuned BERT for medical codes and QLoRA-tuned Llama 2 and Mistral for domain tasks, and it worked. Today my first answer is prompt, measure, and only then decide. This is the reasoning, and the cases where I still reach for QLoRA.
-
