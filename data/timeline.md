@@ -92,3 +92,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-01-12 — Apple and Google multi-year deal: Gemini to power next-gen Siri — https://techcrunch.com/2026/01/12/googles-gemini-to-power-apples-ai-features-like-siri/
 - 2026-01-13 — Google Veo 3.1 update (4K, vertical, Ingredients to Video) — https://blog.google/innovation-and-ai/technology/ai/veo-3-1-ingredients-to-video/
 
+## Week of 2026-01-19
+- 2026-01-19 to 23 — WEF Davos: Amodei "Nobel-level" claims; Meta MSL confirms internal Avocado/Mango models — https://fortune.com/2026/01/23/deepmind-demis-hassabis-anthropic-dario-amodei-yann-lecun-ai-davos/
+- No major model releases verified this week.
+
