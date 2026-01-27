@@ -54,3 +54,54 @@ Then we run three candidates. A frontier model with schema, instructions and fif
 
 The pattern I see across clients in the last year is consistent. The frontier prompt wins on most fields out of the box. The fine-tune wins on the two or three fields with the most domain-specific format. Covenant clauses written in a house style. Internal product codes. Dates written in a way only that institution uses. The smaller hosted model usually loses on both unless the fine-tune is applied to it.
 
+## Where QLoRA still wins
+
+Four cases where I go straight to fine-tuning.
+
+**Codes and identifiers with internal structure.** Medical codes, part numbers, ledger codes. A model that has seen thousands of them learns the structure. A prompt with fifteen examples does not.
+
+**Noisy OCR at volume.** Scanned forms with checkbox marks, handwriting and skew. A fine-tune on the actual noise distribution beats a clean-text prompt. My document intelligence work at Data Insight was all this case.
+
+**Cost at scale.** When the monthly volume is tens of millions of pages, a fine-tuned 8B model on dedicated hardware costs a fraction of frontier inference. The training cost is paid once.
+
+**Residency.** When weights must run inside a client's VPC with no external calls, you are hosting a model. If you are hosting, tune it.
+
+## The hybrid we usually end up with
+
+For the loan documents, my recommendation is the hybrid we have landed on for two other clients. Prompt a frontier model for the bulk of fields. Fine-tune a small model for the two or three fields it loses on, and run it as a specialist tool the main extractor calls. Route by field, not by document.
+
+The fine-tune pipeline on Vertex AI looks roughly like this:
+
+```python
+from google.cloud import aiplatform
+
+job = aiplatform.CustomTrainingJob(
+    display_name="loan-covenant-qlora",
+    container_uri="us-docker.pkg.dev/vertex-ai/training/pytorch-gpu.2-3:latest",
+    script_path="train_qlora.py",
+)
+job.run(
+    args=[
+        "--base", "meta-llama/Meta-Llama-3-8B-Instruct",
+        "--train", "gs://client-bucket/covenants/train.jsonl",
+        "--eval", "gs://client-bucket/covenants/eval.jsonl",
+        "--lora-r", "16", "--lora-alpha", "32", "--epochs", "3",
+    ],
+    machine_type="a2-highgpu-1g",
+    accelerator_type="NVIDIA_TESLA_A100",
+    accelerator_count=1,
+)
+```
+
+The trained adapter is registered, evaluated against the same held-out set as the prompt, and served behind the same tool interface. The orchestrator does not know which fields are fine-tuned. It calls the extractor. The extractor routes.
+
+## Building the eval set is the real work
+
+Whichever way the decision goes, the labeled held-out set is the asset that survives. It outlasts the model, the prompt and the adapter.
+
+Our rule is that the client's own analysts label it, not us. We know the schema. They know what a covenant clause looks like when a loan officer wrote it in a hurry in 2014. Two analysts label independently. Disagreements go to a third. For the loan documents, the initial disagreement rate between the two analysts was around one field in eight. That number is itself useful. It is the ceiling on what any model can achieve on that field, because the ground truth is not settled.
+
+We also stratify. Two hundred documents chosen at random from a corpus that is ninety percent one document type will barely test the other ten percent. We sample by type, by year and by originating branch so the rare cases are present. The rare cases are usually where the fine-tune argument gets made, so they need to be in the set for the argument to be tested.
+
+And we keep the set frozen. Once it is labeled, nobody touches it until the next scheduled refresh. The temptation to fix a label when the model gets it "right" and the label is "wrong" is strong. We log those as disputes and resolve them at the refresh, not in the middle of a comparison.
+
