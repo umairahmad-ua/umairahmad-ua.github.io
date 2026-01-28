@@ -66,32 +66,3 @@ Four cases where I go straight to fine-tuning.
 
 **Residency.** When weights must run inside a client's VPC with no external calls, you are hosting a model. If you are hosting, tune it.
 
-## The hybrid we usually end up with
-
-For the loan documents, my recommendation is the hybrid we have landed on for two other clients. Prompt a frontier model for the bulk of fields. Fine-tune a small model for the two or three fields it loses on, and run it as a specialist tool the main extractor calls. Route by field, not by document.
-
-The fine-tune pipeline on Vertex AI looks roughly like this:
-
-```python
-from google.cloud import aiplatform
-
-job = aiplatform.CustomTrainingJob(
-    display_name="loan-covenant-qlora",
-    container_uri="us-docker.pkg.dev/vertex-ai/training/pytorch-gpu.2-3:latest",
-    script_path="train_qlora.py",
-)
-job.run(
-    args=[
-        "--base", "meta-llama/Meta-Llama-3-8B-Instruct",
-        "--train", "gs://client-bucket/covenants/train.jsonl",
-        "--eval", "gs://client-bucket/covenants/eval.jsonl",
-        "--lora-r", "16", "--lora-alpha", "32", "--epochs", "3",
-    ],
-    machine_type="a2-highgpu-1g",
-    accelerator_type="NVIDIA_TESLA_A100",
-    accelerator_count=1,
-)
-```
-
-The trained adapter is registered, evaluated against the same held-out set as the prompt, and served behind the same tool interface. The orchestrator does not know which fields are fine-tuned. It calls the extractor. The extractor routes.
-
