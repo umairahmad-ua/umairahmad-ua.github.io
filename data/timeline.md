@@ -96,3 +96,6 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-01-19 to 23 — WEF Davos: Amodei "Nobel-level" claims; Meta MSL confirms internal Avocado/Mango models — https://fortune.com/2026/01/23/deepmind-demis-hassabis-anthropic-dario-amodei-yann-lecun-ai-davos/
 - No major model releases verified this week.
 
+## Week of 2026-01-26
+- 2026-01-27 — Moonshot releases Kimi K2.5 (1T MoE, Agent Swarm) — https://huggingface.co/blog/mlabonne/kimik25
+
