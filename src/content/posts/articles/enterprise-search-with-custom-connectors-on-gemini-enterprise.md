@@ -16,3 +16,9 @@ sources:
 
 ## Table of contents
 
+## The question that started it
+
+A wealth management firm asked us a simple question in December. An advisor gets a call from a client. She needs to know the client's risk profile, the last three conversations, the current policy on a product, and the account balance. Today that is four systems and about eleven minutes. Can an agent answer in one place, and can it be trusted not to show her something she is not cleared to see.
+
+The second half of that question is the whole project. Search is easy. Permission-aware search with citations is the work.
+
