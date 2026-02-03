@@ -65,21 +65,3 @@ The scoring has four parts. Did the expected sources appear. Did any forbidden s
 
 A forbidden source appearing is a hard fail. One case fails, the change does not merge. Everything else is a threshold.
 
-## What went wrong
-
-Two things.
-
-The first was latency. The CRM API is slow, around two seconds for a notes lookup. When the agent decided to fetch notes for all five recent interactions, answers took twelve seconds. We added a summary tool that returns one line per interaction and only fetches full notes on request. Median answer time dropped under four seconds.
-
-The second was the judge disagreeing with humans on completeness. The judge wanted more detail than advisors did. Advisors wanted the number and the source. We rewrote the rubric with the advisors' own words for what a good answer looks like, and agreement went up.
-
-## What we kept from the blueprint
-
-Choosing the platform did not mean throwing away what my team learned building retrieval by hand. Three pieces carried over.
-
-The query rewrite step. Advisors type shorthand. "risk prof for the Hendersons" is not a search query. A small Gemini Flash call turns it into a structured request with a client identifier and an intent before anything is retrieved. That step lives in our ADK agent, in front of the platform.
-
-The refusal threshold. The platform returns relevance scores. We set the floor from the eval set, not from a default. Below the floor the agent refuses rather than guessing.
-
-The judge. Gemini Enterprise gives us grounded answers with citations. It does not tell us how often those citations actually support the sentence they are attached to. Our judge does. It runs on a five percent sample of live sessions every night and the groundedness score sits on the same dashboard as latency and cost.
-
