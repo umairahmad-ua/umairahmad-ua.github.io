@@ -55,3 +55,31 @@ Every answer shows where it came from. A policy answer links to the document and
 
 We made the agent refuse when it cannot cite. If the retrieval returns nothing above a relevance threshold, the answer is "I could not find a source for that" and a suggestion of who to ask. Advisors told us in the pilot that this refusal was the feature that made them trust the rest.
 
+## The eval harness
+
+Nothing about the retrieval configuration or the agent prompt changes without passing a fixed set of cases. We built around 180 of them with two advisors and one compliance officer over three weeks.
+
+Each case has a question, the advisor identity to run it as, the documents or records that should be cited, and the ones that must not appear. The last part is the permission test. We run each case as a user who should see the answer and as a user who should not.
+
+The scoring has four parts. Did the expected sources appear. Did any forbidden source appear. Was the answer grounded in the cited text, scored by a judge model that is not the one generating. Was the answer complete, scored by the same judge against a reference.
+
+A forbidden source appearing is a hard fail. One case fails, the change does not merge. Everything else is a threshold.
+
+## What went wrong
+
+Two things.
+
+The first was latency. The CRM API is slow, around two seconds for a notes lookup. When the agent decided to fetch notes for all five recent interactions, answers took twelve seconds. We added a summary tool that returns one line per interaction and only fetches full notes on request. Median answer time dropped under four seconds.
+
+The second was the judge disagreeing with humans on completeness. The judge wanted more detail than advisors did. Advisors wanted the number and the source. We rewrote the rubric with the advisors' own words for what a good answer looks like, and agreement went up.
+
+## What we kept from the blueprint
+
+Choosing the platform did not mean throwing away what my team learned building retrieval by hand. Three pieces carried over.
+
+The query rewrite step. Advisors type shorthand. "risk prof for the Hendersons" is not a search query. A small Gemini Flash call turns it into a structured request with a client identifier and an intent before anything is retrieved. That step lives in our ADK agent, in front of the platform.
+
+The refusal threshold. The platform returns relevance scores. We set the floor from the eval set, not from a default. Below the floor the agent refuses rather than guessing.
+
+The judge. Gemini Enterprise gives us grounded answers with citations. It does not tell us how often those citations actually support the sentence they are attached to. Our judge does. It runs on a five percent sample of live sessions every night and the groundedness score sits on the same dashboard as latency and cost.
+
