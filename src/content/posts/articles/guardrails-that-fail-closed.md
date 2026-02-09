@@ -16,3 +16,43 @@ sources:
 
 ## Table of contents
 
+## The outage that taught us the rule
+
+In January a policy service my team runs went down for nine minutes. It sits between our agents and their tools. Every tool call passes through it and gets a yes or a no.
+
+For those nine minutes, one agent kept working. It had been written to treat a timeout as a yes. The other agents stopped. They had been written to treat a timeout as a no.
+
+Nothing bad happened. The agent that kept working was a read-only research agent. But the review afterwards was uncomfortable, because the difference between the two behaviors was one line of code and nobody had made the decision on purpose.
+
+We now have a rule. Guardrails fail closed. If the policy layer cannot answer, the answer is no.
+
+## What the policy layer does
+
+I think of guardrails as three separate checks, and I keep them separate in code because they change at different speeds.
+
+**Input policy.** What is the user allowed to ask this agent. For a healthcare client this blocks requests that would need a clinician. For a finance client it blocks anything that looks like a request for advice rather than information. This check runs on the user message before the model sees it.
+
+**Tool policy.** What is this agent allowed to do, with which parameters, on behalf of which user. This is an allowlist, not a denylist. An agent starts with zero tools and each one is granted with a scope. The cloud operations agent I run can restart a service in staging without asking. In production it can propose the restart and a human presses the button.
+
+**Output policy.** What can leave. PII that was not in the input. Claims without a citation when the agent is grounded. Content that violates a brand rule for a marketing client. This runs on the model output before the user sees it.
+
+```yaml
+agent: claims-intake
+input_policy:
+  block: [clinical_advice, legal_advice]
+  max_attachments: 5
+tools:
+  - name: lookup_member
+    scopes: [read]
+    as_user: true
+  - name: submit_claim
+    scopes: [write]
+    requires_approval: production
+output_policy:
+  require_citation: true
+  pii: redact_unless_in_input
+on_policy_error: deny
+```
+
+That last line is the one the outage taught us to write down.
+
