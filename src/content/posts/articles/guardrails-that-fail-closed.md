@@ -88,9 +88,3 @@ Now every block carries a reason category and a next step. "This looks like a re
 
 Two effects. Retry-around attempts dropped in the logs once people understood the boundary. And the support team stopped getting tickets that said the agent was broken. It was not broken. It was declining, and now it says so in a way a person can act on.
 
-## Where the industry is going
-
-Both large labs announced enterprise agent products last week. Anthropic's Opus 4.6 came with agent teams in Claude Code, and OpenAI announced [Frontier](https://openai.com/index/introducing-openai-frontier/), an enterprise platform for running agents. Both put permissions and audit at the center of the pitch.
-
-I read that as a good sign. A year ago the pitch was capability. Now the pitch is control. My clients never asked how smart the agent was. They asked what it could not do, and who would know if it tried.
-
