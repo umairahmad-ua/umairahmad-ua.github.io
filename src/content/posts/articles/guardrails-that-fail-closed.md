@@ -72,11 +72,3 @@ An allowlist inverts that. The agent can do exactly the things you named with ex
 
 For the ops agent this meant writing playbooks first. Restart service, scale within a range, roll back a deployment, open a ticket. Each one is a tool with a schema. The agent picks among playbooks. It does not compose raw cloud commands.
 
-## Testing a guardrail
-
-A guardrail with no test is a comment. We test in three ways.
-
-Positive cases confirm allowed requests pass. Negative cases confirm blocked requests are blocked and the user gets a clear message about why. Adversarial cases are the interesting set. We collect real attempts from logs where a user tried to route around a policy, add synthetic variants, and run them on every change. The pass criterion for adversarial cases is that the block rate does not drop.
-
-The judge model for output policy is a different model from the one generating. We rotate it. This week we added [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) as a judge for the output checks on one client. The million-token context helps when the judge needs the whole retrieved set to decide whether a claim was grounded.
-
