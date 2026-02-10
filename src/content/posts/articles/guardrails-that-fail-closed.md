@@ -64,11 +64,3 @@ We run it as a small service on Cloud Run with a regional replica, and we cache 
 
 The one place we allow a degraded mode is read-only tools with no PII in scope. Those can run against a stale cached policy for up to five minutes. Anything that writes, pays, sends, or touches personal data waits.
 
-## Allowlists over denylists
-
-Every guardrail incident I have seen in a client project came from a denylist. Someone wrote down the bad things and the agent found a thing that was not on the list.
-
-An allowlist inverts that. The agent can do exactly the things you named with exactly the parameter ranges you named. A new capability is a deliberate addition, reviewed, with an eval case. It feels slower for the first two weeks of a project. It is faster by week six because nobody is debugging surprises.
-
-For the ops agent this meant writing playbooks first. Restart service, scale within a range, roll back a deployment, open a ticket. Each one is a tool with a schema. The agent picks among playbooks. It does not compose raw cloud commands.
-
