@@ -64,3 +64,33 @@ We run it as a small service on Cloud Run with a regional replica, and we cache 
 
 The one place we allow a degraded mode is read-only tools with no PII in scope. Those can run against a stale cached policy for up to five minutes. Anything that writes, pays, sends, or touches personal data waits.
 
+## Allowlists over denylists
+
+Every guardrail incident I have seen in a client project came from a denylist. Someone wrote down the bad things and the agent found a thing that was not on the list.
+
+An allowlist inverts that. The agent can do exactly the things you named with exactly the parameter ranges you named. A new capability is a deliberate addition, reviewed, with an eval case. It feels slower for the first two weeks of a project. It is faster by week six because nobody is debugging surprises.
+
+For the ops agent this meant writing playbooks first. Restart service, scale within a range, roll back a deployment, open a ticket. Each one is a tool with a schema. The agent picks among playbooks. It does not compose raw cloud commands.
+
+## Testing a guardrail
+
+A guardrail with no test is a comment. We test in three ways.
+
+Positive cases confirm allowed requests pass. Negative cases confirm blocked requests are blocked and the user gets a clear message about why. Adversarial cases are the interesting set. We collect real attempts from logs where a user tried to route around a policy, add synthetic variants, and run them on every change. The pass criterion for adversarial cases is that the block rate does not drop.
+
+The judge model for output policy is a different model from the one generating. We rotate it. This week we added [Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) as a judge for the output checks on one client. The million-token context helps when the judge needs the whole retrieved set to decide whether a claim was grounded.
+
+## The message the user sees
+
+A blocked request is a moment where trust is won or lost. Early on our agents said "I cannot help with that." Users read it as a broken product and retried with different wording until something got through. That is the behavior a guardrail is supposed to prevent, and the vague message was causing it.
+
+Now every block carries a reason category and a next step. "This looks like a request for clinical advice. I can find the policy document or connect you with the nurse line." The category comes from the policy that fired. The next step is written per category by the client's own team, because they know who the user should talk to.
+
+Two effects. Retry-around attempts dropped in the logs once people understood the boundary. And the support team stopped getting tickets that said the agent was broken. It was not broken. It was declining, and now it says so in a way a person can act on.
+
+## Where the industry is going
+
+Both large labs announced enterprise agent products last week. Anthropic's Opus 4.6 came with agent teams in Claude Code, and OpenAI announced [Frontier](https://openai.com/index/introducing-openai-frontier/), an enterprise platform for running agents. Both put permissions and audit at the center of the pitch.
+
+I read that as a good sign. A year ago the pitch was capability. Now the pitch is control. My clients never asked how smart the agent was. They asked what it could not do, and who would know if it tried.
+
