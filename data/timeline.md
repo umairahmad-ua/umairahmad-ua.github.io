@@ -99,3 +99,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 ## Week of 2026-01-26
 - 2026-01-27 — Moonshot releases Kimi K2.5 (1T MoE, Agent Swarm) — https://huggingface.co/blog/mlabonne/kimik25
 
+## Week of 2026-02-02
+- 2026-02-02 — OpenAI Codex app for macOS — https://openai.com/index/introducing-the-codex-app/
+- 2026-02-05 — Anthropic releases Claude Opus 4.6 (1M context beta; Claude Code agent teams research preview) — https://www.anthropic.com/news/claude-opus-4-6
+- 2026-02-05 — OpenAI GPT-5.3-Codex — https://openai.com/index/introducing-gpt-5-3-codex/
+- 2026-02-05 — OpenAI Frontier enterprise agent platform — https://openai.com/index/introducing-openai-frontier/
+
