@@ -21,3 +21,5 @@ A media client asked us a question in January that I have heard four times now i
 
 I still build retrieval for every enterprise client. This post is the blueprint I reuse and the reasons I have not thrown it away.
 
+## Table of contents
+
