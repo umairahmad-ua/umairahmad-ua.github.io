@@ -105,3 +105,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-02-05 — OpenAI GPT-5.3-Codex — https://openai.com/index/introducing-gpt-5-3-codex/
 - 2026-02-05 — OpenAI Frontier enterprise agent platform — https://openai.com/index/introducing-openai-frontier/
 
+## Week of 2026-02-09
+- 2026-02-11 — Z.ai releases GLM-5 (744B MoE) — https://huggingface.co/blog/mlabonne/glm-5
+- 2026-02-12 — MiniMax M2.5 — https://www.minimax.io/news/minimax-m25
+- 2026-02-12 — Anthropic raises $30B Series G at $380B post-money — https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation
+
