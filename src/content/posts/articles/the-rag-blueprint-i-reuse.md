@@ -45,9 +45,3 @@ Tables are extracted as tables, not flattened to text. We keep the header row wi
 
 Every chunk carries metadata. Source document, page, section heading path, effective date, access group. The access group is non-negotiable. It is applied as a filter at query time, not as a post-filter after retrieval. Post-filtering leaks.
 
-## Hierarchical chunking
-
-I use parent-child chunking on every client now. Small child chunks, around two hundred tokens, get embedded and indexed. Each child points to a parent of around fifteen hundred tokens. Retrieval matches on children. Generation reads parents.
-
-This gives you precise matching and enough surrounding context for the model to answer without guessing. It also makes citations honest. The citation points to the parent section, which is what a human would cite.
-
