@@ -23,3 +23,15 @@ I still build retrieval for every enterprise client. This post is the blueprint 
 
 ## Table of contents
 
+## Why long context did not end retrieval
+
+Three reasons, and none of them is about model quality.
+
+The first is that enterprise corpora are not a million tokens. They are a billion. A single client's contract archive at Developers Inc. ran to hundreds of thousands of PDFs. You cannot put that in a prompt. You have to choose, and choosing is retrieval.
+
+The second is cost per question. Even at the prices announced this month, stuffing a hundred thousand tokens into every request is expensive at ten thousand questions a day. Retrieval that finds the right two thousand tokens is cheaper by a factor I can defend to a CFO.
+
+The third is permissions. Row-level and document-level access rules exist in every regulated client I have worked with. Retrieval is where you enforce them. A long-context prompt has no idea which documents the user is allowed to see. The retriever does.
+
+Long context changed how I use retrieval. I retrieve more generously now. I send whole parent sections instead of tight chunks. I stopped worrying about squeezing into four thousand tokens. But I did not stop retrieving.
+
