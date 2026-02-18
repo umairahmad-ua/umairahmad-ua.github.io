@@ -35,3 +35,19 @@ The third is permissions. Row-level and document-level access rules exist in eve
 
 Long context changed how I use retrieval. I retrieve more generously now. I send whole parent sections instead of tight chunks. I stopped worrying about squeezing into four thousand tokens. But I did not stop retrieving.
 
+## Ingestion: the boring half that decides everything
+
+Most retrieval failures I have debugged were ingestion failures. The chunk existed. It was wrong.
+
+The blueprint handles PDF, DOCX, HTML and scanned images. Scanned pages go through OCR first, and the OCR confidence is stored on the chunk. Low-confidence chunks get flagged for human review before they enter the index. This came from the medical claims work at Developers Inc. A misread digit in a CPT code is worse than a missing one.
+
+Tables are extracted as tables, not flattened to text. We keep the header row with every chunk that comes from a table body. A row of numbers without its header is noise to an embedding model.
+
+Every chunk carries metadata. Source document, page, section heading path, effective date, access group. The access group is non-negotiable. It is applied as a filter at query time, not as a post-filter after retrieval. Post-filtering leaks.
+
+## Hierarchical chunking
+
+I use parent-child chunking on every client now. Small child chunks, around two hundred tokens, get embedded and indexed. Each child points to a parent of around fifteen hundred tokens. Retrieval matches on children. Generation reads parents.
+
+This gives you precise matching and enough surrounding context for the model to answer without guessing. It also makes citations honest. The citation points to the parent section, which is what a human would cite.
+
