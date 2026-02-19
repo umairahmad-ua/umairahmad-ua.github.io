@@ -45,3 +45,57 @@ Tables are extracted as tables, not flattened to text. We keep the header row wi
 
 Every chunk carries metadata. Source document, page, section heading path, effective date, access group. The access group is non-negotiable. It is applied as a filter at query time, not as a post-filter after retrieval. Post-filtering leaks.
 
+## Hierarchical chunking
+
+I use parent-child chunking on every client now. Small child chunks, around two hundred tokens, get embedded and indexed. Each child points to a parent of around fifteen hundred tokens. Retrieval matches on children. Generation reads parents.
+
+This gives you precise matching and enough surrounding context for the model to answer without guessing. It also makes citations honest. The citation points to the parent section, which is what a human would cite.
+
+## Hybrid retrieval
+
+Dense retrieval alone misses exact matches. A user asking about clause 14.3 or invoice INV-2025-08812 wants that string, not its nearest semantic neighbor. Sparse retrieval alone misses paraphrase. So we run both and fuse.
+
+Here is the core of the function my team reuses. It is deliberately plain.
+
+```python title="retrieve.py"
+from dataclasses import dataclass
+
+
+@dataclass
+class Hit:
+    chunk_id: str
+    parent_id: str
+    score: float
+
+
+def reciprocal_rank_fusion(*ranked_lists: list[Hit], k: int = 60) -> list[Hit]:
+    fused: dict[str, float] = {}
+    parents: dict[str, str] = {}
+    for hits in ranked_lists:
+        for rank, hit in enumerate(hits, start=1):
+            fused[hit.chunk_id] = fused.get(hit.chunk_id, 0.0) + 1.0 / (k + rank)
+            parents[hit.chunk_id] = hit.parent_id
+    return sorted(
+        (Hit(cid, parents[cid], score) for cid, score in fused.items()),
+        key=lambda h: h.score,
+        reverse=True,
+    )
+
+
+def hybrid_retrieve(query: str, access_groups: list[str], top_k: int = 40) -> list[Hit]:
+    where = {"access_group": {"$in": access_groups}}
+    dense = vector_store.search(embed(query), filter=where, top_k=top_k)
+    sparse = keyword_index.search(query, filter=where, top_k=top_k)
+    fused = reciprocal_rank_fusion(dense, sparse)
+    reranked = cross_encoder.rerank(query, fused[:top_k], top_n=8)
+    return dedupe_by_parent(reranked)
+```
+
+The access filter is applied in both legs. The fusion is reciprocal rank fusion with the standard constant. The reranker sees the top forty and returns eight. Then we collapse to unique parents so the model does not read the same section twice.
+
+## Reranking earns its latency
+
+A cross-encoder reranker adds a hundred to three hundred milliseconds. Every client asks if we can drop it. We measured this on three client corpora. Dropping the reranker lowered answer faithfulness on every eval set, by enough that nobody chose to drop it after seeing the numbers.
+
+The reranker is also where I put domain adaptation when a client's language is unusual. Fine-tuning the embedding model is expensive and disruptive to the index. Fine-tuning the reranker on a few thousand query-passage pairs is a weekend and touches nothing downstream.
+
