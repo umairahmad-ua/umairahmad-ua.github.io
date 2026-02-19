@@ -93,9 +93,3 @@ def hybrid_retrieve(query: str, access_groups: list[str], top_k: int = 40) -> li
 
 The access filter is applied in both legs. The fusion is reciprocal rank fusion with the standard constant. The reranker sees the top forty and returns eight. Then we collapse to unique parents so the model does not read the same section twice.
 
-## Reranking earns its latency
-
-A cross-encoder reranker adds a hundred to three hundred milliseconds. Every client asks if we can drop it. We measured this on three client corpora. Dropping the reranker lowered answer faithfulness on every eval set, by enough that nobody chose to drop it after seeing the numbers.
-
-The reranker is also where I put domain adaptation when a client's language is unusual. Fine-tuning the embedding model is expensive and disruptive to the index. Fine-tuning the reranker on a few thousand query-passage pairs is a weekend and touches nothing downstream.
-
