@@ -93,3 +93,23 @@ def hybrid_retrieve(query: str, access_groups: list[str], top_k: int = 40) -> li
 
 The access filter is applied in both legs. The fusion is reciprocal rank fusion with the standard constant. The reranker sees the top forty and returns eight. Then we collapse to unique parents so the model does not read the same section twice.
 
+## Reranking earns its latency
+
+A cross-encoder reranker adds a hundred to three hundred milliseconds. Every client asks if we can drop it. We measured this on three client corpora. Dropping the reranker lowered answer faithfulness on every eval set, by enough that nobody chose to drop it after seeing the numbers.
+
+The reranker is also where I put domain adaptation when a client's language is unusual. Fine-tuning the embedding model is expensive and disruptive to the index. Fine-tuning the reranker on a few thousand query-passage pairs is a weekend and touches nothing downstream.
+
+## Citation-grounded generation
+
+The generation prompt receives parents with stable identifiers. The model is instructed to cite an identifier after every claim and to say "not in the provided documents" when the answer is not there. We parse the citations out and verify that every cited identifier was actually in the context. A citation to a section that was not retrieved is a hallucination. It fails the request.
+
+This is the single most effective trust feature I have built. Users click the citation. They see the paragraph. They stop asking whether the system is making things up.
+
+## Evaluation gates in CI
+
+Every client repo has an eval set. Between one hundred and five hundred questions with graded reference answers and the source sections that support them. We score context recall, answer faithfulness and answer relevance in the style of RAGAS, plus a citation precision metric of our own.
+
+The scores run in CI. A pull request that changes chunking, embedding model, reranker or prompt has to hold the baseline or explain why. This has stopped more regressions than any code review. It is also how we proved the reranker point above.
+
+One lesson from Pinecone-based systems at Developers Inc. We used to keep the eval set in a spreadsheet. It rotted in a month. Now it lives in the repo next to the code, and adding a question is a pull request.
+
