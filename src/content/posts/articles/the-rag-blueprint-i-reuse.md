@@ -105,11 +105,3 @@ The generation prompt receives parents with stable identifiers. The model is ins
 
 This is the single most effective trust feature I have built. Users click the citation. They see the paragraph. They stop asking whether the system is making things up.
 
-## Evaluation gates in CI
-
-Every client repo has an eval set. Between one hundred and five hundred questions with graded reference answers and the source sections that support them. We score context recall, answer faithfulness and answer relevance in the style of RAGAS, plus a citation precision metric of our own.
-
-The scores run in CI. A pull request that changes chunking, embedding model, reranker or prompt has to hold the baseline or explain why. This has stopped more regressions than any code review. It is also how we proved the reranker point above.
-
-One lesson from Pinecone-based systems at Developers Inc. We used to keep the eval set in a spreadsheet. It rotted in a month. Now it lives in the repo next to the code, and adding a question is a pull request.
-
