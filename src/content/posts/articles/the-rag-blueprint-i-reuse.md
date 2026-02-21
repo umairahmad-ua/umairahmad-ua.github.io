@@ -121,3 +121,9 @@ Every chunk carries a content hash and the document's modified time. Re-ingestio
 
 Deletes are a compliance matter in most of my clients. A document removed from the source has to vanish from the index within a defined window. We run a nightly job that lists the source, diffs it against the index, and removes orphans. It is boring. It has also been asked about in every security review I have sat through.
 
+## When I do not build
+
+Vertex AI Search does most of this out of the box. Ingestion, chunking, hybrid retrieval, reranking and grounded answers with citations. For Scout, the marketing intelligence system we run for Let's Forage, we used it instead of the blueprint above. The corpus was a few thousand documents. The access model was flat. There was no reason to own a vector database.
+
+My rule is now simple. If the corpus is under fifty thousand documents and the access model is flat, use the managed service. If you need custom chunking for tables, per-document access filters, or a fine-tuned reranker, build the blueprint. Most clients start on the managed service and a few graduate.
+
