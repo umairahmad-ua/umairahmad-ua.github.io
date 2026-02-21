@@ -105,3 +105,19 @@ The generation prompt receives parents with stable identifiers. The model is ins
 
 This is the single most effective trust feature I have built. Users click the citation. They see the paragraph. They stop asking whether the system is making things up.
 
+## Evaluation gates in CI
+
+Every client repo has an eval set. Between one hundred and five hundred questions with graded reference answers and the source sections that support them. We score context recall, answer faithfulness and answer relevance in the style of RAGAS, plus a citation precision metric of our own.
+
+The scores run in CI. A pull request that changes chunking, embedding model, reranker or prompt has to hold the baseline or explain why. This has stopped more regressions than any code review. It is also how we proved the reranker point above.
+
+One lesson from Pinecone-based systems at Developers Inc. We used to keep the eval set in a spreadsheet. It rotted in a month. Now it lives in the repo next to the code, and adding a question is a pull request.
+
+## Freshness and deletes
+
+Two things nobody plans for on day one. Documents change and documents get deleted.
+
+Every chunk carries a content hash and the document's modified time. Re-ingestion compares hashes and only re-embeds what changed. This keeps embedding costs down and, more important, keeps chunk identifiers stable so old citations still resolve.
+
+Deletes are a compliance matter in most of my clients. A document removed from the source has to vanish from the index within a defined window. We run a nightly job that lists the source, diffs it against the index, and removes orphans. It is boring. It has also been asked about in every security review I have sat through.
+
