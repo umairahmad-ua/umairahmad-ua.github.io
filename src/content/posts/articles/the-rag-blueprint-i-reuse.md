@@ -127,3 +127,8 @@ Vertex AI Search does most of this out of the box. Ingestion, chunking, hybrid r
 
 My rule is now simple. If the corpus is under fifty thousand documents and the access model is flat, use the managed service. If you need custom chunking for tables, per-document access filters, or a fine-tuned reranker, build the blueprint. Most clients start on the managed service and a few graduate.
 
+## What I would tell my 2024 self
+
+Stop optimizing the embedding model. Fix ingestion. Add the reranker. Put the eval set in the repo. Enforce access at retrieval time. Send parents, not chunks, to the model.
+
+And when someone asks why you are still chunking documents now that context windows are huge, show them the cost per question and the permissions model. The conversation ends there.
