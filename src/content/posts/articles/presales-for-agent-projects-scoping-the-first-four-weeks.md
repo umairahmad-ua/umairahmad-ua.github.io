@@ -66,11 +66,3 @@ Finance wants the cost model. Not the model price list. The cost per completed t
 
 The people doing the work today want to know if they are being replaced. I tell them the truth. The agent reads and drafts. They decide. Their overrides train it. In every project that has lasted, the people doing the work became the owners of the eval set. In the one that did not last, nobody had talked to them until launch day.
 
-## Pricing by task, not by seat
-
-Most vendor decks price by seat. I price the pilot as a fixed engagement and the production system by completed task, with a floor and a ceiling.
-
-Per-task pricing keeps everyone honest. The client pays for work done. I get paid more when the agent handles more, which means I care about the success rate as much as they do. And it forces the cost-per-task tracing that I would want anyway, because I cannot invoice for what I did not measure.
-
-Model prices move under this arrangement. Both [Claude Sonnet 4.6](https://en.wikipedia.org/wiki/Claude_(language_model)) and [Gemini 3.1 Pro](https://en.wikipedia.org/wiki/Gemini_(language_model)) arrived this month. Each one changes the margin on a task. The routing layer absorbs most of that. The contract has a clause for the rest.
-
