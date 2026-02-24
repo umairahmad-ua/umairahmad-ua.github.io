@@ -50,3 +50,37 @@ Two things happen in these two weeks. First, we learn what the work actually is.
 
 Second, we get the scoring rubric out of the client's head and into a file. When the client's own lead tells us what makes a reply good, in their words, we have the judge prompt for the eval harness. The agent, when it arrives, is measured against the client's standard from its first run.
 
+## Weeks three and four: the narrow pilot
+
+We build the smallest agent that handles the clearest slice. For support that was the twenty-two percent, with a human reading every reply before it sent. On Google Cloud that is usually one ADK agent on Agent Engine, a couple of typed tools into the client's systems, and Langfuse tracing from the first request.
+
+The pilot has three exit numbers agreed in writing before it starts. Task success rate on the eval set. Human override rate in the pilot. Cost per completed task. If all three clear the agreed line, we expand. If not, we have spent four weeks and learned something true.
+
+## The stakeholders who are not on the call
+
+The director of operations is on the call. Three people who will decide whether the project survives are not. I ask to meet each of them before the pilot starts.
+
+Security wants to know what the agent can reach and what it logs. I bring the tool allowlist and the trace schema, and I show them the redaction step that runs before anything is written. That meeting is thirty minutes if I bring the documents and three weeks if I do not.
+
+Finance wants the cost model. Not the model price list. The cost per completed task, with the human review time included, next to the cost of the current process. If I cannot show that by week four, the project does not get a budget line.
+
+The people doing the work today want to know if they are being replaced. I tell them the truth. The agent reads and drafts. They decide. Their overrides train it. In every project that has lasted, the people doing the work became the owners of the eval set. In the one that did not last, nobody had talked to them until launch day.
+
+## Pricing by task, not by seat
+
+Most vendor decks price by seat. I price the pilot as a fixed engagement and the production system by completed task, with a floor and a ceiling.
+
+Per-task pricing keeps everyone honest. The client pays for work done. I get paid more when the agent handles more, which means I care about the success rate as much as they do. And it forces the cost-per-task tracing that I would want anyway, because I cannot invoice for what I did not measure.
+
+Model prices move under this arrangement. Both [Claude Sonnet 4.6](https://en.wikipedia.org/wiki/Claude_(language_model)) and [Gemini 3.1 Pro](https://en.wikipedia.org/wiki/Gemini_(language_model)) arrived this month. Each one changes the margin on a task. The routing layer absorbs most of that. The contract has a clause for the rest.
+
+## What I refuse to promise
+
+**A percentage before the eval set exists.** Anyone who tells you forty percent on the first call is quoting a deck, not your data.
+
+**Zero human review on high-cost decisions.** If a wrong answer costs a patient or a regulator, a human approves. I will make that human faster. I will not remove them.
+
+**A fixed timeline before I have seen the data access.** The agent is three weeks. The API that does not exist is three months.
+
+**A demo as evidence.** I will show one. I will also say, out loud, that the demo predicts nothing.
+
