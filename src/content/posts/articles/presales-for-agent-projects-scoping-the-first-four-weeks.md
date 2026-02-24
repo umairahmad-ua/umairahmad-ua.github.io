@@ -56,3 +56,21 @@ We build the smallest agent that handles the clearest slice. For support that wa
 
 The pilot has three exit numbers agreed in writing before it starts. Task success rate on the eval set. Human override rate in the pilot. Cost per completed task. If all three clear the agreed line, we expand. If not, we have spent four weeks and learned something true.
 
+## The stakeholders who are not on the call
+
+The director of operations is on the call. Three people who will decide whether the project survives are not. I ask to meet each of them before the pilot starts.
+
+Security wants to know what the agent can reach and what it logs. I bring the tool allowlist and the trace schema, and I show them the redaction step that runs before anything is written. That meeting is thirty minutes if I bring the documents and three weeks if I do not.
+
+Finance wants the cost model. Not the model price list. The cost per completed task, with the human review time included, next to the cost of the current process. If I cannot show that by week four, the project does not get a budget line.
+
+The people doing the work today want to know if they are being replaced. I tell them the truth. The agent reads and drafts. They decide. Their overrides train it. In every project that has lasted, the people doing the work became the owners of the eval set. In the one that did not last, nobody had talked to them until launch day.
+
+## Pricing by task, not by seat
+
+Most vendor decks price by seat. I price the pilot as a fixed engagement and the production system by completed task, with a floor and a ceiling.
+
+Per-task pricing keeps everyone honest. The client pays for work done. I get paid more when the agent handles more, which means I care about the success rate as much as they do. And it forces the cost-per-task tracing that I would want anyway, because I cannot invoice for what I did not measure.
+
+Model prices move under this arrangement. Both [Claude Sonnet 4.6](https://en.wikipedia.org/wiki/Claude_(language_model)) and [Gemini 3.1 Pro](https://en.wikipedia.org/wiki/Gemini_(language_model)) arrived this month. Each one changes the margin on a task. The routing layer absorbs most of that. The contract has a clause for the rest.
+
