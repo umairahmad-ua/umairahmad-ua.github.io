@@ -110,3 +110,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-02-12 — MiniMax M2.5 — https://www.minimax.io/news/minimax-m25
 - 2026-02-12 — Anthropic raises $30B Series G at $380B post-money — https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation
 
+## Week of 2026-02-16
+- 2026-02-16 — Alibaba Qwen3.5 (397B-A17B open weights) — https://en.wikipedia.org/wiki/Qwen
+- 2026-02-17 — Anthropic releases Claude Sonnet 4.6 — https://en.wikipedia.org/wiki/Claude_(language_model)
+- 2026-02-19 — Google Gemini 3.1 Pro — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2026-02-20 — Anthropic announces Claude Code Security (limited research preview) — https://www.anthropic.com/news/claude-code-security
+
