@@ -84,3 +84,8 @@ Model prices move under this arrangement. Both [Claude Sonnet 4.6](https://en.wi
 
 **A demo as evidence.** I will show one. I will also say, out loud, that the demo predicts nothing.
 
+## Why this works
+
+Clients sometimes push back on the four weeks. They want the agent in week one. I explain that the eval set is the agent's job description. Building the agent first means writing the job description after the hire.
+
+The ones who stay through the four weeks are the ones still running the system a year later. That is the only sales metric I track.
