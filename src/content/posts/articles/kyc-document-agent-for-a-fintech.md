@@ -14,11 +14,3 @@ sources:
     date: 2026-03-03
 ---
 
-## Table of contents
-
-## Eleven minutes per applicant
-
-A consumer fintech came to us in November with a number. Each new applicant took an analyst eleven minutes on average. Most of that was reading. A passport or license, a utility bill or bank statement, a selfie, then three lookups in three tabs. The decision itself took under a minute.
-
-The analysts were not slow. The work was. My team built an agent that does the reading and the lookups and leaves the decision where it was.
-
