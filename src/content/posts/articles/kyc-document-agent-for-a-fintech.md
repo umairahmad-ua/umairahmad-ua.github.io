@@ -76,9 +76,3 @@ Two buttons. Accept the recommendation, or override with a reason. Overrides go 
 
 Analysts asked for one thing we had not planned. A "show me why" link on the recommendation that expands the rule and the inputs. That link is now the most-clicked element on the page.
 
-## Evaluating it
-
-The eval set is four hundred historical applications with the analyst's final decision. We score extraction field accuracy against the analyst's corrections, verification agreement with the historical outcome, and, the one that matters most to compliance, escalation recall. Every case that was escalated historically must still be escalated. That is a hard gate. It cannot regress by a single case.
-
-Prompt and tool changes run the full set in CI. Model swaps run it twice, with the judge for case quality being a different model from the one writing.
-
