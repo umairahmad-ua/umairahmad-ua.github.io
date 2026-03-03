@@ -68,3 +68,23 @@ We built a fallback path. When the processor's confidence on a required field is
 
 Model-extracted fields always route to the review queue. They never contribute to a straight-through clear. Over the pilot we collected those cases, and the client is now training a custom Document AI processor on the three formats that appear most. The fallback bought us coverage on day one. The custom processor is how the coverage becomes cheap.
 
+## What the analysts see
+
+A single page. Fields on the left with a green, amber or red dot for confidence. The document image on the right with the source box highlighted when you hover a field. Verification results as a short list. Risk flags with the one-line reason. A recommended outcome at the bottom with the rule name.
+
+Two buttons. Accept the recommendation, or override with a reason. Overrides go back into the eval set every week.
+
+Analysts asked for one thing we had not planned. A "show me why" link on the recommendation that expands the rule and the inputs. That link is now the most-clicked element on the page.
+
+## Evaluating it
+
+The eval set is four hundred historical applications with the analyst's final decision. We score extraction field accuracy against the analyst's corrections, verification agreement with the historical outcome, and, the one that matters most to compliance, escalation recall. Every case that was escalated historically must still be escalated. That is a hard gate. It cannot regress by a single case.
+
+Prompt and tool changes run the full set in CI. Model swaps run it twice, with the judge for case quality being a different model from the one writing.
+
+## Results after the pilot
+
+The eleven minutes is under four for review cases. Straight-through rate for clear cases roughly doubled once compliance trusted the sampling. Escalation recall has held at one hundred percent on the eval set through every change.
+
+Two cheaper models arrived this week, [GPT-5.3 Instant](https://openai.com/index/gpt-5-3-instant/) and [Gemini 3.1 Flash-Lite](https://en.wikipedia.org/wiki/Gemini_(language_model)). The case-writer step is the first place I will test one. It is the highest-volume, lowest-risk call in the system, and cost per applicant is the number the client's finance team asks about now that the compliance team is satisfied.
+
