@@ -60,19 +60,3 @@ Second, the agent explains each flag in one line. "Matched on surname only, diff
 
 Third, we measured. Every cleared flag is a labeled example. After six weeks we had enough to tune the match threshold per list, with compliance signing off on each change. Flags per applicant dropped by more than half. The true positive rate, checked against compliance's own audit sample, did not move.
 
-## Handling documents the models have never seen
-
-Document AI's identity processor covers common IDs well. The client onboards people from more than forty countries, and some national IDs and utility bill formats produced low-confidence fields or nothing at all.
-
-We built a fallback path. When the processor's confidence on a required field is below threshold, the extraction agent sends the page image to Gemini 2.5 Pro with a strict schema and asks for the same fields with a bounding box for each. Those results are marked as model-extracted rather than processor-extracted, and the case page shows the analyst which path produced each value.
-
-Model-extracted fields always route to the review queue. They never contribute to a straight-through clear. Over the pilot we collected those cases, and the client is now training a custom Document AI processor on the three formats that appear most. The fallback bought us coverage on day one. The custom processor is how the coverage becomes cheap.
-
-## What the analysts see
-
-A single page. Fields on the left with a green, amber or red dot for confidence. The document image on the right with the source box highlighted when you hover a field. Verification results as a short list. Risk flags with the one-line reason. A recommended outcome at the bottom with the rule name.
-
-Two buttons. Accept the recommendation, or override with a reason. Overrides go back into the eval set every week.
-
-Analysts asked for one thing we had not planned. A "show me why" link on the recommendation that expands the rule and the inputs. That link is now the most-clicked element on the page.
-
