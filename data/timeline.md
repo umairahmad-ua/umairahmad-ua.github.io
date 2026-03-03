@@ -116,3 +116,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-02-19 — Google Gemini 3.1 Pro — https://en.wikipedia.org/wiki/Gemini_(language_model)
 - 2026-02-20 — Anthropic announces Claude Code Security (limited research preview) — https://www.anthropic.com/news/claude-code-security
 
+## Week of 2026-02-23
+- 2026-02-26 — Google Nano Banana 2 (Gemini 3.1 Flash Image) — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2026-02-27 — US DoD designates Anthropic a supply-chain risk — https://en.wikipedia.org/wiki/Claude_(language_model)
+
