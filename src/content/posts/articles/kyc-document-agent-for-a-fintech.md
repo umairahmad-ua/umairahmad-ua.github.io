@@ -88,3 +88,6 @@ The eleven minutes is under four for review cases. Straight-through rate for cle
 
 Two cheaper models arrived this week, [GPT-5.3 Instant](https://openai.com/index/gpt-5-3-instant/) and [Gemini 3.1 Flash-Lite](https://en.wikipedia.org/wiki/Gemini_(language_model)). The case-writer step is the first place I will test one. It is the highest-volume, lowest-risk call in the system, and cost per applicant is the number the client's finance team asks about now that the compliance team is satisfied.
 
+## What I would tell another team
+
+Do not let the agent decide. Let it read, check, look up, and explain. The decision stays with a person and the agent's job is to make that person fast and confident. Measure escalation recall before anything else. Then measure false positives, because that is where analysts stop trusting you.
