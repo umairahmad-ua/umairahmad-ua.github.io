@@ -38,3 +38,11 @@ agent = Agent(
 
 That label is where the whole discipline lives.
 
+## Versions and labels
+
+Every save creates an immutable version. Versions never change. Labels point at versions and labels move.
+
+We use four labels. `dev` is whatever someone is working on. `candidate` is a version that passed the eval suite and is waiting for rollout. `canary` is live on a slice of traffic. `prod` is live for everyone.
+
+Moving a label is a deliberate act with an audit entry. Who moved it, from which version to which, and the eval run id that justified it. Compliance clients ask for exactly this record, and it fell out of the design for free.
+
