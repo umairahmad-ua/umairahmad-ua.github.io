@@ -54,19 +54,3 @@ The suite runs in CI on every prompt save. It takes about six minutes for Scout.
 
 We also run the downstream agents on the candidate's output. The persona agent's eval includes ten cases where the campaign author consumes the persona. If the campaign author's score drops, the persona change does not promote, even if the persona score went up.
 
-## Canary rollouts
-
-Promotion to `prod` is never direct. A candidate becomes `canary` first. The runtime routes a configured share of sessions, usually ten percent, to the canary label. The rest stay on prod.
-
-For two to three days we watch three numbers side by side. Judge score on a sample of live sessions. Cost per session. Human override rate where a reviewer is in the loop. If canary matches or beats prod on all three, the label moves. If not, the canary label is removed and everything is back on prod within a minute.
-
-Rollback is a label move. No deploy. No container. That has saved us twice.
-
-## Who may edit
-
-This is the part most teams skip. Once prompts are configuration, more people can change them, and that is the point. The brand team at a media client edits tone guidance directly. A compliance officer at a healthcare client owns the sentence that says what the agent must never write.
-
-Permissions map to labels. Anyone on the project can create a version and get the `dev` label. Promoting to `candidate` requires a passing eval run, which anyone can trigger. Moving `canary` and `prod` requires a named owner per agent, and there are two for each so nobody is a single point of failure on a Friday.
-
-Every change has a required note. "Client asked for shorter openings" is enough. Empty notes are rejected. Six months later, when someone asks why the prompt says what it says, the answer is in the history.
-
