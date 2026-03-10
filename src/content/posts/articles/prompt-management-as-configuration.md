@@ -54,3 +54,33 @@ The suite runs in CI on every prompt save. It takes about six minutes for Scout.
 
 We also run the downstream agents on the candidate's output. The persona agent's eval includes ten cases where the campaign author consumes the persona. If the campaign author's score drops, the persona change does not promote, even if the persona score went up.
 
+## Canary rollouts
+
+Promotion to `prod` is never direct. A candidate becomes `canary` first. The runtime routes a configured share of sessions, usually ten percent, to the canary label. The rest stay on prod.
+
+For two to three days we watch three numbers side by side. Judge score on a sample of live sessions. Cost per session. Human override rate where a reviewer is in the loop. If canary matches or beats prod on all three, the label moves. If not, the canary label is removed and everything is back on prod within a minute.
+
+Rollback is a label move. No deploy. No container. That has saved us twice.
+
+## Who may edit
+
+This is the part most teams skip. Once prompts are configuration, more people can change them, and that is the point. The brand team at a media client edits tone guidance directly. A compliance officer at a healthcare client owns the sentence that says what the agent must never write.
+
+Permissions map to labels. Anyone on the project can create a version and get the `dev` label. Promoting to `candidate` requires a passing eval run, which anyone can trigger. Moving `canary` and `prod` requires a named owner per agent, and there are two for each so nobody is a single point of failure on a Friday.
+
+Every change has a required note. "Client asked for shorter openings" is enough. Empty notes are rejected. Six months later, when someone asks why the prompt says what it says, the answer is in the history.
+
+## Prompts and models change together
+
+A prompt is tuned against a model. Change the model and the prompt that scored well can drop. So the version record for a prompt includes the model it was evaluated against, and a model change is treated exactly like a prompt change. New candidate, full eval, canary, promote.
+
+When Gemini 3.1 Pro arrived in February, we did not swap it in. We created candidate versions of each affected prompt with the new model recorded, ran the suites, and found two agents whose scores fell. Their instructions leaned on a phrasing quirk of the older model. We rewrote those two, re-ran, and promoted all of them together over a week of canary.
+
+The alternative, changing the model in a config file and deploying, is what most teams do. It works until it does not, and when it does not the failure is spread across every agent at once with no record of which prompt was tuned for what.
+
+## What this costs
+
+An extra fetch at agent startup, cached for the life of a session. Six minutes of CI per prompt save. Two or three days of canary before a change reaches everyone.
+
+The last one is the one engineers push back on. It feels slow. My answer is that the alternative is not faster. The alternative is the 4 pm change, discovered at 9 am, diagnosed by noon, and rolled back with a deploy at 2 pm, after a client noticed. Three days of canary is cheap.
+
