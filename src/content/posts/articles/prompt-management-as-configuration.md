@@ -70,11 +70,3 @@ Permissions map to labels. Anyone on the project can create a version and get th
 
 Every change has a required note. "Client asked for shorter openings" is enough. Empty notes are rejected. Six months later, when someone asks why the prompt says what it says, the answer is in the history.
 
-## Prompts and models change together
-
-A prompt is tuned against a model. Change the model and the prompt that scored well can drop. So the version record for a prompt includes the model it was evaluated against, and a model change is treated exactly like a prompt change. New candidate, full eval, canary, promote.
-
-When Gemini 3.1 Pro arrived in February, we did not swap it in. We created candidate versions of each affected prompt with the new model recorded, ran the suites, and found two agents whose scores fell. Their instructions leaned on a phrasing quirk of the older model. We rewrote those two, re-ran, and promoted all of them together over a week of canary.
-
-The alternative, changing the model in a config file and deploying, is what most teams do. It works until it does not, and when it does not the failure is spread across every agent at once with no record of which prompt was tuned for what.
-
