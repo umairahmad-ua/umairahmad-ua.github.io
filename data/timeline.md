@@ -126,3 +126,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-03-04 — Codex app on Windows — https://en.wikipedia.org/wiki/OpenAI_Codex_(AI_agent)
 - 2026-03-05 — OpenAI GPT-5.4 Thinking and Pro — https://en.wikipedia.org/wiki/GPT-5.4
 
+## Week of 2026-03-09
+- 2026-03-12 — Anthropic inaugural Partner Summit (Carlsbad, Mar 12 to 13); Claude Partner Network launched with $100M commitment; Claude Certified Architect – Foundations certification available — https://www.channeldive.com/news/anthropic-launches-claude-channel-partner-program/814569/ ; https://thenextweb.com/news/anthropic-commits-100m-to-claude-partner-network
+- 2026-03-12 — A2A Protocol v1.0 ships (signed Agent Cards; LF governance) — https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/
+- 2026-03-12 — Google DeepMind Gemini Robotics release — https://en.wikipedia.org/wiki/Gemini_(language_model)
+
