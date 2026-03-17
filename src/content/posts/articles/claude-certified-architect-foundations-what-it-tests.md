@@ -21,3 +21,5 @@ Anthropic held its first Partner Summit in Carlsbad on March 12 and 13. It launc
 
 I passed. This post is about what the exam is, not about how I did. I will not repeat questions. I will tell you what it measures and what it does not.
 
+## Table of contents
+
