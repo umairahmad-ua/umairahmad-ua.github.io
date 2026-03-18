@@ -23,3 +23,21 @@ I passed. This post is about what the exam is, not about how I did. I will not r
 
 ## Table of contents
 
+## The format
+
+Sixty scenario questions. One hundred and twenty minutes. A scaled score with a pass mark of 720 out of 1000. The credential is valid for twelve months. You take it online with a proctor or at a test center.
+
+The stated scope is the Claude API, the Claude Agent SDK, Claude Code, MCP, agent architecture, evaluation and safety controls. That matches what I saw. There is very little trivia. Almost every question describes a situation and asks what you would do.
+
+Two hours for sixty scenarios is not generous. Several questions run to a full screen of context. I finished with eleven minutes left and I read fast.
+
+## What surprised me
+
+The exam cares more about failure than about capability. I expected questions about which model to pick or how to structure a prompt. There were some. Most of the weight sat on what happens when things go wrong. A tool returns malformed output. A context window fills up mid-task. A user asks the agent to do something outside its authorization. A downstream system is slow and the agent has a budget.
+
+That is the right emphasis. It is also the part of agent engineering that most tutorials skip.
+
+The second surprise was how much MCP mattered. I went in thinking MCP would be one section among six. It was closer to a thread through the whole exam. Server design, tool contracts, what belongs in a tool description versus a system prompt, how to handle authentication across servers. If you have only consumed MCP servers and never written one, you will feel it.
+
+The third surprise was the evaluation content. The exam treats evals as an architecture concern, not a research afterthought. Questions asked where in a pipeline you would measure, what you would measure, and how you would gate a release on the result. I have been arguing for this in client work for two years. It was strange and pleasant to see it on a test.
+
