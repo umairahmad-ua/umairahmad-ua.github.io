@@ -31,3 +31,23 @@ The stated scope is the Claude API, the Claude Agent SDK, Claude Code, MCP, agen
 
 Two hours for sixty scenarios is not generous. Several questions run to a full screen of context. I finished with eleven minutes left and I read fast.
 
+## What surprised me
+
+The exam cares more about failure than about capability. I expected questions about which model to pick or how to structure a prompt. There were some. Most of the weight sat on what happens when things go wrong. A tool returns malformed output. A context window fills up mid-task. A user asks the agent to do something outside its authorization. A downstream system is slow and the agent has a budget.
+
+That is the right emphasis. It is also the part of agent engineering that most tutorials skip.
+
+The second surprise was how much MCP mattered. I went in thinking MCP would be one section among six. It was closer to a thread through the whole exam. Server design, tool contracts, what belongs in a tool description versus a system prompt, how to handle authentication across servers. If you have only consumed MCP servers and never written one, you will feel it.
+
+The third surprise was the evaluation content. The exam treats evals as an architecture concern, not a research afterthought. Questions asked where in a pipeline you would measure, what you would measure, and how you would gate a release on the result. I have been arguing for this in client work for two years. It was strange and pleasant to see it on a test.
+
+## How it compares to Google Cloud certifications
+
+I hold Google's developer credentials and I work at a Google Cloud Premier Partner, so this comparison is the one people ask me for.
+
+Google's professional exams test breadth across a platform. They want you to know which service does what and how services connect. You can pass them with excellent product knowledge and modest engineering judgment.
+
+CCAR-F is narrower and deeper. It tests judgment on one family of tools. Product knowledge alone would not get you to 720. You need to have thought about agent design as a systems problem. That makes it a better signal for the specific job of building agents on Claude. It also makes it a worse signal for general cloud competence, which is fine. It is not trying to be that.
+
+The two are complementary. The Google credential tells a client I can run their platform. The Anthropic credential tells them I can design the agent on it.
+
