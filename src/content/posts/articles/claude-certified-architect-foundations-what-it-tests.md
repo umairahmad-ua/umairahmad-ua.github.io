@@ -51,3 +51,25 @@ CCAR-F is narrower and deeper. It tests judgment on one family of tools. Product
 
 The two are complementary. The Google credential tells a client I can run their platform. The Anthropic credential tells them I can design the agent on it.
 
+## What to study
+
+Read the Agent SDK documentation end to end and then build one small agent with it. Not a chatbot. Something with three tools, a budget and a failure path. You will learn more from the failure path than from anything else.
+
+Write an MCP server. Even a trivial one that exposes two tools over a local database. Pay attention to how you write the tool descriptions. The exam cares about this, and so does every model you will ever put in front of that server.
+
+Understand context management. Compaction, what gets summarized, what gets dropped, and how to keep an agent honest about what it no longer remembers. This came up more than I expected.
+
+Know the safety controls as an engineer, not as a policy reader. Where do permissions live. What can a hook intercept. How do you stop an agent from taking an irreversible action without a human.
+
+Finally, read about evaluation design. Not a specific framework. The concepts. Reference-based versus reference-free grading, LLM-as-judge and its failure modes, and how to build an eval set that survives a prompt change.
+
+I studied for about a week alongside work. If you have built agents on the Claude platform for a few months, a week is enough. If you have not, the exam will tell you.
+
+## What the exam does not cover
+
+Cost. Not one scenario I saw asked about the price of a design. In client work the budget per task decides more architecture than any other constraint. An exam that wants to certify architects should ask what a design costs to run at ten thousand requests a day.
+
+Observability was also light. A question or two touched tracing. None asked how you would find out which of five agents in a chain produced a bad answer three days after the fact. That is most of my debugging life.
+
+Neither gap makes the exam bad. Both tell you where to keep learning after you pass.
+
