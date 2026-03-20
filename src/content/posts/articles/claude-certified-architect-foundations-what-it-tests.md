@@ -65,11 +65,3 @@ Finally, read about evaluation design. Not a specific framework. The concepts. R
 
 I studied for about a week alongside work. If you have built agents on the Claude platform for a few months, a week is enough. If you have not, the exam will tell you.
 
-## What the exam does not cover
-
-Cost. Not one scenario I saw asked about the price of a design. In client work the budget per task decides more architecture than any other constraint. An exam that wants to certify architects should ask what a design costs to run at ten thousand requests a day.
-
-Observability was also light. A question or two touched tracing. None asked how you would find out which of five agents in a chain produced a bad answer three days after the fact. That is most of my debugging life.
-
-Neither gap makes the exam bad. Both tell you where to keep learning after you pass.
-
