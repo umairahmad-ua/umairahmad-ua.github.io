@@ -65,3 +65,19 @@ Finally, read about evaluation design. Not a specific framework. The concepts. R
 
 I studied for about a week alongside work. If you have built agents on the Claude platform for a few months, a week is enough. If you have not, the exam will tell you.
 
+## What the exam does not cover
+
+Cost. Not one scenario I saw asked about the price of a design. In client work the budget per task decides more architecture than any other constraint. An exam that wants to certify architects should ask what a design costs to run at ten thousand requests a day.
+
+Observability was also light. A question or two touched tracing. None asked how you would find out which of five agents in a chain produced a bad answer three days after the fact. That is most of my debugging life.
+
+Neither gap makes the exam bad. Both tell you where to keep learning after you pass.
+
+## The caution
+
+A certification proves you can reason about the right answer under exam conditions. It does not prove you have watched an agent fail in production at two in the morning and fixed it.
+
+I have run multi-agent systems for real clients on Vertex AI Agent Engine since last summer. The things that hurt were never the things an exam asks. A tool that started returning a slightly different JSON shape after a vendor update. A session store that grew until latency doubled. A user who found a phrasing that routed to the wrong specialist agent every time. You learn those by running the system, not by studying for a test.
+
+So hold the credential lightly. It is a good filter for hiring managers who need one. It is a reasonable way to force yourself to read the documentation properly. It is not a substitute for a production incident.
+
