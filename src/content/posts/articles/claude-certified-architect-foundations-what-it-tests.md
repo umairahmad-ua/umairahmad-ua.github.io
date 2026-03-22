@@ -81,3 +81,10 @@ I have run multi-agent systems for real clients on Vertex AI Agent Engine since 
 
 So hold the credential lightly. It is a good filter for hiring managers who need one. It is a reasonable way to force yourself to read the documentation properly. It is not a substitute for a production incident.
 
+## Why I bothered
+
+Two reasons. My team works on both Google and Anthropic tooling and the certification gave me a structured way to close gaps in the Anthropic half. And the Partner Network is going to matter to consultancies. Having certified architects on staff will be table stakes for partner tiers within a year. I would rather be early.
+
+The same week the exam launched, A2A 1.0 reached its first stable release. The tooling is moving quickly. A twelve-month validity period on this certification is not a marketing choice. It is an honest estimate of how long the material will stay current.
+
+If you are building on Claude and you have a spare week, take it. Then go run something in production and find out what the exam could not teach you.
