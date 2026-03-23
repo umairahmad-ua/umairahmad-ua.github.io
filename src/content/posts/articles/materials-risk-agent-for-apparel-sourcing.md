@@ -24,17 +24,3 @@ The client makes apparel in India, Bahrain, Jordan and Bangladesh. Their buyers 
 
 The planners were not missing information. They were drowning in it. So the brief for my team was not "predict disruptions." It was "make sure the eleven-day slip gets read on the day it arrives, and only tell us about the ones that matter."
 
-## What the agent watches
-
-We built a materials risk agent that runs on a schedule and on events. It watches four kinds of signal.
-
-**Supplier communications.** Emails, PDFs and portal exports land in Cloud Storage. A Document AI step extracts dates, quantities and purchase order references. Gemini reads the free text for anything that looks like a delay, a substitution or a quality hold.
-
-**Supplier lead time history.** Every purchase order and receipt for the last three years sits in BigQuery. The agent compares the promised date on each open order against the supplier's actual record for that fabric type and that season.
-
-**Logistics signals.** Port congestion and vessel schedule feeds for the routes the client uses. Chittagong, Jebel Ali, Nhava Sheva, Aqaba. A three-day queue at one port changes the risk on forty open orders.
-
-**Production plan.** The cut dates from the planning system, so the agent knows which fabric is needed when. A slip on fabric due in nine weeks is information. A slip on fabric due in nine days is an alert.
-
-The stack is not exotic. Cloud Scheduler and Pub/Sub trigger the runs. Cloud Run hosts the agent, built on Google ADK. BigQuery holds the history and the plan. Gemini does the reading. Looker shows the results. The hard part was never the tools.
-
