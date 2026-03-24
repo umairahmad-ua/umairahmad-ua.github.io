@@ -71,9 +71,3 @@ For each "act" item the agent drafts three options. Expedite with the current su
 
 There is a reply loop. A planner can answer "alternate mill approved" in the channel and the agent updates the order and stops alerting on it. This is where most of the tool work went. Writing back to the planning system safely, with an audit trail, took longer than the reading side.
 
-## Numbers after eight weeks
-
-Alerts that planners acted on went from roughly one in five under the old email-forwarding routine to about two in three. Missed communications, the eleven-day-slip problem, dropped to zero in the eight weeks we measured. Planners reported spending about an hour less per day reading supplier mail.
-
-I am careful with those numbers. The client is one manufacturer and the window is short. But the shape is what I expected. The value was not in prediction. It was in reading everything and staying quiet about most of it.
-
