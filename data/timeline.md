@@ -131,3 +131,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-03-12 — A2A Protocol v1.0 ships (signed Agent Cards; LF governance) — https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/
 - 2026-03-12 — Google DeepMind Gemini Robotics release — https://en.wikipedia.org/wiki/Gemini_(language_model)
 
+## Week of 2026-03-16
+- 2026-03-16 — NVIDIA GTC 2026 keynote (San Jose, Mar 16 to 19) — https://blogs.nvidia.com/blog/gtc-2026-news/
+- 2026-03-16 — Mistral Small 4 (Apache 2.0) — https://mistral.ai/news/mistral-small-4/
+- 2026-03-17 — GPT-5.4 mini and nano — https://en.wikipedia.org/wiki/GPT-5.4
+- 2026-03-19 — Cursor Composer 2 (built on Kimi K2.5) — https://cursor.com/blog/composer-2
+
