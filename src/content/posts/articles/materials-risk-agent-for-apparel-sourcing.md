@@ -71,3 +71,17 @@ For each "act" item the agent drafts three options. Expedite with the current su
 
 There is a reply loop. A planner can answer "alternate mill approved" in the channel and the agent updates the order and stops alerting on it. This is where most of the tool work went. Writing back to the planning system safely, with an audit trail, took longer than the reading side.
 
+## Numbers after eight weeks
+
+Alerts that planners acted on went from roughly one in five under the old email-forwarding routine to about two in three. Missed communications, the eleven-day-slip problem, dropped to zero in the eight weeks we measured. Planners reported spending about an hour less per day reading supplier mail.
+
+I am careful with those numbers. The client is one manufacturer and the window is short. But the shape is what I expected. The value was not in prediction. It was in reading everything and staying quiet about most of it.
+
+## What I would do differently
+
+Two things.
+
+First, I would start with the write-back loop, not the reading. We built reading first because it was the interesting part. The client saw value only when the agent could close an item. That should have been week one.
+
+Second, I would resist the model-scores-risk design even for the prototype. It looked good in the demo and it cost us the planners' trust for a week. Deterministic scoring, model at the edges, from the start.
+
