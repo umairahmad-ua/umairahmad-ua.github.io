@@ -16,9 +16,3 @@ sources:
 
 ## Table of contents
 
-## The question a client asked
-
-Two weeks after [A2A 1.0 arrived](https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/), a client asked me whether we should rebuild their agents on it. They had read that it was the standard for agents talking to agents. Their system has nine agents. Surely, they said, that is agents talking to agents.
-
-It is not, and the distinction matters enough to write down.
-
