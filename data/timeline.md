@@ -137,3 +137,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-03-17 — GPT-5.4 mini and nano — https://en.wikipedia.org/wiki/GPT-5.4
 - 2026-03-19 — Cursor Composer 2 (built on Kimi K2.5) — https://cursor.com/blog/composer-2
 
+## Week of 2026-03-23
+- 2026-03-23 to 27 — Claude Code auto mode research preview (v2.1.83 to 85); computer use in Desktop app — https://code.claude.com/docs/en/whats-new/2026-w13
+- 2026-03-26 — Google ADK 2.0 alpha announced (graph workflows, agent teams) [date approximate] — https://developers.googleblog.com/why-we-built-adk-20/
+
