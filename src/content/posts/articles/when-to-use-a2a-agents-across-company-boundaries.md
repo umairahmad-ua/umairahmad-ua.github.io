@@ -64,3 +64,8 @@ When someone on my team proposes A2A, I ask three questions.
 
 Three yes answers and A2A is the right shape. Anything less and we are adding a protocol to look modern.
 
+## What I am watching
+
+Amazon made [AgentCore Evaluations generally available](https://aws.amazon.com/about-aws/whats-new/2026/03/agentcore-evaluations-generally-available) on March 31. It is not an A2A story, but it is related. The moment agents cross company boundaries, each side needs to evaluate the other's output before trusting it. The supplier cannot take the buyer's forecast on faith any more than it did when the forecast came as a spreadsheet. Evaluation of another party's agent is going to be its own discipline. The vendors building eval products are getting ready for that world before most of their customers are.
+
+For my team the plan is unchanged. MCP for tools, which is all of our current work. A2A for the one design that needs it, when a buyer is ready to run an agent on their side. I will write it up when that happens.
