@@ -32,3 +32,13 @@ Inside one company, on one platform, under one team, the second thing is rarely 
 
 MCP is enough when the things you connect are yours. I said that to the client and they were relieved.
 
+## The case where I do want A2A
+
+The apparel supplier we work with plans production for GAP and Levi's. The buyers send forecasts. The supplier plans capacity. Today that exchange is spreadsheets and portals and a weekly call.
+
+Imagine both sides have planning agents. The buyer's agent knows demand and can answer "what happens to your forecast if we deliver a week late." The supplier's agent knows capacity and can answer "what happens to cost if you pull the date in." Neither company will let the other read its data directly. Neither will expose its planning tools as MCP servers to an outside party. But both would accept a well-defined task from the other side and return a well-defined answer.
+
+That is agent to agent across a company boundary. Different owners, different data, different goals, one shared task. It is exactly what A2A is for.
+
+We have not built it. The buyers would have to run an agent and the standard is a month old. But when I sketch it, A2A is the only protocol that fits, and 1.0 made it plausible for the first time.
+
