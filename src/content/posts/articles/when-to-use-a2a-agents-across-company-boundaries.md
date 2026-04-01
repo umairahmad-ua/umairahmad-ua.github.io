@@ -42,3 +42,25 @@ That is agent to agent across a company boundary. Different owners, different da
 
 We have not built it. The buyers would have to run an agent and the standard is a month old. But when I sketch it, A2A is the only protocol that fits, and 1.0 made it plausible for the first time.
 
+## What signed Agent Cards change
+
+The piece of 1.0 that matters most to me is the signed Agent Card.
+
+An Agent Card is the document an agent publishes to say who it is, what it can do and how to reach it. Before 1.0 it was a JSON file you trusted because you fetched it over HTTPS from a domain you recognized. That is fine for a demo and not fine for a supplier committing production capacity based on a buyer's forecast.
+
+With signatures, the supplier's agent can verify that the card came from the buyer's organization and has not changed since it was issued. The buyer can do the same in reverse. This does not solve trust. It moves trust to where it already lives, in the two companies' identity providers and their existing contracts. That is the right place for it.
+
+Governance under the Linux Foundation is the other piece. When I tell a client to build on a protocol, I am asking them to bet years of work on it. A neutral home makes that bet easier to defend in a procurement review.
+
+## The decision I use
+
+When someone on my team proposes A2A, I ask three questions.
+
+**Does the other agent have a different owner?** If it is our agent talking to our agent, no.
+
+**Would the other side refuse to expose its tools directly?** If they would happily give us an MCP server, no. Use the MCP server.
+
+**Is the exchange a task with a lifecycle, not a request with a response?** If it completes in one call, it is a tool. If it can take hours, ask clarifying questions and come back partial, it is an agent.
+
+Three yes answers and A2A is the right shape. Anything less and we are adding a protocol to look modern.
+
