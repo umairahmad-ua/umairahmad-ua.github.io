@@ -16,3 +16,11 @@ sources:
 
 ## Table of contents
 
+## The queue nobody opened
+
+At Developers Inc we built a medical claims system that processes more than fifty thousand claims a day. Claims the model was unsure about went to a review queue. In the first month, the queue grew to nine thousand items. Reviewers opened it, saw nine thousand items and closed it. The queue was technically a human gate. In practice it was a hole the claims fell into.
+
+We fixed it, and rejections eventually fell 35 percent. But the lesson stuck. A human-in-the-loop step is not a checkbox in an architecture diagram. It is a product. If nobody designs it, nobody uses it.
+
+Every agent my team runs today has a human gate. Migration cutovers, supply chain recommendations, ops remediations, marketing drafts. Here is what we do differently now.
+
