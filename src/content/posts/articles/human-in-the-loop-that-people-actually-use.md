@@ -32,3 +32,17 @@ So we start from the reviewers. How many people, how many minutes per item, how 
 
 For the medical claims system, that meant raising the threshold until the queue was about three hundred a day, which the reviewers could clear. Claims below the threshold were auto-submitted with monitoring. Some of those were wrong. Fewer of them were wrong than when the queue was ignored entirely, because now every flagged item actually got a human.
 
+## Rule two: every item explains itself in one line
+
+A reviewer should know why an item is in front of them before they open it.
+
+Bad: "Low confidence."
+
+Good: "Procedure code 27447 with diagnosis M17.11. Payer X rejected this pair 40 percent of the time last quarter."
+
+The second one tells the reviewer what to look at. It also tells them when the agent is wrong, because they can see its reasoning and disagree with it.
+
+For the migration agents, the one line is "Row count matches. Sum of `amount` differs by 0.3 percent. Likely rounding in the legacy `ROUND()` call." For the ops agent it is "Memory pressure on pod X. Playbook 12 says restart. Last restart was 40 minutes ago, which is below the two-hour cooldown."
+
+Writing that line is a model task. Deciding what goes in it is a design task. We spend more time on the second.
+
