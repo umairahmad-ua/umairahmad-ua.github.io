@@ -64,17 +64,3 @@ If it is high, the agent is wrong a lot, and every override is a labeled example
 
 The number we watch most is the trend. Override rate should fall over the first months and then flatten. If it falls to zero fast, we get suspicious.
 
-## Rule five: the SLA belongs to the queue
-
-An item that sits in the queue for a week is not being reviewed. It is being ignored with extra steps.
-
-Each queue has a maximum age. When an item reaches it, something happens. For the migration agents, it blocks the cutover batch and someone gets paged. For supply chain alerts, it escalates to the sourcing manager. For marketing drafts, it expires and the requester gets a note that says "not reviewed, resubmit if still needed."
-
-The expire option sounds harsh. It is the one that keeps queues honest. If items expire and nobody complains, they did not need review.
-
-## What we build it with
-
-The queue is a Firestore collection and a small web app. Each item has the agent's recommendation, the one-line explanation, the evidence links, a group key and a deadline. Reviewers work in the app. Decisions write back to the agent's session store and to BigQuery for the override metrics. Notifications go through Pub/Sub to Slack or email depending on the client. Looker shows the queue age and override trend to the people who own the process.
-
-None of that is clever. It is a product built for the people who use it, which is what the original claims queue was not.
-
