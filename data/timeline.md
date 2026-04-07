@@ -141,3 +141,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-03-23 to 27 — Claude Code auto mode research preview (v2.1.83 to 85); computer use in Desktop app — https://code.claude.com/docs/en/whats-new/2026-w13
 - 2026-03-26 — Google ADK 2.0 alpha announced (graph workflows, agent teams) [date approximate] — https://developers.googleblog.com/why-we-built-adk-20/
 
+## Week of 2026-03-30
+- 2026-03-30 to 04-03 — Claude Code computer use in CLI (research preview) — https://code.claude.com/docs/en/whats-new/2026-w14
+- 2026-03-31 — Amazon Bedrock AgentCore Evaluations GA — https://aws.amazon.com/about-aws/whats-new/2026/03/agentcore-evaluations-generally-available
+- 2026-03-31 — xAI Grok 4.20 [UNVERIFIED date; sources disagree Feb to Mar 2026] — https://en.wikipedia.org/wiki/Grok_(chatbot)
+- 2026-04-02 — Cursor 3 (Agents Window) — https://cursor.com/blog/cursor-3
+
