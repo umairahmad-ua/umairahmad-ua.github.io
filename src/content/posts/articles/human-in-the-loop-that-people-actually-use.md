@@ -46,3 +46,29 @@ For the migration agents, the one line is "Row count matches. Sum of `amount` di
 
 Writing that line is a model task. Deciding what goes in it is a design task. We spend more time on the second.
 
+## Rule three: batch approvals for the boring cases
+
+Most items in a good queue are the same kind of item. Twenty stored procedures that all translated cleanly except for a date format. Fifteen supply chain alerts on the same delayed vessel.
+
+A reviewer who has to click approve fifteen times will start clicking without reading. So the queue groups. "Fifteen orders affected by vessel delay at Chittagong. Recommended action for all: notify buyers, no date change." One review, one decision, fifteen items cleared.
+
+Grouping is where the agent adds real value to the review process. It notices that fifteen items share a cause. A human scrolling a list would not.
+
+## Rule four: measure override rate, and act on it
+
+Override rate is the fraction of agent recommendations that the human changes. It is the single most useful number in an agent system.
+
+If it is near zero, either the agent is very good or the humans have stopped reading. You find out which by sampling. We pull twenty approved items a week and have a second person review them cold.
+
+If it is high, the agent is wrong a lot, and every override is a labeled example. For the claims system, overrides fed weekly retraining through active learning. For the marketing agents in Scout, overrides feed prompt changes and eval cases. An override is not a failure. It is the cheapest training signal you will ever get.
+
+The number we watch most is the trend. Override rate should fall over the first months and then flatten. If it falls to zero fast, we get suspicious.
+
+## Rule five: the SLA belongs to the queue
+
+An item that sits in the queue for a week is not being reviewed. It is being ignored with extra steps.
+
+Each queue has a maximum age. When an item reaches it, something happens. For the migration agents, it blocks the cutover batch and someone gets paged. For supply chain alerts, it escalates to the sourcing manager. For marketing drafts, it expires and the requester gets a note that says "not reviewed, resubmit if still needed."
+
+The expire option sounds harsh. It is the one that keeps queues honest. If items expire and nobody complains, they did not need review.
+
