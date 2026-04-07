@@ -72,3 +72,9 @@ Each queue has a maximum age. When an item reaches it, something happens. For th
 
 The expire option sounds harsh. It is the one that keeps queues honest. If items expire and nobody complains, they did not need review.
 
+## What we build it with
+
+The queue is a Firestore collection and a small web app. Each item has the agent's recommendation, the one-line explanation, the evidence links, a group key and a deadline. Reviewers work in the app. Decisions write back to the agent's session store and to BigQuery for the override metrics. Notifications go through Pub/Sub to Slack or email depending on the client. Looker shows the queue age and override trend to the people who own the process.
+
+None of that is clever. It is a product built for the people who use it, which is what the original claims queue was not.
+
