@@ -54,13 +54,3 @@ A reviewer who has to click approve fifteen times will start clicking without re
 
 Grouping is where the agent adds real value to the review process. It notices that fifteen items share a cause. A human scrolling a list would not.
 
-## Rule four: measure override rate, and act on it
-
-Override rate is the fraction of agent recommendations that the human changes. It is the single most useful number in an agent system.
-
-If it is near zero, either the agent is very good or the humans have stopped reading. You find out which by sampling. We pull twenty approved items a week and have a second person review them cold.
-
-If it is high, the agent is wrong a lot, and every override is a labeled example. For the claims system, overrides fed weekly retraining through active learning. For the marketing agents in Scout, overrides feed prompt changes and eval cases. An override is not a failure. It is the cheapest training signal you will ever get.
-
-The number we watch most is the trend. Override rate should fall over the first months and then flatten. If it falls to zero fast, we get suspicious.
-
