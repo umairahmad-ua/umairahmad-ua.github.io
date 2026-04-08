@@ -54,3 +54,32 @@ A reviewer who has to click approve fifteen times will start clicking without re
 
 Grouping is where the agent adds real value to the review process. It notices that fifteen items share a cause. A human scrolling a list would not.
 
+## Rule four: measure override rate, and act on it
+
+Override rate is the fraction of agent recommendations that the human changes. It is the single most useful number in an agent system.
+
+If it is near zero, either the agent is very good or the humans have stopped reading. You find out which by sampling. We pull twenty approved items a week and have a second person review them cold.
+
+If it is high, the agent is wrong a lot, and every override is a labeled example. For the claims system, overrides fed weekly retraining through active learning. For the marketing agents in Scout, overrides feed prompt changes and eval cases. An override is not a failure. It is the cheapest training signal you will ever get.
+
+The number we watch most is the trend. Override rate should fall over the first months and then flatten. If it falls to zero fast, we get suspicious.
+
+## Rule five: the SLA belongs to the queue
+
+An item that sits in the queue for a week is not being reviewed. It is being ignored with extra steps.
+
+Each queue has a maximum age. When an item reaches it, something happens. For the migration agents, it blocks the cutover batch and someone gets paged. For supply chain alerts, it escalates to the sourcing manager. For marketing drafts, it expires and the requester gets a note that says "not reviewed, resubmit if still needed."
+
+The expire option sounds harsh. It is the one that keeps queues honest. If items expire and nobody complains, they did not need review.
+
+## What we build it with
+
+The queue is a Firestore collection and a small web app. Each item has the agent's recommendation, the one-line explanation, the evidence links, a group key and a deadline. Reviewers work in the app. Decisions write back to the agent's session store and to BigQuery for the override metrics. Notifications go through Pub/Sub to Slack or email depending on the client. Looker shows the queue age and override trend to the people who own the process.
+
+None of that is clever. It is a product built for the people who use it, which is what the original claims queue was not.
+
+## This week
+
+Anthropic put [Claude Managed Agents](https://claude.com/blog/claude-managed-agents) into public beta today. From the announcement, the human approval step is a first-class part of the runtime. I want to see what the reviewer experience looks like before I judge it, because that is the part that fails in practice.
+
+The [Mythos Preview and Project Glasswing](https://www.anthropic.com/glasswing) announcement on Tuesday is a different scale of human-in-the-loop. A frontier model finding vulnerabilities, with humans deciding what to disclose and when. Same principle. The gate is only as good as the process around it.
