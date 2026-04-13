@@ -34,3 +34,11 @@ It is more uniform. Agent-written code looks alike. That is good for reading and
 
 It is complete in ways the author did not choose. The retry logic had exponential backoff and jitter because the agent added them. The author had not thought about backoff at all. That is where the bug lived.
 
+## Norm one: the intent comment
+
+Every PR now opens with a short section the author writes by hand. Not the agent. What was the problem, what did you decide, what did you not do. Three to six sentences.
+
+For the retry PR, that section would have said "retry on network and 5xx errors, up to three times." I would have asked "and on quota errors?" and we would have found it before merge.
+
+The intent comment is the highest-value thirty seconds in our process. It forces the author to know what they asked for. It gives me the thing to review against. When the intent comment and the code disagree, that is the bug.
+
