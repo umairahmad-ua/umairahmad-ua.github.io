@@ -16,3 +16,11 @@ sources:
 
 ## Table of contents
 
+## The pull request that was too good
+
+In January one of my engineers opened a pull request that added retry logic to our migration validation agent. Four hundred lines. Tests included. Docstrings on everything. Consistent style. I approved it in ten minutes.
+
+Two weeks later it retried a reconciliation query into a BigQuery quota error, because the retry policy did not distinguish between a transient failure and a query that was simply wrong. The engineer had described what they wanted to Claude Code, accepted the result, run the tests and opened the PR. The code was clean. The intent was incomplete. And I had reviewed the code, not the intent.
+
+That was the moment I accepted that review had to change.
+
