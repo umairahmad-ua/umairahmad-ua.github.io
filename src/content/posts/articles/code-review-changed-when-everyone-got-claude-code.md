@@ -24,3 +24,13 @@ Two weeks later it retried a reconciliation query into a BigQuery quota error, b
 
 That was the moment I accepted that review had to change.
 
+## What changed about the code
+
+Every engineer I lead and mentor now writes with an agent. Claude Code for most, Gemini tooling for some, [Cursor](https://cursor.com/blog/cursor-3) for two who prefer it. The code they produce has changed in three ways.
+
+There is more of it. A task that used to be an eighty-line diff is now two hundred lines with tests, types and error handling. The extra lines are usually correct and usually not what I need to look at.
+
+It is more uniform. Agent-written code looks alike. That is good for reading and bad for spotting the one place where a human made a decision.
+
+It is complete in ways the author did not choose. The retry logic had exponential backoff and jitter because the agent added them. The author had not thought about backoff at all. That is where the bug lived.
+
