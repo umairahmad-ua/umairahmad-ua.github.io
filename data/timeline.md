@@ -147,3 +147,10 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-03-31 — xAI Grok 4.20 [UNVERIFIED date; sources disagree Feb to Mar 2026] — https://en.wikipedia.org/wiki/Grok_(chatbot)
 - 2026-04-02 — Cursor 3 (Agents Window) — https://cursor.com/blog/cursor-3
 
+## Week of 2026-04-06
+- 2026-04-07 — Anthropic announces Claude Mythos Preview and Project Glasswing — https://www.anthropic.com/glasswing
+- 2026-04-08 — Anthropic launches Claude Managed Agents (public beta) — https://claude.com/blog/claude-managed-agents
+- 2026-04-08 — Meta Superintelligence Labs releases Muse Spark (replaces Llama in Meta AI) — https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/
+- 2026-04-09 — Claude Cowork GA; A2A 1.0 public announcement on protocol anniversary — https://opensource.googleblog.com/2026/04/a-year-of-open-collaboration-celebrating-the-anniversary-of-a2a.html
+- [UNVERIFIED] "Llama 5" release. Do not cite. Meta's 2026 flagship is Muse Spark.
+
