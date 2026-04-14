@@ -54,15 +54,3 @@ For anything that touches an agent, a prompt, a tool contract or a retrieval set
 
 This existed before Claude Code. It became non-negotiable after, because agents change prompts fluently and the prose reads fine either way. The eval numbers are the only thing that tells me whether the change helped.
 
-## What I still read line by line
-
-Four things, no matter who or what wrote them.
-
-**Anything that writes.** Database writes, file writes, API calls that change state. Agents are good at reads. Writes are where a plausible-looking line deletes the wrong rows.
-
-**Permission and scope code.** The ops agent's playbook checks, the review queue's approval logic, IAM bindings in Terraform. A mistake here does not show up in tests. It shows up in an incident.
-
-**Error handling around external calls.** The retry PR. Agents write generic handlers. Our systems need specific ones.
-
-**Anything the intent comment did not mention.** If the code does a thing the author did not describe, the author may not know it does that thing. I ask.
-
