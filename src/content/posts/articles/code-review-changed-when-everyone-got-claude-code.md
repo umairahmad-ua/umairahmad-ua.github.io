@@ -54,3 +54,29 @@ For anything that touches an agent, a prompt, a tool contract or a retrieval set
 
 This existed before Claude Code. It became non-negotiable after, because agents change prompts fluently and the prose reads fine either way. The eval numbers are the only thing that tells me whether the change helped.
 
+## What I still read line by line
+
+Four things, no matter who or what wrote them.
+
+**Anything that writes.** Database writes, file writes, API calls that change state. Agents are good at reads. Writes are where a plausible-looking line deletes the wrong rows.
+
+**Permission and scope code.** The ops agent's playbook checks, the review queue's approval logic, IAM bindings in Terraform. A mistake here does not show up in tests. It shows up in an incident.
+
+**Error handling around external calls.** The retry PR. Agents write generic handlers. Our systems need specific ones.
+
+**Anything the intent comment did not mention.** If the code does a thing the author did not describe, the author may not know it does that thing. I ask.
+
+## A review that caught the right thing
+
+Last month an engineer on my team opened a PR that added retry logic to a tool wrapper. The intent comment said the tool sometimes timed out and the fix was to retry three times with backoff. The diff was clean. The tests were green. The agent-written label was on it.
+
+I read the intent comment and then the eval diff. The eval diff showed cost per task on that agent up by about a fifth, with success rate unchanged.
+
+That combination is the tell. A change that makes the agent no better and one fifth more expensive is not a fix. It is a symptom moved somewhere else. I asked one question in the review. Why does the tool time out.
+
+The answer took a day to find. The tool was being called with a query that returned far more rows than it needed, and the timeout was the backend giving up on the size. The retry did not help. It just paid for the oversized query three times before failing anyway.
+
+The real fix was a tighter query and a page size limit. Cost per task went down, not up. Success rate went up a little because the tool now returned in time. The retry logic stayed, at one retry instead of three, for real transient failures.
+
+I would not have found that reading the diff line by line. The code was correct. What was wrong was the framing in the intent comment, and the eval diff exposed it. That is the shape of most useful reviews now. The numbers ask the question. The reviewer just has to notice them.
+
