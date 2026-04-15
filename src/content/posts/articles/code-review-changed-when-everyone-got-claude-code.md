@@ -86,3 +86,6 @@ Before, review caught bugs and taught style. Agents write fewer surface bugs and
 
 That is closer to design review than code review. It takes me less time per line and more time per PR. I read fewer lines and ask more questions. The questions are the review.
 
+## Elsewhere
+
+OpenAI published [the next evolution of the Agents SDK](https://openai.com/index/the-next-evolution-of-the-agents-sdk/) today, with a native sandbox for agent-run code. The sandbox question is one my team will hit as our agents start writing and running code in client environments. Where the code runs matters as much as who reviews it. I will read the details this week.
