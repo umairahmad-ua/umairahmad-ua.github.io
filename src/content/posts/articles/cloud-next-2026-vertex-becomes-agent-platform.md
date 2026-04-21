@@ -27,3 +27,13 @@ Cloud Next ran April 22 to 24 in Las Vegas. I did not go. I watched the keynotes
 
 For context, my team runs Scout, a multi-agent marketing intelligence system for Let's Forage, on Vertex AI Agent Engine. We built it on Google's Agent Development Kit last summer. Clients of that platform include teams at Apple and Meta. When Google renames the thing our production system sits on, I pay attention.
 
+## Table of contents
+
+## The headline: Vertex AI is now the Gemini Enterprise Agent Platform
+
+Google announced the Gemini Enterprise Agent Platform as generally available and described it as the evolution of Vertex AI. That is the sentence everyone quoted. The practical reading is that the model training and serving parts of Vertex AI continue, and the agent building, running and governing parts get a new name and a more opinionated shape.
+
+Alongside it came the Gemini Enterprise app for end users and a command-line tool for agents. The app is the successor path from the Gemini Enterprise launch in October, which itself replaced Agentspace. The CLI is new and I will come back to it.
+
+I have mixed feelings about the naming. Vertex AI was a name my clients had learned. Gemini Enterprise Agent Platform is a name that tells them what it does. In two years the second will have been the right call. In the next six months I will be explaining to procurement teams that the invoice line item changed and the service did not.
+
