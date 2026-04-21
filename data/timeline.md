@@ -154,3 +154,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-04-09 — Claude Cowork GA; A2A 1.0 public announcement on protocol anniversary — https://opensource.googleblog.com/2026/04/a-year-of-open-collaboration-celebrating-the-anniversary-of-a2a.html
 - [UNVERIFIED] "Llama 5" release. Do not cite. Meta's 2026 flagship is Muse Spark.
 
+## Week of 2026-04-13
+- 2026-04-15 — OpenAI "next evolution of the Agents SDK" (native sandbox) — https://openai.com/index/the-next-evolution-of-the-agents-sdk/
+- 2026-04-16 — Anthropic releases Claude Opus 4.7 (xhigh effort; Claude Code Routines) — https://code.claude.com/docs/en/whats-new/2026-w16
+- 2026-04-16 — Qwen3.6-35B-A3B open weights — https://huggingface.co/Qwen/Qwen3.6-35B-A3B
+
