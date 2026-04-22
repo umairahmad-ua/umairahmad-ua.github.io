@@ -29,3 +29,29 @@ For context, my team runs Scout, a multi-agent marketing intelligence system for
 
 ## Table of contents
 
+## The headline: Vertex AI is now the Gemini Enterprise Agent Platform
+
+Google announced the Gemini Enterprise Agent Platform as generally available and described it as the evolution of Vertex AI. That is the sentence everyone quoted. The practical reading is that the model training and serving parts of Vertex AI continue, and the agent building, running and governing parts get a new name and a more opinionated shape.
+
+Alongside it came the Gemini Enterprise app for end users and a command-line tool for agents. The app is the successor path from the Gemini Enterprise launch in October, which itself replaced Agentspace. The CLI is new and I will come back to it.
+
+I have mixed feelings about the naming. Vertex AI was a name my clients had learned. Gemini Enterprise Agent Platform is a name that tells them what it does. In two years the second will have been the right call. In the next six months I will be explaining to procurement teams that the invoice line item changed and the service did not.
+
+## What changes for a running Agent Engine deployment
+
+Nothing broke. Scout kept running through the announcement week. Our endpoints, sessions and memory stores are all still there under the old console paths.
+
+What Google described is a migration path rather than a cutover. Existing Agent Engine deployments are represented in the new platform. New capabilities land in the new console first. I expect the old console to stay for a year and then quietly stop getting features.
+
+My plan is to move Scout's development environment to the new platform in May and leave production where it is until we have run a full month there. Development first, production after evidence. Same rule as every other migration.
+
+## ADK 2.0
+
+Google announced ADK 2.0 as an alpha in late March. Cloud Next was the first time I heard the team talk through the reasoning at length. Two features matter to me.
+
+Graph workflows make explicit what we were doing implicitly. Scout's data analysis agent is a sequential chain of a research agent and an author agent. In ADK 1.x we expressed that with a sequential agent wrapper. In 2.0 it becomes a declared graph with typed edges. That means we can draw it, validate it and diff it. I have wanted to diff agent topologies in code review for a year.
+
+Agent teams are the other one. Named groups of agents with shared context and a coordinator. Scout's root orchestrator with its eight specialists is exactly this shape. We built it by hand. Having a first-class construct means less code to own, if the construct fits.
+
+The if matters. Alpha software from a platform vendor tends to fit the vendor's demos. I will port one of Scout's smaller specialists to 2.0 in a branch and see how much of our hand-built coordination the new team construct actually replaces. If it is most of it, we move. If it is half, we wait for a beta.
+
