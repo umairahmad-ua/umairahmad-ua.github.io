@@ -45,13 +45,3 @@ What Google described is a migration path rather than a cutover. Existing Agent 
 
 My plan is to move Scout's development environment to the new platform in May and leave production where it is until we have run a full month there. Development first, production after evidence. Same rule as every other migration.
 
-## ADK 2.0
-
-Google announced ADK 2.0 as an alpha in late March. Cloud Next was the first time I heard the team talk through the reasoning at length. Two features matter to me.
-
-Graph workflows make explicit what we were doing implicitly. Scout's data analysis agent is a sequential chain of a research agent and an author agent. In ADK 1.x we expressed that with a sequential agent wrapper. In 2.0 it becomes a declared graph with typed edges. That means we can draw it, validate it and diff it. I have wanted to diff agent topologies in code review for a year.
-
-Agent teams are the other one. Named groups of agents with shared context and a coordinator. Scout's root orchestrator with its eight specialists is exactly this shape. We built it by hand. Having a first-class construct means less code to own, if the construct fits.
-
-The if matters. Alpha software from a platform vendor tends to fit the vendor's demos. I will port one of Scout's smaller specialists to 2.0 in a branch and see how much of our hand-built coordination the new team construct actually replaces. If it is most of it, we move. If it is half, we wait for a beta.
-
