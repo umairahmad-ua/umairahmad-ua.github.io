@@ -75,3 +75,7 @@ Google did not change the compute pricing model for agent runtimes at Next, as f
 
 That is good news for my clients and a small headache for me. Good because the eval tooling I have been building by hand may have a managed equivalent. A headache because the cost model my proposals use will need to be redone once the pricing pages settle. I have told two clients to expect a revised estimate in June and not to act on the old one.
 
+## What I am adopting now
+
+The CLI, as soon as it scripts cleanly. The new console for development environments. Agent Engine memory bank features that were previewed and are now generally available, because Scout's session memory is a home-grown thing I would like to stop maintaining.
+
