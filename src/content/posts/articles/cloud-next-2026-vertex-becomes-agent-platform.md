@@ -63,3 +63,15 @@ Here is my honest position. I do not have a cross-vendor agent-to-agent use case
 
 The one place I am experimenting is at the boundary between our agents and a client's existing systems. A client's internal support agent, built by a different team on different tooling, wants to hand a conversation to one of ours. A2A with signed cards is the right answer to "how do we trust that handoff". It is the first protocol I have seen that treats agent identity as a security concern from the start.
 
+## The agents CLI
+
+The new command-line tool is the announcement I am most immediately happy about. It deploys, lists and inspects agents from a terminal. Until now that was a mix of SDK calls and console clicks, and none of it sat well in a CI pipeline.
+
+We will adopt this the week it is stable enough to script. Our deployment for Scout is currently a Python script that calls the SDK and a lot of environment variables. Replacing that with a CLI invocation in a Cloud Build step is a small change that removes a class of mistakes.
+
+## Pricing and the conversation with clients
+
+Google did not change the compute pricing model for agent runtimes at Next, as far as I could find in the wrap-up. What changed is packaging. Some governance and evaluation features that used to be separate line items are described as part of the platform now.
+
+That is good news for my clients and a small headache for me. Good because the eval tooling I have been building by hand may have a managed equivalent. A headache because the cost model my proposals use will need to be redone once the pricing pages settle. I have told two clients to expect a revised estimate in June and not to act on the old one.
+
