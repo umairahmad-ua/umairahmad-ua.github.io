@@ -79,3 +79,13 @@ That is good news for my clients and a small headache for me. Good because the e
 
 The CLI, as soon as it scripts cleanly. The new console for development environments. Agent Engine memory bank features that were previewed and are now generally available, because Scout's session memory is a home-grown thing I would like to stop maintaining.
 
+## What I am waiting on
+
+ADK 2.0 for production until it leaves alpha and I have ported one real agent. The Gemini Enterprise app for our client's end users, because their users live in a custom frontend and moving them is a product decision, not a platform one. Any A2A rollout beyond experiments until a client brings me the cross-team handoff problem for real.
+
+## The thing nobody said on stage
+
+The pace of naming changes is a cost. Every rename is a week of updating diagrams, a round of client questions, and a small erosion of the confidence that made them choose the platform. Google is not alone in this. But a platform that wants to be the place enterprises run agents for a decade should think about how often it asks those enterprises to relearn the vocabulary.
+
+I still think this is the right platform for the work we do. The agent runtime is solid. The model access is first class. The tooling is finally catching up to the runtime. Cloud Next made that clearer, not less clear. I just wish I could tell my clients the name would hold for two years.
+
