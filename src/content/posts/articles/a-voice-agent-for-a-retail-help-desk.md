@@ -73,3 +73,31 @@ The handoff carries context. The human sees the transcript, the tool results and
 
 We also decided the agent never says "I am an AI" unprompted and never pretends otherwise when asked. It introduces itself as the store's automated assistant. Customers know. The honesty costs nothing.
 
+## Evaluating on transcripts
+
+The eval set is real calls, de-identified, with the outcome labeled by the client's team. Did the agent answer correctly. Did it escalate when it should have. Did it fail to escalate when it should have. How long did the call take.
+
+A judge model scores transcripts on a rubric, and a sample goes to human review every week. The metric the client watches is containment, the share of calls the agent resolves without a human. The metric I watch is wrong-containment, calls the agent closed that should have gone to a person. That number has to stay near zero even if containment suffers.
+
+After six weeks, containment is a little over half of calls. Wrong-containment is under two percent, and every one of those is reviewed. Average handle time on the calls that do reach a human went up, which is correct. The humans are getting the hard ones.
+
+## The order that was not there
+
+The worst call in week three came from a customer who read out an order number that did not exist. The lookup tool returned an empty result. The agent apologized and asked for the number again. The customer read it again. Same result. The agent asked a third time. The customer hung up.
+
+The transcript looked polite. The customer experience was a loop. Nothing in the eval set had covered a lookup that legitimately fails twice.
+
+The fix had three parts. The lookup tool now returns a typed reason with the empty result. Not found, malformed number, or backend timeout. Each reason has its own next step written into the state machine. Not found once means ask for the email on the order instead. Not found twice means hand off to a human with the numbers the customer tried. A timeout means say so and offer a callback.
+
+Second, we added a retry counter to session state. Any tool that fails twice for the same intent forces an escalation. The agent cannot ask a third time. The rule is in code, not in the prompt, because a prompt can be talked out of a rule and a counter cannot.
+
+Third, we built twelve new transcript cases around failing lookups. Wrong number, right number with a typo, number from a different retailer, a number for an order older than the retention window. Each case has an expected path through the state machine and an expected final action. The judge scores whether the agent reached the right action, not whether it sounded nice getting there.
+
+Since the fix, the loop has not recurred. Escalations on failed lookups went up, which is the point. A human with two attempted order numbers and an email address resolves those calls in under two minutes. The agent trying a third time resolved none of them.
+
+## What Cloud Next changed
+
+I followed [Cloud Next](https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up) last week from Houston. The Gemini Enterprise Agent Platform going GA affects this project directly. Our agent runs on Agent Engine today. The migration to the renamed platform is on the list, and I will write about it when it is done.
+
+OpenAI's [GPT-5.5](https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/) arrived the same week. For a voice agent, the model matters less than the latency and the tool discipline. A smarter model that takes two seconds to answer is a worse phone agent than a decent one that answers in one.
+
