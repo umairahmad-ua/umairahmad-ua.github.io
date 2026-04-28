@@ -95,9 +95,3 @@ Third, we built twelve new transcript cases around failing lookups. Wrong number
 
 Since the fix, the loop has not recurred. Escalations on failed lookups went up, which is the point. A human with two attempted order numbers and an email address resolves those calls in under two minutes. The agent trying a third time resolved none of them.
 
-## What Cloud Next changed
-
-I followed [Cloud Next](https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up) last week from Houston. The Gemini Enterprise Agent Platform going GA affects this project directly. Our agent runs on Agent Engine today. The migration to the renamed platform is on the list, and I will write about it when it is done.
-
-OpenAI's [GPT-5.5](https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/) arrived the same week. For a voice agent, the model matters less than the latency and the tool discipline. A smarter model that takes two seconds to answer is a worse phone agent than a decent one that answers in one.
-
