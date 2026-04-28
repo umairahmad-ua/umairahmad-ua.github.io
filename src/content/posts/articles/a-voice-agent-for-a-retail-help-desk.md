@@ -73,11 +73,3 @@ The handoff carries context. The human sees the transcript, the tool results and
 
 We also decided the agent never says "I am an AI" unprompted and never pretends otherwise when asked. It introduces itself as the store's automated assistant. Customers know. The honesty costs nothing.
 
-## Evaluating on transcripts
-
-The eval set is real calls, de-identified, with the outcome labeled by the client's team. Did the agent answer correctly. Did it escalate when it should have. Did it fail to escalate when it should have. How long did the call take.
-
-A judge model scores transcripts on a rubric, and a sample goes to human review every week. The metric the client watches is containment, the share of calls the agent resolves without a human. The metric I watch is wrong-containment, calls the agent closed that should have gone to a person. That number has to stay near zero even if containment suffers.
-
-After six weeks, containment is a little over half of calls. Wrong-containment is under two percent, and every one of those is reviewed. Average handle time on the calls that do reach a human went up, which is correct. The humans are getting the hard ones.
-
