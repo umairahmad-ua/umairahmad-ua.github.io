@@ -159,3 +159,10 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-04-16 — Anthropic releases Claude Opus 4.7 (xhigh effort; Claude Code Routines) — https://code.claude.com/docs/en/whats-new/2026-w16
 - 2026-04-16 — Qwen3.6-35B-A3B open weights — https://huggingface.co/Qwen/Qwen3.6-35B-A3B
 
+## Week of 2026-04-20
+- 2026-04-20 — Moonshot Kimi K2.6 (open weights) — https://openrouter.ai/moonshotai/kimi-k2.6
+- 2026-04-22 to 24 — Google Cloud Next 2026 (Las Vegas): Gemini Enterprise Agent Platform GA (Vertex AI evolution), Gemini Enterprise app, agents-cli — https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up ; https://www.hpcwire.com/aiwire/2026/04/23/google-unveils-gemini-enterprise-agent-platform/
+- 2026-04-23 — OpenAI GPT-5.5 (API Apr 24) — https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/
+- 2026-04-24 — DeepSeek V4-Pro and V4-Flash debut (1M context) — https://www.deeplearning.ai/the-batch/kimi-k2-6-matches-open-qwen3-6-max-anddeepseek-v4-falls-just-behind-top-closed-models
+- 2026-04-20 to 24 — Claude Code /ultrareview public research preview — https://code.claude.com/docs/en/whats-new/2026-w17
+
