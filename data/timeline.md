@@ -166,3 +166,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-04-24 — DeepSeek V4-Pro and V4-Flash debut (1M context) — https://www.deeplearning.ai/the-batch/kimi-k2-6-matches-open-qwen3-6-max-anddeepseek-v4-falls-just-behind-top-closed-models
 - 2026-04-20 to 24 — Claude Code /ultrareview public research preview — https://code.claude.com/docs/en/whats-new/2026-w17
 
+## Week of 2026-04-27
+- 2026-04-27 — Alibaba Qwen3.6-Max-Preview — https://qwen.ai/blog?id=qwen3.6-max-preview
+- 2026-04-27 to 05-01 — Claude Code: Windows without Git Bash, claude ultrareview CLI — https://code.claude.com/docs/en/whats-new/2026-w18
+
