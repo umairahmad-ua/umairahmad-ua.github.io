@@ -80,31 +80,3 @@ Normalization matters more than it looks. Lowercase, collapse whitespace, strip 
 
 Reranking is inside the cache boundary on purpose. The reranker is the slow part. Caching the raw search results and reranking on every hit would have saved less than half the latency.
 
-## Tool cache: the one that paid the bill
-
-Back to the March bill. The materials risk agent called `get_product_master(sku)` once per SKU per turn. The capacity agent called it again. The orchestrator called it a third time when it wrote the explanation. The product master changes once a day.
-
-We added a tool cache in the ADK tool wrapper with a per-tool policy.
-
-```python
-TOOL_CACHE_POLICY = {
-    "get_product_master":   dict(ttl="1d",  scope="client"),
-    "get_plant_capacity":   dict(ttl="1h",  scope="client"),
-    "get_buyer_forecast":   dict(ttl="1h",  scope="session"),
-    "get_open_purchase_orders": dict(ttl="5m", scope="client"),
-    "submit_plan":          None,   # never cache writes
-}
-```
-
-Two rules came out of this. Never cache a tool that writes. Scope the cache to what the data actually belongs to. Buyer forecasts are uploaded per session, so caching them across sessions would leak one planner's file into another planner's run.
-
-The result on the planning workload, measured over four weeks in April, was a 58 percent drop in tool call volume and a 41 percent drop in total cost per planning run. The tool cache accounted for most of that. The prompt cache accounted for most of the rest.
-
-## Invalidation is a product decision
-
-Every cache has a staleness window. Choosing it is not an engineering call. It is a question for the person who owns the data.
-
-For the apparel client, the planners told us a capacity figure that is an hour old is fine. A purchase order status that is an hour old is not, because a cancelled order changes the whole allocation. So capacity gets an hour and open orders get five minutes. Those numbers came from a thirty-minute conversation with the planning lead, not from a benchmark.
-
-I ask three questions now on every new tool. How often does this data change. Who is hurt if the agent sees a stale value. What is the cost of a miss. The answers give the TTL and the scope.
-
