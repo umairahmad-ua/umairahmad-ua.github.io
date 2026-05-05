@@ -14,3 +14,5 @@ sources:
     date: 2026-05-06
 ---
 
+## Table of contents
+
