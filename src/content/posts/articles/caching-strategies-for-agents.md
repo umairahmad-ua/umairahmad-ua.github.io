@@ -100,17 +100,3 @@ Two rules came out of this. Never cache a tool that writes. Scope the cache to w
 
 The result on the planning workload, measured over four weeks in April, was a 58 percent drop in tool call volume and a 41 percent drop in total cost per planning run. The tool cache accounted for most of that. The prompt cache accounted for most of the rest.
 
-## Invalidation is a product decision
-
-Every cache has a staleness window. Choosing it is not an engineering call. It is a question for the person who owns the data.
-
-For the apparel client, the planners told us a capacity figure that is an hour old is fine. A purchase order status that is an hour old is not, because a cancelled order changes the whole allocation. So capacity gets an hour and open orders get five minutes. Those numbers came from a thirty-minute conversation with the planning lead, not from a benchmark.
-
-I ask three questions now on every new tool. How often does this data change. Who is hurt if the agent sees a stale value. What is the cost of a miss. The answers give the TTL and the scope.
-
-## What Code with Claude reminded me
-
-I followed [Code with Claude 2026](https://simonwillison.net/2026/May/6/code-w-claude-2026/) in San Francisco today from Houston. The Managed Agents updates lean on the provider handling more of the harness. That is convenient. It also moves the caching decisions out of your code and into a product you do not control.
-
-For a coding assistant that is a fine trade. For a planning agent that touches purchase orders it is not. My team keeps the tool cache in our own layer, with our own policy table, because the staleness rules belong to the client.
-
