@@ -58,3 +58,68 @@ The mistake we made first was putting the session summary near the top because i
 
 The [GPT-5.5 Instant](https://openai.com/index/gpt-5-5-instant/) release yesterday made the default ChatGPT model faster and cheaper again. Cheaper models do not make caching less important. They change which steps you are willing to run at all, and then those steps need caching too.
 
+## Retrieval cache: version the corpus, not the time
+
+The first version of our retrieval cache expired entries after one hour. That was wrong in both directions. During a planning session the corpus does not change, so an hour of expiry threw away perfectly good results. When the ingestion pipeline committed new documents, stale results survived for up to an hour.
+
+The fix was to key on corpus version. Ingestion writes a version number to a small Firestore document when a batch completes. The retrieval tool reads that number once per session and includes it in the cache key.
+
+```python
+def retrieve(query: str, client_id: str) -> list[Chunk]:
+    version = corpus_version(client_id)        # cached per session
+    key = f"{client_id}:{version}:{normalize(query)}"
+    if hit := redis.get(key):
+        return Chunk.decode_list(hit)
+    chunks = vertex_search.query(query, datastore=client_id, top_k=8)
+    chunks = reranker.rerank(query, chunks, top_k=4)
+    redis.set(key, Chunk.encode_list(chunks), ex=7 * 24 * 3600)
+    return chunks
+```
+
+Normalization matters more than it looks. Lowercase, collapse whitespace, strip trailing punctuation. Agents phrase the same question four different ways across a session. Without normalization the hit rate on the Scout research agents was under 20 percent. With it, above 60 percent.
+
+Reranking is inside the cache boundary on purpose. The reranker is the slow part. Caching the raw search results and reranking on every hit would have saved less than half the latency.
+
+## Tool cache: the one that paid the bill
+
+Back to the March bill. The materials risk agent called `get_product_master(sku)` once per SKU per turn. The capacity agent called it again. The orchestrator called it a third time when it wrote the explanation. The product master changes once a day.
+
+We added a tool cache in the ADK tool wrapper with a per-tool policy.
+
+```python
+TOOL_CACHE_POLICY = {
+    "get_product_master":   dict(ttl="1d",  scope="client"),
+    "get_plant_capacity":   dict(ttl="1h",  scope="client"),
+    "get_buyer_forecast":   dict(ttl="1h",  scope="session"),
+    "get_open_purchase_orders": dict(ttl="5m", scope="client"),
+    "submit_plan":          None,   # never cache writes
+}
+```
+
+Two rules came out of this. Never cache a tool that writes. Scope the cache to what the data actually belongs to. Buyer forecasts are uploaded per session, so caching them across sessions would leak one planner's file into another planner's run.
+
+The result on the planning workload, measured over four weeks in April, was a 58 percent drop in tool call volume and a 41 percent drop in total cost per planning run. The tool cache accounted for most of that. The prompt cache accounted for most of the rest.
+
+## Invalidation is a product decision
+
+Every cache has a staleness window. Choosing it is not an engineering call. It is a question for the person who owns the data.
+
+For the apparel client, the planners told us a capacity figure that is an hour old is fine. A purchase order status that is an hour old is not, because a cancelled order changes the whole allocation. So capacity gets an hour and open orders get five minutes. Those numbers came from a thirty-minute conversation with the planning lead, not from a benchmark.
+
+I ask three questions now on every new tool. How often does this data change. Who is hurt if the agent sees a stale value. What is the cost of a miss. The answers give the TTL and the scope.
+
+## What Code with Claude reminded me
+
+I followed [Code with Claude 2026](https://simonwillison.net/2026/May/6/code-w-claude-2026/) in San Francisco today from Houston. The Managed Agents updates lean on the provider handling more of the harness. That is convenient. It also moves the caching decisions out of your code and into a product you do not control.
+
+For a coding assistant that is a fine trade. For a planning agent that touches purchase orders it is not. My team keeps the tool cache in our own layer, with our own policy table, because the staleness rules belong to the client.
+
+## Checklist
+
+- Order the prompt stable to volatile. Measure the prefix hit rate before and after.
+- Key the retrieval cache on corpus version, not wall clock time. Normalize queries. Cache after reranking.
+- Wrap every read tool with a per-tool TTL and scope. Never cache writes.
+- Get staleness windows from the data owner, not from a default.
+- Log cache hits and misses as part of the cost trace so the savings show up in the same dashboard as the spend.
+
+The model got cheaper this week. The cache still decided whether the planning agent stayed in production.
