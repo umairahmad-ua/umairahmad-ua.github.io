@@ -59,3 +59,58 @@ explainer = Agent(
 
 The instruction tells it to state facts from the tools and to say "unknown" when a tool returns nothing. It does not guess causes. We tested that with a set of forty historical incidents the client had written up. The explainer named the correct upstream table in 34 of them and said unknown in 5. It named the wrong table once, and that case became an eval fixture.
 
+## Agent three: rule authoring in plain language
+
+Statistical baselines catch drift. They do not encode business rules. A returns table should never have a return date before the sale date. A store code must exist in the hierarchy. Analysts know hundreds of these. They were not going to write SQL assertions for each one.
+
+So the third agent takes a sentence and produces a rule.
+
+```text
+Analyst: "Every row in fact_returns must have a sale_date on or before return_date,
+          and the store_id must exist in dim_store for the same load."
+```
+
+```sql
+-- generated, reviewed, then committed to the rules repo
+SELECT COUNT(*) AS violations
+FROM `retail.fact_returns` r
+LEFT JOIN `retail.dim_store` s
+  ON r.store_id = s.store_id AND s.load_id = r.load_id
+WHERE r.sale_date > r.return_date OR s.store_id IS NULL
+```
+
+The agent uses schema introspection before it writes anything, the same pattern I built for Adspirer two years ago. It knows the column names and types. It proposes the SQL, shows the analyst a dry-run count against yesterday's data, and only then offers to commit the rule. A person clicks accept. The rule lands in a Git repository and Composer picks it up on the next run.
+
+In the first month the analysts wrote 140 rules this way. A handful needed hand edits. Most were correct on the first try because the questions were simple and the schema was in the prompt.
+
+## The hard part was routing
+
+Everything above took about five weeks. The alert routing took three more, and it was the part the client cared about most.
+
+A data quality alert is only useful if the right person sees it at the right time with the right urgency. Too many alerts and people mute the channel. Too few and Monday happens again.
+
+The router is a small policy engine, not a model. It uses the Dataplex owner tags, the severity from the detector, the time of day, and which reports depend on the affected table.
+
+```yaml
+routes:
+  - match: { severity: high, downstream_reports: [monday_trading] }
+    when: { day: [sat, sun], before: "06:00 Europe/London" }
+    to: pagerduty:data-oncall
+  - match: { severity: high }
+    to: slack:#data-quality, email:owner
+  - match: { severity: medium }
+    to: slack:#data-quality
+  - match: { severity: low }
+    to: digest:daily
+```
+
+The first rule is the one that would have saved that Monday. A high severity anomaly on any table feeding the Monday report, detected over the weekend, pages the on-call engineer. Everything else waits for people to be awake.
+
+We also added a rule I did not expect to need. If the same anomaly fires on three consecutive loads and nobody has acknowledged it, the router escalates to the owner's manager. Alerts that nobody owns are worse than no alerts.
+
+## What the numbers look like
+
+After three months in production the client shared their view. Data incidents that reached a business report fell from roughly four a month to one. Median time from bad load to first alert dropped from the next business day to under twenty minutes. The daily digest gets read. The high severity channel gets about two messages a week, and people respond to them.
+
+The analysts' favorite part is the rule authoring. My favorite part is that the profiler, the piece with no model in it, catches most of the problems.
+
