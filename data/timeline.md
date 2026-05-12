@@ -170,3 +170,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-04-27 — Alibaba Qwen3.6-Max-Preview — https://qwen.ai/blog?id=qwen3.6-max-preview
 - 2026-04-27 to 05-01 — Claude Code: Windows without Git Bash, claude ultrareview CLI — https://code.claude.com/docs/en/whats-new/2026-w18
 
+## Week of 2026-05-04
+- 2026-05-05 — OpenAI GPT-5.5 Instant (new ChatGPT default) — https://openai.com/index/gpt-5-5-instant/
+- 2026-05-06 — Code with Claude 2026, San Francisco: Managed Agents updates, proactive workflows — https://simonwillison.net/2026/May/6/code-w-claude-2026/
+- 2026-05-07 — Claude Managed Agents gets three new features — https://9to5mac.com/2026/05/07/anthropic-updates-claude-managed-agents-with-three-new-features/
+
