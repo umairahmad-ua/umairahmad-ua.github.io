@@ -108,3 +108,20 @@ The first rule is the one that would have saved that Monday. A high severity ano
 
 We also added a rule I did not expect to need. If the same anomaly fires on three consecutive loads and nobody has acknowledged it, the router escalates to the owner's manager. Alerts that nobody owns are worse than no alerts.
 
+## What the numbers look like
+
+After three months in production the client shared their view. Data incidents that reached a business report fell from roughly four a month to one. Median time from bad load to first alert dropped from the next business day to under twenty minutes. The daily digest gets read. The high severity channel gets about two messages a week, and people respond to them.
+
+The analysts' favorite part is the rule authoring. My favorite part is that the profiler, the piece with no model in it, catches most of the problems.
+
+## Lessons
+
+Use a model where language is the input or the output. Rule authoring and incident explanation are language. Detection is arithmetic.
+
+Put owners in the metadata layer, not in the agent. Dataplex tags gave us routing for free once the client filled them in. Filling them in took a workshop.
+
+Treat every wrong explanation as an eval case. The detector's forty historical incidents became the regression suite. Every prompt change runs against it.
+
+Route by consequence, not by table. The question is never "is this table important". It is "which report breaks, and who is reading it, and when".
+
+The client's Monday report has been right every Monday since March. That is the metric.
