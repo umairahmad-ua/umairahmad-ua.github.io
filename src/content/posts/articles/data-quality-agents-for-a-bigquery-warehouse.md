@@ -83,3 +83,28 @@ The agent uses schema introspection before it writes anything, the same pattern 
 
 In the first month the analysts wrote 140 rules this way. A handful needed hand edits. Most were correct on the first try because the questions were simple and the schema was in the prompt.
 
+## The hard part was routing
+
+Everything above took about five weeks. The alert routing took three more, and it was the part the client cared about most.
+
+A data quality alert is only useful if the right person sees it at the right time with the right urgency. Too many alerts and people mute the channel. Too few and Monday happens again.
+
+The router is a small policy engine, not a model. It uses the Dataplex owner tags, the severity from the detector, the time of day, and which reports depend on the affected table.
+
+```yaml
+routes:
+  - match: { severity: high, downstream_reports: [monday_trading] }
+    when: { day: [sat, sun], before: "06:00 Europe/London" }
+    to: pagerduty:data-oncall
+  - match: { severity: high }
+    to: slack:#data-quality, email:owner
+  - match: { severity: medium }
+    to: slack:#data-quality
+  - match: { severity: low }
+    to: digest:daily
+```
+
+The first rule is the one that would have saved that Monday. A high severity anomaly on any table feeding the Monday report, detected over the weekend, pages the on-call engineer. Everything else waits for people to be awake.
+
+We also added a rule I did not expect to need. If the same anomaly fires on three consecutive loads and nobody has acknowledged it, the router escalates to the owner's manager. Alerts that nobody owns are worse than no alerts.
+
