@@ -175,3 +175,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-05-06 — Code with Claude 2026, San Francisco: Managed Agents updates, proactive workflows — https://simonwillison.net/2026/May/6/code-w-claude-2026/
 - 2026-05-07 — Claude Managed Agents gets three new features — https://9to5mac.com/2026/05/07/anthropic-updates-claude-managed-agents-with-three-new-features/
 
+## Week of 2026-05-11
+- 2026-05-11 to 15 — Claude Code `claude agents` view, /goal — https://code.claude.com/docs/en/whats-new/2026-w20
+- Otherwise quiet week for frontier releases.
+
