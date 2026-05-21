@@ -27,3 +27,29 @@ Nobody caught it in review. The regression suite caught it two hours later.
 
 That afternoon is why I do not trust any agent that touches code without three separate stages between the model and the human. Generate. Verify. Gate. I learned the pattern at Qwiet AI, and I have not found a coding agent since that made it unnecessary.
 
+## Where the pattern came from
+
+From 2023 to 2025 I was Lead ML Engineer at Developers Incorporation. One of our client engagements was with Qwiet AI, the company formerly known as ShiftLeft. They sell static analysis to enterprises. Two of their systems shaped how I think about agents.
+
+The first was Ocular. It represents a codebase as a code property graph, then finds paths from a source (user input, a network read) to a sink (a database call, a shell exec). We trained graph neural networks over those paths to score which ones were real vulnerabilities and which were noise. My part was the feature pipelines and the training loop, then squeezing inference down so it could run inside a customer's CI.
+
+The second was Autofix. Once Ocular flags a path, Autofix proposes a repair. This is where the agent work lived, and where the pattern came from.
+
+Autofix was never one model call. It was three agents with hard boundaries between them:
+
+1. A generator that reads the vulnerable path, the surrounding code and the fix history, then proposes a patch.
+2. An evaluator that checks whether the patch is semantically correct. Does the source-to-sink path still exist? Did the patch change behavior outside the flagged region?
+3. A tester that runs the existing regression suite against the patched code and reports failures.
+
+Only after all three agreed did a human see the diff. The human saw the patch, the evaluator's reasoning and the test results together. That ordering was the product.
+
+## Why three stages and not one good prompt
+
+The obvious objection in 2024 was that a strong enough model would get it right the first time. The objection is stronger in 2026. Models are much better at code now. I still do not accept it.
+
+The generator and the evaluator have different jobs, and the jobs conflict. A generator is rewarded for producing a plausible patch. An evaluator is rewarded for finding what is wrong with it. When you ask one model call to do both, it grades its own homework. I have never seen that work reliably, on any model tier, including the ones released this spring.
+
+The tester is different again. It does not reason. It runs code. That is the point. A regression suite is the one part of the loop that cannot be talked into agreeing.
+
+Split the roles and the failure modes become visible. A bad patch that passes the evaluator but fails tests tells you the evaluator is weak. A patch that fails the evaluator but would have passed tests tells you the evaluator is too strict. You can tune each stage because each stage produces its own signal.
+
