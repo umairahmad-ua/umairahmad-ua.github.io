@@ -53,3 +53,50 @@ The tester is different again. It does not reason. It runs code. That is the poi
 
 Split the roles and the failure modes become visible. A bad patch that passes the evaluator but fails tests tells you the evaluator is weak. A patch that fails the evaluator but would have passed tests tells you the evaluator is too strict. You can tune each stage because each stage produces its own signal.
 
+## The gate is a policy, not a vibe
+
+The word "gate" gets used loosely. Here is what I mean by it. A gate is a written condition that must be true before the next stage runs, and it is enforced in code, not in a prompt.
+
+At Autofix the gates were roughly these:
+
+```text
+loop autofix(finding):
+  patch = generator(finding, context)
+
+  # Gate 1: the patch must be a valid, minimal diff
+  if not parses(patch) or touched_files(patch) > 3:
+      return escalate("patch too broad", patch)
+
+  verdict = evaluator(finding, patch)
+
+  # Gate 2: the flagged path must be gone and nothing else may change
+  if verdict.path_still_reachable or verdict.behavior_changed_outside_region:
+      if attempts < 2:
+          attempts += 1
+          context += verdict.reasoning
+          goto loop
+      return escalate("evaluator rejected", patch, verdict)
+
+  results = tester(patch)
+
+  # Gate 3: no new test failures, and the suite actually ran
+  if results.new_failures > 0 or results.tests_run == 0:
+      return escalate("regression", patch, results)
+
+  return human_review(patch, verdict, results)
+```
+
+Three things to notice. The retry budget is small and explicit. A generator that needs five attempts is telling you the finding is out of its depth. The evaluator's reasoning feeds the next attempt, so the loop learns within a task. And the last line is not "merge." It is "human review." The agent never merged. It prepared a case.
+
+`tests_run == 0` is there because of a real incident. A misconfigured runner reported zero failures because it ran zero tests. Green is not the same as tested.
+
+## What the 2026 coding agents changed, and what they did not
+
+The tooling moved a long way this spring. In February, Anthropic put Claude Code Security into a limited research preview, a scanner that finds vulnerabilities and proposes fixes inside Claude Code. In late March, Claude Code released an auto mode research preview, where the agent runs without approving every tool call. In early April, Cursor 3 arrived with an Agents Window built around running several coding agents at once.
+
+These are real changes. The generator stage is now commodity. Anyone can get a plausible patch for a flagged finding in seconds.
+
+What did not change is the other two stages. None of these products remove the need for an independent evaluator or for tests that actually run. Auto mode makes the question sharper, not softer. When the agent is no longer asking permission per step, the gates are the only thing standing between a wrong patch and your main branch.
+
+I run Claude Code in auto mode for my own work every day. I do it with a pre-commit hook that runs the suite, a review step that a second model performs against the diff, and a rule that nothing merges without a human reading the evaluator output. That is Autofix, rebuilt with 2026 tools.
+
