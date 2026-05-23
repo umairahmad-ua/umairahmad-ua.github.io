@@ -90,3 +90,23 @@ Three things to notice. The retry budget is small and explicit. A generator that
 
 `tests_run == 0` is there because of a real incident. A misconfigured runner reported zero failures because it ran zero tests. Green is not the same as tested.
 
+## What the 2026 coding agents changed, and what they did not
+
+The tooling moved a long way this spring. In February, Anthropic put Claude Code Security into a limited research preview, a scanner that finds vulnerabilities and proposes fixes inside Claude Code. In late March, Claude Code released an auto mode research preview, where the agent runs without approving every tool call. In early April, Cursor 3 arrived with an Agents Window built around running several coding agents at once.
+
+These are real changes. The generator stage is now commodity. Anyone can get a plausible patch for a flagged finding in seconds.
+
+What did not change is the other two stages. None of these products remove the need for an independent evaluator or for tests that actually run. Auto mode makes the question sharper, not softer. When the agent is no longer asking permission per step, the gates are the only thing standing between a wrong patch and your main branch.
+
+I run Claude Code in auto mode for my own work every day. I do it with a pre-commit hook that runs the suite, a review step that a second model performs against the diff, and a rule that nothing merges without a human reading the evaluator output. That is Autofix, rebuilt with 2026 tools.
+
+## How I apply this at Zazmic today
+
+At Zazmic I lead and mentor the ML engineering team building agents on Google Cloud. Most of what we build is not security tooling. The pattern still shows up in every agent that writes something executable.
+
+Our migration agents translate legacy SQL to BigQuery. The generator translates. A separate validation agent reconciles row counts and aggregates against the source system. A human signs off per cutover batch. Same three stages.
+
+Our cloud operations agent reads alerts and proposes remediations. The generator proposes. A policy check confirms the action is inside a pre-approved playbook. A human confirms anything destructive. Same three stages, with the "tester" replaced by a policy engine because you cannot run a regression suite against production infrastructure.
+
+The stages change shape by domain. The order does not.
+
