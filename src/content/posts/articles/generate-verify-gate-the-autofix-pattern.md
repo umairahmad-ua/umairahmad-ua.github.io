@@ -110,3 +110,10 @@ Our cloud operations agent reads alerts and proposes remediations. The generator
 
 The stages change shape by domain. The order does not.
 
+## What I would tell someone starting now
+
+Do not start with the generator. Start with the gates. Write down, in plain language, what must be true before a human sees the output. Then write the evaluator that checks those conditions. Then wire in whatever runs code for real. Only then plug in the model that proposes changes.
+
+If you start with the generator you will spend two months tuning prompts and then discover you have no way to know whether the output is right. I did that once. Ocular and Autofix taught me not to do it again.
+
+The models will keep getting better. The evaluator will keep being a separate job. Plan for both.
