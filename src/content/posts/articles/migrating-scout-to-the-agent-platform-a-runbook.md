@@ -27,3 +27,14 @@ Nothing broke on May 21. Names in a console do not break running agents. But we 
 
 This is the runbook we followed. It took eleven working days. Most of that was the eval gate, not the code.
 
+## Step zero: freeze the baseline
+
+Before touching anything we ran the full Scout eval suite against production and stored the results as the baseline. 212 scenario cases across the nine agents, scored by a judge model on groundedness, task completion and tone, plus retrieval metrics on the research agents.
+
+```bash
+scout-eval run --env prod --tag baseline-2026-05-18 --out gs://scout-evals/baseline/
+scout-eval report gs://scout-evals/baseline/ > baseline.md
+```
+
+The rule for the whole migration was written on the first page of the runbook. No cutover until the new stack scores within one point of the baseline on every agent, and no single case regresses from pass to fail without a written reason.
+
