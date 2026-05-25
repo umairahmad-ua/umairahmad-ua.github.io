@@ -19,22 +19,3 @@ sources:
 
 ## Table of contents
 
-## Two announcements in one week
-
-[Google I/O](https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection/) on May 19 made ADK Python 2.0 generally available. Two days later Google [retired the Vertex AI name](https://en.wikipedia.org/wiki/Gemini_Enterprise_Agent_Platform). Everything now lives under the Gemini Enterprise Agent Platform. Scout, the marketing intelligence system my team runs for Let's Forage, had been on Vertex AI Agent Engine and ADK 1.x since last autumn.
-
-Nothing broke on May 21. Names in a console do not break running agents. But we had two migrations queued, a framework major version and a platform rename, and I wanted them done before the summer campaign season when the Apple and Meta teams use Scout most.
-
-This is the runbook we followed. It took eleven working days. Most of that was the eval gate, not the code.
-
-## Step zero: freeze the baseline
-
-Before touching anything we ran the full Scout eval suite against production and stored the results as the baseline. 212 scenario cases across the nine agents, scored by a judge model on groundedness, task completion and tone, plus retrieval metrics on the research agents.
-
-```bash
-scout-eval run --env prod --tag baseline-2026-05-18 --out gs://scout-evals/baseline/
-scout-eval report gs://scout-evals/baseline/ > baseline.md
-```
-
-The rule for the whole migration was written on the first page of the runbook. No cutover until the new stack scores within one point of the baseline on every agent, and no single case regresses from pass to fail without a written reason.
-
