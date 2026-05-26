@@ -92,3 +92,30 @@ We looked at three things. Did both versions call the same tools in the same ord
 
 The tool call comparison found the only real difference. The persona agent in 2.0 called the audience lookup tool once instead of twice in about a fifth of sessions. That was an improvement. The 1.x version had been double-calling because of how the sequential state was reloaded. Cost per session went down 6 percent from that alone.
 
+## Step five: the eval gate
+
+On day nine we ran the full suite against the shadow version.
+
+| Agent | Baseline | ADK 2.0 | Delta |
+|---|---|---|---|
+| research_assistant | 8.7 | 8.8 | +0.1 |
+| research_author | 8.4 | 8.4 | 0.0 |
+| big_idea | 8.1 | 8.3 | +0.2 |
+| campaign_author | 8.6 | 8.5 | -0.1 |
+| persona | 8.9 | 8.9 | 0.0 |
+| general_strategy | 8.2 | 8.3 | +0.1 |
+| role_author | 8.5 | 8.4 | -0.1 |
+| help_desk | 9.1 | 9.1 | 0.0 |
+
+Two cases moved from pass to fail. Both were in the campaign author, and both were tone cases where the judge preferred the old phrasing. We read them, agreed the new outputs were acceptable, and wrote that down in the runbook. Rule satisfied.
+
+## Step six: traffic shift and rollback
+
+Traffic moved 10 percent, 50 percent, 100 percent over two days with the same comparison job watching. Rollback was one command the whole time.
+
+```bash
+agents-cli traffic --agent scout-root --version 2026.04.30 --percent 100
+```
+
+We did not need it. We tested it on day ten anyway, with real traffic, for five minutes. A rollback you have not exercised is a hope.
+
