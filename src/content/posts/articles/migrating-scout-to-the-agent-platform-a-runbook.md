@@ -63,3 +63,9 @@ The explicit `inputs` mapping is the part I like. In 1.x the author read whateve
 
 Everything else in the tree, the big idea, campaign author, persona, strategy, role author and help desk agents, moved with import changes and small signature updates. Two days for the port, one for the tests.
 
+## Step two: prompts stay where they are
+
+Scout's prompts live in Prompt Management, not in code. This was the decision that made the migration cheap. The framework changed. The platform name changed. The prompts did not move, and the prompt versions pinned in config were the same before and after.
+
+If your prompts are string literals in Python, a framework migration becomes a prompt migration too, and you lose the ability to tell which change caused which eval movement.
+
