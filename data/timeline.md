@@ -179,3 +179,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-05-11 to 15 — Claude Code `claude agents` view, /goal — https://code.claude.com/docs/en/whats-new/2026-w20
 - Otherwise quiet week for frontier releases.
 
+## Week of 2026-05-18
+- 2026-05-19 to 20 — Google I/O 2026: Gemini 3.5 Flash GA, Gemini Omni, Antigravity 2.0, ADK Python 2.0 GA — https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection/
+- 2026-05-21 — MCP 2026-07-28 release candidate published (stateless core, extensions, OAuth hardening) — https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/
+- 2026-05-21 — Vertex AI name retired; all services under Gemini Enterprise Agent Platform — https://en.wikipedia.org/wiki/Gemini_Enterprise_Agent_Platform
+- 2026-05-22 — OpenAI confidential draft S-1 submitted to SEC — https://openai.com/index/openai-submits-confidential-s-1/
+
