@@ -69,3 +69,43 @@ Scout's prompts live in Prompt Management, not in code. This was the decision th
 
 If your prompts are string literals in Python, a framework migration becomes a prompt migration too, and you lose the ability to tell which change caused which eval movement.
 
+## Step three: deploy to the renamed platform
+
+The Agent Engine deploy target is the same service under a new name and a new console path. The `agents-cli` from Cloud Next in April handles it.
+
+```bash
+agents-cli deploy \
+  --project letsforage-prod \
+  --agent scout-root \
+  --version 2026.05.24 \
+  --runtime adk-python-2.0 \
+  --traffic 0
+```
+
+`--traffic 0` deploys the new version with no live traffic. It sits next to the current version, reachable by explicit version header for testing.
+
+## Step four: shadow run
+
+For three working days every production request to Scout was mirrored to the new version. The old version answered the user. The new version answered into a log. A small Cloud Run job compared them.
+
+We looked at three things. Did both versions call the same tools in the same order. Did the judge score the two answers within a point of each other. Did latency and cost per session stay within 10 percent.
+
+The tool call comparison found the only real difference. The persona agent in 2.0 called the audience lookup tool once instead of twice in about a fifth of sessions. That was an improvement. The 1.x version had been double-calling because of how the sequential state was reloaded. Cost per session went down 6 percent from that alone.
+
+## Step five: the eval gate
+
+On day nine we ran the full suite against the shadow version.
+
+| Agent | Baseline | ADK 2.0 | Delta |
+|---|---|---|---|
+| research_assistant | 8.7 | 8.8 | +0.1 |
+| research_author | 8.4 | 8.4 | 0.0 |
+| big_idea | 8.1 | 8.3 | +0.2 |
+| campaign_author | 8.6 | 8.5 | -0.1 |
+| persona | 8.9 | 8.9 | 0.0 |
+| general_strategy | 8.2 | 8.3 | +0.1 |
+| role_author | 8.5 | 8.4 | -0.1 |
+| help_desk | 9.1 | 9.1 | 0.0 |
+
+Two cases moved from pass to fail. Both were in the campaign author, and both were tone cases where the judge preferred the old phrasing. We read them, agreed the new outputs were acceptable, and wrote that down in the runbook. Rule satisfied.
+
