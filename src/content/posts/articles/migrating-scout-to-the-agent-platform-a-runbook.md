@@ -84,3 +84,42 @@ agents-cli deploy \
 
 `--traffic 0` deploys the new version with no live traffic. It sits next to the current version, reachable by explicit version header for testing.
 
+## Step four: shadow run
+
+For three working days every production request to Scout was mirrored to the new version. The old version answered the user. The new version answered into a log. A small Cloud Run job compared them.
+
+We looked at three things. Did both versions call the same tools in the same order. Did the judge score the two answers within a point of each other. Did latency and cost per session stay within 10 percent.
+
+The tool call comparison found the only real difference. The persona agent in 2.0 called the audience lookup tool once instead of twice in about a fifth of sessions. That was an improvement. The 1.x version had been double-calling because of how the sequential state was reloaded. Cost per session went down 6 percent from that alone.
+
+## Step five: the eval gate
+
+On day nine we ran the full suite against the shadow version.
+
+| Agent | Baseline | ADK 2.0 | Delta |
+|---|---|---|---|
+| research_assistant | 8.7 | 8.8 | +0.1 |
+| research_author | 8.4 | 8.4 | 0.0 |
+| big_idea | 8.1 | 8.3 | +0.2 |
+| campaign_author | 8.6 | 8.5 | -0.1 |
+| persona | 8.9 | 8.9 | 0.0 |
+| general_strategy | 8.2 | 8.3 | +0.1 |
+| role_author | 8.5 | 8.4 | -0.1 |
+| help_desk | 9.1 | 9.1 | 0.0 |
+
+Two cases moved from pass to fail. Both were in the campaign author, and both were tone cases where the judge preferred the old phrasing. We read them, agreed the new outputs were acceptable, and wrote that down in the runbook. Rule satisfied.
+
+## Step six: traffic shift and rollback
+
+Traffic moved 10 percent, 50 percent, 100 percent over two days with the same comparison job watching. Rollback was one command the whole time.
+
+```bash
+agents-cli traffic --agent scout-root --version 2026.04.30 --percent 100
+```
+
+We did not need it. We tested it on day ten anyway, with real traffic, for five minutes. A rollback you have not exercised is a hope.
+
+## What about MCP
+
+The [MCP 2026-07-28 release candidate](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/) also landed on May 21. Scout's tools are internal ADK tools, not MCP servers, so nothing changed for this migration. Our enterprise knowledge agents for other clients do use MCP connectors, and the stateless core in the RC will mean work there. That is a separate runbook for July.
+
