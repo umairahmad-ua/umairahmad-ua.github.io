@@ -123,3 +123,14 @@ We did not need it. We tested it on day ten anyway, with real traffic, for five 
 
 The [MCP 2026-07-28 release candidate](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/) also landed on May 21. Scout's tools are internal ADK tools, not MCP servers, so nothing changed for this migration. Our enterprise knowledge agents for other clients do use MCP connectors, and the stateless core in the RC will mean work there. That is a separate runbook for July.
 
+## The runbook, compressed
+
+1. Freeze a baseline eval and write the pass criteria before you start.
+2. Port the framework in a branch. Fix what fails loudly. Add each fix as an eval case.
+3. Keep prompts out of code so they do not move.
+4. Deploy at zero traffic to the new platform.
+5. Shadow production for days, comparing tool calls, judge scores, latency and cost.
+6. Run the full eval gate. Explain every pass-to-fail in writing.
+7. Shift traffic in steps. Exercise rollback on purpose.
+
+Eleven days. Zero user-visible incidents. One old bug found and fixed. A 6 percent cost drop we did not plan for. The name on the console is different, and Scout does not know.
