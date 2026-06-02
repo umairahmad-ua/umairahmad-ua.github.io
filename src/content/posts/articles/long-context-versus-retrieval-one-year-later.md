@@ -28,3 +28,41 @@ Nine thousand contracts average about 11,000 tokens each. That is roughly 100 mi
 
 We measured both on the client's own review workload. The task is clause comparison. Given a new contract, find how the indemnity, limitation of liability and termination clauses differ from the insurer's standard positions and from precedent contracts with the same counterparty.
 
+## The experiment
+
+Same model, same prompt template, same 60 review cases with lawyer-graded answers. Two conditions.
+
+**Long context.** A lightweight filter picked the 80 most likely relevant contracts by counterparty and contract type, and we put their full text in the prompt. Around 900,000 tokens per request.
+
+**Retrieval.** Hierarchical chunking at the clause level with parent context, hybrid dense and sparse search, cross-encoder reranking, top 12 passages. Around 14,000 tokens per request.
+
+| | Long context | Retrieval |
+|---|---|---|
+| Lawyer-graded accuracy | 81% | 84% |
+| Groundedness (judge) | 8.2 | 8.9 |
+| Median latency | 71 s | 6 s |
+| Cost per review | ~$3.10 | ~$0.09 |
+| Wrong-counterparty citations | 7 of 60 | 0 of 60 |
+
+The accuracy gap is small and within what I would expect to move with a better prompt. Everything else is not close.
+
+## Freshness
+
+Contracts get amended. The long context condition works from whatever snapshot you loaded. With retrieval, the ingestion pipeline reindexes an amended contract within minutes and the next query sees it.
+
+You can rebuild the long context snapshot on every query. Then you pay the assembly cost and the token cost every time, and you still need a filter to pick the 80 documents, which is retrieval by another name.
+
+## Access control
+
+This is the reason that ends the conversation with enterprise clients. Not every lawyer at the insurer may read every contract. Some are restricted to a deal team. In the retrieval architecture the search index carries the document ACL and the query runs as the user. A restricted contract is never a candidate.
+
+In the long context architecture the filter has to enforce the ACL before assembly, and then the entire assembled prompt, with every restricted passage in it, goes to the model provider as one blob. The provider is not the problem. The audit trail is. When compliance asks what the model saw for a given request, "900,000 tokens" is not an answer they accept. "These 12 passages from these 9 documents, all of which the user was entitled to read" is.
+
+## Evaluation
+
+Retrieval gives you two things to evaluate separately. Did we retrieve the right passages. Did the model answer correctly given those passages. When a case fails you know which half failed.
+
+Long context collapses that. When the answer is wrong, the model had the right document somewhere in the window and did not use it, or used the wrong one. The seven wrong-counterparty citations in our experiment were exactly this. The model picked an indemnity clause from a different counterparty's contract that happened to be in the window. Retrieval never presented that clause, so it could not be cited.
+
+The insurer's lawyers cared about this failure more than any accuracy figure. A wrong citation to the wrong counterparty in a review memo is the kind of error that gets a vendor removed.
+
