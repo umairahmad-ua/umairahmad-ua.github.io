@@ -16,3 +16,15 @@ sources:
 
 ## Table of contents
 
+## The question a client asked
+
+A legal operations team at a mid-size insurer asked me in April why we still bother with retrieval. Their contract corpus is about 9,000 documents. Claude Opus 4.6 had a million-token beta window since February. Gemini has had long windows for longer. [Claude Opus 4.8](https://code.claude.com/docs/en/whats-new/2026-w22) arrived last week. "Just put the contracts in the prompt" was the sentence.
+
+I wrote a version of this article in February when I described [the retrieval blueprint my team reuses](/posts/articles/the-rag-blueprint-i-reuse/). Four months and two model generations later the answer has not changed. The reasons have gotten sharper.
+
+## Do the arithmetic first
+
+Nine thousand contracts average about 11,000 tokens each. That is roughly 100 million tokens. A million-token window holds one percent of the corpus. So "put it all in the prompt" was never an option for this client. The real question was whether to put a lot in the prompt, say the 80 most relevant contracts, or to retrieve a handful of passages.
+
+We measured both on the client's own review workload. The task is clause comparison. Given a new contract, find how the indemnity, limitation of liability and termination clauses differ from the insurer's standard positions and from precedent contracts with the same counterparty.
+
