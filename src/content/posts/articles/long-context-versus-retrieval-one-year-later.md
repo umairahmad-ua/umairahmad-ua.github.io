@@ -84,3 +84,9 @@ Opus 4.8 last week, GPT-5.5 Instant in May, Fable 5 expected soon. Every release
 
 Microsoft's [Build announcements](https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/) this week lean the same way. Agent 365 and Microsoft IQ are retrieval and permission layers over enterprise data, with long context models behind them. Nobody building for enterprises is skipping the index.
 
+## What changed in a year
+
+The retrieval side got better. Rerankers are cheaper and stronger. Hybrid search is the default in Vertex AI Search and in most vector stores. Hierarchical chunking is a checkbox, not a custom pipeline.
+
+The long context side got better too, and that is the point I want to be honest about. The 81 percent accuracy in the long context condition would have been below 70 percent a year ago. Models are much better at finding a needle in a large window. What they are not better at is telling you which needle they found, or refusing to find one they should not see.
+
