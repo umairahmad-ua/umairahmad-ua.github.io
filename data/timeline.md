@@ -185,3 +185,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-05-21 — Vertex AI name retired; all services under Gemini Enterprise Agent Platform — https://en.wikipedia.org/wiki/Gemini_Enterprise_Agent_Platform
 - 2026-05-22 — OpenAI confidential draft S-1 submitted to SEC — https://openai.com/index/openai-submits-confidential-s-1/
 
+## Week of 2026-05-25
+- 2026-05-26 — Project Glasswing update: Mythos identified 10,000+ software flaws — https://www.helpnetsecurity.com/2026/05/26/anthropic-project-glasswing-update/
+- 2026-05-28 — Anthropic releases Claude Opus 4.8 — https://code.claude.com/docs/en/whats-new/2026-w22
+
