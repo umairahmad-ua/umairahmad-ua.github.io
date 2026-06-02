@@ -58,3 +58,29 @@ This is the reason that ends the conversation with enterprise clients. Not every
 
 In the long context architecture the filter has to enforce the ACL before assembly, and then the entire assembled prompt, with every restricted passage in it, goes to the model provider as one blob. The provider is not the problem. The audit trail is. When compliance asks what the model saw for a given request, "900,000 tokens" is not an answer they accept. "These 12 passages from these 9 documents, all of which the user was entitled to read" is.
 
+## Evaluation
+
+Retrieval gives you two things to evaluate separately. Did we retrieve the right passages. Did the model answer correctly given those passages. When a case fails you know which half failed.
+
+Long context collapses that. When the answer is wrong, the model had the right document somewhere in the window and did not use it, or used the wrong one. The seven wrong-counterparty citations in our experiment were exactly this. The model picked an indemnity clause from a different counterparty's contract that happened to be in the window. Retrieval never presented that clause, so it could not be cited.
+
+The insurer's lawyers cared about this failure more than any accuracy figure. A wrong citation to the wrong counterparty in a review memo is the kind of error that gets a vendor removed.
+
+## Where long context wins
+
+I am not arguing that long windows are useless. My team uses them every day, in three places.
+
+Single-document tasks. Reviewing one 200-page contract end to end. There is nothing to retrieve. The whole document is the context.
+
+Working memory for agents. The Scout orchestrator holds a long session with many tool results. Long windows let us summarize less often and lose less.
+
+Bootstrap before an index exists. A new client with 300 documents and a demo on Friday. Load them, get a result, build the index next week.
+
+The rule my team uses: long context for depth on one thing, retrieval for breadth across many things with rules about who may see what.
+
+## Cost has not moved the line
+
+Opus 4.8 last week, GPT-5.5 Instant in May, Fable 5 expected soon. Every release makes tokens cheaper. The ratio in the table above is about 35 to 1. If long context tokens fell by 90 percent tomorrow, retrieval would still be three times cheaper and ten times faster, and it would still be the only one that passes the compliance review.
+
+Microsoft's [Build announcements](https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/) this week lean the same way. Agent 365 and Microsoft IQ are retrieval and permission layers over enterprise data, with long context models behind them. Nobody building for enterprises is skipping the index.
+
