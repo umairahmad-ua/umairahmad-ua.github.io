@@ -52,3 +52,9 @@ Contracts get amended. The long context condition works from whatever snapshot y
 
 You can rebuild the long context snapshot on every query. Then you pay the assembly cost and the token cost every time, and you still need a filter to pick the 80 documents, which is retrieval by another name.
 
+## Access control
+
+This is the reason that ends the conversation with enterprise clients. Not every lawyer at the insurer may read every contract. Some are restricted to a deal team. In the retrieval architecture the search index carries the document ACL and the query runs as the user. A restricted contract is never a candidate.
+
+In the long context architecture the filter has to enforce the ACL before assembly, and then the entire assembled prompt, with every restricted passage in it, goes to the model provider as one blob. The provider is not the problem. The audit trail is. When compliance asks what the model saw for a given request, "900,000 tokens" is not an answer they accept. "These 12 passages from these 9 documents, all of which the user was entitled to read" is.
+
