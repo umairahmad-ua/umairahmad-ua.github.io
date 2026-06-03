@@ -78,3 +78,20 @@ Bootstrap before an index exists. A new client with 300 documents and a demo on 
 
 The rule my team uses: long context for depth on one thing, retrieval for breadth across many things with rules about who may see what.
 
+## Cost has not moved the line
+
+Opus 4.8 last week, GPT-5.5 Instant in May, Fable 5 expected soon. Every release makes tokens cheaper. The ratio in the table above is about 35 to 1. If long context tokens fell by 90 percent tomorrow, retrieval would still be three times cheaper and ten times faster, and it would still be the only one that passes the compliance review.
+
+Microsoft's [Build announcements](https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/) this week lean the same way. Agent 365 and Microsoft IQ are retrieval and permission layers over enterprise data, with long context models behind them. Nobody building for enterprises is skipping the index.
+
+## What changed in a year
+
+The retrieval side got better. Rerankers are cheaper and stronger. Hybrid search is the default in Vertex AI Search and in most vector stores. Hierarchical chunking is a checkbox, not a custom pipeline.
+
+The long context side got better too, and that is the point I want to be honest about. The 81 percent accuracy in the long context condition would have been below 70 percent a year ago. Models are much better at finding a needle in a large window. What they are not better at is telling you which needle they found, or refusing to find one they should not see.
+
+## Recommendation
+
+For any corpus a user could not read in a week, retrieve. Attach ACLs to the index. Evaluate retrieval and generation separately. Use long context inside the retrieved set and for single-document depth.
+
+The insurer kept retrieval. Their review memos cite the right counterparty every time, and the lawyers stopped asking why.
