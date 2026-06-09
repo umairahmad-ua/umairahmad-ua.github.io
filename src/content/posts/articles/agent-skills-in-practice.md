@@ -62,3 +62,51 @@ requires_tools: [get_alert, get_logs, get_metrics, get_oncall, post_slack]
 
 Step six is the whole reason the skill exists. Triage is read-only. Remediation is a different skill with a different permission scope and a human approval in front of it. Splitting them into two skills made the boundary a file boundary, which is far easier to review than a paragraph in the middle of one long prompt.
 
+## Skills are configuration, so they get versions
+
+Every skill has a semantic version. The agent's manifest pins versions per client.
+
+```yaml
+# clients/insurer-ops/agent.yaml
+skills:
+  incident-triage: 2.3.0
+  remediation-approved-playbooks: 1.8.2
+  cost-anomaly-review: 1.1.0
+  change-freeze-check: 1.0.4
+```
+
+A skill change is a pull request in the skills repository. The PR bumps the version, the tests run, and a client picks up the new version when they choose. When the insurer client asked for a stricter redaction rule in March, we released `incident-triage` 2.2.0 with the change. The media client stayed on 2.1.x for two weeks until their compliance team read the diff. Both were happy. Neither could have been happy with one shared prompt.
+
+## Testing a skill
+
+The `tests/cases.yaml` file is the part nobody expects and the part I insist on. A skill without cases is a suggestion.
+
+```yaml
+- name: p1-database-saturation
+  input:
+    alert_id: "alert-2026-03-14-0091"
+  expect:
+    severity: P1
+    owner_team: data-platform
+    first_action_matches: "scale read replicas|failover"
+    no_execution: true
+    redacted_fields: [customer_id, email]
+
+- name: informational-deploy-notice
+  input:
+    alert_id: "alert-2026-03-15-0002"
+  expect:
+    severity: P4
+    no_slack_post: true
+```
+
+The runner loads the skill into a test agent with recorded tool responses and checks the expectations. Twenty to forty cases per skill. The suite runs on every PR to the skills repo and, importantly, on every model change. When we moved the ops agent to Claude Opus 4.7 in April, three skills had cases fail. Two were phrasing. One was a real change in how the model followed a numbered list when a tool returned an error mid-way. We fixed the skill text, not the model.
+
+## Skills across frameworks
+
+The standard is Anthropic's. Our Scout agents run on Google ADK with Gemini. We wanted the same procedures there, especially the redaction and grounding steps.
+
+The `SKILL.md` format is markdown with front matter, so loading it into an ADK agent's instruction is a few lines. Scripts run as tools in either framework. What does not transfer is the automatic "load when relevant" behavior, which is an Agent SDK feature. In ADK we load skills explicitly per agent in config. That is fine. It is arguably clearer.
+
+The point is that the procedure is written once, reviewed once, tested once, and both stacks read it. When the Fable 5 and Mythos 5 models [arrived yesterday](https://www.anthropic.com/news/claude-fable-5-mythos-5), we did not have to think about whether our procedures would survive the model change. We ran the skill suites. They tell us.
+
