@@ -189,3 +189,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-05-26 — Project Glasswing update: Mythos identified 10,000+ software flaws — https://www.helpnetsecurity.com/2026/05/26/anthropic-project-glasswing-update/
 - 2026-05-28 — Anthropic releases Claude Opus 4.8 — https://code.claude.com/docs/en/whats-new/2026-w22
 
+## Week of 2026-06-01
+- 2026-06-02 — Anthropic expands Project Glasswing (critical infrastructure, 15+ countries) — https://www.anthropic.com/news/expanding-project-glasswing
+- 2026-06-02 to 03 — Microsoft Build 2026: Agent 365, Microsoft IQ — https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/
+- 2026-06-01 to 05 — Claude Code auto mode on Bedrock, Agent Platform, Foundry — https://code.claude.com/docs/en/whats-new/2026-w23
+
