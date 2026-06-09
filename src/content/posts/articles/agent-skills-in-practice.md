@@ -110,3 +110,35 @@ The `SKILL.md` format is markdown with front matter, so loading it into an ADK a
 
 The point is that the procedure is written once, reviewed once, tested once, and both stacks read it. When the Fable 5 and Mythos 5 models [arrived yesterday](https://www.anthropic.com/news/claude-fable-5-mythos-5), we did not have to think about whether our procedures would survive the model change. We ran the skill suites. They tell us.
 
+## What goes in a skill and what does not
+
+Six months of writing these produced a short rule.
+
+A skill contains a procedure a human expert would write down for a new colleague. Steps, gates, references, the scripts that fetch or transform data. Things that are true regardless of which client or model runs them.
+
+A skill does not contain client facts, credentials, tool implementations or anything that changes per deployment. Those live in the client manifest and the tool layer. The moment client data leaked into a skill, we lost the ability to share it, and sharing is the reason for the format.
+
+We also learned to keep skills short. Our longest is 140 lines. When a skill grows past that it is two skills, and usually the second one needs a different permission scope anyway.
+
+## A skill that went wrong
+
+The redaction skill is the one I trust most now. It is also the one that failed first.
+
+Version two added a rule for national ID numbers from a new client's country. The rule was a regular expression written from a spec. The tests passed. Two weeks later a reviewer noticed that invoice numbers from that client were being redacted too. Same digit count, similar formatting, nothing in the test suite that looked like an invoice.
+
+The skill did exactly what its file said. The file was wrong about the world.
+
+Three changes came out of that. First, every redaction rule now carries a negative example set. For each pattern we keep a list of strings that look similar and must not be redacted. Invoice numbers, purchase order numbers, tracking numbers, internal ticket IDs. The test runner checks both lists on every change.
+
+Second, a skill change that touches a redaction rule cannot merge without a sample run over one hundred recent documents from the client, with the diff of what changed in the redacted output shown in the pull request. A reviewer looks at the diff, not the regex.
+
+Third, the skill file now has a section called known limits. It says in plain words what the rule cannot tell apart and what a human should watch for. When the compliance officer reads the skill, that section is the one they read twice.
+
+None of this is specific to skills. It is ordinary engineering discipline applied to a text file that used to live inside a prompt. That is the argument for the format. The failure was visible, attributable to one file and one version, and fixable in one place.
+
+## Library so far
+
+Across three clients we now have 31 skills. Nine are shared across all three. The shared ones are the ones I am proudest of. Redaction. Grounded summary with citations. Incident triage. Change freeze check. Cost anomaly review. Reconciliation report. Escalation. Runbook lookup. Handoff note.
+
+Each one replaced between two and five copies of the same procedure. Each one has a test suite and a version history. When a client's compliance officer asks how the agent decides what to redact, I send them one file and its tests.
+
