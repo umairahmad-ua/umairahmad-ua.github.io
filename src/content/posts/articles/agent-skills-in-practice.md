@@ -102,3 +102,21 @@ The `tests/cases.yaml` file is the part nobody expects and the part I insist on.
 
 The runner loads the skill into a test agent with recorded tool responses and checks the expectations. Twenty to forty cases per skill. The suite runs on every PR to the skills repo and, importantly, on every model change. When we moved the ops agent to Claude Opus 4.7 in April, three skills had cases fail. Two were phrasing. One was a real change in how the model followed a numbered list when a tool returned an error mid-way. We fixed the skill text, not the model.
 
+## Skills across frameworks
+
+The standard is Anthropic's. Our Scout agents run on Google ADK with Gemini. We wanted the same procedures there, especially the redaction and grounding steps.
+
+The `SKILL.md` format is markdown with front matter, so loading it into an ADK agent's instruction is a few lines. Scripts run as tools in either framework. What does not transfer is the automatic "load when relevant" behavior, which is an Agent SDK feature. In ADK we load skills explicitly per agent in config. That is fine. It is arguably clearer.
+
+The point is that the procedure is written once, reviewed once, tested once, and both stacks read it. When the Fable 5 and Mythos 5 models [arrived yesterday](https://www.anthropic.com/news/claude-fable-5-mythos-5), we did not have to think about whether our procedures would survive the model change. We ran the skill suites. They tell us.
+
+## What goes in a skill and what does not
+
+Six months of writing these produced a short rule.
+
+A skill contains a procedure a human expert would write down for a new colleague. Steps, gates, references, the scripts that fetch or transform data. Things that are true regardless of which client or model runs them.
+
+A skill does not contain client facts, credentials, tool implementations or anything that changes per deployment. Those live in the client manifest and the tool layer. The moment client data leaked into a skill, we lost the ability to share it, and sharing is the reason for the format.
+
+We also learned to keep skills short. Our longest is 140 lines. When a skill grows past that it is two skills, and usually the second one needs a different permission scope anyway.
+
