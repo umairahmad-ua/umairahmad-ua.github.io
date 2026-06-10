@@ -136,9 +136,3 @@ Third, the skill file now has a section called known limits. It says in plain wo
 
 None of this is specific to skills. It is ordinary engineering discipline applied to a text file that used to live inside a prompt. That is the argument for the format. The failure was visible, attributable to one file and one version, and fixable in one place.
 
-## Library so far
-
-Across three clients we now have 31 skills. Nine are shared across all three. The shared ones are the ones I am proudest of. Redaction. Grounded summary with citations. Incident triage. Change freeze check. Cost anomaly review. Reconciliation report. Escalation. Runbook lookup. Handoff note.
-
-Each one replaced between two and five copies of the same procedure. Each one has a test suite and a version history. When a client's compliance officer asks how the agent decides what to redact, I send them one file and its tests.
-
