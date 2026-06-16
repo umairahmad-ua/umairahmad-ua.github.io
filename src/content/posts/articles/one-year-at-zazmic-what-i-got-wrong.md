@@ -14,11 +14,3 @@ sources:
 
 ## Table of contents
 
-## The whiteboard from June 2025
-
-I joined Zazmic as Principal ML Engineer in June 2025. In my second week I drew an architecture for a client on a whiteboard. It had eleven agents. Each one had a name and a job. The client loved it. I loved it.
-
-We built four of those eleven. The system works. The other seven would have made it worse.
-
-A year in, I want to write down what I believed then and what I believe now. Not because the old beliefs were stupid. Most of the field held them. But I led the engineers through the year on the basis of some of them, and they cost us time.
-
