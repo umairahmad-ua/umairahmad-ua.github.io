@@ -194,3 +194,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-06-02 to 03 — Microsoft Build 2026: Agent 365, Microsoft IQ — https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/
 - 2026-06-01 to 05 — Claude Code auto mode on Bedrock, Agent Platform, Foundry — https://code.claude.com/docs/en/whats-new/2026-w23
 
+## Week of 2026-06-08
+- 2026-06-09 — Anthropic releases Claude Fable 5 and Claude Mythos 5 (Mythos-class tier above Opus) — https://www.anthropic.com/news/claude-fable-5-mythos-5
+- 2026-06-10 — Code with Claude Tokyo — https://claude.com/code-with-claude
+- 2026-06-12 — US export controls applied to Fable 5 and Mythos 5; Anthropic restricts access — https://www.anthropic.com/news/redeploying-fable-5
+
