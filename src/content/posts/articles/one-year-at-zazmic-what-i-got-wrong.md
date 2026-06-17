@@ -14,3 +14,21 @@ sources:
 
 ## Table of contents
 
+## The whiteboard from June 2025
+
+I joined Zazmic as Principal ML Engineer in June 2025. In my second week I drew an architecture for a client on a whiteboard. It had eleven agents. Each one had a name and a job. The client loved it. I loved it.
+
+We built four of those eleven. The system works. The other seven would have made it worse.
+
+A year in, I want to write down what I believed then and what I believe now. Not because the old beliefs were stupid. Most of the field held them. But I led the engineers through the year on the basis of some of them, and they cost us time.
+
+## Belief one: more agents means a better system
+
+This is the one the whiteboard shows. In mid-2025 the instinct was to decompose a problem into as many specialists as it had nouns. A research agent, a writing agent, a critique agent, a formatting agent.
+
+What I believe now: every agent boundary is a place where context gets lost. When agent A hands work to agent B, B knows only what A chose to pass. The handoff is a compression step, and compression loses information.
+
+Scout, the marketing intelligence system we built for Let's Forage, has nine agents under one orchestrator. That number is not a design goal. It is what was left after we merged agents whose handoffs kept dropping the thing the next agent needed. The persona agent and the campaign author started as three agents. They became two when we saw the third was mostly re-deriving what the first had already worked out.
+
+The rule I use now: add an agent when the two jobs need different tools, different permissions or different models. Do not add one because the jobs have different names.
+
