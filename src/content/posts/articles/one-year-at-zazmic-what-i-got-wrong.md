@@ -40,3 +40,11 @@ What I believe now: the model is maybe a fifth of the work. The rest is tool con
 
 The clearest sign of this: we have swapped models under running agents several times this year without changing anything else. When Gemini 3 arrived in November, then 3.1 in February, we changed a config value and re-ran the evals. When the model layer is swappable, it is by definition not the hard part.
 
+## Belief three: prompts are code
+
+I used to say this. I meant it as a compliment to prompts. Treat them with the same care as code, version them, review them.
+
+What I believe now: prompts are configuration, and the code is the scaffolding around them. Code has tests. A prompt has an eval suite, which is a different thing. Code fails loudly. A prompt fails by producing something slightly worse, and nobody notices for a week.
+
+So the discipline changed. Every agent on my team has an eval set that runs in CI. A prompt change that lowers the score does not merge. We use a judge model plus retrieval metrics, and the judge is a different model from the one being judged. The prompt still gets reviewed like code. But the thing that protects us is the eval, not the review.
+
