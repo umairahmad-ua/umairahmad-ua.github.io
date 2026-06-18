@@ -32,3 +32,11 @@ Scout, the marketing intelligence system we built for Let's Forage, has nine age
 
 The rule I use now: add an agent when the two jobs need different tools, different permissions or different models. Do not add one because the jobs have different names.
 
+## Belief two: the model is the hard part
+
+In June 2025 I spent most of my design time on model selection and prompts. Which Gemini variant for which agent, how to phrase the system instruction, how many examples to include.
+
+What I believe now: the model is maybe a fifth of the work. The rest is tool contracts, state, evaluation and cost. The migration agents we built to move a client's stored procedures onto BigQuery are a good example. The translation step is a model call. The reconciliation step, where a second agent compares row counts and aggregates between source and target, is where the engineering went. The human review gate before cutover is where the trust came from. The model made the project fast. The other parts made it possible.
+
+The clearest sign of this: we have swapped models under running agents several times this year without changing anything else. When Gemini 3 arrived in November, then 3.1 in February, we changed a config value and re-ran the evals. When the model layer is swappable, it is by definition not the hard part.
+
