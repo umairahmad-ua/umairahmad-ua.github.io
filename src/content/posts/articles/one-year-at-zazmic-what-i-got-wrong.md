@@ -56,3 +56,11 @@ What I believe now: cost per completed task is the number that decides whether a
 
 I will write a longer piece on this. The short version is that cost tracing is not a finance task. It is an architecture input.
 
+## Belief five: the demo predicts production
+
+Scout went from a two-week proof of concept to production in under a year. The proof of concept was impressive. It was also wrong about almost everything that mattered later.
+
+What I believe now: a demo tells you the model can do the task once, with a friendly input, with someone watching. Production tells you what happens on the thousandth input, with nobody watching, when the client's data has changed shape. The gap between those two is the whole job.
+
+The Claude-based cloud operations agent we run taught me this most sharply. In the demo it read an alert, pulled logs and proposed a fix. In production the questions were: which fixes is it allowed to execute on its own, how does it prove it did what it said, and what does a human see when it asks for confirmation. The tool layer, the permission model and the audit trail were most of the code. The demo had none of them.
+
