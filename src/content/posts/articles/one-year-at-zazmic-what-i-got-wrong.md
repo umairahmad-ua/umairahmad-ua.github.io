@@ -48,3 +48,11 @@ What I believe now: prompts are configuration, and the code is the scaffolding a
 
 So the discipline changed. Every agent on my team has an eval set that runs in CI. A prompt change that lowers the score does not merge. We use a judge model plus retrieval metrics, and the judge is a different model from the one being judged. The prompt still gets reviewed like code. But the thing that protects us is the eval, not the review.
 
+## Belief four: cost is a later problem
+
+In 2025 the conversation was about whether agents could do the task at all. Cost felt like an optimization for after launch.
+
+What I believe now: cost per completed task is the number that decides whether an agent stays in production. A system that succeeds nine times in ten but costs more than the human it replaced is a demo. The supply chain planning agents we built for an apparel manufacturer supplying GAP and Levi's made this concrete. The planners were not going to accept a tool that cost more per plan than an afternoon of their time. So we traced every token and every tool call per planning run from the first week, and we chose which steps got the expensive model and which did not.
+
+I will write a longer piece on this. The short version is that cost tracing is not a finance task. It is an architecture input.
+
