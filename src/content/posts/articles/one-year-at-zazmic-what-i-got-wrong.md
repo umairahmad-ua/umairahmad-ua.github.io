@@ -64,3 +64,11 @@ What I believe now: a demo tells you the model can do the task once, with a frie
 
 The Claude-based cloud operations agent we run taught me this most sharply. In the demo it read an alert, pulled logs and proposed a fix. In production the questions were: which fixes is it allowed to execute on its own, how does it prove it did what it said, and what does a human see when it asks for confirmation. The tool layer, the permission model and the audit trail were most of the code. The demo had none of them.
 
+## What changed in how the team works
+
+The other thing I got wrong was about people, not systems. I assumed my engineers would use AI coding tools the way I did in 2024, as a faster autocomplete.
+
+By early 2026 all eight of them were running Claude Code and Gemini tooling for most of the day. Code review changed as a result. The volume of code went up. The number of decisions per pull request went down, because a lot of the decisions were made in conversation with the tool before the PR existed. So review shifted from "is this line right" to "is this the right design, and is there an eval that proves it." I now ask for the eval diff before I read the code diff.
+
+I also had to change how I judge seniority. Speed at writing code stopped being a differentiator. Judgment about what to build, what to verify and what to refuse to automate became the whole thing.
+
