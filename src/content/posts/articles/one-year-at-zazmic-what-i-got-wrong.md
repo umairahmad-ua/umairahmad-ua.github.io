@@ -72,3 +72,9 @@ By early 2026 all eight of them were running Claude Code and Gemini tooling for 
 
 I also had to change how I judge seniority. Speed at writing code stopped being a differentiator. Judgment about what to build, what to verify and what to refuse to automate became the whole thing.
 
+## The speed of the year
+
+For scale: when I joined, the frontier was Gemini 2.5 and Claude Opus 4. Two weeks ago Anthropic released Claude Fable 5 and Mythos 5, a tier above Opus. The models I designed around in June 2025 are now the cheap ones I route routine steps to.
+
+None of my five wrong beliefs were about which model was best. All of them were about the system around the model. That is the part that did not get faster, and the part I would tell my June 2025 self to spend the year on.
+
