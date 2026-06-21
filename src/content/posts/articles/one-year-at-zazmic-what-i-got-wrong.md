@@ -78,3 +78,8 @@ For scale: when I joined, the frontier was Gemini 2.5 and Claude Opus 4. Two wee
 
 None of my five wrong beliefs were about which model was best. All of them were about the system around the model. That is the part that did not get faster, and the part I would tell my June 2025 self to spend the year on.
 
+## What I still believe
+
+Agents are worth building. Multi-agent designs are worth building when the boundaries are real. Google's ADK and Agent Engine, now the Gemini Enterprise Agent Platform, have been solid ground for us all year. And a client who trusts an agent because they can see its evals, its cost and its audit trail is a client who keeps it running.
+
+The whiteboard with eleven agents is still in a photo on my phone. I look at it when I catch myself adding a box.
