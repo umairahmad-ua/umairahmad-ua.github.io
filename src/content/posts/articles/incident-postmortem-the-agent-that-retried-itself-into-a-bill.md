@@ -47,3 +47,49 @@ Multiply by a queue that was growing because nothing was completing. The queue d
 
 The AWS team put AgentCore Harness into general availability a week before this happened. I read the launch notes that evening with a specific question in mind. Every framework has an answer for retries at the tool level. Very few have an opinion about retries at the reasoning level, where the model decides to try again. That is the gap our incident lived in.
 
+## What we changed
+
+Five changes, in the order we made them.
+
+First, a fleet-level circuit breaker. If the failure rate for a tool crosses a threshold across all sessions, the tool is marked open for everyone. The agent gets a specific message: "this tool is unavailable, do not attempt alternatives, park the task". The instruction to be resourceful now has an exception it can see.
+
+```python
+class ToolBreaker:
+    def __init__(self, window_s=120, min_calls=20, open_ratio=0.5, cool_s=300):
+        self.window = deque()
+        self.opened_at = None
+        self.cfg = (window_s, min_calls, open_ratio, cool_s)
+
+    def record(self, ok: bool, now: float):
+        window_s, *_ = self.cfg
+        self.window.append((now, ok))
+        while self.window and now - self.window[0][0] > window_s:
+            self.window.popleft()
+
+    def is_open(self, now: float) -> bool:
+        window_s, min_calls, open_ratio, cool_s = self.cfg
+        if self.opened_at and now - self.opened_at < cool_s:
+            return True
+        if len(self.window) >= min_calls:
+            fails = sum(1 for _, ok in self.window if not ok)
+            if fails / len(self.window) >= open_ratio:
+                self.opened_at = now
+                return True
+        self.opened_at = None
+        return False
+```
+
+Second, a spend rate limit, not just a spend cap. Dollars per minute for the whole deployment. When the rate exceeds three times the trailing average, new sessions pause and an alert fires. This catches the step change the rolling window missed.
+
+Third, parked tasks instead of failed tasks. When the breaker is open, documents go to a parked queue with a reason. When the breaker closes, they resume from where they stopped. Before, a failed document was retried from scratch by the queue layer. That was a fourth retry loop we had not counted.
+
+Fourth, the model-level retry budget is now explicit. The system prompt no longer says "try alternative approaches". It says "you may attempt at most one alternative approach per tool failure, then report the failure". The eval suite has a case for this. A model that tries three alternatives fails the eval.
+
+Fifth, a chaos scenario in CI. Once a week, an eval run makes the claims tool slow for the whole run and confirms that total spend stays under a ceiling. This is the test that would have caught the incident. It is embarrassing how obvious it is in hindsight.
+
+## What it cost and what it saved
+
+The incident cost roughly one week of this agent's normal budget. The five changes took the engineers I lead and mentor about six working days, spread across two people. Since then the breaker has opened four times in production, twice for the same client API. Each time the agent parked work and resumed. Total cost of those four events was less than one normal hour.
+
+The client never noticed either. That is the outcome I care about most.
+
