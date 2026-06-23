@@ -199,3 +199,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-06-10 — Code with Claude Tokyo — https://claude.com/code-with-claude
 - 2026-06-12 — US export controls applied to Fable 5 and Mythos 5; Anthropic restricts access — https://www.anthropic.com/news/redeploying-fable-5
 
+## Week of 2026-06-15
+- 2026-06-16 — Microsoft Work IQ APIs GA — https://medium.com/@adnanmasood/microsoft-build-2026-recap-578eabee16c2
+- 2026-06-17 — Amazon Bedrock AgentCore Harness GA — https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-harness-generally-available/
+- 2026-06-15 to 19 — Claude Code Artifacts beta (Team/Enterprise) — https://code.claude.com/docs/en/whats-new/2026-w25
+
