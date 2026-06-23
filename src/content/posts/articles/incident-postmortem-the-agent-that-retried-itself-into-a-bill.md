@@ -39,3 +39,11 @@ We had a cost alert. It fired on a one hour rolling window. Forty minutes of spe
 
 We had evals. Our eval suite for this agent covered extraction accuracy, routing correctness and a set of failure scenarios. One of those scenarios was "tool returns an error". None of them was "tool is slow for forty minutes while the queue is full". We tested the agent. We did not test the agent under the conditions of the system it lived in.
 
+## The retry math nobody did
+
+Here is what the loop looked like once we drew it. The tool layer retried three times. The model layer, prompted to be resourceful, tried roughly three alternative approaches. Each alternative went back through the tool layer. That is nine tool calls per approach set, and the model would sometimes run two sets. Call it eighteen tool calls and six model calls per document, where the happy path is two tool calls and two model calls.
+
+Multiply by a queue that was growing because nothing was completing. The queue depth itself was an input to the cost, and nothing in our design treated it that way.
+
+The AWS team put AgentCore Harness into general availability a week before this happened. I read the launch notes that evening with a specific question in mind. Every framework has an answer for retries at the tool level. Very few have an opinion about retries at the reasoning level, where the model decides to try again. That is the gap our incident lived in.
+
