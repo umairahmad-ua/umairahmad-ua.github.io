@@ -87,9 +87,3 @@ Fourth, the model-level retry budget is now explicit. The system prompt no longe
 
 Fifth, a chaos scenario in CI. Once a week, an eval run makes the claims tool slow for the whole run and confirms that total spend stays under a ceiling. This is the test that would have caught the incident. It is embarrassing how obvious it is in hindsight.
 
-## What it cost and what it saved
-
-The incident cost roughly one week of this agent's normal budget. The five changes took the engineers I lead and mentor about six working days, spread across two people. Since then the breaker has opened four times in production, twice for the same client API. Each time the agent parked work and resumed. Total cost of those four events was less than one normal hour.
-
-The client never noticed either. That is the outcome I care about most.
-
