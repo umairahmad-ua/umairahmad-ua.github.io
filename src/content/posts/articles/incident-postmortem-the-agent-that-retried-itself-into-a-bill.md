@@ -87,3 +87,14 @@ Fourth, the model-level retry budget is now explicit. The system prompt no longe
 
 Fifth, a chaos scenario in CI. Once a week, an eval run makes the claims tool slow for the whole run and confirms that total spend stays under a ceiling. This is the test that would have caught the incident. It is embarrassing how obvious it is in hindsight.
 
+## What it cost and what it saved
+
+The incident cost roughly one week of this agent's normal budget. The five changes took the engineers I lead and mentor about six working days, spread across two people. Since then the breaker has opened four times in production, twice for the same client API. Each time the agent parked work and resumed. Total cost of those four events was less than one normal hour.
+
+The client never noticed either. That is the outcome I care about most.
+
+## The lesson I keep
+
+An agent is a loop that spends money. Every safeguard I had was built for a request, not a loop. Timeouts protect a request. Budgets protect a session. Neither protects a fleet of loops that all fail the same way at the same time.
+
+Now when I review an agent design, I ask one question before any other. What happens when the slowest dependency gets slow for an hour while the queue is full. If the answer involves the word "retry" without a number attached, the design is not done.
