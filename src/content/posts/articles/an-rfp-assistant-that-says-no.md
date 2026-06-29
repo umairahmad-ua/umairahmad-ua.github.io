@@ -29,15 +29,3 @@ We bid on things we should not have bid on. Not because the tool told us to, but
 
 This year my team rebuilt it on ADK for Zazmic's own use. The first design decision was that the assistant does not draft anything until a human has seen the no-go case and overruled it.
 
-## What a no-go actually depends on
-
-I sat with our delivery leads and asked what makes them decline work. The list was shorter than I expected.
-
-- The client wants a fixed price for something with unbounded discovery.
-- The timeline assumes a team we do not have free.
-- The technical scope has a hard requirement we have never delivered, and the RFP gives no room to partner.
-- The evaluation criteria weight things we are weak on, like on-shore headcount.
-- The incumbent is named or obvious, and the RFP reads like it was written for them.
-
-None of these are about whether we can write a good proposal. They are about the shape of the engagement. So the scoring agent scores the shape.
-
