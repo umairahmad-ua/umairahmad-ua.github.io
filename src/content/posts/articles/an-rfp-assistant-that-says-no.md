@@ -19,13 +19,3 @@ sources:
 
 ## Table of contents
 
-## The first version
-
-In 2023 I built a proposal assistant at Developers Inc. It parsed an RFP, pulled matching past projects from a FAISS index, and drafted technical and financial sections with GPT-4. It also tailored resumes to the requirements and drafted the cover email. It saved days per proposal.
-
-It had one flaw I did not see at the time. It always said yes. Feed it any RFP and it produced a confident, well-formatted proposal. The go/no-go decision was a score it printed at the top, and everyone ignored the score because the draft below it looked ready to send.
-
-We bid on things we should not have bid on. Not because the tool told us to, but because the tool made bidding cheap and saying no still felt expensive.
-
-This year my team rebuilt it on ADK for Zazmic's own use. The first design decision was that the assistant does not draft anything until a human has seen the no-go case and overruled it.
-
