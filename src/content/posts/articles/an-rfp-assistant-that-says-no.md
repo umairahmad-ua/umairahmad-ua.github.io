@@ -17,3 +17,47 @@ sources:
     date: 2026-06-30
 ---
 
+## Table of contents
+
+## The first version
+
+In 2023 I built a proposal assistant at Developers Inc. It parsed an RFP, pulled matching past projects from a FAISS index, and drafted technical and financial sections with GPT-4. It also tailored resumes to the requirements and drafted the cover email. It saved days per proposal.
+
+It had one flaw I did not see at the time. It always said yes. Feed it any RFP and it produced a confident, well-formatted proposal. The go/no-go decision was a score it printed at the top, and everyone ignored the score because the draft below it looked ready to send.
+
+We bid on things we should not have bid on. Not because the tool told us to, but because the tool made bidding cheap and saying no still felt expensive.
+
+This year my team rebuilt it on ADK for Zazmic's own use. The first design decision was that the assistant does not draft anything until a human has seen the no-go case and overruled it.
+
+## What a no-go actually depends on
+
+I sat with our delivery leads and asked what makes them decline work. The list was shorter than I expected.
+
+- The client wants a fixed price for something with unbounded discovery.
+- The timeline assumes a team we do not have free.
+- The technical scope has a hard requirement we have never delivered, and the RFP gives no room to partner.
+- The evaluation criteria weight things we are weak on, like on-shore headcount.
+- The incumbent is named or obvious, and the RFP reads like it was written for them.
+
+None of these are about whether we can write a good proposal. They are about the shape of the engagement. So the scoring agent scores the shape.
+
+## The agent structure
+
+Five agents under an orchestrator. The orchestrator is not allowed to call the drafting agents until the decision gate has been passed.
+
+```
+rfp_orchestrator
+├── intake_agent          parse PDF/DOCX, extract requirements, deadlines, criteria
+├── evidence_agent        pull matching past projects, team availability, certifications
+├── risk_scoring_agent    score the five no-go dimensions, cite evidence
+├── [human decision gate]
+├── drafting_agent        technical + management sections, per-section generation
+└── tailoring_agent       resumes and cover letter aligned to criteria
+```
+
+Intake runs on Gemini through ADK. It produces a typed requirements object. Every requirement has an identifier, the page it came from, and whether it is mandatory or scored. We learned early that "mandatory" and "scored" are different lists in most RFPs and the model would merge them unless the schema forced the split.
+
+The evidence agent has tools. One tool queries our past-project store, which is a BigQuery table with embeddings in Vertex AI Search. One queries the staffing calendar through an MCP server we wrote. One checks our certification registry. This agent does no reasoning about fit. It gathers.
+
+The risk scoring agent is the interesting one. It scores each of the five dimensions from one to five and, for each score, must cite a requirement identifier and a piece of evidence. A score without a citation is rejected by the schema. This is what makes the no-go case readable. A delivery lead sees "timeline: 5 of 5 risk, requires eight-week delivery (R-14, p. 3), current bench shows first availability in week 6 (staffing tool)".
+
