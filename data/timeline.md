@@ -204,3 +204,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-06-17 — Amazon Bedrock AgentCore Harness GA — https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-harness-generally-available/
 - 2026-06-15 to 19 — Claude Code Artifacts beta (Team/Enterprise) — https://code.claude.com/docs/en/whats-new/2026-w25
 
+## Week of 2026-06-22
+- 2026-06-23 — Anthropic launches Claude Tag (Claude in Slack) — https://github.com/jqueryscript/anthropic-claude-timeline
+- 2026-06-26 — OpenAI GPT-5.6 limited preview to trusted partners — https://en.wikipedia.org/wiki/GPT-5.6
+- 2026-06-22 to 26 — Claude Code `claude mcp login` — https://code.claude.com/docs/en/whats-new/2026-w26
+
