@@ -61,3 +61,11 @@ The evidence agent has tools. One tool queries our past-project store, which is 
 
 The risk scoring agent is the interesting one. It scores each of the five dimensions from one to five and, for each score, must cite a requirement identifier and a piece of evidence. A score without a citation is rejected by the schema. This is what makes the no-go case readable. A delivery lead sees "timeline: 5 of 5 risk, requires eight-week delivery (R-14, p. 3), current bench shows first availability in week 6 (staffing tool)".
 
+## The gate
+
+The gate is a page. It shows the five scores, the citations, and a one paragraph recommendation. There are two buttons. Decline, and proceed with drafting. Proceed asks for a reason in a text field, and that reason is stored with the proposal.
+
+We added the reason field because of a pattern from version one. People overrode the score without saying why, and six months later nobody could reconstruct the decision. Now every overrule has a sentence attached. Reading those sentences after the fact has been more useful than the scores.
+
+Drafting only starts after the button. The drafting agent works section by section. Each section gets the relevant requirements, the matching evidence, and our house style. It does not see the whole RFP. That was deliberate. A drafting agent that sees everything writes generic text that gestures at everything. A drafting agent that sees three requirements writes specific text about three requirements.
+
