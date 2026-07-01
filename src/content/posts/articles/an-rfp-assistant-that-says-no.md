@@ -69,3 +69,17 @@ We added the reason field because of a pattern from version one. People overrode
 
 Drafting only starts after the button. The drafting agent works section by section. Each section gets the relevant requirements, the matching evidence, and our house style. It does not see the whole RFP. That was deliberate. A drafting agent that sees everything writes generic text that gestures at everything. A drafting agent that sees three requirements writes specific text about three requirements.
 
+## What the numbers looked like
+
+Since the rebuild went into use in the spring, the scoring agent has recommended no-go on a little under half of incoming RFPs. Delivery leads overruled about one in five of those. Of the ones we declined, I know of two we would have bid on under the old system, and I am glad we did not.
+
+Drafting time for a proposal that passes the gate is now about a day of human review on top of the agent's output, down from three or four days of writing. The bigger saving is the proposals we never wrote.
+
+## Model choices this week
+
+Anthropic released Claude Sonnet 5 yesterday with a native one million token context. The same day Fable 5 came back to non-US users after the export control pause. I read both announcements with the RFP assistant in mind, because a long RFP with appendices can run to several hundred pages.
+
+My current position is that long context does not change the intake design. We still extract typed requirements, because the downstream agents need identifiers to cite, not a giant blob. Where long context helps is the risk scoring agent. It can now hold the whole requirements object, all evidence and the full RFP text at once, and cross-check citations against the source. We are testing that this week with Sonnet 5 as the scoring model and Gemini for intake.
+
+Google also made ADK for Go generally available yesterday. Our orchestrator stays in Python. But the staffing MCP server was written in Go by one of the engineers I lead and mentor, and having ADK in the same language means that team can build small agents without switching stacks.
+
