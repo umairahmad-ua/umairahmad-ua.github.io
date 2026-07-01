@@ -75,3 +75,16 @@ Since the rebuild went into use in the spring, the scoring agent has recommended
 
 Drafting time for a proposal that passes the gate is now about a day of human review on top of the agent's output, down from three or four days of writing. The bigger saving is the proposals we never wrote.
 
+## Model choices this week
+
+Anthropic released Claude Sonnet 5 yesterday with a native one million token context. The same day Fable 5 came back to non-US users after the export control pause. I read both announcements with the RFP assistant in mind, because a long RFP with appendices can run to several hundred pages.
+
+My current position is that long context does not change the intake design. We still extract typed requirements, because the downstream agents need identifiers to cite, not a giant blob. Where long context helps is the risk scoring agent. It can now hold the whole requirements object, all evidence and the full RFP text at once, and cross-check citations against the source. We are testing that this week with Sonnet 5 as the scoring model and Gemini for intake.
+
+Google also made ADK for Go generally available yesterday. Our orchestrator stays in Python. But the staffing MCP server was written in Go by one of the engineers I lead and mentor, and having ADK in the same language means that team can build small agents without switching stacks.
+
+## The part I got wrong the first time
+
+Version one optimized for output. Every feature made it easier to produce a proposal. Version two optimizes for the decision. Most features make it easier to see why we should not produce one.
+
+An assistant that always says yes is a very expensive way to say nothing. The useful version is the one that costs us a bid we would have lost.
