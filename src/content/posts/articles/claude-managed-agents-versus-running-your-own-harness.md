@@ -93,7 +93,3 @@ Our code went from a service plus a harness to an MCP server with three tools. T
 
 Control over the loop is also control over failure behavior. When our incident in June turned a slow API into a retry storm, we fixed it by changing the loop. With a managed loop I would have been changing tool behavior and instructions instead, and waiting on the platform for anything deeper. That is not a reason to avoid Managed Agents. It is a reason to keep at least one agent in our own harness so my team keeps the muscle.
 
-## An aside on model choice
-
-xAI released Grok 4.5 today. I mention it because the client who asked the original question also asked whether Managed Agents locks them into Claude. It does, in the sense that the runtime is Anthropic's. Our harness runs Gemini, Claude and open models behind the same tool layer. If model portability matters to a client, that is a fifth reason for our harness, and I now say so up front.
-
