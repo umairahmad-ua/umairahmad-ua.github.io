@@ -66,30 +66,3 @@ We moved an internal research assistant and a client-facing document summarizer 
 
 The cloud operations agent stays in our harness for all four reasons. It reads alerts, pulls logs through MCP tools, and executes only inside approved playbooks. The permission model is the product. I am not moving that to anyone else's runtime.
 
-## A concrete comparison
-
-Take the document summarizer we moved. Before, the stack was:
-
-```
-Cloud Run service (FastAPI)
-  └── our harness (loop, retries, streaming)
-        ├── Claude via API
-        ├── Firestore for session state
-        ├── Cloud Storage for documents
-        └── our tracing middleware to BigQuery
-```
-
-After:
-
-```
-Managed Agent (Anthropic runs loop, sandbox, state)
-  ├── tools: fetch_document, redact_pii, store_summary  (our MCP server on Cloud Run)
-  └── usage export -> BigQuery join on task_id
-```
-
-Our code went from a service plus a harness to an MCP server with three tools. The tools were the part with actual business logic. The rest was plumbing we had written because there was nothing to buy.
-
-## The trade-off I still watch
-
-Control over the loop is also control over failure behavior. When our incident in June turned a slow API into a retry storm, we fixed it by changing the loop. With a managed loop I would have been changing tool behavior and instructions instead, and waiting on the platform for anything deeper. That is not a reason to avoid Managed Agents. It is a reason to keep at least one agent in our own harness so my team keeps the muscle.
-
