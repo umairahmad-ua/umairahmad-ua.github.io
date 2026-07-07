@@ -16,3 +16,21 @@ sources:
 
 ## Table of contents
 
+## The question a client asked
+
+In May a financial services client asked me a question I could not answer well on the spot. "Why are you running the agent loop yourselves? Anthropic will run it for you now."
+
+They were referring to Claude Managed Agents, which went into public beta in April. The pitch is simple. You define the agent, its tools and its instructions. Anthropic runs the loop, the sandbox, the retries and the session state. You get an endpoint.
+
+I told the client I would come back with a real answer. This is the real answer, three months and four deployments later.
+
+## What Managed Agents actually takes off your plate
+
+The loop. That sounds small until you have written one. A production agent loop handles tool dispatch, tool timeouts, malformed tool output, context window management, retries, session persistence, streaming, and cancellation. The harness we run for Scout is about four thousand lines, and most of it is that list.
+
+The sandbox. When an agent runs code or shells out, something has to isolate it. We use Cloud Run jobs with a locked-down service account. Managed Agents gives you an isolated execution environment per session without that setup.
+
+Session state. Memory across turns, across days, with a defined retention. We built this on Firestore. It works. It is also a thing we maintain.
+
+Model upgrades. When a new Claude model lands, a managed agent can move to it with a configuration change. We do the same thing in our harness, but we own the eval run that proves it is safe.
+
