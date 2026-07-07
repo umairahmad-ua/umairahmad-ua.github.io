@@ -209,3 +209,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-06-26 — OpenAI GPT-5.6 limited preview to trusted partners — https://en.wikipedia.org/wiki/GPT-5.6
 - 2026-06-22 to 26 — Claude Code `claude mcp login` — https://code.claude.com/docs/en/whats-new/2026-w26
 
+## Week of 2026-06-29
+- 2026-06-30 — Anthropic releases Claude Sonnet 5 (1M native context) — https://www.anthropic.com/news/claude-sonnet-5
+- 2026-06-30 — Export controls on Fable 5 and Mythos 5 lifted; Fable 5 redeployed globally Jul 1 — https://www.anthropic.com/news/redeploying-fable-5
+- 2026-06-30 — Google ADK Go 2.0 GA — https://developers.googleblog.com/announcing-adk-go-20/
+- 2026-06-29 to 07-03 — Claude in Chrome GA for Claude Code; background subagents default — https://code.claude.com/docs/en/whats-new/2026-w27
+
