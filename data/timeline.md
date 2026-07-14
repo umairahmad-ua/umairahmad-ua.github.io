@@ -215,3 +215,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-06-30 — Google ADK Go 2.0 GA — https://developers.googleblog.com/announcing-adk-go-20/
 - 2026-06-29 to 07-03 — Claude in Chrome GA for Claude Code; background subagents default — https://code.claude.com/docs/en/whats-new/2026-w27
 
+## Week of 2026-07-06
+- 2026-07-08 — xAI Grok 4.5 — https://x.ai/news/grok-4-5
+- 2026-07-09 — OpenAI GPT-5.6 series: Sol, Terra, Luna — https://openai.com/index/gpt-5-6/
+- 2026-07-09 — Meta Muse Spark 1.1 — https://fortune.com/2026/07/09/meta-muse-spark-1-1-release-alexandr-wang-superintelligence-labs-mark-zuckerberg/
+
