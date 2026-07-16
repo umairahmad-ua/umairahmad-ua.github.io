@@ -28,3 +28,63 @@ The lesson from Algo that mattered most here: the forecast is not the plan. The 
 
 So when the apparel client asked for agents, I did not start with agents. I started with the solver.
 
+## The solver is the center
+
+The core of the system is an allocation model. It decides which orders go to which plant in which week. It is written with OR-Tools, Google's optimization library, and it runs as a plain service on Cloud Run with no language model in the loop.
+
+Here is a stripped-down version of the shape of it, using the CP-SAT solver:
+
+```python
+from ortools.sat.python import cp_model
+
+def allocate(orders, plants, weeks, capacity, material_ok, lead_ok):
+    m = cp_model.CpModel()
+    x = {}
+    for o in orders:
+        for p in plants:
+            for w in weeks:
+                x[o, p, w] = m.NewBoolVar(f"x_{o}_{p}_{w}")
+
+    # each order is placed exactly once
+    for o in orders:
+        m.AddExactlyOne(x[o, p, w] for p in plants for w in weeks)
+
+    # plant capacity per week, in standard minutes
+    for p in plants:
+        for w in weeks:
+            m.Add(
+                sum(orders[o].minutes * x[o, p, w] for o in orders)
+                <= capacity[p, w]
+            )
+
+    # materials and lead time are hard constraints, not preferences
+    for o in orders:
+        for p in plants:
+            for w in weeks:
+                if not material_ok(o, p, w) or not lead_ok(o, p, w):
+                    m.Add(x[o, p, w] == 0)
+
+    # minimize cost plus a penalty for finishing after the buyer's window
+    m.Minimize(
+        sum(
+            (orders[o].cost[p] + orders[o].late_penalty(w)) * x[o, p, w]
+            for o in orders for p in plants for w in weeks
+        )
+    )
+
+    solver = cp_model.CpSolver()
+    solver.parameters.max_time_in_seconds = 60
+    status = solver.Solve(m)
+    return status, {k: solver.Value(v) for k, v in x.items()}
+```
+
+The real model has more to it. Setup costs when a line switches styles, minimum lot sizes, shipping consolidation. But the shape is the same. Everything the planners used to hold in their heads becomes a constraint or a cost term.
+
+## Forecasts become constraints
+
+This is the idea in the title. The buyer's forecast does not go into the solver as a target to hit. It goes in as a set of constraints and penalties.
+
+A firm order for 40,000 units in week 32 is a hard constraint. A forecast of 60,000 units in week 36 that is still two revisions from firm is a soft constraint with a penalty for under-planning and a smaller penalty for over-planning. The penalty weights come from the buyer's history of revising upward or downward. A buyer who always revises down gets a lower over-planning penalty.
+
+That translation, from a forecast with a confidence to a constraint with a weight, is where the demand sensing agent does its work.
+
