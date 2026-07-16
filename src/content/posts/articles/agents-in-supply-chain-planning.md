@@ -80,11 +80,3 @@ def allocate(orders, plants, weeks, capacity, material_ok, lead_ok):
 
 The real model has more to it. Setup costs when a line switches styles, minimum lot sizes, shipping consolidation. But the shape is the same. Everything the planners used to hold in their heads becomes a constraint or a cost term.
 
-## Forecasts become constraints
-
-This is the idea in the title. The buyer's forecast does not go into the solver as a target to hit. It goes in as a set of constraints and penalties.
-
-A firm order for 40,000 units in week 32 is a hard constraint. A forecast of 60,000 units in week 36 that is still two revisions from firm is a soft constraint with a penalty for under-planning and a smaller penalty for over-planning. The penalty weights come from the buyer's history of revising upward or downward. A buyer who always revises down gets a lower over-planning penalty.
-
-That translation, from a forecast with a confidence to a constraint with a weight, is where the demand sensing agent does its work.
-
