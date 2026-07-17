@@ -80,3 +80,31 @@ def allocate(orders, plants, weeks, capacity, material_ok, lead_ok):
 
 The real model has more to it. Setup costs when a line switches styles, minimum lot sizes, shipping consolidation. But the shape is the same. Everything the planners used to hold in their heads becomes a constraint or a cost term.
 
+## Forecasts become constraints
+
+This is the idea in the title. The buyer's forecast does not go into the solver as a target to hit. It goes in as a set of constraints and penalties.
+
+A firm order for 40,000 units in week 32 is a hard constraint. A forecast of 60,000 units in week 36 that is still two revisions from firm is a soft constraint with a penalty for under-planning and a smaller penalty for over-planning. The penalty weights come from the buyer's history of revising upward or downward. A buyer who always revises down gets a lower over-planning penalty.
+
+That translation, from a forecast with a confidence to a constraint with a weight, is where the demand sensing agent does its work.
+
+## Where the agents fit
+
+Three specialist agents sit around the solver, coordinated by one planning orchestrator. All of them run on Google's ADK on the Gemini Enterprise Agent Platform. None of them are allowed to change the plan directly.
+
+The demand sensing agent reads incoming buyer files, which arrive as spreadsheets, PDFs and emails in inconsistent formats. It extracts the forecast, compares it to the previous revision, and proposes updated constraint weights. It writes those to a staging table with its reasoning.
+
+The capacity agent watches plant reports and maintenance schedules. When a line goes down in Bahrain, it proposes a revised capacity table for the affected weeks. Again, to staging, with reasoning.
+
+The materials risk agent tracks fabric and trim shipments against the orders that need them. When a shipment slips, it flags which orders lose material feasibility in which weeks and proposes the change to the `material_ok` function's inputs.
+
+The orchestrator collects these proposals, decides which are inside policy, applies those to the solver inputs, and re-runs the allocation. Anything outside policy stops and waits for a planner. A capacity change under 10 percent is inside policy. A change that moves a firm order between countries is not.
+
+## Agents narrate, they do not decide
+
+The most important design rule: the language models explain, the solver decides.
+
+When the solver produces a new plan, the orchestrator generates a narration for the planners. It says what changed since the last run, why, and what it cost. "Orders 4471 and 4472 moved from Jordan to Bangladesh week 34 because the fabric shipment for Jordan slipped eight days. This adds an estimated two days to delivery. The alternative, keeping them in Jordan and accepting a late penalty, was more expensive."
+
+That paragraph is a model output. The decision it describes is a solver output. The planners can trace every sentence back to a constraint or a cost term. That traceability is why they trust it. When a language model made the allocation directly in an early prototype, the planners could not tell why it chose what it chose. They stopped using it in a week.
+
