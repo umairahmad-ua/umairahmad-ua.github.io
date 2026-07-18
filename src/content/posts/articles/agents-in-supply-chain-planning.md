@@ -100,3 +100,17 @@ The materials risk agent tracks fabric and trim shipments against the orders tha
 
 The orchestrator collects these proposals, decides which are inside policy, applies those to the solver inputs, and re-runs the allocation. Anything outside policy stops and waits for a planner. A capacity change under 10 percent is inside policy. A change that moves a firm order between countries is not.
 
+## Agents narrate, they do not decide
+
+The most important design rule: the language models explain, the solver decides.
+
+When the solver produces a new plan, the orchestrator generates a narration for the planners. It says what changed since the last run, why, and what it cost. "Orders 4471 and 4472 moved from Jordan to Bangladesh week 34 because the fabric shipment for Jordan slipped eight days. This adds an estimated two days to delivery. The alternative, keeping them in Jordan and accepting a late penalty, was more expensive."
+
+That paragraph is a model output. The decision it describes is a solver output. The planners can trace every sentence back to a constraint or a cost term. That traceability is why they trust it. When a language model made the allocation directly in an early prototype, the planners could not tell why it chose what it chose. They stopped using it in a week.
+
+## What the planners do now
+
+The planners still plan. They spend their time on the decisions that stop at the policy gate: moving firm orders across borders, negotiating window changes with buyers, deciding whether to pay for air freight. The reconciliation work, the part that used to take most of the week, runs every night.
+
+They also argue with the narration, which I count as a success. When a planner says "that is wrong, Bangladesh cannot take that style," it usually means a constraint is missing from the model. We add it. The plan gets better because the planners are correcting a model they can read.
+
