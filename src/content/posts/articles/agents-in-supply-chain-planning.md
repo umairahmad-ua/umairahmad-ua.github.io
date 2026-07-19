@@ -114,3 +114,10 @@ The planners still plan. They spend their time on the decisions that stop at the
 
 They also argue with the narration, which I count as a success. When a planner says "that is wrong, Bangladesh cannot take that style," it usually means a constraint is missing from the model. We add it. The plan gets better because the planners are correcting a model they can read.
 
+## What I would do differently
+
+I would put the narration in front of planners earlier. We spent our first month on the solver and the agents and only then showed the planners the explanations. They found gaps in the constraints immediately. We could have had those gaps a month sooner.
+
+I would also be stricter about the policy gate from day one. We started permissive and tightened. It should have been the other way around.
+
+The rest I would keep. A solver at the center. Agents that read the world and propose. A human who decides anything the policy does not cover. Forecasts as constraints. That structure held up through two buyer seasons and a plant outage, and I expect it to hold up through the next one.
