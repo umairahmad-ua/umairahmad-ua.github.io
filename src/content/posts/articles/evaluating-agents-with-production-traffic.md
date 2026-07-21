@@ -60,17 +60,3 @@ The judge does not get the last word. When the judge says the candidate is worse
 
 That last case has been the richest. Judge disagreement clusters. Most disagreements in one week in June were about a single tool whose output format had changed. Neither judge was wrong. The rubric had not been updated for the new format. We would not have found that from a curated set.
 
-## Shadow runs
-
-Replays test against the past. Shadow runs test against the present. A shadow deployment gets a copy of live traffic, runs the candidate, and stores the output without showing it to anyone. Same scoring, but on requests that are minutes old.
-
-We shadow for one week before any change to Scout's orchestrator. Sub-agent changes get a replay and a shorter shadow. The week of shadow costs roughly the same as a week of production, so we do not do it for every change. We do it for the ones where a replay cannot reproduce the conditions, mostly changes to how the orchestrator routes.
-
-## Privacy
-
-Replays and shadows use real user data. Two rules.
-
-First, the replay corpus is sampled and redacted before it is stored. PII detection runs on inputs and tool results with Cloud DLP, and the redacted version is what gets replayed. Redaction changes the input slightly, so a small share of replays fail for reasons unrelated to the candidate. We tag those and exclude them.
-
-Second, shadow outputs are stored in the same project and retention window as production outputs, and are deleted on the same schedule. A shadow is production data. It does not get a looser policy because nobody saw it.
-
