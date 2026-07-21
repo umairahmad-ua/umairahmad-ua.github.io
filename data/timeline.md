@@ -220,3 +220,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-07-09 — OpenAI GPT-5.6 series: Sol, Terra, Luna — https://openai.com/index/gpt-5-6/
 - 2026-07-09 — Meta Muse Spark 1.1 — https://fortune.com/2026/07/09/meta-muse-spark-1-1-release-alexandr-wang-superintelligence-labs-mark-zuckerberg/
 
+## Week of 2026-07-13
+- 2026-07-16 — Moonshot Kimi K3 listed (open weights Jul 27) — https://www.elser.ai/news/chinas-ai-moment-kimi-k3-deepseek-v4-qwen-2026
+- 2026-07-13 to 17 — Claude Code artifacts call MCP connectors; /fork; screen-reader mode — https://code.claude.com/docs/en/whats-new/2026-w29
+- Alibaba previews Qwen3.8-Max (July; exact day [UNVERIFIED])
+
