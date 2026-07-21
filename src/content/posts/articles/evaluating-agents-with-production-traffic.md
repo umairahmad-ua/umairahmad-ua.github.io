@@ -66,3 +66,11 @@ Replays test against the past. Shadow runs test against the present. A shadow de
 
 We shadow for one week before any change to Scout's orchestrator. Sub-agent changes get a replay and a shorter shadow. The week of shadow costs roughly the same as a week of production, so we do not do it for every change. We do it for the ones where a replay cannot reproduce the conditions, mostly changes to how the orchestrator routes.
 
+## Privacy
+
+Replays and shadows use real user data. Two rules.
+
+First, the replay corpus is sampled and redacted before it is stored. PII detection runs on inputs and tool results with Cloud DLP, and the redacted version is what gets replayed. Redaction changes the input slightly, so a small share of replays fail for reasons unrelated to the candidate. We tag those and exclude them.
+
+Second, shadow outputs are stored in the same project and retention window as production outputs, and are deleted on the same schedule. A shadow is production data. It does not get a looser policy because nobody saw it.
+
