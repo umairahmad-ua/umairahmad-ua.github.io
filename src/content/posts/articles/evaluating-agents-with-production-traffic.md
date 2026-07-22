@@ -84,3 +84,8 @@ Here is what this costs for Scout, as a share of the production agent's monthly 
 
 The curated eval set still runs on every commit and costs almost nothing. The replay set runs nightly. The shadow runs happen when they are needed. Three layers, each catching a different class of problem.
 
+## What changed in how we work
+
+Replays turned evaluation from a thing we wrote into a thing we sample. The engineers I lead and mentor spend less time inventing test cases and more time reading disagreements. The rubric changes more often now because production keeps showing us where it is wrong.
+
+The curated set is still there. It is smaller than it was. Most of what it used to cover, the replay corpus covers better, because the replay corpus is made of things that actually happened.
