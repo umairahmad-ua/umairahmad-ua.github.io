@@ -54,3 +54,33 @@ Pairwise scoring is more reliable than absolute scoring for this. Judges are inc
 
 We use a different model family for the judge than for the agent under test. When the agent runs on Gemini, the judge is Claude, and the reverse. Yesterday Google released Gemini 3.6 Flash, and the first thing we did was run it as a judge against our existing judge on a sample. Agreement was high. Cost was lower. We will move some judge volume to it after a longer comparison.
 
+## Disagreement is the signal
+
+The judge does not get the last word. When the judge says the candidate is worse, a human looks. When the judge says the candidate is better on a dimension where the production output had a human complaint, a human looks. When two judges disagree, a human looks.
+
+That last case has been the richest. Judge disagreement clusters. Most disagreements in one week in June were about a single tool whose output format had changed. Neither judge was wrong. The rubric had not been updated for the new format. We would not have found that from a curated set.
+
+## Shadow runs
+
+Replays test against the past. Shadow runs test against the present. A shadow deployment gets a copy of live traffic, runs the candidate, and stores the output without showing it to anyone. Same scoring, but on requests that are minutes old.
+
+We shadow for one week before any change to Scout's orchestrator. Sub-agent changes get a replay and a shorter shadow. The week of shadow costs roughly the same as a week of production, so we do not do it for every change. We do it for the ones where a replay cannot reproduce the conditions, mostly changes to how the orchestrator routes.
+
+## Privacy
+
+Replays and shadows use real user data. Two rules.
+
+First, the replay corpus is sampled and redacted before it is stored. PII detection runs on inputs and tool results with Cloud DLP, and the redacted version is what gets replayed. Redaction changes the input slightly, so a small share of replays fail for reasons unrelated to the candidate. We tag those and exclude them.
+
+Second, shadow outputs are stored in the same project and retention window as production outputs, and are deleted on the same schedule. A shadow is production data. It does not get a looser policy because nobody saw it.
+
+## The budget
+
+Here is what this costs for Scout, as a share of the production agent's monthly spend.
+
+- Nightly replay of a sampled set of sessions: about a tenth.
+- Judge calls for the replay: about a twentieth, less once Flash-class judges take over.
+- A shadow week before an orchestrator change: about a quarter, a few times a year.
+
+The curated eval set still runs on every commit and costs almost nothing. The replay set runs nightly. The shadow runs happen when they are needed. Three layers, each catching a different class of problem.
+
