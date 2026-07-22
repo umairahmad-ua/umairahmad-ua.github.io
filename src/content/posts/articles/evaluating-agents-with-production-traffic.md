@@ -54,9 +54,3 @@ Pairwise scoring is more reliable than absolute scoring for this. Judges are inc
 
 We use a different model family for the judge than for the agent under test. When the agent runs on Gemini, the judge is Claude, and the reverse. Yesterday Google released Gemini 3.6 Flash, and the first thing we did was run it as a judge against our existing judge on a sample. Agreement was high. Cost was lower. We will move some judge volume to it after a longer comparison.
 
-## Disagreement is the signal
-
-The judge does not get the last word. When the judge says the candidate is worse, a human looks. When the judge says the candidate is better on a dimension where the production output had a human complaint, a human looks. When two judges disagree, a human looks.
-
-That last case has been the richest. Judge disagreement clusters. Most disagreements in one week in June were about a single tool whose output format had changed. Neither judge was wrong. The rubric had not been updated for the new format. We would not have found that from a curated set.
-
