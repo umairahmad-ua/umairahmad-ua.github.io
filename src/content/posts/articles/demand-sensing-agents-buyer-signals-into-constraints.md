@@ -16,3 +16,11 @@ sources:
 
 ## Table of contents
 
+## Where demand actually comes from
+
+The apparel manufacturer my team works with supplies GAP and Levi's from plants in India, Bahrain, Jordan and Bangladesh. Demand for them is not a number. It is a set of signals that disagree with each other.
+
+The buyers send forecast files. Each buyer has a different template, a different horizon and a different idea of what a week is. Point of sale data arrives from some buyers with a lag of days and from others not at all. Promotions are announced late, sometimes after the fabric has been cut. And the planners carry a layer of knowledge in their heads about which buyers over-forecast and by how much.
+
+Before agents, a planner spent the first two days of each week turning those signals into one demand plan. The rest of the week went to reconciling that plan against capacity. I wrote about the capacity side earlier this month. This is the demand side.
+
