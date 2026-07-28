@@ -82,3 +82,7 @@ Not the constraints. The planner sees a page per buyer. This week's reconciled d
 
 The planner can override any figure. The override is stored with a reason and becomes input to next week's reconcile agent. That loop is the whole point. The agent learns the planner's judgment, not by fine-tuning, but by reading last week's decisions as evidence.
 
+## Where it is now
+
+The demand agents have been in weekly use since the spring. Time from buyer files landing to a reconciled plan is now measured in hours rather than days. Planner overrides have dropped week over week as the bias tool has more history to work with. Forecast error on the buyers with good point of sale data is inside the band we set at the start. On the buyers without point of sale, the band is honestly wide, and the plan says so.
+
