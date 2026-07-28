@@ -225,3 +225,7 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-07-13 to 17 — Claude Code artifacts call MCP connectors; /fork; screen-reader mode — https://code.claude.com/docs/en/whats-new/2026-w29
 - Alibaba previews Qwen3.8-Max (July; exact day [UNVERIFIED])
 
+## Week of 2026-07-20
+- 2026-07-21 — Google Gemini 3.6 Flash and Gemini 3.5 Flash-Lite — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2026-07-24 — Anthropic releases Claude Opus 5 (1M context, 128K output, adaptive thinking default) — https://code.claude.com/docs/en/whats-new/2026-w30
+
