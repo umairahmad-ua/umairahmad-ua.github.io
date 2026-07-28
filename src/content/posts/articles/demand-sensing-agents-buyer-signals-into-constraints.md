@@ -54,35 +54,3 @@ The forecast agent runs the statistical models as tools. This is the part I brou
 
 The reconcile agent is where the planner knowledge lives. It has a tool that returns each buyer's historical bias, computed from past forecasts against actuals. It has a tool that returns planner overrides from previous weeks with their stated reasons. It produces a reconciled demand figure per SKU per week, with a confidence band and a paragraph explaining how it got there.
 
-## From demand to constraint
-
-The constraint agent is small and strict. It takes the reconciled demand and emits constraints the solver understands.
-
-```python
-from ortools.sat.python import cp_model
-
-def add_demand_constraints(model, x, demand, band, week, sku):
-    # x[plant, sku, week] = units produced
-    produced = sum(x[p, sku, week] for p in PLANTS)
-    low = int(demand[sku, week] - band[sku, week])
-    high = int(demand[sku, week] + band[sku, week])
-    # must cover the low end of the band
-    model.Add(produced >= low)
-    # penalize overproduction beyond the high end
-    over = model.NewIntVar(0, 10**7, f"over_{sku}_{week}")
-    model.Add(over >= produced - high)
-    return over  # summed into the objective with a cost weight
-```
-
-The confidence band is not decoration. A wide band means the solver has room and the plan will favor flexibility. A narrow band means the buyer's signal was consistent with point of sale and history, and the solver should commit. The reconcile agent's uncertainty becomes the solver's slack.
-
-## What the planner sees
-
-Not the constraints. The planner sees a page per buyer. This week's reconciled demand, the buyer's own forecast, point of sale where we have it, and the reconcile agent's paragraph. Where the agent adjusted a buyer's forecast by more than a threshold, the row is highlighted and the reason is one click away.
-
-The planner can override any figure. The override is stored with a reason and becomes input to next week's reconcile agent. That loop is the whole point. The agent learns the planner's judgment, not by fine-tuning, but by reading last week's decisions as evidence.
-
-## Where it is now
-
-The demand agents have been in weekly use since the spring. Time from buyer files landing to a reconciled plan is now measured in hours rather than days. Planner overrides have dropped week over week as the bias tool has more history to work with. Forecast error on the buyers with good point of sale data is inside the band we set at the start. On the buyers without point of sale, the band is honestly wide, and the plan says so.
-
