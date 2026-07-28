@@ -76,3 +76,9 @@ def add_demand_constraints(model, x, demand, band, week, sku):
 
 The confidence band is not decoration. A wide band means the solver has room and the plan will favor flexibility. A narrow band means the buyer's signal was consistent with point of sale and history, and the solver should commit. The reconcile agent's uncertainty becomes the solver's slack.
 
+## What the planner sees
+
+Not the constraints. The planner sees a page per buyer. This week's reconciled demand, the buyer's own forecast, point of sale where we have it, and the reconcile agent's paragraph. Where the agent adjusted a buyer's forecast by more than a threshold, the row is highlighted and the reason is one click away.
+
+The planner can override any figure. The override is stored with a reason and becomes input to next week's reconcile agent. That loop is the whole point. The agent learns the planner's judgment, not by fine-tuning, but by reading last week's decisions as evidence.
+
