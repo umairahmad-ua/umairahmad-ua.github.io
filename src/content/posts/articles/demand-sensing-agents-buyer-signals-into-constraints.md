@@ -92,3 +92,6 @@ The MCP specification released yesterday made the stateless core the default and
 
 Anthropic released Claude Opus 5 last week. We tested it as the reconcile agent's model on a week of historical data. It wrote better explanations than the current model. The reconciled figures were not meaningfully different, which is what I expected, because the figures come from the forecast tools and the model only adjusts them within rules. Better explanations matter to planners, so we are moving that one agent. The rest stay on Gemini.
 
+## The lesson
+
+Demand is not a forecast. It is a negotiation between signals that arrive at different times with different reliability. The agents are good at the negotiation. The models are good at the numbers. Keeping those two jobs separate is what made the planners trust the plan.
