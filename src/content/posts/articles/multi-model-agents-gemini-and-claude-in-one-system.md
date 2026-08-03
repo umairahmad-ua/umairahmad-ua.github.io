@@ -14,11 +14,3 @@ sources:
     date: 2026-08-05
 ---
 
-## Table of contents
-
-## The question a CFO asked
-
-In July a client's CFO asked me a question I had not been asked before. "If Google doubled the price of Gemini tomorrow, what happens to our system?" I gave a vague answer about abstraction layers. He did not accept it. He wanted to know which parts of the system would keep running and which would stop.
-
-I went back to the team and we drew the answer on a whiteboard. It turned out we already had a multi-model system. We had just never designed it as one. This article is what we made explicit.
-
