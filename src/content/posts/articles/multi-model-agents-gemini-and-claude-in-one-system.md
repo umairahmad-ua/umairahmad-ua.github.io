@@ -83,16 +83,3 @@ Today Anthropic put [inference hooks](https://github.com/jqueryscript/anthropic-
 
 We already do this on the Gemini side through Agent Engine tracing. Having the same shape on the Claude side means the audit trail is uniform. An adjuster or a regulator can follow a claim through both model families in one view.
 
-## Vendor risk as a design input
-
-The honest summary is that multi-model was not a goal. It was a consequence of choosing the right model for each step and then noticing that the choices spanned two vendors.
-
-What I now do deliberately:
-
-- Every tool is MCP. No vendor-specific tool bindings in agent code.
-- Every step has a named fallback model from another family, tested quarterly.
-- Every step has its own eval set and a cross-family judge.
-- Cost per task is tracked per step, so we know which vendor's price matters.
-
-None of that is exotic. It is the same discipline as keeping a database behind an interface. The difference is that model prices and capabilities move every month, so the interface gets exercised more than most.
-
