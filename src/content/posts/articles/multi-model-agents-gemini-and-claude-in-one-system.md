@@ -71,9 +71,3 @@ Now each step has its own eval set and its own judge. The extraction step has tw
 
 The cross-family judge matters. Models are kind to their own output. We measured this in May on the drafting step. A Sonnet judge scored Sonnet drafts four points higher than a Gemini judge did on the same rubric. The Gemini judge was closer to what the adjusters said.
 
-## What the open models change
-
-On Sunday Alibaba released [Qwen3.8-Max](https://github.com/QwenLM/Qwen3.8) for cloud use. I read the model card on Monday morning with this client in mind. The extraction step is the one where an open model could plausibly take over. The inputs are messy and the outputs are structured. That is a task where the gap between frontier and open models is smallest.
-
-We are not moving it yet. The reason is not quality. It is that the Flash models are already cheap enough that the extraction step is under a tenth of the cost per claim. The judgment steps are where the money goes, and those are where I want the strongest model I can buy.
-
