@@ -229,3 +229,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-07-21 — Google Gemini 3.6 Flash and Gemini 3.5 Flash-Lite — https://en.wikipedia.org/wiki/Gemini_(language_model)
 - 2026-07-24 — Anthropic releases Claude Opus 5 (1M context, 128K output, adaptive thinking default) — https://code.claude.com/docs/en/whats-new/2026-w30
 
+## Week of 2026-07-27
+- 2026-07-27 — Kimi K3 open weights — https://www.elser.ai/news/kimi-k3-vs-deepseek-v4-vs-qwen3-8
+- 2026-07-28 — MCP specification 2026-07-28 final (stateless core, Tasks and Apps extensions, deprecations of Roots, Sampling, Logging) — https://blog.modelcontextprotocol.io/posts/2026-07-28/
+- 2026-07-30 — OpenAI cuts GPT-5.6 Luna price 80%; Luna becomes ChatGPT free default — https://blog.mean.ceo/new-ai-model-releases-news-august-2026/
+
