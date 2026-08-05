@@ -63,23 +63,3 @@ On the Gemini side the ADK agent registers the server as a toolset. On the Claud
 
 That is the concrete answer to the CFO. If Gemini doubled in price, three steps would move to Claude or an open model within a sprint. The tools stay. The evals stay. The prompts get rewritten.
 
-## Evals per model, not per system
-
-The mistake we made early was one eval suite for the whole pipeline. When the score dropped, we could not tell which model caused it.
-
-Now each step has its own eval set and its own judge. The extraction step has two hundred labeled documents with ground truth fields. The policy step has eighty claim scenarios with an adjuster's ruling. The drafting step has a rubric scored by a judge model that is never the same family as the model being judged. Claude drafts get judged by Gemini. Gemini summaries get judged by Claude.
-
-The cross-family judge matters. Models are kind to their own output. We measured this in May on the drafting step. A Sonnet judge scored Sonnet drafts four points higher than a Gemini judge did on the same rubric. The Gemini judge was closer to what the adjusters said.
-
-## What the open models change
-
-On Sunday Alibaba released [Qwen3.8-Max](https://github.com/QwenLM/Qwen3.8) for cloud use. I read the model card on Monday morning with this client in mind. The extraction step is the one where an open model could plausibly take over. The inputs are messy and the outputs are structured. That is a task where the gap between frontier and open models is smallest.
-
-We are not moving it yet. The reason is not quality. It is that the Flash models are already cheap enough that the extraction step is under a tenth of the cost per claim. The judgment steps are where the money goes, and those are where I want the strongest model I can buy.
-
-## Inference hooks and the audit trail
-
-Today Anthropic put [inference hooks](https://github.com/jqueryscript/anthropic-claude-timeline) into beta for Claude Enterprise. For a regulated client this is the feature I have been waiting for. A hook runs before and after every model call. We can log the full prompt, the tool calls and the response into the client's own storage without changing agent code.
-
-We already do this on the Gemini side through Agent Engine tracing. Having the same shape on the Claude side means the audit trail is uniform. An adjuster or a regulator can follow a claim through both model families in one view.
-
