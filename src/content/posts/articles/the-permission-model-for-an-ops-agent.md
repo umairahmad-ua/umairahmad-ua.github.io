@@ -86,21 +86,3 @@ Every action, proposed or executed, writes a record before it runs and another a
 
 The log lives in the client's BigQuery, not ours. It is append only. Security reviews it weekly. The record before the run matters as much as the one after. If the agent crashes mid-action, we know what it was attempting.
 
-## A request that was correctly refused
-
-Two weeks into production, the agent received an alert about disk pressure on a node pool. It read the metrics, found the log volume that was filling the disk, and proposed a remediation. Truncate the log directory on the affected nodes.
-
-The playbook allowlist did not contain a truncate action. The agent could restart a deployment, scale a node pool, or rotate a log file through the standard tool. It could not delete anything. So the proposal was refused at layer two and the agent fell back to its next option. It rotated the log through the allowed tool, scaled the pool by one node, and opened a ticket describing what it had wanted to do and why it could not.
-
-The on-call engineer read the ticket in the morning. The truncate would have worked. It would also have deleted logs that a separate audit job had not yet exported. Nobody had told the agent about the audit job because nobody had thought to. The permission model held the line that human knowledge had not been written down yet.
-
-We did two things afterward. We added the audit job's export window to the runbook lookup skill so the agent knows about it now. And we added a scoped, time-limited truncate action to the allowlist, tier two approval, only for paths under a named prefix, only after the export job has reported success for that day.
-
-This is how the allowlist grows. Not from a design session where we guess what the agent will need. From a refused request with a written reason, reviewed by a human who knows the environment, turned into a narrow permission with its conditions attached. Every entry in the list has a ticket behind it. The list is a record of what we learned.
-
-## Break glass
-
-There is a fifth piece that is not a layer. Any engineer can disable the agent with one command. It stops reading alerts within thirty seconds. Playbooks already in flight complete or roll back. Nothing queues.
-
-We have used it once, during a cloud provider incident where alerts were firing for things the agent could not fix. It would have proposed forty restarts in an hour. Turning it off was the right call and it took one person ten seconds.
-
