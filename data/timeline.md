@@ -234,3 +234,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-07-28 — MCP specification 2026-07-28 final (stateless core, Tasks and Apps extensions, deprecations of Roots, Sampling, Logging) — https://blog.modelcontextprotocol.io/posts/2026-07-28/
 - 2026-07-30 — OpenAI cuts GPT-5.6 Luna price 80%; Luna becomes ChatGPT free default — https://blog.mean.ceo/new-ai-model-releases-news-august-2026/
 
+## Week of 2026-08-03
+- 2026-08-03 — Alibaba Qwen3.8-Max cloud release (2.4T params) — https://github.com/QwenLM/Qwen3.8
+- 2026-08-05 — Claude Enterprise inference hooks beta — https://github.com/jqueryscript/anthropic-claude-timeline
+- 2026-08-06 — Self-hosted Claude Code environments public beta — https://code.claude.com/docs/en/whats-new/2026-w32
+- 2026-08-07 — Anthropic announces auto mode default for Claude Code from Aug 14 — https://claude.com/blog/auto-mode-default-in-claude-code
+
