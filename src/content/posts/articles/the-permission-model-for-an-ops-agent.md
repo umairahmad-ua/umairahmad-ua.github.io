@@ -98,3 +98,9 @@ We did two things afterward. We added the audit job's export window to the runbo
 
 This is how the allowlist grows. Not from a design session where we guess what the agent will need. From a refused request with a written reason, reviewed by a human who knows the environment, turned into a narrow permission with its conditions attached. Every entry in the list has a ticket behind it. The list is a record of what we learned.
 
+## Break glass
+
+There is a fifth piece that is not a layer. Any engineer can disable the agent with one command. It stops reading alerts within thirty seconds. Playbooks already in flight complete or roll back. Nothing queues.
+
+We have used it once, during a cloud provider incident where alerts were firing for things the agent could not fix. It would have proposed forty restarts in an hour. Turning it off was the right call and it took one person ten seconds.
+
