@@ -65,24 +65,3 @@ Every playbook declares an approval tier.
 
 The approval message is the part I rewrote most. Early versions dumped the agent's full reasoning. Engineers stopped reading them. The current version is four lines. What is broken, what the agent will do, what it will cost or risk, and a link to the full trace. Approval rates went up and approval times went down when we cut the message.
 
-## Layer four: the audit log
-
-Every action, proposed or executed, writes a record before it runs and another after.
-
-```json
-{
-  "run_id": "ops-2026-08-11-0342",
-  "alert": "OOMKilled api-gateway-7c9f",
-  "playbook": "restart-deployment",
-  "preconditions_checked": {"restarts_in_last_hour": 1},
-  "approval_tier": "none",
-  "actor": "ops-agent-restart@...",
-  "model": "claude-sonnet-5",
-  "trace_url": "https://.../traces/ops-2026-08-11-0342",
-  "outcome": "success",
-  "duration_s": 41
-}
-```
-
-The log lives in the client's BigQuery, not ours. It is append only. Security reviews it weekly. The record before the run matters as much as the one after. If the agent crashes mid-action, we know what it was attempting.
-
