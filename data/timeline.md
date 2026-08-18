@@ -240,3 +240,10 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-08-06 — Self-hosted Claude Code environments public beta — https://code.claude.com/docs/en/whats-new/2026-w32
 - 2026-08-07 — Anthropic announces auto mode default for Claude Code from Aug 14 — https://claude.com/blog/auto-mode-default-in-claude-code
 
+## Week of 2026-08-10
+- 2026-08-11 — Gemini passes 1B monthly active users — https://blog.mean.ceo/new-ai-model-releases-news-august-2026/
+- 2026-08-12 — DeepSeek V4-Pro official (0813) release — https://www.evertune.ai/resources/ai-model-tracker
+- 2026-08-12 — xAI Grok 4.6 — https://en.wikipedia.org/wiki/Grok_(chatbot)
+- 2026-08-13 — Google Gemini 3.7 Flash — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2026-08-14 — Claude Code auto mode becomes default (Pro/Max/Team) — https://claude.com/blog/auto-mode-default-in-claude-code
+
