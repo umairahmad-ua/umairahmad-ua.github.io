@@ -23,3 +23,11 @@ sources:
 
 ## Table of contents
 
+## The agent that worked and got switched off
+
+Early this year a client of ours ran a document agent for about six weeks and then turned it off. It did the job. It extracted what they asked for, with an accuracy the reviewers were happy with. It was turned off because the finance team looked at the invoice and compared it to the cost of the two people who used to do the work.
+
+The agent lost. Not on quality. On cost per completed task.
+
+I have told that story to every engineer on my team since. Success rate is what you demo. Cost per task is what you survive on.
+
