@@ -88,3 +88,29 @@ Here is a trimmed example record. The numbers are illustrative, not from a clien
 
 Two things stand out in that example, and they stand out in real traces too. The machine cost is small. The human cost is almost everything. When someone says "the agent is expensive," the first question is which line they are looking at.
 
+## Aggregation is where it gets useful
+
+A single trace is a receipt. The aggregate is the metric.
+
+We roll traces up nightly into a table with one row per agent per day: tasks attempted, tasks completed, machine cost, human cost, and the two numbers I actually watch.
+
+```sql
+SELECT
+  agent,
+  DATE(ended_at) AS day,
+  COUNTIF(outcome = 'completed') AS completed,
+  COUNT(*) AS attempted,
+  SUM(usd_machine) AS usd_machine,
+  SUM(usd_human) AS usd_human,
+  SAFE_DIVIDE(SUM(usd_machine + usd_human),
+              COUNTIF(outcome = 'completed')) AS usd_per_completed_task,
+  SAFE_DIVIDE(SUM(usd_machine + usd_human),
+              COUNT(*)) AS usd_per_attempt
+FROM agent_task_traces
+GROUP BY agent, day
+```
+
+Cost per completed task is the survival number. Cost per attempt is the diagnostic. When the two diverge, the agent is spending money on tasks it then abandons or escalates, and that is where to look first.
+
+We put that table in front of the client from the first week of any engagement. Not because they ask for it. Because if they see it early, the conversation about whether the agent is worth running happens while we can still change the design.
+
