@@ -31,3 +31,60 @@ The agent lost. Not on quality. On cost per completed task.
 
 I have told that story to every engineer on my team since. Success rate is what you demo. Cost per task is what you survive on.
 
+## What we count
+
+At Zazmic we trace the cost of every task an agent completes, per agent, per step. A task is a unit the business recognizes: one claim processed, one migration batch validated, one planning run, one support ticket resolved. Not one model call.
+
+Each task produces a trace with the following:
+
+- Model tokens in and out, per call, with the model name and price at the time of the call.
+- Tool calls, with duration and any downstream cost (a BigQuery scan, a search query).
+- Retries, counted separately, because a retry is a cost you chose.
+- Human review time, when a human touched the task, in minutes, priced at a loaded rate the client gives us.
+- Outcome: completed, escalated, abandoned.
+
+Here is a trimmed example record. The numbers are illustrative, not from a client.
+
+```json
+{
+  "task_id": "mig-batch-2026-08-19-0042",
+  "agent": "migration.validate",
+  "outcome": "completed",
+  "steps": [
+    {
+      "kind": "model",
+      "model": "gemini-3.1-flash",
+      "tokens_in": 18400,
+      "tokens_out": 1200,
+      "usd": 0.0071
+    },
+    {
+      "kind": "tool",
+      "name": "bigquery.query",
+      "bytes_scanned": 2147483648,
+      "duration_ms": 3900,
+      "usd": 0.0125
+    },
+    {
+      "kind": "model",
+      "model": "claude-sonnet-5",
+      "tokens_in": 9200,
+      "tokens_out": 640,
+      "usd": 0.0248,
+      "retry_of": null
+    },
+    {
+      "kind": "human",
+      "role": "data_engineer",
+      "minutes": 4,
+      "usd": 6.00
+    }
+  ],
+  "usd_total": 6.0444,
+  "usd_machine": 0.0444,
+  "usd_human": 6.00
+}
+```
+
+Two things stand out in that example, and they stand out in real traces too. The machine cost is small. The human cost is almost everything. When someone says "the agent is expensive," the first question is which line they are looking at.
+
