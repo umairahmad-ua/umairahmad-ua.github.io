@@ -114,3 +114,25 @@ Cost per completed task is the survival number. Cost per attempt is the diagnost
 
 We put that table in front of the client from the first week of any engagement. Not because they ask for it. Because if they see it early, the conversation about whether the agent is worth running happens while we can still change the design.
 
+## Cost is an architecture input
+
+Once the number is visible, it starts making decisions for you.
+
+**Route by step, not by agent.** Every task has steps that need a strong model and steps that do not. Classifying an incoming document is cheap work. Reconciling two schemas is not. We assign a model per step and let the trace tell us when a cheap step is failing often enough to justify a stronger model. Most steps stay cheap.
+
+**Cache what repeats.** In the migration agents, the same source schema description goes into hundreds of calls. Prompt caching turned that from a per-call cost into a near-zero one. It also made the traces easier to read, because the cached prefix shows up as its own line.
+
+**Stop early.** An agent that retries three times and then escalates has spent four attempts of machine cost plus a human's time. We set retry budgets per step from the trace data. If a step's second attempt rarely succeeds where the first failed, the budget is one.
+
+**Move the human earlier.** Human review at the end of a failed task is the most expensive possible place for it. When a task type escalates often, we look for the earliest signal in the trace that predicts escalation, and we ask the human then. Four minutes at step two beats fifteen minutes at step nine.
+
+## The price moves of the summer
+
+The reason this matters more now than a year ago is that prices are moving fast in both directions, and the architecture has to move with them.
+
+At the end of June, Anthropic released Claude Sonnet 5 with a one million token native context window. In late July, Claude Opus 5 followed with the same context and 128K output. At the end of July, OpenAI cut the price of its GPT-5.6 Luna model by 80 percent. Each of those changed the answer to "which model for which step" in our routing tables within a week.
+
+Then on August 14, Claude Code made auto mode the default. Agents that used to wait for a human approval per tool call now run through. That is a cost change too, just not on the model line. Fewer approvals means less human time per task. It also means the gates and evals have to be tighter, because the human is no longer the rate limiter.
+
+If your architecture hard-codes a model to an agent, every one of these announcements is a rewrite. If it routes by step with prices in the trace, each one is a config change and a re-run of the evals.
+
