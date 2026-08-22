@@ -126,3 +126,19 @@ Once the number is visible, it starts making decisions for you.
 
 **Move the human earlier.** Human review at the end of a failed task is the most expensive possible place for it. When a task type escalates often, we look for the earliest signal in the trace that predicts escalation, and we ask the human then. Four minutes at step two beats fifteen minutes at step nine.
 
+## The price moves of the summer
+
+The reason this matters more now than a year ago is that prices are moving fast in both directions, and the architecture has to move with them.
+
+At the end of June, Anthropic released Claude Sonnet 5 with a one million token native context window. In late July, Claude Opus 5 followed with the same context and 128K output. At the end of July, OpenAI cut the price of its GPT-5.6 Luna model by 80 percent. Each of those changed the answer to "which model for which step" in our routing tables within a week.
+
+Then on August 14, Claude Code made auto mode the default. Agents that used to wait for a human approval per tool call now run through. That is a cost change too, just not on the model line. Fewer approvals means less human time per task. It also means the gates and evals have to be tighter, because the human is no longer the rate limiter.
+
+If your architecture hard-codes a model to an agent, every one of these announcements is a rewrite. If it routes by step with prices in the trace, each one is a config change and a re-run of the evals.
+
+## What the number is not
+
+Cost per task is not a reason to build the cheapest possible agent. The document agent that got switched off was already cheap on the machine line. It lost because its escalation rate put too many tasks in front of humans.
+
+The right target is the lowest cost per completed task at a quality the client accepts, and quality is measured by the eval suite, not by the trace. The two tables sit next to each other on the same dashboard. A change that lowers cost and lowers eval scores does not merge.
+
