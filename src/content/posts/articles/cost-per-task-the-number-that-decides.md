@@ -142,3 +142,8 @@ Cost per task is not a reason to build the cheapest possible agent. The document
 
 The right target is the lowest cost per completed task at a quality the client accepts, and quality is measured by the eval suite, not by the trace. The two tables sit next to each other on the same dashboard. A change that lowers cost and lowers eval scores does not merge.
 
+## A small habit that helped
+
+Every agent my team builds gets a cost trace before it gets a second feature. Not after launch. Before the second feature. It takes a day. It has never once been wasted.
+
+The client who switched off the document agent came back in the spring. We rebuilt it with the trace from day one, moved the human check to the classification step, and routed the extraction to a cheaper model with a strong model on the low-confidence cases only. It is still running. The finance team gets the same table we do.
