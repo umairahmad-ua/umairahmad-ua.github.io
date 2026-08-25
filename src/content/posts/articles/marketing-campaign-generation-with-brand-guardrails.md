@@ -80,3 +80,17 @@ Every draft goes through a claim extraction step. A small Gemini Flash call pull
 
 We measured this on a month of drafts for one apparel client. About one claim in fifteen was unsupported or contradicted before the check. Most were small. A color count off by one, a material percentage rounded up. Small is exactly what a regulator or a competitor notices.
 
+## The legal review queue
+
+Approved drafts do not go to the ad account. They go to a queue. The client's legal or brand team sees each campaign with the policy results, the claim sources and the persona it targets. They approve, edit or reject.
+
+The queue is where I learned the most about what humans need from an agent. They do not want the reasoning. They want the evidence. The first version of the queue showed the agent's chain of thought. Reviewers ignored it. The current version shows a table. Claim, source, status. Rule, result. That is what they read.
+
+Approval takes a few minutes per campaign now. Before the guardrail layer it took longer, because reviewers had to find the problems themselves.
+
+## The Meta integration
+
+Once legal approves, the campaign author formats variants for each placement and pushes them through the Meta ads integration. The push is idempotent. Every variant carries the campaign id, the draft version and the approval record id. If something goes wrong downstream, we can trace an ad back to the exact draft and the person who approved it.
+
+I mention this because it is the last guardrail. An agent that can write to an ad account is an agent that can spend money. The approval record is the thing that makes the write legitimate.
+
