@@ -27,3 +27,64 @@ Nothing in the system was broken. The model did what marketers do. It wrote pers
 
 That screenshot is why the campaign author now has a guardrail layer. This article is about how it works.
 
+## What the campaign author does
+
+Scout is the multi-agent system behind the Let's Forage platform. The campaign author is one of its nine agents. It takes a brief from the strategy agent, cultural signals from the research agents and a persona from the persona agent, and it produces campaign copy. Headlines, body text, hooks for short video, variants per channel.
+
+The output feeds two places. A human reviewer in the platform, and, for approved campaigns, the client's ad accounts through the Meta ads integration. The second path is why the guardrails matter. Copy that reaches an ad account reaches customers.
+
+## Brand voice as policy, not prompt
+
+The first version put the brand voice in the system prompt. "Write in a warm, direct tone. Avoid jargon." It worked about as well as you would expect. The model followed it most of the time and drifted under pressure from the brief.
+
+The current version treats brand rules as policies with three parts: a rule, a check and a severity.
+
+```yaml
+# brands/acme/voice.yaml
+rules:
+  - id: no-superlatives
+    text: "Do not use superlatives (best, fastest, #1) without a cited source."
+    check: regex_or_judge
+    pattern: "\\b(best|fastest|number one|#1|greatest)\\b"
+    severity: block
+  - id: no-competitor-names
+    text: "Never name a competitor."
+    check: entity_list
+    entities: ["brands/acme/competitors.txt"]
+    severity: block
+  - id: warm-direct
+    text: "Warm and direct. Second person. No corporate hedging."
+    check: judge
+    rubric: "brands/acme/tone-rubric.md"
+    severity: warn
+  - id: accessibility
+    text: "Reading level at or below grade 8."
+    check: readability
+    max_grade: 8
+    severity: warn
+```
+
+The rules still go into the prompt, so the model tries to follow them. But every draft also runs through the checks. A block severity means the draft never reaches a human. It goes back to the agent with the failed rule attached, and the agent rewrites. A warn severity means the draft reaches the reviewer with the warning shown.
+
+The distinction between prompt and policy is the whole idea. The prompt shapes what the model produces. The policy decides what leaves the system.
+
+## Claims get checked against product data
+
+Superlatives are the easy case. The harder one is factual claims. "Lasts 48 hours." "Made with 90 percent recycled materials." "Available in 12 colors." The model produces these confidently, and they are sometimes wrong, because the brief was vague or the product changed.
+
+Every draft goes through a claim extraction step. A small Gemini Flash call pulls out sentences that assert a fact about the product. Each claim is checked against the client's product data through Vertex AI Search over their catalog and spec sheets. The result is one of three states.
+
+- **Supported.** A source document backs the claim. The source is attached to the draft.
+- **Unsupported.** No source found. The claim is flagged and the reviewer sees it in red.
+- **Contradicted.** A source says something different. The draft is blocked and the agent rewrites with the correct value.
+
+We measured this on a month of drafts for one apparel client. About one claim in fifteen was unsupported or contradicted before the check. Most were small. A color count off by one, a material percentage rounded up. Small is exactly what a regulator or a competitor notices.
+
+## The legal review queue
+
+Approved drafts do not go to the ad account. They go to a queue. The client's legal or brand team sees each campaign with the policy results, the claim sources and the persona it targets. They approve, edit or reject.
+
+The queue is where I learned the most about what humans need from an agent. They do not want the reasoning. They want the evidence. The first version of the queue showed the agent's chain of thought. Reviewers ignored it. The current version shows a table. Claim, source, status. Rule, result. That is what they read.
+
+Approval takes a few minutes per campaign now. Before the guardrail layer it took longer, because reviewers had to find the problems themselves.
+
