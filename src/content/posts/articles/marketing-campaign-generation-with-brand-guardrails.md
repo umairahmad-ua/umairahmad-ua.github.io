@@ -94,3 +94,13 @@ Once legal approves, the campaign author formats variants for each placement and
 
 I mention this because it is the last guardrail. An agent that can write to an ad account is an agent that can spend money. The approval record is the thing that makes the write legitimate.
 
+## What changed this week
+
+Three releases this week touched this work.
+
+Google made [ADK TypeScript 2.0](https://adk.dev/2.0/) generally available on Thursday. Scout is Python, but the Let's Forage frontend team writes TypeScript, and they have wanted to build small agents inside the platform. Same framework on both sides is a real simplification.
+
+Anthropic made the [Skills API generally available](https://github.com/jqueryscript/anthropic-claude-timeline) on the Claude Platform, alongside computer use and the browser tool. Skills are a natural fit for brand policies. A brand's voice rules, packaged once, loaded by any agent that writes for that brand. We do this today with YAML files and our own loader. A standard way to do it is welcome.
+
+And yesterday Anthropic [unified memory](https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it) across Claude chat and Cowork. The part I noticed was "you decide what is in it." For a brand agent, memory of past campaigns is useful and memory of a rejected claim is dangerous. The control matters more than the feature.
+
