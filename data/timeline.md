@@ -247,3 +247,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-08-13 — Google Gemini 3.7 Flash — https://en.wikipedia.org/wiki/Gemini_(language_model)
 - 2026-08-14 — Claude Code auto mode becomes default (Pro/Max/Team) — https://claude.com/blog/auto-mode-default-in-claude-code
 
+## Week of 2026-08-17
+- 2026-08-17 — Claude Code /design research preview — https://code.claude.com/docs/en/whats-new/2026-w34
+- 2026-08-18 — Claude Cowork on web and mobile for all paid plans — https://github.com/jqueryscript/anthropic-claude-timeline
+- 2026-08-20 — Claude Academy launches; computer use, browser-use tool, Skills API, Files API GA on Claude Platform — https://github.com/jqueryscript/anthropic-claude-timeline
+- 2026-08-21 — Google ADK TypeScript 2.0 GA — https://adk.dev/2.0/
+
