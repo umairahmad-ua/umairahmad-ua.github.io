@@ -68,39 +68,3 @@ The rules still go into the prompt, so the model tries to follow them. But every
 
 The distinction between prompt and policy is the whole idea. The prompt shapes what the model produces. The policy decides what leaves the system.
 
-## Claims get checked against product data
-
-Superlatives are the easy case. The harder one is factual claims. "Lasts 48 hours." "Made with 90 percent recycled materials." "Available in 12 colors." The model produces these confidently, and they are sometimes wrong, because the brief was vague or the product changed.
-
-Every draft goes through a claim extraction step. A small Gemini Flash call pulls out sentences that assert a fact about the product. Each claim is checked against the client's product data through Vertex AI Search over their catalog and spec sheets. The result is one of three states.
-
-- **Supported.** A source document backs the claim. The source is attached to the draft.
-- **Unsupported.** No source found. The claim is flagged and the reviewer sees it in red.
-- **Contradicted.** A source says something different. The draft is blocked and the agent rewrites with the correct value.
-
-We measured this on a month of drafts for one apparel client. About one claim in fifteen was unsupported or contradicted before the check. Most were small. A color count off by one, a material percentage rounded up. Small is exactly what a regulator or a competitor notices.
-
-## The legal review queue
-
-Approved drafts do not go to the ad account. They go to a queue. The client's legal or brand team sees each campaign with the policy results, the claim sources and the persona it targets. They approve, edit or reject.
-
-The queue is where I learned the most about what humans need from an agent. They do not want the reasoning. They want the evidence. The first version of the queue showed the agent's chain of thought. Reviewers ignored it. The current version shows a table. Claim, source, status. Rule, result. That is what they read.
-
-Approval takes a few minutes per campaign now. Before the guardrail layer it took longer, because reviewers had to find the problems themselves.
-
-## The Meta integration
-
-Once legal approves, the campaign author formats variants for each placement and pushes them through the Meta ads integration. The push is idempotent. Every variant carries the campaign id, the draft version and the approval record id. If something goes wrong downstream, we can trace an ad back to the exact draft and the person who approved it.
-
-I mention this because it is the last guardrail. An agent that can write to an ad account is an agent that can spend money. The approval record is the thing that makes the write legitimate.
-
-## What changed this week
-
-Three releases this week touched this work.
-
-Google made [ADK TypeScript 2.0](https://adk.dev/2.0/) generally available on Thursday. Scout is Python, but the Let's Forage frontend team writes TypeScript, and they have wanted to build small agents inside the platform. Same framework on both sides is a real simplification.
-
-Anthropic made the [Skills API generally available](https://github.com/jqueryscript/anthropic-claude-timeline) on the Claude Platform, alongside computer use and the browser tool. Skills are a natural fit for brand policies. A brand's voice rules, packaged once, loaded by any agent that writes for that brand. We do this today with YAML files and our own loader. A standard way to do it is welcome.
-
-And yesterday Anthropic [unified memory](https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it) across Claude chat and Cowork. The part I noticed was "you decide what is in it." For a brand agent, memory of past campaigns is useful and memory of a rejected claim is dangerous. The control matters more than the feature.
-
