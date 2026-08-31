@@ -14,11 +14,3 @@ sources:
     date: 2026-09-02
 ---
 
-## Table of contents
-
-## Tuesday morning
-
-Anthropic released [Fable 5.1](https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads) on Tuesday. The headline for most people was the model. The headline for me was one line in the pricing section. Cache reads on Fable are 75 percent cheaper than they were.
-
-I have written before about cost per task as the number that decides whether an agent survives. This week I got to test whether a pricing change at the vendor moves that number in practice. I re-ran the model on four agents we run in production. Two are Claude based. Two are Gemini based and act as a control.
-
