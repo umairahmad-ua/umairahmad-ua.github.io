@@ -253,3 +253,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-08-20 — Claude Academy launches; computer use, browser-use tool, Skills API, Files API GA on Claude Platform — https://github.com/jqueryscript/anthropic-claude-timeline
 - 2026-08-21 — Google ADK TypeScript 2.0 GA — https://adk.dev/2.0/
 
+## Week of 2026-08-24
+- 2026-08-25 — Claude memory unified across chat and Cowork — https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it
+- 2026-08-26 — Claude in Chrome GA on all paid plans — https://gigazine.net/gsc_news/en/20260827-claude-chrome-available/
+- 2026-08-27 — Anthropic Model Hardware Standard research preview; 10,000 free or discounted Team seats for scientists — https://github.com/jqueryscript/anthropic-claude-timeline
+
