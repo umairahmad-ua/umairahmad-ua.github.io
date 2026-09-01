@@ -47,3 +47,19 @@ The policy interpreter fell by about a third. It carries long policy documents b
 
 The Gemini agents did not move, because nothing changed on that side this week. Google released [Gemini 3.8 Flash](https://en.wikipedia.org/wiki/Gemini_(language_model)) today, and I will re-run when we have it in evals, but the pricing did not shift.
 
+## What did not change
+
+The eval scores. I want to say this plainly because it is the part people skip. Fable 5.1 scored within noise of Fable 5 on both Claude agents' eval sets. The ops agent went up one point on playbook selection. The policy interpreter was flat.
+
+That is fine. I was not looking for a smarter model this week. I was looking at whether a price change at the vendor turns into a cost change for the client without any engineering. It did, and the reason it did is that we built for caching a year ago. Stable prefixes, volatile content at the end, tool definitions that do not change per call.
+
+If your prompts interleave stable and volatile content, the cache does not help you and neither does the price cut. The architecture decision from last year is what made this week's news useful.
+
+## Re-pricing the routing decisions
+
+The bigger effect is on routing. In the multi-model article I described how we send cheap steps to Flash models and judgment steps to frontier models. That split was made with cost per step in mind.
+
+At the new cache read price, two steps in the insurer pipeline that we had routed to Gemini Flash for cost reasons are now cheaper on Fable 5.1 with caching than on Flash without it. The prefix for those steps is the full policy document, which is exactly what caching rewards.
+
+I have not moved them yet. The eval sets for those steps were built with Flash in mind and I want to re-baseline before switching. But the routing table is no longer settled, and I expect it to change every quarter from now on. That is a maintenance cost I did not plan for a year ago. Model prices are now an input to architecture on a monthly basis.
+
