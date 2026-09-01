@@ -55,21 +55,3 @@ That is fine. I was not looking for a smarter model this week. I was looking at 
 
 If your prompts interleave stable and volatile content, the cache does not help you and neither does the price cut. The architecture decision from last year is what made this week's news useful.
 
-## Re-pricing the routing decisions
-
-The bigger effect is on routing. In the multi-model article I described how we send cheap steps to Flash models and judgment steps to frontier models. That split was made with cost per step in mind.
-
-At the new cache read price, two steps in the insurer pipeline that we had routed to Gemini Flash for cost reasons are now cheaper on Fable 5.1 with caching than on Flash without it. The prefix for those steps is the full policy document, which is exactly what caching rewards.
-
-I have not moved them yet. The eval sets for those steps were built with Flash in mind and I want to re-baseline before switching. But the routing table is no longer settled, and I expect it to change every quarter from now on. That is a maintenance cost I did not plan for a year ago. Model prices are now an input to architecture on a monthly basis.
-
-## What I tell clients
-
-Three things.
-
-First, the cost per task number in your dashboard should move when vendor prices move. If it does not, the architecture is not taking advantage of pricing structure, and that is a design problem, not a procurement one.
-
-Second, do not switch models on price alone. Re-run the evals. A model that is 40 percent cheaper and 5 percent worse on your task may or may not be a good trade. The eval tells you. The price sheet does not.
-
-Third, budget engineering time for routing changes. Once a quarter, someone on the team should re-price every step against current rates and propose moves. It is a half day of work and it has paid for itself every time we have done it.
-
