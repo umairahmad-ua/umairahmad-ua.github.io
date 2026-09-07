@@ -15,19 +15,3 @@ sources:
     date: 2026-09-03
 ---
 
-## Table of contents
-
-## The first Sunday
-
-The first note went up on September 21, 2025. It was about GPT-5-Codex and a rule I had just given my team about replaying agent sessions before anything reached a client. It was 280 words. I wrote it in forty minutes and almost did not publish it.
-
-Fifty two Sundays later, this is the retrospective. Not on AI. On the practice of writing about it every week, in public, with sources.
-
-## The rule that shaped everything
-
-I gave myself one rule at the start. Every external event I mention gets a source with a date, listed at the bottom of the note. If I cannot find a primary source, I do not mention the event.
-
-This sounded like a citation habit. It turned out to be a thinking habit. About once a month I sat down to write about something I was sure had happened, went looking for the source and found that it had not happened the way I remembered. A release date was a week off. A feature was in preview, not GA. A number came from a blog post, not the company.
-
-Each of those corrections was small. Together they changed how I talk in client meetings. I say "I think" more and "it is" less, unless I have the source in front of me. For someone who runs presales calls, that is a real change in how I sound.
-
