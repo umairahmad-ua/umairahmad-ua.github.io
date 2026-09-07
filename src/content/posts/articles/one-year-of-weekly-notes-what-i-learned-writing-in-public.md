@@ -17,3 +17,9 @@ sources:
 
 ## Table of contents
 
+## The first Sunday
+
+The first note went up on September 21, 2025. It was about GPT-5-Codex and a rule I had just given my team about replaying agent sessions before anything reached a client. It was 280 words. I wrote it in forty minutes and almost did not publish it.
+
+Fifty two Sundays later, this is the retrospective. Not on AI. On the practice of writing about it every week, in public, with sources.
+
