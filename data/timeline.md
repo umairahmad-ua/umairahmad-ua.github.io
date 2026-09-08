@@ -258,3 +258,8 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-08-26 — Claude in Chrome GA on all paid plans — https://gigazine.net/gsc_news/en/20260827-claude-chrome-available/
 - 2026-08-27 — Anthropic Model Hardware Standard research preview; 10,000 free or discounted Team seats for scientists — https://github.com/jqueryscript/anthropic-claude-timeline
 
+## Week of 2026-08-31
+- 2026-09-01 — Anthropic releases Claude Fable 5.1 and Claude Mythos 5.1 (75% cheaper Fable cache reads) — https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads
+- 2026-09-02 — Google Gemini 3.8 Flash; Meta Muse Spark 1.3 — https://en.wikipedia.org/wiki/Gemini_(language_model)
+- 2026-09-03 — OpenAI GPT-6 Astra (computer use; GA Sep 4) — https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html
+
