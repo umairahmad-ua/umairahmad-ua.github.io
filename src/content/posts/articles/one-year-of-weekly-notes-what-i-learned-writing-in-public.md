@@ -57,3 +57,22 @@ In the autumn of 2025 I wrote about models. Which one was better, which one to u
 
 I also got quieter. Early notes have opinions about the industry. Later notes have opinions about my own systems. I think that is the sourcing rule at work. It is easy to have a view about a company. It is harder to have a sourced view about your own eval scores, and more useful.
 
+## The week that made the point
+
+This week is a good example of why the notes exist. Anthropic released [Fable 5.1](https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads) last Tuesday with a large cut to cache read prices. On Thursday OpenAI released [GPT-6 Astra](https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html) with computer use and a cyber capability threshold that made the news.
+
+A year ago I would have written about which model is ahead. This week I wrote about how a pricing change moved cost per task on two production agents and did not move it on two others. That is a smaller story. It is also the one my clients can act on.
+
+## What changes next year
+
+Three things.
+
+The weekly note stays. The format works and I do not want to break the streak.
+
+The articles get more specific. The most useful pieces this year were the ones about one system and one problem. The migration agents, the permission model, the campaign guardrails. Fewer surveys. More runbooks.
+
+And I will publish more of the eval sets. Not the client data. The structure. Case definitions, rubrics, judge prompts. People keep asking how to evaluate agents, and the honest answer is that it is unglamorous work that is easier to copy than to explain.
+
+## Thank you
+
+To the people who read these, corrected my dates, and sent me the questions above. The notes are better because someone was checking. That is the whole point of writing them in public.
