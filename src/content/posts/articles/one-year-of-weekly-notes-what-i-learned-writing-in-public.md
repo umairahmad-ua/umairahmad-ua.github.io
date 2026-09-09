@@ -49,3 +49,11 @@ The site has a small readership. Most of it came from LinkedIn and from clients 
 
 **"What does your team actually do all day?"** This one I liked. The answer is in the one-year retrospective from June. Less model work than people expect. More tool contracts, evals and cost tracing.
 
+## What changed in my thinking
+
+Reading the notes in order, I can see four shifts.
+
+In the autumn of 2025 I wrote about models. Which one was better, which one to use. By spring I was writing about platforms and protocols. MCP, A2A, the Agent Platform rename. By summer I was writing about cost and permission models. The models had become interchangeable enough that they stopped being the interesting part.
+
+I also got quieter. Early notes have opinions about the industry. Later notes have opinions about my own systems. I think that is the sourcing rule at work. It is easy to have a view about a company. It is harder to have a sourced view about your own eval scores, and more useful.
+
