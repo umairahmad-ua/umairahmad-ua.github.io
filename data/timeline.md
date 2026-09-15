@@ -263,3 +263,9 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-09-02 — Google Gemini 3.8 Flash; Meta Muse Spark 1.3 — https://en.wikipedia.org/wiki/Gemini_(language_model)
 - 2026-09-03 — OpenAI GPT-6 Astra (computer use; GA Sep 4) — https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html
 
+## Week of 2026-09-07
+- 2026-09-09 — OpenAI Data agent in ChatGPT Work — https://aiagentstore.ai/ai-agent-news/this-week
+- 2026-09-10 — OpenAI Agents API public beta — https://www.marktechpost.com/2026/09/10/openai-launches-the-agents-api-in-public-beta-putting-the-codex-harness-behind-one-api-call/
+- 2026-09-10 — DeepSeek V4.1-Flash — https://local-ai-zone.github.io/blog/September_2026_AI_Model_Updates.html
+- 2026-09-07 to 11 — Claude Code `claude plugin eval` — https://code.claude.com/docs/en/whats-new/2026-w37
+
