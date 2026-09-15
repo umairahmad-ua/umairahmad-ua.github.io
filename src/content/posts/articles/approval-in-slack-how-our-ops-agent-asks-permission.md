@@ -14,3 +14,35 @@ sources:
     date: 2026-09-16
 ---
 
+## Table of contents
+
+## The message at 2:14 in the morning
+
+At 2:14 on a Tuesday morning in August, a Slack channel for one of our clients received a message from a bot. It said that a Cloud Run service had been returning errors for six minutes, that the error rate was 31 percent, that the last deploy was fourteen hours earlier, and that the agent proposed rolling back to the previous revision. It attached the error log excerpt and the deploy diff. It asked for approval and said it would escalate to the on-call phone if nobody answered in ten minutes.
+
+The on-call engineer tapped approve from bed. The rollback took forty seconds. The agent posted the new error rate three minutes later, which was zero, and closed the thread.
+
+That message is the product. Everything else in the ops agent exists to make that message trustworthy. This piece is about how the approval loop works, because the loop is where most of the design went.
+
+## Why approval and not autonomy
+
+The agent could have rolled back on its own. The playbook said so, the confidence was high, and the action was reversible. We still asked.
+
+The reason is not caution for its own sake. It is that the client's trust in the agent was built one approved message at a time. Every approval is a human looking at the evidence and agreeing. After three months of agreements, the client asked us to let the agent roll back on its own for that one playbook. We did. That is the right order. Autonomy granted after a record, not assumed before one.
+
+The second reason is that the approval message is also the audit record. A human who approved can explain the decision later. An agent that acted alone leaves a log line that nobody remembers reading.
+
+## The loop, step by step
+
+The agent runs on the Claude Agent SDK with a small set of tools exposed over MCP. Here is what happens between an alert and an action.
+
+1. **An alert arrives.** Cloud Monitoring fires a webhook into a Pub/Sub topic. The agent picks it up with the alert payload and nothing else.
+2. **The agent gathers evidence.** It calls read-only tools. Logs for the service in the last fifteen minutes. The deploy history. The current error rate and latency. These tools cannot change anything, so the agent can call them freely.
+3. **The agent matches a playbook.** Playbooks live in a repository as markdown with a YAML header. The header names the conditions, the allowed actions and the approval policy. The agent picks the playbook whose conditions match and quotes it in the message.
+4. **The agent proposes.** It posts to Slack with four parts. What it observed, with numbers. What it thinks is happening. What it proposes to do, named exactly as the playbook names it. What it will do if nobody answers.
+5. **A human decides.** Approve or reject are buttons. Both record who clicked and when. A reject can carry a reason, and the reason goes into the agent's context for the rest of the incident.
+6. **The agent executes.** Only the action named in the proposal. Only through a tool whose service account is scoped to that playbook. If the execution tool returns anything unexpected, the agent stops and posts again.
+7. **The agent reports.** The metric it was watching, before and after. Then it closes the thread.
+
+Every step writes a row to a BigQuery audit table. The row has the alert id, the playbook, the evidence hashes, the proposal text, the approver, the timestamps and the outcome.
+
