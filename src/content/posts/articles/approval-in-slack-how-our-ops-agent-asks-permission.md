@@ -82,13 +82,3 @@ The permission model is simpler to explain by what is missing.
 
 When a client asks for a new capability, we write a playbook and add a scoped tool. The agent gets the capability on the day the pull request merges. This is slower than letting the model improvise. It is also why the client lets it run at 2 in the morning.
 
-## Measuring whether the loop works
-
-Three numbers go on the monthly report.
-
-**Approval rate.** The share of proposals a human approved without changes. It started near 70 percent and sits around 92. The rejections are the interesting part. Each one is a playbook that needs a sharper condition.
-
-**Time to approval.** Median under three minutes during business hours, under nine overnight. If this number grows, the messages have become noise.
-
-**Override rate after approval.** How often a human later undid what the agent did. This has stayed below two percent, and every case has a thread to read.
-
