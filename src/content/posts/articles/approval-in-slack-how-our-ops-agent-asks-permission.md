@@ -46,3 +46,21 @@ The agent runs on the Claude Agent SDK with a small set of tools exposed over MC
 
 Every step writes a row to a BigQuery audit table. The row has the alert id, the playbook, the evidence hashes, the proposal text, the approver, the timestamps and the outcome.
 
+## The message format is the interface
+
+We iterated on the Slack message more than on any prompt. The first version was a paragraph. Engineers skimmed it and approved. That is the failure mode. An approval that nobody read is worse than no approval, because it looks like oversight and is not.
+
+The version that works has a fixed shape:
+
+```
+Service: orders-api (prod, us-central1)
+Observed: 5xx rate 31% for 6 min (threshold 5%). p95 latency 2.8s.
+Last change: deploy rev 00147 at 12:03 (14h ago). Diff: 3 files.
+Playbook: cloud-run-rollback v4
+Proposed: roll back to rev 00146
+If no answer in 10 min: page on-call
+[Approve] [Reject]
+```
+
+Numbers first. The playbook named and versioned. The action in the playbook's own words. The timeout stated. People read this because it is short and because the same fields appear every time. Reading it takes eight seconds. We measured.
+
