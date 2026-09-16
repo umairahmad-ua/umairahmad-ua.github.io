@@ -82,3 +82,19 @@ The permission model is simpler to explain by what is missing.
 
 When a client asks for a new capability, we write a playbook and add a scoped tool. The agent gets the capability on the day the pull request merges. This is slower than letting the model improvise. It is also why the client lets it run at 2 in the morning.
 
+## Measuring whether the loop works
+
+Three numbers go on the monthly report.
+
+**Approval rate.** The share of proposals a human approved without changes. It started near 70 percent and sits around 92. The rejections are the interesting part. Each one is a playbook that needs a sharper condition.
+
+**Time to approval.** Median under three minutes during business hours, under nine overnight. If this number grows, the messages have become noise.
+
+**Override rate after approval.** How often a human later undid what the agent did. This has stayed below two percent, and every case has a thread to read.
+
+## An aside on this week
+
+Anthropic [folded Cowork into Claude](https://claude.com/blog/cowork-is-now-claude) on Tuesday. The relevant part for us is that the approval pattern above now has a first-party home in the Claude app for people who are not engineers. Our client's approvers are engineers in Slack, and that stays. But I expect the next client to ask whether a finance manager can approve a different kind of agent from a different kind of inbox. The loop is the same. Only the button moves.
+
+Google also put [Gemini 3.8 Live](https://ai.google.dev/gemini-api/docs/changelog) in the API on Monday. A voice interface to an approval loop is a bad idea for most actions and a good idea for exactly one, which is a human saying no quickly. I am not building that yet.
+
