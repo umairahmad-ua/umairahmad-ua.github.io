@@ -70,31 +70,3 @@ A proposal without a deadline is a question nobody has to answer. Each playbook 
 
 The timeout is also where we caught our worst early bug. The agent posted a proposal, nobody answered, the timeout fired, and the agent posted the same proposal again as if the incident were new. Two engineers approved it four minutes apart, and the second approval tried to roll back a service that had already rolled back. The execution tool refused because the target revision was already live, which is why the tool checks preconditions. We fixed the agent to treat the thread as the unit of state. One incident, one thread, one proposal at a time.
 
-## What the agent cannot do
-
-The permission model is simpler to explain by what is missing.
-
-- The agent has no tool that deletes anything.
-- The agent has no tool that touches IAM.
-- The agent cannot run a command that is not in a playbook. There is no shell.
-- The agent cannot approve its own proposal, and neither can a bot account. Approvers are named humans in a Slack user group.
-- The agent cannot edit the playbook repository. Changes go through a pull request that an engineer reviews.
-
-When a client asks for a new capability, we write a playbook and add a scoped tool. The agent gets the capability on the day the pull request merges. This is slower than letting the model improvise. It is also why the client lets it run at 2 in the morning.
-
-## Measuring whether the loop works
-
-Three numbers go on the monthly report.
-
-**Approval rate.** The share of proposals a human approved without changes. It started near 70 percent and sits around 92. The rejections are the interesting part. Each one is a playbook that needs a sharper condition.
-
-**Time to approval.** Median under three minutes during business hours, under nine overnight. If this number grows, the messages have become noise.
-
-**Override rate after approval.** How often a human later undid what the agent did. This has stayed below two percent, and every case has a thread to read.
-
-## An aside on this week
-
-Anthropic [folded Cowork into Claude](https://claude.com/blog/cowork-is-now-claude) on Tuesday. The relevant part for us is that the approval pattern above now has a first-party home in the Claude app for people who are not engineers. Our client's approvers are engineers in Slack, and that stays. But I expect the next client to ask whether a finance manager can approve a different kind of agent from a different kind of inbox. The loop is the same. Only the button moves.
-
-Google also put [Gemini 3.8 Live](https://ai.google.dev/gemini-api/docs/changelog) in the API on Monday. A voice interface to an approval loop is a bad idea for most actions and a good idea for exactly one, which is a human saying no quickly. I am not building that yet.
-
