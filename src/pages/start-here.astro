@@ -32,7 +32,7 @@ const groups = themes.map(t => {
   return { ...t, items };
 });
 const rest = articles.filter(a => !placed.has(a.id));
-if (rest.length) groups.push({ title: "Everything else", blurb: "", tags: [], items: rest });
+if (rest.length) groups.push({ title: "Everything else", blurb: "", tags: [], words: [], items: rest });
 const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 ---
 
