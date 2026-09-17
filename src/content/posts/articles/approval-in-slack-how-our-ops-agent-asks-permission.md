@@ -12,6 +12,29 @@ sources:
   - title: "Cowork is now Claude"
     url: "https://claude.com/blog/cowork-is-now-claude"
     date: 2026-09-16
+diagram:
+  caption: "An alert becomes a proposal in Slack, a named human approves, and the agent acts only through a playbook-scoped tool with every step audited."
+  nodes:
+    - { id: "alert", label: "Cloud Monitoring alert", col: 0, kind: "source" }
+    - { id: "agent", label: "Ops agent, Claude Agent SDK", col: 1, kind: "agent" }
+    - { id: "evidence", label: "Read-only logs and deploys", col: 1, kind: "tool" }
+    - { id: "playbooks", label: "Playbook repository", col: 1, kind: "store" }
+    - { id: "slack", label: "Proposal in Slack", col: 2, kind: "output" }
+    - { id: "human", label: "On-call approves or rejects", col: 3, kind: "human" }
+    - { id: "exec", label: "Scoped execution tool", col: 4, kind: "tool" }
+    - { id: "audit", label: "BigQuery audit table", col: 4, kind: "store" }
+    - { id: "report", label: "Before and after metric", col: 5, kind: "output" }
+  edges:
+    - ["alert", "agent"]
+    - ["evidence", "agent", "gather"]
+    - ["playbooks", "agent", "match"]
+    - ["agent", "slack", "propose"]
+    - ["slack", "human"]
+    - ["human", "exec", "approve"]
+    - ["human", "agent", "reject, reason"]
+    - ["exec", "report"]
+    - ["agent", "audit"]
+    - ["exec", "audit"]
 ---
 
 ## Table of contents
