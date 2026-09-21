@@ -28,3 +28,9 @@ Anthropic released [Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5) 
 
 I have written before that cost per completed task is the number that decides whether an agent survives. A price cut of this size is the kind of event that model was built for. So on Wednesday morning I re-ran it across the four agents my team runs in production, and this is what moved.
 
+## How the model works
+
+Each agent has a cost sheet. Each step in the agent names the model it uses, the average input and output tokens per call from the last thirty days of traces, the average number of calls per completed task, and any non-model cost such as a BigQuery scan or a human review minute at a loaded rate. Multiply through, sum, and you have cost per completed task. Divide the eval score by it and you have the number we compare across candidates.
+
+The sheet is not a spreadsheet anymore. It is a BigQuery view over the trace table, with the price list in a small table that I edit by hand when vendors change it. Tuesday meant two edits. Wednesday meant reading the result.
+
