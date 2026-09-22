@@ -77,3 +77,7 @@ Here is the table my team uses to pick a model per step. It is a guideline, not 
 
 The notable change is the third row. A year ago the largest model was a last resort. Now it is the default for the step that most needs it, because the price no longer punishes that choice.
 
+## The harness got free on the same day
+
+Separately, AWS [open-sourced the Strands harness](https://strandsagents.com/blog/introducing-strands-harness/) on Monday with a claim of 28 percent lower token cost from better context handling. I have not verified that number on our workloads. I did read the code. The savings come from trimming tool results before they re-enter the context, which is something we do by hand in two of our agents. If it holds, that is a cost reduction that does not depend on any vendor's price list, and those are the ones I trust most.
+
