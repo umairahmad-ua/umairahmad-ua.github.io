@@ -50,9 +50,3 @@ The total cost per incident barely moved, because the model was never the cost. 
 
 Decision: nothing changes. This agent's cost problem is approval time, and the fix for that is better playbooks, not a cheaper model.
 
-## Agent three: Scout
-
-Scout is the marketing intelligence system for Let's Forage. Nine agents, most of them on Gemini Flash, two authoring agents on a larger Gemini model. Nothing in Scout runs on Claude or GPT today, so Tuesday's prices change nothing directly.
-
-Indirectly they change the conversation. When Opus class reasoning costs four dollars per million, the question of whether the two authoring agents should be evaluated against a Claude candidate is worth an afternoon. I added it to the eval backlog. I did not reroute anything.
-
