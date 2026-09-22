@@ -269,3 +269,12 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-09-10 — DeepSeek V4.1-Flash — https://local-ai-zone.github.io/blog/September_2026_AI_Model_Updates.html
 - 2026-09-07 to 11 — Claude Code `claude plugin eval` — https://code.claude.com/docs/en/whats-new/2026-w37
 
+## Week of 2026-09-14
+- 2026-09-15 — Google Gemini 3.8 Live and Gemini 3.8 Live Extended Thinking (audio-to-audio real-time voice models) in Gemini API — https://ai.google.dev/gemini-api/docs/changelog
+- 2026-09-16 — Anthropic folds Cowork into Claude; launches Claude Docs and Claude Slides beta — https://venturebeat.com/technology/anthropic-is-killing-off-cowork-and-folding-it-into-claude-launching-claude-docs-and-claude-slides ; https://claude.com/blog/cowork-is-now-claude
+- 2026-09-17 — Claude Code Projects redesigned: coordinator plus parallel cloud-session threads, beta for selected Pro/Max — https://claude.com/blog/projects-redesigned
+- 2026-09-18 — Claude Code v2.1.277 adds native AGENTS.md support (fallback when no CLAUDE.md) — https://forums.theregister.com/forum/all/2026/09/18/202619/
+- 2026-09-18 — Alibaba Qwen3.8-Omni-Flash (1M context omni model, API-only; Qwen-MM-Plugins Apache 2.0) — https://www.marktechpost.com/2026/09/18/alibaba-qwen-releases-qwen3-8-omni-flash/
+- 2026-09-18 — Anthropic and Accenture each commit $1B over five years to embedded third-party model evaluators — https://www.cnbc.com/2026/09/18/anthropic-accenture-ai-safety.html
+- 2026-09-18 — Moonshot Kimi K3 (2.8T open weights) GA on Amazon Bedrock with explicit prompt caching — https://www.cloudscoop.io/updates/aws-2026-09-18-kimi-k3-by-moonshot-ai-is-now-generally-available-
+
