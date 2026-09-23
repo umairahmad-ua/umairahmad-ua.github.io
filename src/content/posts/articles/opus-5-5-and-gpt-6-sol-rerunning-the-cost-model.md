@@ -62,3 +62,27 @@ The planning orchestrator for the apparel client calls a forecast tool, a solver
 
 Decision: switch the narration step to GPT-6 Sol after the eval set passes. It passed. The switch is scheduled for Monday because the client reviews changes weekly.
 
+## The routing table now
+
+Here is the table my team uses to pick a model per step. It is a guideline, not a rule. The eval set decides.
+
+| Step type | Default now | Why |
+| --- | --- | --- |
+| Routing and classification | Gemini Flash | Cheap, fast, eval score flat across models |
+| Short extraction into a schema | Gemini Flash | Same |
+| Long reasoning over data | Opus 5.5 | Was Opus 5, price moved it from "only if needed" to default |
+| Code or SQL generation with validation | Opus 5.5 or GPT-6 Sol | Both pass our evals, pick by client's existing vendor |
+| Plain-language narration for humans | GPT-6 Sol | Half price, eval score unchanged |
+| Bulk summarization | GPT-6 Luna | Ten cents in, good enough for first drafts |
+
+The notable change is the third row. A year ago the largest model was a last resort. Now it is the default for the step that most needs it, because the price no longer punishes that choice.
+
+## The harness got free on the same day
+
+Separately, AWS [open-sourced the Strands harness](https://strandsagents.com/blog/introducing-strands-harness/) on Monday with a claim of 28 percent lower token cost from better context handling. I have not verified that number on our workloads. I did read the code. The savings come from trimming tool results before they re-enter the context, which is something we do by hand in two of our agents. If it holds, that is a cost reduction that does not depend on any vendor's price list, and those are the ones I trust most.
+
+## What I would tell a client
+
+Price cuts are good news and they are also a test of whether you instrumented your agents. If you can re-run cost per task the next morning, you can make the switch the same week and you can show the finance team the number before and after. If you cannot, you are guessing.
+
+The agents where the model was the cost got cheaper. The agents where humans and tools were the cost did not. Knowing which is which is the whole point of the sheet.
