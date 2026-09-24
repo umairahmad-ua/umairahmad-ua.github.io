@@ -45,6 +45,7 @@ A post may only cite events dated on or before its `pubDatetime`. `npm run qa` f
 - Cover art is generated at build time by `src/components/Cover.astro` from the post id. Nothing to do.
 - Sunday notes get an automatic week timeline from their `sources` (`src/components/WeekTimeline.astro`). Keep sources accurate and dated.
 - Every deep dive needs a `diagram:` block in frontmatter, rendered by `src/components/Diagram.astro`. Write a JSON spec (caption, 5 to 10 nodes with id, label ≤28 chars, col 0..5, kind in source|agent|tool|model|store|human|output, edges [from, to, label?]) and run `node scripts/add-diagram.mjs <slug> spec.json`. `npm run qa` warns when a deep dive has no diagram.
+- After adding sources to a new post, run `npm run images` to fetch each source's published preview image into `public/sources/` (incremental, skips known URLs). The post shows them in a credited "From the sources" gallery via `src/components/SourceImages.astro`. Commit `data/source-images.json` and the new files under `public/sources/`.
 - Content type labels on the site: "Deep dives" (kind: article) and "Sunday notes" (kind: note). Do not call them essays or articles in copy.
 
 ## Layout

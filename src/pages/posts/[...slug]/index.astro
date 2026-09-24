@@ -20,6 +20,7 @@ import Giscus from "@/components/Giscus.astro";
 import Cover from "@/components/Cover.astro";
 import WeekTimeline from "@/components/WeekTimeline.astro";
 import Diagram from "@/components/Diagram.astro";
+import SourceImages from "@/components/SourceImages.astro";
 import config from "@/config";
 
 export async function getStaticPaths() {
@@ -151,6 +152,7 @@ const ogImage = ogImageUrl
 
     {kind === "note" && <WeekTimeline {sources} {pubDatetime} />}
     {kind === "article" && diagram && <Diagram {diagram} />}
+    <SourceImages {sources} />
 
     <article
       id="article"

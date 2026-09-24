@@ -1,0 +1,687 @@
+{
+ "https://openai.com/index/gpt-5-1/": null,
+ "https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/": {
+  "file": "/sources/d3e4e99e024ddead.jpg",
+  "w": 1024,
+  "h": 683,
+  "site": "TechCrunch",
+  "src": "https://techcrunch.com/wp-content/uploads/2025/04/GettyImages-2182154299.jpg?w=1024"
+ },
+ "https://www.anthropic.com/news/redeploying-fable-5": {
+  "file": "/sources/ff1300aa6ccec48d.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/2039cc549c023bc855671308211d20d3382828a9-2880x1620.jpg"
+ },
+ "https://www.anthropic.com/news/claude-sonnet-5": {
+  "file": "/sources/0f764e9bc764237a.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/2039cc549c023bc855671308211d20d3382828a9-2880x1620.jpg"
+ },
+ "https://openai.com/index/gpt-5-5-instant/": null,
+ "https://developers.googleblog.com/announcing-adk-go-20/": {
+  "file": "/sources/fbe485b080350db8.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "developers.googleblog.com",
+  "src": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Gemini_Generated_ADKGo20_meta_ima.2e16d0ba.fill-1200x600.jpg"
+ },
+ "https://simonwillison.net/2026/May/6/code-w-claude-2026/": null,
+ "https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up": {
+  "file": "/sources/341fc7051c0b2d04.jpg",
+  "w": 1200,
+  "h": 800,
+  "site": "Google Cloud Blog",
+  "src": "https://storage.googleapis.com/gweb-cloudblog-publish/images/GCNEXT2026_0422_090309-3826_ALIVE.max-2600x2600.jpg"
+ },
+ "https://www.anthropic.com/news/claude-fable-5-mythos-5": {
+  "file": "/sources/147a989f3e59cd8d.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/b7055119423427c40a0e4d84054aed17682b50a2-2880x1620.png"
+ },
+ "https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/": null,
+ "https://openai.com/index/introducing-chatgpt-health/": null,
+ "https://thenextweb.com/news/anthropic-commits-100m-to-claude-partner-network": {
+  "file": "/sources/5624a74821eaa058.jpg",
+  "w": 868,
+  "h": 488,
+  "site": "thenextweb.com",
+  "src": "https://media.thenextweb.com/2026/03/Anthropic-invests-100-million-into-the-Claude-Partner-Network.jpg"
+ },
+ "https://claude.com/blog/claude-managed-agents": {
+  "file": "/sources/7d87eee202084d45.jpg",
+  "w": 1200,
+  "h": 629,
+  "site": "Claude",
+  "src": "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/69d6874d9013e4890f253b80_managed-agents-og.jpg"
+ },
+ "https://www.hpcwire.com/aiwire/2026/04/23/google-unveils-gemini-enterprise-agent-platform/": null,
+ "https://www.channeldive.com/news/anthropic-launches-claude-channel-partner-program/814569/": {
+  "file": "/sources/255f2272624b41c2.jpg",
+  "w": 653,
+  "h": 435,
+  "site": "Channel Dive",
+  "src": "https://imgproxy.divecdn.com/nXzuropuKsVQlKccjnLjgZ2vu8lrThBk1pjR4J7E9Nc/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjYxOTc0MDAzLmpwZw==.webp"
+ },
+ "https://fortune.com/2026/01/11/anthropic-unveils-claude-for-healthcare-and-expands-life-science-features-partners-with-healthex-to-let-users-connect-medical-records/": {
+  "file": "/sources/980d4cba3aa72499.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Fortune",
+  "src": "https://fortune.com/img-assets/wp-content/uploads/2026/01/GettyImages-2191761620-e1768150584162.jpg?resize=1200,600"
+ },
+ "https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise": {
+  "file": "/sources/923d879006f30251.jpg",
+  "w": 1200,
+  "h": 591,
+  "site": "Google Cloud Blog",
+  "src": "https://storage.googleapis.com/gweb-cloudblog-publish/images/2436_x_1200_logo_lockup.max-2500x2500.png"
+ },
+ "https://x.ai/news/grok-4-5": {
+  "file": "/sources/6258cf13f3d5f19b.jpg",
+  "w": 1024,
+  "h": 537,
+  "site": "x.ai",
+  "src": "https://media.x.ai/v1/website/grok-4-5-og-786d2a81.png"
+ },
+ "https://openai.com/index/the-next-evolution-of-the-agents-sdk/": null,
+ "https://developers.googleblog.com/why-we-built-adk-20/": {
+  "file": "/sources/7ba5886deede0131.jpg",
+  "w": 1184,
+  "h": 592,
+  "site": "developers.googleblog.com",
+  "src": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/gfd-whyadk2-meta.2e16d0ba.fill-1200x600.png"
+ },
+ "https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates": {
+  "file": "/sources/6c3a6e7c39f64a26.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Amazon News",
+  "src": "https://assets.aboutamazon.com/dims4/default/da96a27/2147483647/strip/true/crop/2000x1000+0+0/resize/1200x600!/quality/90/?url=https%3A%2F%2Fassets.aboutamazon.com%2F5c%2Fa8%2Fa50a32a04372a389c9c545f182c5%2Fabout-amazon-hero-aws-re-invent-tuesday.jpg"
+ },
+ "https://opensource.googleblog.com/2026/04/a-year-of-open-collaboration-celebrating-the-anniversary-of-a2a.html": {
+  "file": "/sources/83bff9d1efa879de.jpg",
+  "w": 1056,
+  "h": 630,
+  "site": "opensource.googleblog.com",
+  "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipL-i-8rPIj_0Pl6t503wSf-bEBAG6noLVPlGUOFtRUb66I7rwOk78noAQ6Au4zLI-fTSAyIQGhDN2KlKZux0iAddwaHGz9vk_v21tqvnxnwn0FF6eGLjvDElh2mJEHVx8vW9lobsIFrluCCFfwQq5je-C13LBXS48aIYDS29xXEBbEfAJ2tO8ol9hJG8/w1200-h630-p-k-no-nu/a2a-birthday.png"
+ },
+ "https://claude.com/blog/auto-mode-default-in-claude-code": {
+  "file": "/sources/15e161b5f7dd2dc2.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Claude",
+  "src": "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/69093b56f1035860a3cfe774_og_claude-code-on-the-web.jpg"
+ },
+ "https://cursor.com/blog/cursor-3": {
+  "file": "/sources/a44629d4e5c37d38.jpg",
+  "w": 1200,
+  "h": 918,
+  "site": "Cursor",
+  "src": "https://cursor.com/marketing-static/blog/og/cursor-3-opengraph.png"
+ },
+ "https://openai.com/index/introducing-the-codex-app/": null,
+ "https://blog.modelcontextprotocol.io/posts/2026-07-28/": {
+  "file": "/sources/181c2c17125e46ad.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Model Context Protocol Blog",
+  "src": "https://blog.modelcontextprotocol.io/og-image.png"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w30": {
+  "file": "/sources/b986bf46b8b7aadb.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B30%2B%25C2%25B7%2BJuly%2B20%25E2%2580%259324%252C%2B2026%26description%3DOpus%2B5%2Bbecomes%2Bthe%2Bdefault%2BOpus%2Bmodel%252C%2BClaude%2BCode%2BDesktop%2Badds%2Ban%2BiOS%2BSimulator%2Bpane%252C%2Band%2Bthe%2BClaude%2BSecurity%2Bplugin%2Bscans%2Byour%2Bcode%2Bfor%2Bvulnerabilities.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://openai.com/index/introducing-upgrades-to-codex/": null,
+ "https://www.anthropic.com/news/claude-sonnet-4-5": {
+  "file": "/sources/1ccc22f7699c5edb.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20HeadCube&backgroundColor=clay"
+ },
+ "https://blog.google/products-and-platforms/products/gemini/gemini-3-collection/": {
+  "file": "/sources/def5cd39dfa24584.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "blog.google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_social_croppedin.max-1440x810.png"
+ },
+ "https://www.anthropic.com/news/claude-code-security": {
+  "file": "/sources/ff5fdd732e37af83.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Object-LaptopSecure&backgroundColor=clay"
+ },
+ "https://google.github.io/adk-docs/": {
+  "file": "/sources/268343940ae86a07.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "adk.dev",
+  "src": "https://adk.dev/assets/adk-social-card.png"
+ },
+ "https://huggingface.co/blog/mlabonne/kimik25": {
+  "file": "/sources/fccefe71643a0c32.jpg",
+  "w": 1200,
+  "h": 648,
+  "site": "huggingface.co",
+  "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/blog/mlabonne/kimik25.png"
+ },
+ "https://openai.com/index/introducing-openai-frontier/": null,
+ "https://code.claude.com/docs/en/whats-new/2026-w13": {
+  "file": "/sources/db416ee5469de3b2.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B13%2B%25C2%25B7%2BMarch%2B23%25E2%2580%259327%252C%2B2026%26description%3DAuto%2Bmode%2Bfor%2Bhands-off%2Bpermissions%252C%2Bcomputer%2Buse%2Bbuilt%2Bin%252C%2BPR%2Bauto-fix%2Bin%2Bthe%2Bcloud%252C%2Btranscript%2Bsearch%252C%2Band%2Ba%2BPowerShell%2Btool%2Bfor%2BWindows.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://www.anthropic.com/glasswing": {
+  "file": "/sources/0deaf33f30ef9c06.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/65641e7846f10255c4a3415a10bbf5793ae87b13-1200x630.jpg"
+ },
+ "https://openai.com/index/gpt-5-3-instant/": null,
+ "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-harness-generally-available/": null,
+ "https://siliconangle.com/2025/12/18/anthropic-makes-agent-skills-open-standard/": {
+  "file": "/sources/d8ca4694cfc471cf.jpg",
+  "w": 610,
+  "h": 391,
+  "site": "SiliconANGLE",
+  "src": "https://images.siliconangle.com/blogs.dir/1/files/2025/12/Screenshot-from-2025-12-19-06-24-54.png"
+ },
+ "https://adk.dev/2.0/": {
+  "file": "/sources/c7d3d331262c4adb.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "adk.dev",
+  "src": "https://adk.dev/assets/adk-social-card.png"
+ },
+ "https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/": {
+  "file": "/sources/ac6ec073e79f5d03.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Microsoft Build Live",
+  "src": "https://news.microsoft.com/build-2026-live-blog/wp-content/uploads/2026/04/Build-Live-Final_1920x1080.jpg"
+ },
+ "https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it": {
+  "file": "/sources/1b501e9deaa04bfc.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Claude",
+  "src": "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6a8dcb60a9e2ed84590a8b9e_og_claudes-memory-works-everywhere-and-you-decide-whats-in-it.jpg"
+ },
+ "https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/": {
+  "file": "/sources/c18508d962654087.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Model Context Protocol Blog",
+  "src": "https://blog.modelcontextprotocol.io/og-image.png"
+ },
+ "https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available": {
+  "file": "/sources/de3aa9be69f499e4.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Docs by LangChain",
+  "src": "https://langchain-5e9cc07a.mintlify.app/mintlify-assets/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DReference%26title%3DLangSmith%2BCloud%2Bchangelog%26description%3DWeekly%2Bupdates%2Bto%2BLangSmith%2BCloud%26theme%3Dbf3bf8de8061f170aa09f116&w=1200&q=100"
+ },
+ "https://www.anthropic.com/news/claude-opus-4-6": {
+  "file": "/sources/239822888b64d378.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/01d06528567e4bd22c3ddedc87f609ee5716a009-2400x1260.png"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w22": {
+  "file": "/sources/52a12243b6c63a25.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B22%2B%25C2%25B7%2BMay%2B25%25E2%2580%259329%252C%2B2026%26description%3DRun%2BClaude%2BCode%2Bon%2BClaude%2BOpus%2B4.8%252C%2Borchestrate%2Blarge%2Btasks%2Bwith%2Bdynamic%2Bworkflows%252C%2Bcatch%2Bsecurity%2Bissues%2Bwith%2Bthe%2Bsecurity-guidance%2Bplugin%252C%2Band%2Buse%2Bfast%2Bmode%2Bo%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/": {
+  "file": "/sources/71722e10c239b42e.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Model Context Protocol Blog",
+  "src": "https://blog.modelcontextprotocol.io/og-image.png"
+ },
+ "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation": {
+  "file": "/sources/581abca1a2e1d13c.jpg",
+  "w": 1200,
+  "h": 628,
+  "site": "linuxfoundation.org",
+  "src": "https://www.linuxfoundation.org/hubfs/aaif_social%20media%20image.png"
+ },
+ "https://openai.com/index/aws-and-openai-partnership/": null,
+ "https://venturebeat.com/technology/anthropics-claude-fable-5-1-and-mythos-5-1-arrive-with-a-75-cost-reduction-for-fable-cache-reads": {
+  "file": "/sources/51b1748707f1ad8a.jpg",
+  "w": 800,
+  "h": 450,
+  "site": "Venturebeat",
+  "src": "https://images.ctfassets.net/jdtwqhzvc2n1/31IBxanJPYh7BzlhEZebZT/7e8f8c0a212083694210e1cf220d144e/ChatGPT_Image_Sep_1__2026__02_40_12_PM.png?w=800&q=75"
+ },
+ "https://www.axios.com/2026/01/05/nvidia-ces-2026-jensen-huang-speech-ai": null,
+ "https://aws.amazon.com/about-aws/whats-new/2026/03/agentcore-evaluations-generally-available": null,
+ "https://blog.mean.ceo/new-ai-model-releases-news-august-2026/": {
+  "file": "/sources/e1cf23359f81b7ab.jpg",
+  "w": 1200,
+  "h": 790,
+  "site": "Mean CEO's Blog",
+  "src": "https://blog.mean.ceo/wp-content/uploads/2025/12/mean-ceo-female-entrepreneurs-news.webp"
+ },
+ "https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection/": {
+  "file": "/sources/eeffe9e815ad9a58.jpg",
+  "w": 1200,
+  "h": 677,
+  "site": "blog.google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/IOCollection_social.max-1440x810.png"
+ },
+ "https://mistral.ai/news/mistral-small-4/": {
+  "file": "/sources/263adbdbe512b796.jpg",
+  "w": 1200,
+  "h": 716,
+  "site": "Mistral",
+  "src": "https://mistral.ai/cms-media/api/media/file/Thumbnail-Model-Small.jpg"
+ },
+ "https://openai.com/index/introducing-gpt-5-3-codex/": null,
+ "https://techcrunch.com/2026/01/12/googles-gemini-to-power-apples-ai-features-like-siri/": {
+  "file": "/sources/aa6b2b5d10de1af1.jpg",
+  "w": 1200,
+  "h": 800,
+  "site": "TechCrunch",
+  "src": "https://techcrunch.com/wp-content/uploads/2025/01/apple-intelligence-iphone-mac.jpg?resize=1200,800"
+ },
+ "https://fortune.com/2026/01/23/deepmind-demis-hassabis-anthropic-dario-amodei-yann-lecun-ai-davos/": {
+  "file": "/sources/88fe56d88f5ce936.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Fortune",
+  "src": "https://fortune.com/img-assets/wp-content/uploads/2026/01/GettyImages-2256659271.jpg?resize=1200,600"
+ },
+ "https://huggingface.co/blog/mlabonne/glm-5": {
+  "file": "/sources/4978641e70c706db.jpg",
+  "w": 1200,
+  "h": 800,
+  "site": "huggingface.co",
+  "src": "https://cdn-uploads.huggingface.co/production/uploads/61b8e2ba285851687028d395/HToLVPO_L_AVGiheQ2HNB.png"
+ },
+ "https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html": {
+  "file": "/sources/c77b77ac8ca5214f.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "CNBC",
+  "src": "https://image.cnbcfm.com/api/v1/image/108357917-1788370763021-gettyimages-2292626781-AFP_C77688U.jpeg?v=1788370796&w=1920&h=1080"
+ },
+ "https://blog.google/innovation-and-ai/technology/ai/veo-3-1-ingredients-to-video/": {
+  "file": "/sources/712a6032f9f78a32.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Veo3.1IngredientstoVideo_Social.width-1300.png"
+ },
+ "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation": {
+  "file": "/sources/d7d47956d6c2f3fa.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20BarChart&backgroundColor=sky"
+ },
+ "https://www.infoq.com/news/2026/01/claude-cowork/": {
+  "file": "/sources/d56615bd833d4634.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "InfoQ",
+  "src": "https://cdn.infoq.com/statics_s2_20260916065603/styles/static/images/logo/logo-big.jpg"
+ },
+ "https://www.minimax.io/news/minimax-m25": {
+  "file": "/sources/56ec63a3d2d0047f.jpg",
+  "w": 300,
+  "h": 300,
+  "site": "MiniMax",
+  "src": "https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png"
+ },
+ "https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/": {
+  "file": "/sources/74b6e885b1babaeb.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Meta Newsroom",
+  "src": "https://about.fb.com/wp-content/uploads/2026/04/Introducing-Muse-Spark_Social-Share.jpg?w=1200"
+ },
+ "https://huggingface.co/Qwen/Qwen3.6-35B-A3B": {
+  "file": "/sources/7f760fac949e06c6.jpg",
+  "w": 1200,
+  "h": 648,
+  "site": "huggingface.co",
+  "src": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/Qwen/Qwen3.6-35B-A3B.png"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w14": {
+  "file": "/sources/62643417ba643d6c.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B14%2B%25C2%25B7%2BMarch%2B30%2B%25E2%2580%2593%2BApril%2B3%252C%2B2026%26description%3DComputer%2Buse%2Bin%2Bthe%2BCLI%252C%2Binteractive%2Bin-product%2Blessons%252C%2Bflicker-free%2Brendering%252C%2Bper-tool%2BMCP%2Bresult-size%2Boverrides%252C%2Band%2Bplugin%2Bexecutables%2Bon%2BPATH.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w16": {
+  "file": "/sources/7eb950fc6b599561.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B16%2B%25C2%25B7%2BApril%2B13%25E2%2580%259317%252C%2B2026%26description%3DClaude%2BOpus%2B4.7%2Bwith%2Bthe%2Bnew%2Bxhigh%2Beffort%2Blevel%252C%2BRoutines%2Bon%2BClaude%2BCode%2Bon%2Bthe%2Bweb%252C%2Bmobile%2Bpush%2Bnotifications%2Bthat%2Bping%2Byour%2Bphone%2Bwhen%2BClaude%2Bneeds%2Byou%252C%2Ba%2B%252Fus%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://www.deeplearning.ai/the-batch/kimi-k2-6-matches-open-qwen3-6-max-anddeepseek-v4-falls-just-behind-top-closed-models": {
+  "file": "/sources/cb1af5246d8cf91a.jpg",
+  "w": 1200,
+  "h": 677,
+  "site": "DeepLearning.AI",
+  "src": "https://charonhub.deeplearning.ai/content/images/2026/04/Kimi-K2.6-Challenges-Open-Weights-Champs-1.png"
+ },
+ "https://blogs.nvidia.com/blog/gtc-2026-news/": {
+  "file": "/sources/18b1845405c65ab4.jpg",
+  "w": 1200,
+  "h": 676,
+  "site": "NVIDIA Blog",
+  "src": "https://blogs.nvidia.com/wp-content/uploads/2026/03/26gtc-blog-1920x1080-DEB35146.jpeg"
+ },
+ "https://qwen.ai/blog?id=qwen3.6-max-preview": null,
+ "https://9to5mac.com/2026/05/07/anthropic-updates-claude-managed-agents-with-three-new-features/": {
+  "file": "/sources/71c62f2e2e56c8fd.jpg",
+  "w": 1200,
+  "h": 628,
+  "site": "9to5Mac",
+  "src": "https://9to5mac.com/wp-content/uploads/sites/6/2026/04/claude-creative.webp?resize=1200,628"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w20": {
+  "file": "/sources/a51dc00fc15ee3ab.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B20%2B%25C2%25B7%2BMay%2B11%25E2%2580%259315%252C%2B2026%26description%3DManage%2Bevery%2BClaude%2BCode%2Bsession%2Bfrom%2Bone%2Bscreen%2Bwith%2Bagent%2Bview%252C%2Bkeep%2BClaude%2Bworking%2Btoward%2Ba%2Bgoal%2Buntil%2Ba%2Bcondition%2Bholds%252C%2Band%2Brun%2Bfast%2Bmode%2Bon%2BOpus%2B4.7%2Bby%2Bde%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://medium.com/@adnanmasood/microsoft-build-2026-recap-578eabee16c2": null,
+ "https://code.claude.com/docs/en/whats-new/2026-w18": {
+  "file": "/sources/05f1376a8a9596fb.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B18%2B%25C2%25B7%2BApril%2B27%2B%25E2%2580%2593%2BMay%2B1%252C%2B2026%26description%3DClaude%2BCode%2Bon%2BWindows%2Bruns%2Bwithout%2BGit%2BBash%252C%2Bclaude%2Bauth%2Blogin%2Baccepts%2Ba%2Bpasted%2BOAuth%2Bcode%2Bwhen%2Bthe%2Bbrowser%2Bcallback%2Bcan%2527t%2Breach%2Blocalhost%252C%2Bclaude%2Bproject%2Bpurg%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://claude.com/code-with-claude": {
+  "file": "/sources/ef7741bfd3ae3023.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude",
+  "src": "https://assets.claude.com/b3d55d767e7796957c7c80317ff33cd1dbd164fa.jpg?w=1200&h=630&fit=crop"
+ },
+ "https://www.helpnetsecurity.com/2026/05/26/anthropic-project-glasswing-update/": {
+  "file": "/sources/d84d2b7d4102a94d.jpg",
+  "w": 1200,
+  "h": 673,
+  "site": "Help Net Security",
+  "src": "https://img.helpnetsecurity.com/wp-content/uploads/2026/03/11120918/anthropic-2-1500.webp"
+ },
+ "https://openai.com/index/gpt-5-6/": null,
+ "https://www.anthropic.com/news/expanding-project-glasswing": {
+  "file": "/sources/67b62c8d9d322bbe.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "anthropic.com",
+  "src": "https://www-cdn.anthropic.com/images/4zrzovbb/website/19e93d85e033d3f992b78cbce2c5a3f60709bd3b-3840x2160.jpg"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w25": {
+  "file": "/sources/75b014bce85549ce.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B25%2B%25C2%25B7%2BJune%2B15%25E2%2580%259319%252C%2B2026%26description%3DPublish%2Ba%2Blive%252C%2Bshareable%2Bpage%2Bfrom%2Byour%2Bsession%2Bwith%2BArtifacts%252C%2Bmatch%2Btool%2Bparameters%2Bin%2Bdeny%2Band%2Bask%2Brules%252C%2Band%2Bset%2Bany%2Bsetting%2Bfrom%2Bthe%2Bprompt%2Bwith%2B%252Fconfig.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w23": {
+  "file": "/sources/c386e82ac4e29f34.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B23%2B%25C2%25B7%2BJune%2B1%25E2%2580%25935%252C%2B2026%26description%3DRun%2Bauto%2Bmode%2Bon%2BAmazon%2BBedrock%252C%2BGoogle%2BCloud%2527s%2BAgent%2BPlatform%252C%2Band%2BMicrosoft%2BFoundry%252C%2Bprompt%2Bbefore%2Bwriting%2Bfiles%2Bthat%2Bcan%2Brun%2Bcode%2Bin%2BacceptEdits%2Bmode%252C%2Blist%2Bi%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w27": {
+  "file": "/sources/664f3873a831d3b2.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B27%2B%25C2%25B7%2BJune%2B29%2B%25E2%2580%2593%2BJuly%2B3%252C%2B2026%26description%3DClaude%2BSonnet%2B5%2Bbecomes%2Bthe%2Bdefault%2Bmodel%252C%2BClaude%2Bin%2BChrome%2Breaches%2Bgeneral%2Bavailability%252C%2Bsubagents%2Brun%2Bin%2Bthe%2Bbackground%2Bby%2Bdefault%252C%2BClaude%2BDesktop%2Barrives%2Bon%2B%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://fortune.com/2026/07/09/meta-muse-spark-1-1-release-alexandr-wang-superintelligence-labs-mark-zuckerberg/": {
+  "file": "/sources/610d10c32b62659c.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Fortune",
+  "src": "https://fortune.com/img-assets/wp-content/uploads/2026/07/GettyImages-2279132125.jpg?resize=1200,600"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w32": {
+  "file": "/sources/2ba20c157de773c9.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B32%2B%25C2%25B7%2BAugust%2B3%25E2%2580%25937%252C%2B2026%26description%3DClaude%2BCode%2Bsessions%2Bmessage%2Beach%2Bother%252C%2Bself-hosted%2Benvironments%2Brun%2Bcloud%2Bsessions%2Bon%2Byour%2Binfrastructure%252C%2Band%2Bauto%2Bmode%2Bbecomes%2Bthe%2Bdefault%2Bpermission%2Bmode.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w29": {
+  "file": "/sources/1f4b1b5fcd5065b4.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B29%2B%25C2%25B7%2BJuly%2B13%25E2%2580%259317%252C%2B2026%26description%3DPull%2Blive%2Bdata%2Binto%2Bpublished%2Bartifacts%2Bthrough%2BMCP%2Bconnectors%252C%2Band%2Buse%2BClaude%2BCode%2Bwith%2Ba%2Bscreen%2Breader%2Bin%2Bthe%2Bnew%2Bscreen%2Breader%2Bmode.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://www.elser.ai/news/chinas-ai-moment-kimi-k3-deepseek-v4-qwen-2026": null,
+ "https://code.claude.com/docs/en/whats-new/2026-w26": {
+  "file": "/sources/bf9b28bccccf4981.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B26%2B%25C2%25B7%2BJune%2B22%25E2%2580%259326%252C%2B2026%26description%3DAuthenticate%2BMCP%2Bservers%2Bfrom%2Byour%2Bshell%2Bwith%2Bclaude%2Bmcp%2Blogin%252C%2Bget%2Ba%2Bresponse%2Bto%2Bshell%2Bmode%2Bcommand%2Boutput%2Bwith%2Bthe%2B%2521%2Bprefix%252C%2Band%2Bresume%2Ba%2Bconversation%2Bfrom%2Bbe%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://www.elser.ai/news/kimi-k3-vs-deepseek-v4-vs-qwen3-8": null,
+ "https://www.evertune.ai/resources/ai-model-tracker": {
+  "file": "/sources/6f4ef17a36f29a6a.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "evertune.ai",
+  "src": "https://cdn.prod.website-files.com/6a3af0a2ebdd07d38caba2eb/6a624ba3f3c4a82cb84c069b_638582f56dedd1a9cfd7eba5ba84c893_Evertune%20social%20share.png"
+ },
+ "https://aiagentstore.ai/ai-agent-news/this-week": null,
+ "https://www.axios.com/2025/10/23/anthropic-claude-memory-subscribers": null,
+ "https://openai.com/index/openai-nvidia-systems-partnership/": null,
+ "https://local-ai-zone.github.io/blog/September_2026_AI_Model_Updates.html": null,
+ "https://code.claude.com/docs/en/whats-new/2026-w34": {
+  "file": "/sources/c106b88daea0b028.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B34%2B%25C2%25B7%2BAugust%2B17%25E2%2580%259321%252C%2B2026%26description%3DDraft%2Beditable%2BUI%2Bartboards%2Bwith%2Bthe%2B%252Fdesign%2Bskill%252C%2Bset%2Bthe%2BConcise%2Boutput%2Bstyle%252C%2Band%2Bstart%2Ba%2BClaude%2BCode%2Bsession%2Bon%2Byour%2Bmachine%2Bfrom%2Byour%2Bphone.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://gigazine.net/gsc_news/en/20260827-claude-chrome-available/": {
+  "file": "/sources/e4555490069c00ca.jpg",
+  "w": 560,
+  "h": 315,
+  "site": "GIGAZINE",
+  "src": "https://i.gzn.jp/img/2026/08/27/claude-chrome-available/00_m.png"
+ },
+ "https://code.claude.com/docs/en/whats-new/2026-w37": {
+  "file": "/sources/49dc2c8e54c6efe8.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Claude Code Docs",
+  "src": "https://claude-code.mintlify.app/_next/image?url=%2F_mintlify%2Fapi%2Fog%3Fdivision%3DWhat%2527s%2BNew%26title%3DWeek%2B37%2B%25C2%25B7%2BSeptember%2B7%25E2%2580%259311%252C%2B2026%26description%3DTest%2Byour%2Bplugins%2Bwith%2Bclaude%2Bplugin%2Beval%2Band%2Bpop%2BClaude%2BCode%2BDesktop%2Bpanes%2Bout%2Binto%2Btheir%2Bown%2Bwindows.%26theme%3D03628e99c753a03aec319053&w=1200&q=100"
+ },
+ "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously": {
+  "file": "/sources/dd797aa167691a1e.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Hand%20ShapeArrow&backgroundColor=clay"
+ },
+ "https://openai.com/index/introducing-chatgpt-pulse/": {
+  "file": "/sources/518979e35ba7e343.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "OpenAI",
+  "src": "https://images.ctfassets.net/kftzwdyauwt9/1n7pEuJ4NrGF01ErOofeLT/91afcd7c04c496431ee9115dad7d1769/FYP-Hero-16x9.png?w=1600&h=900&fit=fill"
+ },
+ "https://openai.com/index/introducing-agentkit/": null,
+ "https://www.microsoft.com/en-us/microsoft-365/blog/2025/09/24/expanding-model-choice-in-microsoft-365-copilot/": {
+  "file": "/sources/02befbed83af2717.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "AI at Work Blog",
+  "src": "https://www.microsoft.com/en-us/copilot/blog/wp-content/uploads/sites/2/2025/09/9.24-Feature-image_1280.png"
+ },
+ "https://api-docs.deepseek.com/news/news250929/": {
+  "file": "/sources/b2c92416050fa89d.jpg",
+  "w": 1200,
+  "h": 638,
+  "site": "api-docs.deepseek.com",
+  "src": "https://api-docs.deepseek.com/img/deepseek-social-card.jpeg"
+ },
+ "https://www.alibabacloud.com/blog/qwen3-max-just-scale-it_602621": {
+  "file": "/sources/01e7cae97c359a7f.jpg",
+  "w": 1200,
+  "h": 741,
+  "site": "Alibaba Cloud Community",
+  "src": "https://yqintl.alicdn.com/7f7fe086a6fee30946ce2c2d7e4a680dbc07ac9c.jpeg"
+ },
+ "https://aws.amazon.com/about-aws/whats-new/2025/10/amazon-bedrock-agentcore-available": null,
+ "https://claude.com/blog/claude-code-on-the-web": {
+  "file": "/sources/1ffa0c333ce24ddb.jpg",
+  "w": 1200,
+  "h": 600,
+  "site": "Claude",
+  "src": "https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/69093b56f1035860a3cfe774_og_claude-code-on-the-web.jpg"
+ },
+ "https://openai.com/index/introducing-chatgpt-atlas/": null,
+ "https://community.openai.com/t/devday-2025-apps-sdk-sora-2-gpt-5-pro-agentkit-new-image-generation-and-speech-to-speech-mini-models-and-more/1361279": {
+  "file": "/sources/dbee1ba3a8949ec7.jpg",
+  "w": 1200,
+  "h": 628,
+  "site": "OpenAI Developer Community",
+  "src": "https://us1.discourse-cdn.com/openai1/original/4X/0/4/c/04c8546833f0824a49d21f50e2b08dd44bfd3d05.png"
+ },
+ "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-computer-use-model/": {
+  "file": "/sources/14548bedc9e422a3.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/CTU_16x9_RD8-V01.width-1300.png"
+ },
+ "https://thenewstack.io/agent-skills-anthropics-next-bid-to-define-ai-standards/": {
+  "file": "/sources/d8391a58e23c05af.jpg",
+  "w": 1200,
+  "h": 900,
+  "site": "The New Stack",
+  "src": "https://cdn.thenewstack.io/media/2025/12/e7613ca2-img_0986-scaled.jpg"
+ },
+ "https://openai.com/index/built-to-benefit-everyone/": null,
+ "https://techcrunch.com/2025/10/15/google-releases-veo-3-1-adds-it-to-flow-video-editor/": {
+  "file": "/sources/03d1dfd598b752d2.jpg",
+  "w": 1200,
+  "h": 578,
+  "site": "TechCrunch",
+  "src": "https://techcrunch.com/wp-content/uploads/2025/10/Screenshot-2025-10-15-at-8.03.20PM.jpg?resize=1200,578"
+ },
+ "https://www.googlecloudpresscorner.com/2025-10-23-Anthropic-to-Expand-Use-of-Google-Cloud-TPUs-and-Services": {
+  "file": "/sources/4b5163d6e291b2e2.jpg",
+  "w": 1200,
+  "h": 628,
+  "site": "Google Cloud Press Corner",
+  "src": "https://mma.prnewswire.com/media/1032194/Google_Cloud_Logo.jpg?p=facebook"
+ },
+ "https://cursor.com/blog/2-0": {
+  "file": "/sources/c42fd90f50674a1d.jpg",
+  "w": 1200,
+  "h": 630,
+  "site": "Cursor",
+  "src": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/blog/og/2-0-og.png"
+ },
+ "https://www.hpcwire.com/aiwire/2025/11/13/baidu-unveils-ernie-5-0-and-a-series-of-ai-applications-at-baidu-world-2025/": null,
+ "https://www.anthropic.com/news/anthropic-invests-50-billion-in-american-ai-infrastructure": {
+  "file": "/sources/f741cb1d2e47218b.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Object%20Growth&backgroundColor=sky"
+ },
+ "https://data.x.ai/2025-11-17-grok-4-1-model-card.pdf": null,
+ "https://www.minimax.io/news/minimax-m2": {
+  "file": "/sources/a219e39d2e39838e.jpg",
+  "w": 300,
+  "h": 300,
+  "site": "MiniMax",
+  "src": "https://filecdn.minimax.chat/public/58eca777-e31f-448a-9823-e2220e49b426.png"
+ },
+ "https://openai.com/index/gpt-5-1-codex-max/": null,
+ "https://www.anthropic.com/news/disrupting-AI-espionage": {
+  "file": "/sources/4ac906a950f5dfbc.jpg",
+  "w": 1200,
+  "h": 632,
+  "site": "anthropic.com",
+  "src": "https://www.anthropic.com/api/opengraph-illustration?name=Object%20Lock&backgroundColor=fig"
+ },
+ "https://api-docs.deepseek.com/news/news251201/": {
+  "file": "/sources/bb0399b494f8acb6.jpg",
+  "w": 1200,
+  "h": 638,
+  "site": "api-docs.deepseek.com",
+  "src": "https://api-docs.deepseek.com/img/deepseek-social-card.jpeg"
+ },
+ "https://blog.google/innovation-and-ai/products/nano-banana-pro/": {
+  "file": "/sources/7ec1d5fc3abd7a46.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/nanobananaprohero.width-1300.png"
+ },
+ "https://blogs.microsoft.com/blog/2025/11/18/microsoft-nvidia-and-anthropic-announce-strategic-partnerships/": {
+  "file": "/sources/b9ae04814149535f.jpg",
+  "w": 960,
+  "h": 540,
+  "site": "The Official Microsoft Blog",
+  "src": "https://blogs.microsoft.com/wp-content/uploads/2025/11/image.png"
+ },
+ "https://openai.com/index/introducing-gpt-5-2-codex/": null,
+ "https://simonwillison.net/2025/Nov/6/kimi-k2-thinking/": {
+  "file": "/sources/a8f99b70e7323ccd.jpg",
+  "w": 800,
+  "h": 600,
+  "site": "Simon Willison\u2019s Weblog",
+  "src": "https://static.simonwillison.net/static/2025/k2-thinking.png"
+ },
+ "https://blog.google/products-and-platforms/products/gemini/gemini-3-deep-think/": {
+  "file": "/sources/b7f076ac69245f29.jpg",
+  "w": 1200,
+  "h": 675,
+  "site": "Google",
+  "src": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini-3_deep-think_snippet_meta.max-1440x810.png"
+ },
+ "https://mistral.ai/news/devstral-2-vibe-cli/": {
+  "file": "/sources/e1e4f6912ed8f699.jpg",
+  "w": 1200,
+  "h": 716,
+  "site": "Mistral",
+  "src": "https://mistral.ai/cms-media/api/media/file/Thumbnail-Model-Devstral.jpg"
+ },
+ "https://mistral.ai/news/mistral-3/": {
+  "file": "/sources/702a2819541cfd42.jpg",
+  "w": 1200,
+  "h": 716,
+  "site": "Mistral",
+  "src": "https://mistral.ai/cms-media/api/media/file/Thumbnail-Mistral%203.jpg"
+ },
+ "https://www.marktechpost.com/2026/09/10/openai-launches-the-agents-api-in-public-beta-putting-the-codex-harness-behind-one-api-call/": null
+}

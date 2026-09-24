@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "qa": "node scripts/qa.mjs",
-    "new:note": "node scripts/new-note.mjs"
+    "new:note": "node scripts/new-note.mjs",
+    "images": "node scripts/fetch-source-images.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.0",
