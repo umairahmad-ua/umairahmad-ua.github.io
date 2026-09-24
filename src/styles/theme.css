@@ -1,4 +1,3 @@
-/* Register design tokens for Tailwind v4 */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -10,33 +9,28 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --font-app: var(--font-inter);
-  --font-heading: var(--font-space-grotesk);
+  --font-heading: var(--font-source-serif);
   --font-mono: var(--font-google-sans-code);
 }
-
-/* Light theme values */
-:root,
-[data-theme="light"] {
-  --background: #fbfbfd;
-  --foreground: #1c2130;
-  --accent: #2457f5;
-  --accent-2: #f26a1b;
+:root, [data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --accent: #1d4ed8;
+  --accent-2: #b45309;
   --accent-foreground: #ffffff;
-  --muted: #eef1f7;
-  --muted-foreground: #5f6b80;
-  --border: #e4e8f0;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
   --card: #ffffff;
 }
-
-/* Dark theme values */
 [data-theme="dark"] {
-  --background: #0d1220;
-  --foreground: #e8ecf4;
-  --accent: #7aa2ff;
-  --accent-2: #ff9a5c;
-  --accent-foreground: #0d1220;
-  --muted: #1a2236;
-  --muted-foreground: #a0acc4;
-  --border: #263049;
-  --card: #121a2c;
+  --background: #0f1115;
+  --foreground: #e6e6e6;
+  --accent: #8ab4ff;
+  --accent-2: #f5b46a;
+  --accent-foreground: #0f1115;
+  --muted: #1b1f27;
+  --muted-foreground: #9aa3b2;
+  --border: #262b35;
+  --card: #12151b;
 }

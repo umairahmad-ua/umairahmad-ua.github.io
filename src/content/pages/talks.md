@@ -7,8 +7,8 @@ I speak about building agent systems for companies that have to trust them. Arch
 
 ## Recent sessions
 
-- **Zazmic engineering, monthly.** Internal architecture reviews and knowledge sessions for the ML team on ADK, MCP tool design and eval gates. Not public.
-- **Client workshops, 2025 to 2026.** Half-day sessions with client engineering teams on moving from proof of concept to production agents. Under NDA.
+- **Zazmic engineering.** Internal architecture reviews and knowledge sessions for the ML team on ADK, MCP tool design and eval gates. Not public.
+- **Client workshops.** Half-day sessions with client engineering teams on moving from proof of concept to production agents. Under NDA.
 
 ## Invite me
 

@@ -4,18 +4,13 @@ import { render } from "astro:content";
 
 type Props = { project: CollectionEntry<"projects">; compact?: boolean };
 const { project, compact = false } = Astro.props;
-const { title, summary, role, org, period, stack, url, repo } = project.data;
+const { title, summary, org, stack, url, repo } = project.data;
 const { Content } = await render(project);
 ---
 
 <li class="card card-hover">
-  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-    <h3 class="text-accent text-lg font-semibold">{title}</h3>
-    <span class="text-muted-foreground text-sm">{period}</span>
-  </div>
-  <p class="text-muted-foreground mt-0.5 text-sm">
-    {role} · {org}
-  </p>
+  <h3 class="font-heading text-lg font-semibold">{title}</h3>
+  <p class="text-muted-foreground mt-0.5 text-sm">{org}</p>
   <p class="mt-2">{summary}</p>
   {
     !compact && (

@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Entry from "./Entry.astro";
+type Props = { posts: CollectionEntry<"posts">[]; showExcerpt?: boolean };
+const { posts, showExcerpt = false } = Astro.props;
+const groups = new Map<string, CollectionEntry<"posts">[]>();
+for (const p of posts) {
+  const k = p.data.pubDatetime.toLocaleDateString("en-US", { year: "numeric", month: "long", timeZone: "UTC" });
+  groups.set(k, [...(groups.get(k) ?? []), p]);
+}
+---
+
+{[...groups.entries()].map(([month, items]) => (
+  <section>
+    <h2 class="month-head">{month}</h2>
+    <ul class="divide-border divide-y">
+      {items.map(post => <Entry {post} {showExcerpt} />)}
+    </ul>
+  </section>
+))}

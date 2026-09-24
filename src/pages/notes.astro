@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import PostStream from "@/components/PostStream.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { isNote } from "@/utils/byKind";
+import config from "@/config";
+const posts = getSortedPosts(await getCollection("posts")).filter(isNote);
+---
+<Layout title={`Weekly notes | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle="Weekly notes" pageDesc="One short note every Sunday since September 2025. What changed in AI that week, and what I make of it from inside client work.">
+    <PostStream {posts} showExcerpt />
+  </Main>
+  <Footer />
+</Layout>

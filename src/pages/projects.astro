@@ -21,7 +21,7 @@ const projects = (await getCollection("projects")).sort(
   <Breadcrumb />
   <Main
     pageTitle="Projects"
-    pageDesc="Systems I led or built. Team sizes and timelines are real. Client names appear where I am allowed to use them."
+    pageDesc="Things I have built or led, and what made each one hard. Client names appear where I am allowed to use them."
   >
     <ul class="grid gap-4">
       {projects.map(project => <ProjectCard {project} />)}

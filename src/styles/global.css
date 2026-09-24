@@ -38,39 +38,16 @@
   scroll-margin-block: 1rem;
 }
 
-/* ---- Site personality ---- */
-h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.01em; }
+/* ---- Site personality: quiet, text first ---- */
+h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.005em; }
 pre, code, kbd { font-family: var(--font-mono); }
-
-@utility card {
-  @apply bg-card border-border rounded-xl border p-5 transition-transform duration-200 ease-out;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
-}
-@utility card-hover {
-  @apply hover:-translate-y-0.5 hover:border-accent/50;
-}
-@utility section-title {
-  @apply font-heading flex items-center gap-3 text-2xl font-bold tracking-tight;
-}
-@utility section-title-bar {
-  @apply bg-accent-2 inline-block h-6 w-1.5 rounded-full;
-}
-@utility pill {
-  @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wide;
-}
-@utility btn-primary {
-  @apply bg-accent text-accent-foreground inline-flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition hover:opacity-90;
-}
-@utility btn-ghost {
-  @apply border-border bg-card inline-flex items-center gap-2 rounded-lg border px-4 py-2 font-medium transition hover:border-accent hover:text-accent;
-}
-@utility hero-glow {
-  background:
-    radial-gradient(60% 80% at 10% 0%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
-    radial-gradient(50% 70% at 100% 20%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 70%);
-}
-@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-.rise { animation: rise 0.5s ease-out both; }
-.rise-2 { animation: rise 0.5s 0.08s ease-out both; }
-.rise-3 { animation: rise 0.5s 0.16s ease-out both; }
-@media (prefers-reduced-motion: reduce) { .rise, .rise-2, .rise-3 { animation: none; } }
+@utility max-w-app { @apply max-w-[44rem]; }
+@utility pill { @apply text-muted-foreground inline-block text-xs tracking-wide uppercase; }
+@utility entry { @apply flex flex-col gap-0.5 py-2 sm:flex-row sm:items-baseline sm:gap-4; }
+@utility entry-date { @apply text-muted-foreground w-24 shrink-0 text-sm tabular-nums; }
+@utility month-head { @apply font-heading text-muted-foreground mt-10 mb-2 text-sm font-semibold tracking-wide uppercase first:mt-4; }
+@utility btn-primary { @apply bg-accent text-accent-foreground inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium hover:opacity-90; }
+@utility card { @apply border-border rounded-lg border p-5; }
+@utility card-hover { @apply hover:border-accent/60; }
+@utility section-title { @apply font-heading text-2xl font-semibold; }
+@utility section-title-bar { @apply hidden; }

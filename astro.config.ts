@@ -69,12 +69,12 @@ export default defineConfig({
       formats: ["woff2"],
     },
     {
-      name: "Space Grotesk",
-      cssVariable: "--font-space-grotesk",
+      name: "Source Serif 4",
+      cssVariable: "--font-source-serif",
       provider: fontProviders.google(),
-      fallbacks: ["Inter", "system-ui", "sans-serif"],
+      fallbacks: ["Georgia", "serif"],
       weights: [500, 600, 700],
-      styles: ["normal"],
+      styles: ["normal", "italic"],
       formats: ["woff2"],
     },
     {

@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import PostStream from "@/components/PostStream.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { isArticle } from "@/utils/byKind";
+import config from "@/config";
+const posts = getSortedPosts(await getCollection("posts")).filter(isArticle);
+---
+<Layout title={`Essays | ${config.site.title}`}>
+  <Header />
+  <Breadcrumb />
+  <Main pageTitle="Essays" pageDesc="Longer pieces on designing, evaluating and running agent systems for real companies. Most Wednesdays.">
+    <PostStream {posts} showExcerpt />
+  </Main>
+  <Footer />
+</Layout>

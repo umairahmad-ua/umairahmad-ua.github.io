@@ -121,20 +121,14 @@ const ogImage = ogImageUrl
   >
     <h1
       style={{ viewTransitionName: toTransitionName(post.id) }}
-      class="text-accent inline-block text-2xl font-bold sm:text-3xl"
+      class="font-heading inline-block text-3xl font-semibold sm:text-4xl"
     >
       {title}
     </h1>
 
     <div class="my-2 flex items-center gap-2">
-      <span
-        class:list={[
-          "rounded-sm border px-1.5 py-0.5 text-xs font-medium tracking-wide uppercase",
-          kind === "note" ? "border-border text-muted-foreground" : "border-accent/40 text-accent",
-        ]}
-      >
-        {kind === "note" ? (week ? `Week ${week}` : "Note") : "Article"}
-      </span>
+      <span class="pill">{kind === "note" ? (week ? `Weekly note · ${week}` : "Note") : "Essay"}</span>
+      <span aria-hidden="true" class="text-muted-foreground">|</span>
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
         aria-hidden="true"
