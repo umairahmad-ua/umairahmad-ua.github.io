@@ -27,7 +27,7 @@ Max two branded tool names per sentence in prose. Code blocks are exempt.
 
 ## Facts you may use (do not invent beyond these)
 
-- Principal ML Engineer at Zazmic (Google Cloud Premier Partner) since June 2025. Leads and mentors the ML engineers. Houston, Texas. NEVER state a team head count anywhere on the site.
+- Principal ML Engineer at Zazmic (Google Cloud Premier Partner) since June 2025. Leads and mentors the ML engineers. Houston, Texas. NEVER state a team head count anywhere on the site. NEVER show tenure date ranges ("June 2025 to present") or resume-style credential lists on public pages. The site is a personal blog and newsletter, not a resume. Do not write meta lines about his writing style.
 - Works alongside Google as a partner and directly with client teams at Apple and Meta (via the Let's Forage platform).
 - Zazmic programs: Scout (nine-agent marketing intelligence for Let's Forage on Google ADK and Vertex AI Agent Engine, now Gemini Enterprise Agent Platform), legacy-to-BigQuery migration agents, agentic supply-chain planning for an apparel supplier to GAP and Levi's (plants in India, Bahrain, Jordan, Bangladesh), enterprise knowledge agents on Gemini Enterprise, Claude-based cloud operations agent.
 - Developers Inc (Jul 2023 to Jun 2025): medical claims 50K+/day, 35% fewer rejections. Qwiet AI Autofix and Ocular. Adspirer NL-to-code. Pinecone RAG, QLoRA on Llama 2 and Mistral 7B.
