@@ -5,6 +5,27 @@ pubDatetime: 2025-12-31T15:00:00Z
 kind: article
 tags: ["agents", "infra", "evals"]
 sources: []
+diagram:
+  caption: "Every model and tool call becomes a redacted OpenTelemetry span priced at write time and exported to Langfuse and BigQuery."
+  nodes:
+    - { id: "run", label: "Agent run on ADK", col: 0, kind: "source" }
+    - { id: "hook", label: "ADK callbacks, OTel spans", col: 1, kind: "tool" }
+    - { id: "redact", label: "DLP redaction exporter", col: 2, kind: "tool" }
+    - { id: "langfuse", label: "Langfuse, 30 days", col: 3, kind: "store" }
+    - { id: "trace", label: "Cloud Trace", col: 3, kind: "store" }
+    - { id: "bq", label: "BigQuery history", col: 3, kind: "store" }
+    - { id: "looker", label: "Looker dashboards", col: 4, kind: "output" }
+    - { id: "evals", label: "Eval harness cases", col: 4, kind: "output" }
+    - { id: "pm", label: "PM asks five questions", col: 5, kind: "human" }
+  edges:
+    - ["run", "hook"]
+    - ["hook", "redact", "cost.usd at write"]
+    - ["redact", "langfuse", "OTLP"]
+    - ["redact", "trace", "OTLP"]
+    - ["langfuse", "bq", "export"]
+    - ["bq", "looker"]
+    - ["langfuse", "evals"]
+    - ["looker", "pm"]
 ---
 
 ## Table of contents

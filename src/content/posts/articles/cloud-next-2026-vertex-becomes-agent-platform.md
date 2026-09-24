@@ -20,6 +20,29 @@ sources:
   - title: "Google Cloud: introducing Gemini Enterprise"
     url: "https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise"
     date: 2025-10-09
+diagram:
+  caption: "How Scout's team sorts Cloud Next announcements into adopt now, port in a branch, and wait for a real use case."
+  nodes:
+    - { id: "next", label: "Cloud Next 2026 keynotes", col: 0, kind: "source" }
+    - { id: "scout", label: "Scout on Agent Engine", col: 1, kind: "agent" }
+    - { id: "cli", label: "Agents CLI in Cloud Build", col: 2, kind: "tool" }
+    - { id: "console", label: "New platform console, dev", col: 2, kind: "tool" }
+    - { id: "memory", label: "Agent Engine memory bank", col: 2, kind: "store" }
+    - { id: "adk2", label: "ADK 2.0 port in a branch", col: 3, kind: "tool" }
+    - { id: "a2a", label: "A2A 1.0 signed handoff", col: 3, kind: "tool" }
+    - { id: "team", label: "Team review on May 9", col: 4, kind: "human" }
+    - { id: "prod", label: "Production migration", col: 5, kind: "output" }
+  edges:
+    - ["next", "scout", "nothing broke"]
+    - ["scout", "cli", "adopt now"]
+    - ["scout", "console", "adopt now"]
+    - ["scout", "memory", "adopt now"]
+    - ["scout", "adk2", "wait, alpha"]
+    - ["scout", "a2a", "experiment only"]
+    - ["cli", "team"]
+    - ["console", "team"]
+    - ["adk2", "team"]
+    - ["team", "prod", "after one month"]
 ---
 
 Cloud Next ran April 22 to 24 in Las Vegas. I did not go. I watched the keynotes from Houston with two of my engineers on a call and a shared document open. By Thursday evening the document had forty lines of "what does this mean for us". This post is the cleaned-up version.

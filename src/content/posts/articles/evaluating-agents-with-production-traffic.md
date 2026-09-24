@@ -8,6 +8,28 @@ sources:
   - title: "Google Gemini 3.6 Flash"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2026-07-21
+diagram:
+  caption: "Redacted production sessions are replayed against a candidate agent, judged pairwise, and disagreements go to a human."
+  nodes:
+    - { id: "prod", label: "Production sessions", col: 0, kind: "source" }
+    - { id: "dlp", label: "Cloud DLP redaction", col: 1, kind: "tool" }
+    - { id: "shadow", label: "Shadow deployment", col: 1, kind: "agent" }
+    - { id: "corpus", label: "Replay corpus", col: 2, kind: "store" }
+    - { id: "router", label: "Replay tool router", col: 2, kind: "tool" }
+    - { id: "candidate", label: "Candidate agent", col: 3, kind: "agent" }
+    - { id: "judge", label: "Pairwise judge (Claude)", col: 4, kind: "model" }
+    - { id: "human", label: "Human reads disagreements", col: 5, kind: "human" }
+  edges:
+    - ["prod", "dlp", "sampled traces"]
+    - ["prod", "shadow", "copy of live traffic"]
+    - ["dlp", "corpus"]
+    - ["corpus", "router", "recorded results"]
+    - ["corpus", "candidate", "same inputs"]
+    - ["router", "candidate", "tool results"]
+    - ["candidate", "judge", "candidate output"]
+    - ["corpus", "judge", "production output"]
+    - ["shadow", "judge", "shadow output"]
+    - ["judge", "human", "worse or disagree"]
 ---
 
 ## Table of contents

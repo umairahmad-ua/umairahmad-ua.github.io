@@ -11,10 +11,10 @@ import { isArticle } from "@/utils/byKind";
 import config from "@/config";
 const posts = getSortedPosts(await getCollection("posts")).filter(isArticle);
 ---
-<Layout title={`Essays | ${config.site.title}`}>
+<Layout title={`Deep dives | ${config.site.title}`}>
   <Header />
   <Breadcrumb />
-  <Main pageTitle="Essays" pageDesc="Longer pieces on designing, evaluating and running agent systems for real companies. Most Wednesdays.">
+  <Main pageTitle="Deep dives" pageDesc="Longer pieces on one system, one pattern or one mistake at a time. Most Wednesdays.">
     <PostStream {posts} showExcerpt />
   </Main>
   <Footer />

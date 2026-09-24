@@ -4,8 +4,8 @@ export default {
   nav: {
     home: "Home",
     posts: "Posts",
-    articles: "Essays",
-    notes: "Notes",
+    articles: "Deep dives",
+    notes: "Sunday notes",
     projects: "Projects",
     startHere: "Start here",
     tags: "Tags",

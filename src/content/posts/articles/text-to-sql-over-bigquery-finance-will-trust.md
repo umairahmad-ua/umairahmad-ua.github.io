@@ -5,6 +5,33 @@ pubDatetime: 2025-10-08T15:00:00Z
 kind: article
 tags: ["agents", "gcp", "evals"]
 sources: []
+diagram:
+  caption: "Plan, write, validate and judge a query against a finance owned semantic layer before BigQuery runs it as the user."
+  nodes:
+    - { id: "user", label: "Analyst or controller", col: 0, kind: "human" }
+    - { id: "catalog", label: "Semantic views, YAML", col: 0, kind: "store" }
+    - { id: "vs", label: "Vertex AI Search catalog", col: 1, kind: "store" }
+    - { id: "planner", label: "Planner agent", col: 2, kind: "agent" }
+    - { id: "writer", label: "Writer agent", col: 3, kind: "agent" }
+    - { id: "validator", label: "Validator, dry run, checks", col: 4, kind: "tool" }
+    - { id: "judge", label: "Judge model", col: 4, kind: "model" }
+    - { id: "gate", label: "Cost gate confirmation", col: 4, kind: "human" }
+    - { id: "bq", label: "BigQuery as the user, RLS", col: 5, kind: "store" }
+    - { id: "looker", label: "Looker explore handoff", col: 5, kind: "output" }
+  edges:
+    - ["user", "planner", "question"]
+    - ["catalog", "vs", "indexed with examples"]
+    - ["vs", "planner", "retrieved entries"]
+    - ["planner", "user", "plan shown first"]
+    - ["planner", "writer", "plan"]
+    - ["writer", "validator", "SqlCandidate"]
+    - ["validator", "judge", "compare to plan"]
+    - ["judge", "writer", "one retry"]
+    - ["validator", "gate", "over threshold"]
+    - ["gate", "bq", "confirm click"]
+    - ["judge", "bq", "agree"]
+    - ["bq", "user", "result table"]
+    - ["bq", "looker", "open in Looker"]
 ---
 
 ## Table of contents

@@ -11,6 +11,31 @@ sources:
   - title: "OpenAI Frontier enterprise agent platform"
     url: "https://openai.com/index/introducing-openai-frontier/"
     date: 2026-02-05
+diagram:
+  caption: "Input, tool and output policies wrap the agent, a human approves production writes, and a policy timeout means no."
+  nodes:
+    - { id: "user", label: "User message", col: 0, kind: "source" }
+    - { id: "config", label: "Policy config, on error deny", col: 0, kind: "store" }
+    - { id: "inputpolicy", label: "Input policy", col: 1, kind: "tool" }
+    - { id: "agent", label: "Agent (model)", col: 2, kind: "agent" }
+    - { id: "toolpolicy", label: "Tool policy allowlist", col: 3, kind: "tool" }
+    - { id: "outputpolicy", label: "Output policy, judge model", col: 3, kind: "tool" }
+    - { id: "tools", label: "Playbook tools", col: 4, kind: "tool" }
+    - { id: "human", label: "Human approval (prod)", col: 4, kind: "human" }
+    - { id: "reply", label: "Reply or block with reason", col: 5, kind: "output" }
+  edges:
+    - ["user", "inputpolicy"]
+    - ["config", "inputpolicy"]
+    - ["config", "toolpolicy", "fail closed"]
+    - ["config", "outputpolicy"]
+    - ["inputpolicy", "agent", "allowed"]
+    - ["inputpolicy", "reply", "block + next step"]
+    - ["agent", "toolpolicy", "tool call"]
+    - ["toolpolicy", "tools", "in scope"]
+    - ["toolpolicy", "human", "requires approval"]
+    - ["human", "tools"]
+    - ["agent", "outputpolicy", "draft answer"]
+    - ["outputpolicy", "reply", "cite, redact PII"]
 ---
 
 ## Table of contents

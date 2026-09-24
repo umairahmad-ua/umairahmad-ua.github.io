@@ -11,6 +11,32 @@ sources:
   - title: "Claude Managed Agents public beta"
     url: "https://claude.com/blog/claude-managed-agents"
     date: 2026-04-08
+diagram:
+  caption: "Agent recommendations pass a budget-sized threshold into a grouped review queue, and every decision feeds override metrics."
+  nodes:
+    - { id: "agents", label: "Agent recommendation", col: 0, kind: "agent" }
+    - { id: "threshold", label: "Threshold sized to budget", col: 1, kind: "tool" }
+    - { id: "explain", label: "One-line explanation", col: 1, kind: "model" }
+    - { id: "auto", label: "Auto-approve, monitored", col: 2, kind: "output" }
+    - { id: "queue", label: "Firestore queue, grouped", col: 2, kind: "store" }
+    - { id: "notify", label: "Pub/Sub to Slack, email", col: 3, kind: "tool" }
+    - { id: "reviewers", label: "Reviewers in web app", col: 3, kind: "human" }
+    - { id: "decisions", label: "Session store + BigQuery", col: 4, kind: "store" }
+    - { id: "expire", label: "Max age: page or expire", col: 4, kind: "output" }
+    - { id: "looker", label: "Looker: override, age", col: 5, kind: "output" }
+  edges:
+    - ["agents", "threshold", "confidence"]
+    - ["agents", "explain"]
+    - ["threshold", "auto", "below threshold"]
+    - ["threshold", "queue", "flagged"]
+    - ["explain", "queue", "line + evidence"]
+    - ["queue", "notify"]
+    - ["notify", "reviewers"]
+    - ["queue", "reviewers", "one decision, N items"]
+    - ["queue", "expire", "SLA reached"]
+    - ["reviewers", "decisions", "approve or override"]
+    - ["decisions", "looker", "override rate"]
+    - ["decisions", "agents", "labeled examples"]
 ---
 
 ## Table of contents

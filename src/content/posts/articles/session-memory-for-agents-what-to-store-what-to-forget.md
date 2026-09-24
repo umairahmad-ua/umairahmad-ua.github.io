@@ -8,6 +8,29 @@ sources:
   - title: "Google Cloud launches Gemini Enterprise"
     url: "https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise"
     date: 2025-10-09
+diagram:
+  caption: "Three memory layers with different lifetimes, from turn context to typed session state to user approved long term memory."
+  nodes:
+    - { id: "user", label: "User turns", col: 0, kind: "source" }
+    - { id: "redact", label: "Redaction layer", col: 1, kind: "tool" }
+    - { id: "ctx", label: "Turn context, verbatim", col: 1, kind: "store" }
+    - { id: "summ", label: "Small model rolling summary", col: 2, kind: "model" }
+    - { id: "state", label: "SessionState typed object", col: 2, kind: "store" }
+    - { id: "fs", label: "Agent Engine session store", col: 3, kind: "store" }
+    - { id: "propose", label: "Agent proposes a memory", col: 3, kind: "agent" }
+    - { id: "approve", label: "User approves or deletes", col: 4, kind: "human" }
+    - { id: "ltm", label: "Long term memory per user", col: 5, kind: "store" }
+  edges:
+    - ["user", "ctx"]
+    - ["user", "redact", "identifiers"]
+    - ["redact", "fs", "stable tokens"]
+    - ["ctx", "summ", "every five turns"]
+    - ["summ", "ctx", "replaces old turns"]
+    - ["ctx", "state", "extracted facts"]
+    - ["state", "fs", "expires with session"]
+    - ["state", "propose"]
+    - ["propose", "approve", "default to EMEA?"]
+    - ["approve", "ltm", "only a yes writes"]
 ---
 
 ## Table of contents

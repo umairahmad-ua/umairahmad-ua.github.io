@@ -5,6 +5,30 @@ pubDatetime: 2025-09-17T15:00:00Z
 kind: article
 tags: ["healthcare", "agents", "adk", "gcp"]
 sources: []
+diagram:
+  caption: "From faxed request through Document AI, extraction and policy matching to a nurse reviewer who makes the decision."
+  nodes:
+    - { id: "fax", label: "Fax TIFF and PDF intake", col: 0, kind: "source" }
+    - { id: "docai", label: "Document AI OCR", col: 1, kind: "tool" }
+    - { id: "bert", label: "BERT code extractor", col: 2, kind: "model" }
+    - { id: "gem", label: "Gemini free text extract", col: 2, kind: "model" }
+    - { id: "checks", label: "Eligibility cross checks", col: 3, kind: "tool" }
+    - { id: "vsearch", label: "Vertex AI Search policies", col: 3, kind: "store" }
+    - { id: "manual", label: "Manual intake queue", col: 4, kind: "human" }
+    - { id: "root", label: "ADK review agent", col: 4, kind: "agent" }
+    - { id: "nurse", label: "Nurse reviewer screen", col: 5, kind: "human" }
+    - { id: "audit", label: "BigQuery audit log", col: 5, kind: "store" }
+  edges:
+    - ["fax", "docai"]
+    - ["docai", "bert", "text with bboxes"]
+    - ["docai", "gem"]
+    - ["bert", "checks", "PriorAuthRequest"]
+    - ["gem", "checks"]
+    - ["checks", "manual", "1 in 12 fails"]
+    - ["checks", "root"]
+    - ["vsearch", "root", "policy criteria"]
+    - ["root", "nurse", "recommendation"]
+    - ["nurse", "audit", "every click logged"]
 ---
 
 ## Table of contents

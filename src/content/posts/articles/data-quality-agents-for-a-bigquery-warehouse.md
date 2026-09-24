@@ -5,6 +5,31 @@ pubDatetime: 2026-05-13T15:00:00Z
 kind: article
 tags: ["agents", "gcp", "infra"]
 sources: []
+diagram:
+  caption: "Three narrow agents profile, explain and author rules for a BigQuery warehouse, and a policy router decides who gets the alert."
+  nodes:
+    - { id: "load", label: "BigQuery load job", col: 0, kind: "source" }
+    - { id: "profiler", label: "Profiler (no model)", col: 1, kind: "tool" }
+    - { id: "ruleagent", label: "Rule authoring agent", col: 1, kind: "agent" }
+    - { id: "metrics", label: "Metrics table", col: 2, kind: "store" }
+    - { id: "analyst", label: "Analyst accepts rule", col: 2, kind: "human" }
+    - { id: "detector", label: "Anomaly detector", col: 3, kind: "tool" }
+    - { id: "dataplex", label: "Dataplex lineage, owners", col: 3, kind: "store" }
+    - { id: "explainer", label: "Gemini explainer (ADK)", col: 4, kind: "agent" }
+    - { id: "router", label: "Alert router policy", col: 4, kind: "tool" }
+    - { id: "delivery", label: "PagerDuty, Slack, digest", col: 5, kind: "output" }
+  edges:
+    - ["load", "profiler"]
+    - ["profiler", "metrics", "stats per column"]
+    - ["metrics", "detector", "seasonal baseline"]
+    - ["ruleagent", "analyst", "SQL + dry run"]
+    - ["analyst", "detector", "committed rules"]
+    - ["detector", "explainer", "flagged metric"]
+    - ["dataplex", "explainer"]
+    - ["detector", "router", "severity"]
+    - ["explainer", "router", "explanation"]
+    - ["dataplex", "router", "owner tags"]
+    - ["router", "delivery"]
 ---
 
 ## Table of contents

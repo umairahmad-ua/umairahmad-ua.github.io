@@ -11,6 +11,27 @@ sources:
   - title: "OpenAI GPT-5.5"
     url: "https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/"
     date: 2026-04-23
+diagram:
+  caption: "Audio streams through Cloud Run to Gemini Live while an ADK state machine budgets tool calls and hands off."
+  nodes:
+    - { id: "phone", label: "Phone call via telephony", col: 0, kind: "source" }
+    - { id: "run", label: "Cloud Run session", col: 1, kind: "tool" }
+    - { id: "live", label: "Gemini Live speech", col: 1, kind: "model" }
+    - { id: "adk", label: "ADK agent state machine", col: 2, kind: "agent" }
+    - { id: "oms", label: "Order management API", col: 3, kind: "tool" }
+    - { id: "policy", label: "Returns policy engine", col: 3, kind: "tool" }
+    - { id: "fs", label: "Firestore store hours", col: 3, kind: "store" }
+    - { id: "human", label: "Human agent queue", col: 4, kind: "human" }
+    - { id: "bq", label: "BigQuery transcripts", col: 4, kind: "store" }
+  edges:
+    - ["phone", "run", "audio stream"]
+    - ["run", "live"]
+    - ["live", "adk"]
+    - ["adk", "oms", "800 ms budget"]
+    - ["adk", "policy"]
+    - ["adk", "fs"]
+    - ["adk", "human", "handoff with context"]
+    - ["adk", "bq", "tool calls, timings"]
 ---
 
 ## Table of contents

@@ -8,6 +8,31 @@ sources:
   - title: "Anthropic announces auto mode default for Claude Code from Aug 14"
     url: "https://claude.com/blog/auto-mode-default-in-claude-code"
     date: 2026-08-07
+diagram:
+  caption: "An alert is matched to a reviewed playbook, checked, approved by tier, run under a scoped service account and logged."
+  nodes:
+    - { id: "alert", label: "Cloud Monitoring alert", col: 0, kind: "source" }
+    - { id: "glass", label: "Break glass disable", col: 0, kind: "human" }
+    - { id: "agent", label: "Ops agent, Claude Agent SDK", col: 1, kind: "agent" }
+    - { id: "playbooks", label: "Playbook allowlist repo", col: 2, kind: "store" }
+    - { id: "precond", label: "Precondition check", col: 3, kind: "tool" }
+    - { id: "approve", label: "On call approves in Slack", col: 4, kind: "human" }
+    - { id: "sa", label: "Playbook service account", col: 4, kind: "tool" }
+    - { id: "refused", label: "Refused, ticket filed", col: 5, kind: "human" }
+    - { id: "action", label: "Bounded cluster action", col: 5, kind: "output" }
+    - { id: "audit", label: "BigQuery append only log", col: 5, kind: "store" }
+  edges:
+    - ["alert", "agent"]
+    - ["glass", "agent", "stops in 30 seconds"]
+    - ["agent", "playbooks", "match alert"]
+    - ["playbooks", "precond", "live data"]
+    - ["playbooks", "refused", "no playbook matches"]
+    - ["precond", "approve", "single or dual tier"]
+    - ["precond", "sa", "tier none"]
+    - ["approve", "sa"]
+    - ["sa", "action", "impersonate, scoped"]
+    - ["agent", "audit", "record before run"]
+    - ["action", "audit", "record after"]
 ---
 
 ## Table of contents

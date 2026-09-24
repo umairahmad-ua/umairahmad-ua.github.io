@@ -14,6 +14,26 @@ sources:
   - title: "MCP 2026-07-28 release candidate"
     url: "https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/"
     date: 2026-05-21
+diagram:
+  caption: "The migration runbook from a frozen baseline eval to a signed-off traffic shift with rollback ready."
+  nodes:
+    - { id: "baseline", label: "Baseline eval, 212 cases", col: 0, kind: "tool" }
+    - { id: "prompts", label: "Prompt Management", col: 0, kind: "store" }
+    - { id: "port", label: "Port to ADK Python 2.0", col: 1, kind: "tool" }
+    - { id: "deploy", label: "Deploy at zero traffic", col: 2, kind: "tool" }
+    - { id: "shadow", label: "Shadow run, three days", col: 3, kind: "tool" }
+    - { id: "gate", label: "Full eval gate", col: 4, kind: "tool" }
+    - { id: "signoff", label: "Written sign-off, traffic", col: 5, kind: "human" }
+    - { id: "rollback", label: "One-command rollback", col: 5, kind: "output" }
+  edges:
+    - ["prompts", "port", "pinned versions"]
+    - ["baseline", "port", "pass criteria first"]
+    - ["port", "deploy", "agents-cli"]
+    - ["deploy", "shadow", "mirrored requests"]
+    - ["shadow", "gate", "tools, scores, cost"]
+    - ["baseline", "gate", "within one point"]
+    - ["gate", "signoff", "two tone cases"]
+    - ["deploy", "rollback", "old version kept"]
 ---
 
 ## Table of contents

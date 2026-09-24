@@ -18,6 +18,29 @@ sources:
   - title: "Anthropic: auto mode is now the default in Claude Code"
     url: "https://claude.com/blog/auto-mode-default-in-claude-code"
     date: 2026-08-14
+diagram:
+  caption: "Every agent task emits a cost trace that rolls up nightly into cost per completed task, which then shapes routing and retry decisions."
+  nodes:
+    - { id: "task", label: "Agent task (claim, batch)", col: 0, kind: "source" }
+    - { id: "model", label: "Model calls, priced", col: 1, kind: "model" }
+    - { id: "tools", label: "Tool calls (BigQuery)", col: 1, kind: "tool" }
+    - { id: "human", label: "Human review minutes", col: 1, kind: "human" }
+    - { id: "trace", label: "Task cost trace", col: 2, kind: "store" }
+    - { id: "rollup", label: "Nightly rollup table", col: 3, kind: "store" }
+    - { id: "evals", label: "Eval suite scores", col: 3, kind: "tool" }
+    - { id: "dash", label: "Cost per completed task", col: 4, kind: "output" }
+    - { id: "arch", label: "Routing, cache, retry cfg", col: 5, kind: "output" }
+  edges:
+    - ["task", "model"]
+    - ["task", "tools"]
+    - ["task", "human"]
+    - ["model", "trace", "tokens, price"]
+    - ["tools", "trace", "bytes scanned"]
+    - ["human", "trace", "loaded rate"]
+    - ["trace", "rollup", "per agent per day"]
+    - ["rollup", "dash"]
+    - ["evals", "dash", "quality gate"]
+    - ["dash", "arch", "shapes design"]
 ---
 
 ## Table of contents

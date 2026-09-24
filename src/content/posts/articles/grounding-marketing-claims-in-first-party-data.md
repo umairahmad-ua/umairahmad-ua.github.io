@@ -8,6 +8,26 @@ sources:
   - title: "LangChain 1.0 and LangGraph 1.0 GA"
     url: "https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available"
     date: 2025-10-22
+diagram:
+  caption: "Dashboard numbers become templated facts in Vertex AI Search, and Scout may only make claims that validate against them."
+  nodes:
+    - { id: "dashboard", label: "Let's Forage dashboard", col: 0, kind: "source" }
+    - { id: "templates", label: "Sentence templates (80)", col: 1, kind: "tool" }
+    - { id: "store", label: "Vertex AI Search per client", col: 2, kind: "store" }
+    - { id: "question", label: "Marketer question", col: 2, kind: "source" }
+    - { id: "agent", label: "Scout strategy agent", col: 3, kind: "agent" }
+    - { id: "validation", label: "Pydantic claim validation", col: 4, kind: "tool" }
+    - { id: "answer", label: "Cited answer or refusal", col: 5, kind: "output" }
+    - { id: "judge", label: "Groundedness judge", col: 5, kind: "model" }
+  edges:
+    - ["dashboard", "templates", "daily rewrite"]
+    - ["templates", "store", "facts with as_of"]
+    - ["store", "agent", "retrieved facts"]
+    - ["question", "agent"]
+    - ["agent", "validation", "claims + evidence"]
+    - ["validation", "agent", "one retry"]
+    - ["validation", "answer", "drop or caveat"]
+    - ["answer", "judge", "sampled claims"]
 ---
 
 ## Table of contents

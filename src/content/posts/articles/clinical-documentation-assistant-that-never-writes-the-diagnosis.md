@@ -11,6 +11,28 @@ sources:
   - title: "Anthropic unveils Claude for Healthcare"
     url: "https://fortune.com/2026/01/11/anthropic-unveils-claude-for-healthcare-and-expands-life-science-features-partners-with-healthex-to-let-users-connect-medical-records/"
     date: 2026-01-11
+diagram:
+  caption: "Consented audio becomes a transcript, a drafted note and a validated draft that a clinician must review and sign."
+  nodes:
+    - { id: "consent", label: "Consent in clinic app", col: 0, kind: "human" }
+    - { id: "audio", label: "Audio in client GCS bucket", col: 1, kind: "store" }
+    - { id: "asr", label: "Gemini audio transcription", col: 2, kind: "model" }
+    - { id: "diar", label: "Diarization classifier", col: 2, kind: "tool" }
+    - { id: "dlp", label: "DLP API redaction", col: 3, kind: "tool" }
+    - { id: "draft", label: "Gemini note draft, schema", col: 3, kind: "model" }
+    - { id: "validator", label: "Span alignment validator", col: 4, kind: "tool" }
+    - { id: "review", label: "Clinician review and sign", col: 5, kind: "human" }
+    - { id: "audit", label: "Audit log, edit distance", col: 5, kind: "store" }
+  edges:
+    - ["consent", "audio", "if consent given"]
+    - ["audio", "asr", "Whisper fallback"]
+    - ["asr", "diar"]
+    - ["diar", "dlp"]
+    - ["dlp", "draft", "redacted transcript"]
+    - ["draft", "validator"]
+    - ["validator", "review", "unspoken fields blank"]
+    - ["review", "audit"]
+    - ["audit", "draft", "edits improve drafts"]
 ---
 
 ## Table of contents

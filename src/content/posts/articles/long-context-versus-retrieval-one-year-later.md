@@ -11,6 +11,27 @@ sources:
   - title: "Microsoft Build 2026"
     url: "https://news.microsoft.com/build-2026-live-blog/microsoft-build-2026-live/"
     date: 2026-06-02
+diagram:
+  caption: "Retrieval through an ACL-aware index and a long context stuffing path, compared on the same lawyer-graded cases."
+  nodes:
+    - { id: "corpus", label: "9,000 contracts", col: 0, kind: "source" }
+    - { id: "question", label: "Clause review question", col: 0, kind: "source" }
+    - { id: "index", label: "Index with document ACLs", col: 1, kind: "store" }
+    - { id: "hybrid", label: "Hybrid search and reranker", col: 2, kind: "tool" }
+    - { id: "lc", label: "80 contracts in the prompt", col: 2, kind: "model" }
+    - { id: "model", label: "Claude or Gemini", col: 3, kind: "model" }
+    - { id: "evals", label: "Retrieval and answer evals", col: 4, kind: "tool" }
+    - { id: "lawyer", label: "Lawyer grades the memo", col: 5, kind: "human" }
+  edges:
+    - ["corpus", "index", "clause chunks, reindex"]
+    - ["index", "hybrid", "runs as the user"]
+    - ["question", "hybrid"]
+    - ["hybrid", "model", "top 12 passages"]
+    - ["corpus", "lc", "filter by counterparty"]
+    - ["question", "lc", "900k tokens"]
+    - ["lc", "model"]
+    - ["model", "evals", "two halves scored"]
+    - ["evals", "lawyer", "84% vs 81%"]
 ---
 
 ## Table of contents

@@ -8,6 +8,26 @@ sources:
   - title: "OpenAI releases GPT-5.1"
     url: "https://openai.com/index/gpt-5-1/"
     date: 2025-11-12
+diagram:
+  caption: "Detection models become tools the Gemini agent calls to build a case file that analysts confirm or correct."
+  nodes:
+    - { id: "txn", label: "Flagged transaction", col: 0, kind: "source" }
+    - { id: "models", label: "XGBoost and autoencoder", col: 1, kind: "model" }
+    - { id: "shap", label: "SHAP top features", col: 1, kind: "tool" }
+    - { id: "ctx", label: "Customer, device, merchant", col: 1, kind: "tool" }
+    - { id: "prec", label: "Closed case notes index", col: 1, kind: "store" }
+    - { id: "agent", label: "Gemini triage agent", col: 2, kind: "agent" }
+    - { id: "casefile", label: "Typed case file", col: 3, kind: "output" }
+    - { id: "analyst", label: "Analyst agrees or disagrees", col: 4, kind: "human" }
+  edges:
+    - ["txn", "agent"]
+    - ["agent", "models", "score"]
+    - ["agent", "shap"]
+    - ["agent", "ctx"]
+    - ["agent", "prec", "hybrid search"]
+    - ["agent", "casefile"]
+    - ["casefile", "analyst"]
+    - ["analyst", "prec", "disagree reasons"]
 ---
 
 ## Table of contents

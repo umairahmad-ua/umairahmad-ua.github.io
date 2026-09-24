@@ -1,0 +1,41 @@
+---
+/** The week's sourced events: a day strip with dots, then the events listed by day. */
+type Source = { title: string; url: string; date: Date };
+type Props = { sources: Source[]; pubDatetime: Date };
+const { sources, pubDatetime } = Astro.props;
+const end = new Date(Date.UTC(pubDatetime.getUTCFullYear(), pubDatetime.getUTCMonth(), pubDatetime.getUTCDate()));
+const start = new Date(end.getTime() - 6 * 86400000);
+const days = [...Array(7)].map((_, i) => new Date(start.getTime() + i * 86400000));
+const key = (d: Date) => d.toISOString().slice(0, 10);
+const inWeek = sources.filter(s => s.date >= start && s.date <= end).sort((a, b) => a.date.getTime() - b.date.getTime());
+const byDay = days.map(d => inWeek.filter(s => key(s.date) === key(d)));
+const fmtDay = (d: Date) => d.toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" });
+const W = 700, padX = 30, colW = (W - padX * 2) / 6;
+---
+{inWeek.length > 0 && (
+  <figure class="bg-tint/60 border-border my-8 rounded-xl border px-5 py-4">
+    <svg viewBox={`0 0 ${W} 74`} class="w-full" role="img" aria-label="Days of the week with events marked">
+      <line x1={padX} y1={52} x2={W - padX} y2={52} stroke="var(--border)" stroke-width="2" />
+      {days.map((d, i) => {
+        const cx = padX + colW * i; const has = byDay[i].length > 0; const isSun = i === 6;
+        return (
+          <g>
+            <text x={cx} y={16} text-anchor="middle" font-size="11" fill="var(--muted-foreground)" style="font-family: var(--font-inter)">{fmtDay(d)}</text>
+            <text x={cx} y={36} text-anchor="middle" font-size="15" font-weight="600" fill={isSun ? "var(--accent-2)" : "var(--primary)"} style="font-family: var(--font-inter)">{d.getUTCDate()}</text>
+            <circle cx={cx} cy={52} r={has ? 7 : 3} fill={has ? "var(--accent)" : "var(--background)"} stroke={has ? "var(--accent)" : "var(--border)"} stroke-width="2" />
+            {has && <text x={cx} y={56} text-anchor="middle" font-size="9" font-weight="700" fill="var(--accent-foreground)" style="font-family: var(--font-inter)">{byDay[i].length}</text>}
+          </g>
+        );
+      })}
+    </svg>
+    <ol class="mt-2 grid gap-1.5 text-sm">
+      {inWeek.map(s => (
+        <li class="flex items-baseline gap-3">
+          <span class="text-accent-2 w-14 shrink-0 text-xs font-semibold tabular-nums">{fmtDay(s.date)} {s.date.getUTCDate()}</span>
+          <a href={s.url} target="_blank" rel="noopener noreferrer" class="text-primary hover:text-accent decoration-dashed underline-offset-4 hover:underline">{s.title}</a>
+        </li>
+      ))}
+    </ol>
+    <figcaption class="text-muted-foreground mt-3 text-xs">What landed this week, by day. Sunday is when I write.</figcaption>
+  </figure>
+)}

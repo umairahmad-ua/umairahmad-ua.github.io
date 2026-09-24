@@ -1,0 +1,58 @@
+---
+/**
+ * Deterministic generated cover art. Same slug always yields the same picture.
+ * Style: a soft field of overlapping rounded shapes in the site palette, with
+ * a pattern family chosen by the post kind and the first tag.
+ */
+type Props = { seed: string; kind: "article" | "note"; tag?: string; class?: string; compact?: boolean };
+const { seed, kind, tag = "", class: className = "", compact = false } = Astro.props;
+
+function hash(s: string) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+let h = hash(seed + tag);
+const rnd = () => { h = (h * 1664525 + 1013904223) >>> 0; return h / 4294967296; };
+
+const W = 1200, H = compact ? 1200 : 480;
+const palettes: Record<string, string[]> = {
+  agents: ["#1e3a5f", "#0e7490", "#5ec8d8"],
+  evals: ["#1e3a5f", "#b7791f", "#e0b264"],
+  gcp: ["#0e7490", "#1e3a5f", "#9fd3dc"],
+  claude: ["#7c3a1e", "#b7791f", "#1e3a5f"],
+  mcp: ["#0e7490", "#b7791f", "#1e3a5f"],
+  security: ["#3b1f2b", "#0e7490", "#b7791f"],
+  healthcare: ["#0e7490", "#1e3a5f", "#b7791f"],
+  "supply-chain": ["#b7791f", "#1e3a5f", "#0e7490"],
+  infra: ["#1e3a5f", "#5ec8d8", "#b7791f"],
+  rag: ["#0e7490", "#e0b264", "#1e3a5f"],
+};
+const pal = palettes[tag] ?? ["#1e3a5f", "#0e7490", "#b7791f"];
+const bg = kind === "note" ? "#f3efe6" : "#e9f0f2";
+
+// shapes
+const shapes: string[] = [];
+const n = compact ? 5 : 7;
+for (let i = 0; i < n; i++) {
+  const c = pal[i % pal.length];
+  const op = 0.18 + rnd() * 0.35;
+  const x = rnd() * W, y = rnd() * H;
+  const r = (compact ? 180 : 140) + rnd() * (compact ? 380 : 260);
+  if (kind === "note") {
+    // notes: soft circles, one per event feel
+    shapes.push(`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(0)}" fill="${c}" opacity="${op.toFixed(2)}"/>`);
+  } else {
+    // deep dives: rotated rounded blocks, like system boxes
+    const w = r * 1.4, hh = r * 0.7, rot = (rnd() * 40 - 20).toFixed(1);
+    shapes.push(`<rect x="${(x - w / 2).toFixed(0)}" y="${(y - hh / 2).toFixed(0)}" width="${w.toFixed(0)}" height="${hh.toFixed(0)}" rx="${(hh / 3).toFixed(0)}" fill="${c}" opacity="${op.toFixed(2)}" transform="rotate(${rot} ${x.toFixed(0)} ${y.toFixed(0)})"/>`);
+  }
+}
+// connecting lines for deep dives
+const lines: string[] = [];
+if (kind === "article") {
+  for (let i = 0; i < 4; i++) {
+    const x1 = rnd() * W, y1 = rnd() * H, x2 = rnd() * W, y2 = rnd() * H;
+    lines.push(`<path d="M${x1.toFixed(0)} ${y1.toFixed(0)} C ${((x1 + x2) / 2).toFixed(0)} ${y1.toFixed(0)}, ${((x1 + x2) / 2).toFixed(0)} ${y2.toFixed(0)}, ${x2.toFixed(0)} ${y2.toFixed(0)}" stroke="${pal[0]}" stroke-width="3" fill="none" opacity="0.35"/>`);
+  }
+}
+const grid = `<pattern id="g-${hash(seed) % 100000}" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="${pal[0]}" stroke-width="0.6" opacity="0.12"/></pattern>`;
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="" preserveAspectRatio="xMidYMid slice"><defs>${grid}</defs><rect width="${W}" height="${H}" fill="${bg}"/><rect width="${W}" height="${H}" fill="url(#g-${hash(seed) % 100000})"/>${shapes.join("")}${lines.join("")}</svg>`;
+---
+<div class:list={["overflow-hidden", className]} set:html={svg} />

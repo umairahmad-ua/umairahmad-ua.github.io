@@ -11,6 +11,30 @@ sources:
   - title: "Anthropic releases Claude Opus 5"
     url: "https://code.claude.com/docs/en/whats-new/2026-w30"
     date: 2026-07-24
+diagram:
+  caption: "Agents read buyer files and signals, run forecast models as tools, reconcile with planner history, and emit constraints for the solver."
+  nodes:
+    - { id: "buyers", label: "Buyer forecast files", col: 0, kind: "source" }
+    - { id: "pos", label: "POS, promo, weather", col: 0, kind: "source" }
+    - { id: "intake", label: "Intake agent", col: 1, kind: "agent" }
+    - { id: "signal", label: "Signal agent", col: 1, kind: "agent" }
+    - { id: "forecast", label: "Forecast agent, Prophet, XGB", col: 2, kind: "agent" }
+    - { id: "bias", label: "Buyer bias, overrides", col: 2, kind: "store" }
+    - { id: "reconcile", label: "Reconcile agent (Opus 5)", col: 3, kind: "agent" }
+    - { id: "constraint", label: "Constraint agent", col: 4, kind: "agent" }
+    - { id: "planner", label: "Planner review page", col: 4, kind: "human" }
+    - { id: "solver", label: "OR-Tools solver", col: 5, kind: "tool" }
+  edges:
+    - ["buyers", "intake"]
+    - ["pos", "signal"]
+    - ["intake", "forecast", "normalized series"]
+    - ["signal", "forecast", "features"]
+    - ["forecast", "reconcile", "forecast + backtest"]
+    - ["bias", "reconcile"]
+    - ["reconcile", "constraint", "demand + band"]
+    - ["reconcile", "planner", "figure + reason"]
+    - ["planner", "bias", "overrides"]
+    - ["constraint", "solver", "demand constraints"]
 ---
 
 ## Table of contents

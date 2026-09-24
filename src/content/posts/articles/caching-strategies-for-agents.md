@@ -11,6 +11,31 @@ sources:
   - title: "Code with Claude 2026"
     url: "https://simonwillison.net/2026/May/6/code-w-claude-2026/"
     date: 2026-05-06
+diagram:
+  caption: "Three caches at three layers: prompt prefix, retrieval keyed on corpus version, and tool results with per-tool TTL."
+  nodes:
+    - { id: "turn", label: "Agent turn", col: 0, kind: "source" }
+    - { id: "prompt", label: "Gemini or Claude prompt", col: 1, kind: "model" }
+    - { id: "retr", label: "Retrieval tool", col: 1, kind: "tool" }
+    - { id: "tools", label: "Read tools", col: 1, kind: "tool" }
+    - { id: "pcache", label: "Provider prompt cache", col: 2, kind: "store" }
+    - { id: "rcache", label: "Redis, corpus version key", col: 2, kind: "store" }
+    - { id: "tcache", label: "Tool cache, per-tool TTL", col: 2, kind: "store" }
+    - { id: "vs", label: "Vertex AI Search + reranker", col: 3, kind: "tool" }
+    - { id: "backend", label: "Product master, orders APIs", col: 3, kind: "tool" }
+    - { id: "trace", label: "Cost trace hits and misses", col: 4, kind: "output" }
+  edges:
+    - ["turn", "prompt"]
+    - ["prompt", "pcache", "stable prefix first"]
+    - ["turn", "retr"]
+    - ["retr", "rcache"]
+    - ["rcache", "vs", "on miss"]
+    - ["turn", "tools"]
+    - ["tools", "tcache"]
+    - ["tcache", "backend", "on miss, never writes"]
+    - ["pcache", "trace"]
+    - ["rcache", "trace"]
+    - ["tcache", "trace"]
 ---
 
 ## Table of contents

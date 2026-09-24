@@ -14,6 +14,32 @@ sources:
   - title: "Google: Gemini 3.1 Pro"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2026-02-19
+diagram:
+  caption: "Ingestion with OCR review and parent child chunks, hybrid retrieval with access filters, reranking and cited answers."
+  nodes:
+    - { id: "docs", label: "PDF, DOCX, HTML, scans", col: 0, kind: "source" }
+    - { id: "query", label: "User query, access groups", col: 0, kind: "source" }
+    - { id: "ocr", label: "OCR with confidence", col: 1, kind: "tool" }
+    - { id: "hreview", label: "Low confidence review", col: 1, kind: "human" }
+    - { id: "chunk", label: "Parent child chunks", col: 2, kind: "tool" }
+    - { id: "dense", label: "Vector index", col: 3, kind: "store" }
+    - { id: "sparse", label: "Keyword index", col: 3, kind: "store" }
+    - { id: "fuse", label: "RRF fusion and reranker", col: 4, kind: "tool" }
+    - { id: "gen", label: "Citation grounded model", col: 5, kind: "model" }
+    - { id: "out", label: "Answer, verified citations", col: 5, kind: "output" }
+  edges:
+    - ["docs", "ocr"]
+    - ["ocr", "hreview", "low confidence"]
+    - ["hreview", "chunk"]
+    - ["ocr", "chunk", "tables kept as tables"]
+    - ["chunk", "dense", "children embedded"]
+    - ["chunk", "sparse"]
+    - ["query", "dense", "access filter"]
+    - ["query", "sparse", "access filter"]
+    - ["dense", "fuse", "top 40"]
+    - ["sparse", "fuse", "top 40"]
+    - ["fuse", "gen", "8 unique parents"]
+    - ["gen", "out", "every claim cited"]
 ---
 
 A media client asked us a question in January that I have heard four times now in different words. "Claude and Gemini can read a million tokens. Why are we still chunking documents?" It is a fair question. Anthropic put Opus 4.6 out on February 5 with a 1M context beta. Gemini 3.1 Pro followed on February 19. The window keeps growing.

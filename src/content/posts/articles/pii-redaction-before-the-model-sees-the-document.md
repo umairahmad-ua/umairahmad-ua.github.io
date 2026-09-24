@@ -5,6 +5,32 @@ pubDatetime: 2025-10-01T15:00:00Z
 kind: article
 tags: ["security", "gcp", "healthcare", "agents"]
 sources: []
+diagram:
+  caption: "Two detectors plus a Gemini check tokenize identifiers so the agent works on tokens and only a role sees names."
+  nodes:
+    - { id: "doc", label: "Document after OCR", col: 0, kind: "source" }
+    - { id: "gemini", label: "Gemini suspicious-ID check", col: 1, kind: "model" }
+    - { id: "dlp", label: "Cloud DLP API", col: 1, kind: "tool" }
+    - { id: "presidio", label: "Presidio NER", col: 1, kind: "tool" }
+    - { id: "policy", label: "Merge spans, agent policy", col: 2, kind: "tool" }
+    - { id: "vault", label: "Cloud SQL token mapping", col: 3, kind: "store" }
+    - { id: "agent", label: "Agent sees tokens only", col: 3, kind: "agent" }
+    - { id: "reid", label: "Role-gated re-identify", col: 4, kind: "tool" }
+    - { id: "reviewer", label: "Reviewer with the role", col: 5, kind: "human" }
+    - { id: "log", label: "Access log", col: 5, kind: "store" }
+  edges:
+    - ["doc", "gemini", "scanned lines only"]
+    - ["doc", "dlp", "structured IDs"]
+    - ["doc", "presidio", "names, addresses"]
+    - ["gemini", "policy", "UNKNOWN_ID tokens"]
+    - ["dlp", "policy"]
+    - ["presidio", "policy", "union, wider span"]
+    - ["policy", "vault", "token to value"]
+    - ["policy", "agent", "keep, tokenize, drop"]
+    - ["agent", "reid", "output"]
+    - ["vault", "reid"]
+    - ["reid", "reviewer"]
+    - ["reid", "log", "who saw what"]
 ---
 
 ## Table of contents

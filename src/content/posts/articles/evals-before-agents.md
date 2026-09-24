@@ -11,6 +11,29 @@ sources:
   - title: "Gemini 3 collection"
     url: "https://blog.google/products-and-platforms/products/gemini/gemini-3-collection/"
     date: 2025-11-18
+diagram:
+  caption: "Each PR runs the agent on frozen scenario cases, a different model judges the transcript, and CI blocks the merge below threshold."
+  nodes:
+    - { id: "pr", label: "Prompt or tool change PR", col: 0, kind: "source" }
+    - { id: "cases", label: "Scenario cases, fixtures", col: 1, kind: "store" }
+    - { id: "rubric", label: "Prose rubric", col: 1, kind: "store" }
+    - { id: "agent", label: "Agent under test", col: 2, kind: "agent" }
+    - { id: "judge", label: "Judge (different model)", col: 3, kind: "model" }
+    - { id: "retrieval", label: "Retrieval metrics (RAGAS)", col: 3, kind: "tool" }
+    - { id: "threshold", label: "Threshold check in CI", col: 4, kind: "tool" }
+    - { id: "human", label: "Weekly human sample", col: 4, kind: "human" }
+    - { id: "merge", label: "Merge or fail with table", col: 5, kind: "output" }
+  edges:
+    - ["pr", "agent"]
+    - ["cases", "agent", "frozen fixture"]
+    - ["rubric", "judge"]
+    - ["agent", "judge", "transcript + tools"]
+    - ["agent", "retrieval", "retrieved chunks"]
+    - ["judge", "threshold", "score per dimension"]
+    - ["retrieval", "threshold", "precision, recall"]
+    - ["threshold", "merge"]
+    - ["judge", "human", "20 runs a week"]
+    - ["human", "rubric", "rewrite on disagree"]
 ---
 
 An engineer on my team opened a pull request last week that changed one sentence in the campaign author prompt. The diff was eleven words. CI ran for six minutes and failed. Groundedness on the refusal cases had dropped from 0.96 to 0.81. The new sentence made the agent more eager to help, and eager agents cite things that are not there.

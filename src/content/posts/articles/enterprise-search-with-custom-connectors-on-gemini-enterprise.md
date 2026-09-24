@@ -11,6 +11,27 @@ sources:
   - title: "OpenAI Codex app for macOS"
     url: "https://openai.com/index/introducing-the-codex-app/"
     date: 2026-02-02
+diagram:
+  caption: "An advisor question is rewritten, run as the advisor against three connectors, and answered with citations or refused."
+  nodes:
+    - { id: "advisor", label: "Advisor question", col: 0, kind: "source" }
+    - { id: "rewrite", label: "Gemini Flash query rewrite", col: 1, kind: "model" }
+    - { id: "identity", label: "Advisor identity (ACLs)", col: 1, kind: "store" }
+    - { id: "ge", label: "Gemini Enterprise agent", col: 2, kind: "agent" }
+    - { id: "crm", label: "CRM MCP server", col: 3, kind: "tool" }
+    - { id: "sp", label: "SharePoint connector", col: 3, kind: "tool" }
+    - { id: "bq", label: "BigQuery named metrics", col: 3, kind: "tool" }
+    - { id: "answer", label: "Cited answer or refusal", col: 4, kind: "output" }
+    - { id: "judge", label: "Groundedness judge", col: 5, kind: "model" }
+  edges:
+    - ["advisor", "rewrite", "shorthand"]
+    - ["rewrite", "ge", "structured request"]
+    - ["identity", "ge"]
+    - ["ge", "crm", "as advisor"]
+    - ["ge", "sp", "permission aware"]
+    - ["ge", "bq", "typed params only"]
+    - ["ge", "answer", "cite or refuse"]
+    - ["answer", "judge", "nightly 5% sample"]
 ---
 
 ## Table of contents

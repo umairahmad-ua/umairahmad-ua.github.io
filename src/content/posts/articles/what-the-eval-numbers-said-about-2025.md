@@ -5,6 +5,32 @@ pubDatetime: 2025-12-24T15:00:00Z
 kind: article
 tags: ["evals", "agents", "gcp"]
 sources: []
+diagram:
+  caption: "Six months of eval runs read from one BigQuery table, the four findings, and the changes they drove for 2026."
+  nodes:
+    - { id: "runs", label: "1,900 eval runs since June", col: 0, kind: "source" }
+    - { id: "judges", label: "Two judges per sample", col: 0, kind: "model" }
+    - { id: "table", label: "One BigQuery table", col: 1, kind: "store" }
+    - { id: "ground", label: "Groundedness plateau 0.91", col: 2, kind: "output" }
+    - { id: "toolfail", label: "Tool choice 41 pct of fails", col: 2, kind: "output" }
+    - { id: "cost", label: "Cost p50, p95 and max", col: 2, kind: "output" }
+    - { id: "disagree", label: "Judge disagreement signal", col: 2, kind: "output" }
+    - { id: "review", label: "Monday review", col: 3, kind: "human" }
+    - { id: "traces", label: "Production traces", col: 3, kind: "source" }
+    - { id: "changes", label: "2026 changes, retire cases", col: 4, kind: "output" }
+  edges:
+    - ["runs", "table"]
+    - ["judges", "table", "score per rubric line"]
+    - ["table", "ground"]
+    - ["table", "toolfail"]
+    - ["table", "cost"]
+    - ["table", "disagree"]
+    - ["ground", "review", "data, not the model"]
+    - ["toolfail", "review", "fewer tools"]
+    - ["cost", "review", "budget cap"]
+    - ["disagree", "review", "predicts complaints"]
+    - ["review", "changes"]
+    - ["traces", "changes", "new eval cases"]
 ---
 
 ## Table of contents

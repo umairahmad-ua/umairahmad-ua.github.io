@@ -8,6 +8,28 @@ sources:
   - title: "AWS re:Invent 2025, AgentCore Policy and Evaluations preview"
     url: "https://www.aboutamazon.com/news/aws/aws-re-invent-2025-ai-news-updates"
     date: 2025-12-02
+diagram:
+  caption: "Clauses are extracted and lawyer-approved before an agent builds the obligation graph that finance queries with citations."
+  nodes:
+    - { id: "pdfs", label: "Vendor and customer PDFs", col: 0, kind: "source" }
+    - { id: "docai", label: "Document AI layout", col: 1, kind: "tool" }
+    - { id: "classifier", label: "Fine-tuned clause classifier", col: 1, kind: "model" }
+    - { id: "extract", label: "Gemini structured clauses", col: 2, kind: "model" }
+    - { id: "lawyer", label: "Lawyer approves clauses", col: 3, kind: "human" }
+    - { id: "graph", label: "Obligation graph agent", col: 4, kind: "agent" }
+    - { id: "pg", label: "PostgreSQL with pgvector", col: 4, kind: "store" }
+    - { id: "qa", label: "Question answering agent", col: 5, kind: "agent" }
+    - { id: "finance", label: "Finance quarterly question", col: 5, kind: "human" }
+  edges:
+    - ["pdfs", "docai"]
+    - ["docai", "classifier"]
+    - ["classifier", "extract", "clause type"]
+    - ["extract", "lawyer", "page and span cited"]
+    - ["lawyer", "graph", "approved only"]
+    - ["lawyer", "classifier", "edits as few-shot"]
+    - ["graph", "pg"]
+    - ["pg", "qa"]
+    - ["qa", "finance", "table with citations"]
 ---
 
 ## Table of contents

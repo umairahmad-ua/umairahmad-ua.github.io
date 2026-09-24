@@ -14,6 +14,26 @@ sources:
   - title: "Redeploying Fable 5"
     url: "https://www.anthropic.com/news/redeploying-fable-5"
     date: 2026-06-30
+diagram:
+  caption: "Intake, evidence and risk scoring agents build a cited no-go case that a human must overrule before drafting starts."
+  nodes:
+    - { id: "rfp", label: "RFP PDF or DOCX", col: 0, kind: "source" }
+    - { id: "intake", label: "Intake agent on Gemini", col: 1, kind: "agent" }
+    - { id: "evidence", label: "Evidence agent", col: 2, kind: "agent" }
+    - { id: "store", label: "BigQuery, Vertex AI Search", col: 2, kind: "store" }
+    - { id: "mcp", label: "Staffing MCP server", col: 2, kind: "tool" }
+    - { id: "risk", label: "Risk scoring agent", col: 3, kind: "agent" }
+    - { id: "gate", label: "Delivery lead go or no-go", col: 4, kind: "human" }
+    - { id: "draft", label: "Drafting and tailoring", col: 5, kind: "agent" }
+  edges:
+    - ["rfp", "intake"]
+    - ["intake", "evidence", "typed requirements"]
+    - ["evidence", "store"]
+    - ["evidence", "mcp"]
+    - ["evidence", "risk"]
+    - ["intake", "risk"]
+    - ["risk", "gate", "five cited scores"]
+    - ["gate", "draft", "proceed with reason"]
 ---
 
 ## Table of contents

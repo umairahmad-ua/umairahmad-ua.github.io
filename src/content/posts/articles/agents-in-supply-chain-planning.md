@@ -5,6 +5,30 @@ pubDatetime: 2026-07-19T15:00:00Z
 kind: article
 tags: ["supply-chain", "agents", "gcp"]
 sources: []
+diagram:
+  caption: "Three ADK agents propose constraint changes, a policy gate filters them, and the OR-Tools solver decides the plan."
+  nodes:
+    - { id: "inputs", label: "Buyer files, plant reports", col: 0, kind: "source" }
+    - { id: "demand", label: "Demand sensing agent", col: 1, kind: "agent" }
+    - { id: "cap", label: "Capacity agent", col: 1, kind: "agent" }
+    - { id: "mat", label: "Materials risk agent", col: 1, kind: "agent" }
+    - { id: "staging", label: "Staging table with reasoning", col: 2, kind: "store" }
+    - { id: "orch", label: "Planning orchestrator", col: 3, kind: "agent" }
+    - { id: "planner", label: "Planner decides", col: 3, kind: "human" }
+    - { id: "solver", label: "OR-Tools CP-SAT on Cloud Run", col: 4, kind: "tool" }
+    - { id: "plan", label: "Plan plus narration", col: 5, kind: "output" }
+  edges:
+    - ["inputs", "demand"]
+    - ["inputs", "cap"]
+    - ["inputs", "mat"]
+    - ["demand", "staging", "constraint weights"]
+    - ["cap", "staging", "capacity table"]
+    - ["mat", "staging", "material_ok inputs"]
+    - ["staging", "orch"]
+    - ["orch", "planner", "outside policy"]
+    - ["orch", "solver", "inside policy"]
+    - ["planner", "solver", "approved changes"]
+    - ["solver", "plan"]
 ---
 
 ## Table of contents

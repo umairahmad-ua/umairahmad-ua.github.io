@@ -25,7 +25,7 @@ The domain is always new. The ability to figure it out is not.
 
 In 2025 the ground under AI engineering shifted. Models stopped being the hard part. Tool contracts, evaluation, cost per task and trust became the work. I wanted a place to think about that out loud, with sources, every week, before the thinking hardened into slides.
 
-So every Sunday I write a short note on what changed that week and what I make of it from inside client projects. Most Wednesdays I publish a longer piece on something I built or broke. Everything cites its sources with dates.
+So every Sunday I write a short note on what changed that week and what I make of it from inside client projects. Most Wednesdays I publish a deep dive on something I built or broke. Everything cites its sources with dates.
 
 ## Outside the terminal
 

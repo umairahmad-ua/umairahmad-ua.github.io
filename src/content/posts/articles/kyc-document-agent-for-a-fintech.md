@@ -11,6 +11,28 @@ sources:
   - title: "Google Gemini 3.1 Flash-Lite"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2026-03-03
+diagram:
+  caption: "Document AI and a Gemini fallback extract fields, checks and screening feed a case the analyst decides."
+  nodes:
+    - { id: "docs", label: "Uploaded ID and address docs", col: 0, kind: "source" }
+    - { id: "docai", label: "Document AI processors", col: 1, kind: "tool" }
+    - { id: "gemfb", label: "Gemini 2.5 Pro fallback", col: 1, kind: "model" }
+    - { id: "verify", label: "Verification agent", col: 2, kind: "agent" }
+    - { id: "sanctions", label: "Sanctions and PEP tool", col: 2, kind: "tool" }
+    - { id: "risk", label: "Risk agent", col: 3, kind: "agent" }
+    - { id: "writer", label: "Case writer", col: 4, kind: "agent" }
+    - { id: "analyst", label: "Analyst review queue", col: 5, kind: "human" }
+  edges:
+    - ["docs", "docai"]
+    - ["docs", "gemfb", "low confidence fields"]
+    - ["docai", "verify", "typed fields"]
+    - ["gemfb", "verify", "model-extracted"]
+    - ["docai", "sanctions", "name, DOB, country"]
+    - ["sanctions", "risk", "scored matches"]
+    - ["verify", "risk"]
+    - ["verify", "writer", "check results"]
+    - ["risk", "writer", "one-line flag reasons"]
+    - ["writer", "analyst", "three queues"]
 ---
 
 ## Table of contents

@@ -142,6 +142,8 @@ for (const file of files) {
     warnings.push(`${rel}: note is ${words} words`);
   if (fm.get("kind") === "article" && words < 900)
     warnings.push(`${rel}: article is only ${words} words`);
+  if (fm.get("kind") === "article" && !/^diagram:/m.test(fm.raw))
+    warnings.push(`${rel}: deep dive has no diagram`);
 }
 
 for (const w of warnings) console.warn(`warn  ${w}`);

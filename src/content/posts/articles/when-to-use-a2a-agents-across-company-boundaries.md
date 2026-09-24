@@ -11,6 +11,27 @@ sources:
   - title: "Amazon Bedrock AgentCore Evaluations GA"
     url: "https://aws.amazon.com/about-aws/whats-new/2026/03/agentcore-evaluations-generally-available"
     date: 2026-03-31
+diagram:
+  caption: "The three question decision between MCP for tools you own and A2A for agents across a company boundary."
+  nodes:
+    - { id: "proposal", label: "Proposed agent connection", col: 0, kind: "source" }
+    - { id: "q1", label: "Different owner?", col: 1, kind: "human" }
+    - { id: "q2", label: "Would refuse an MCP server?", col: 2, kind: "human" }
+    - { id: "q3", label: "Task with a lifecycle?", col: 3, kind: "human" }
+    - { id: "mcp", label: "MCP server to the tool", col: 4, kind: "tool" }
+    - { id: "a2a", label: "A2A with signed Agent Card", col: 4, kind: "agent" }
+    - { id: "scout", label: "Scout, nine agents, one team", col: 5, kind: "output" }
+    - { id: "supplier", label: "Buyer and supplier planners", col: 5, kind: "output" }
+  edges:
+    - ["proposal", "q1"]
+    - ["q1", "mcp", "no"]
+    - ["q1", "q2", "yes"]
+    - ["q2", "mcp", "no"]
+    - ["q2", "q3", "yes"]
+    - ["q3", "mcp", "no, one call"]
+    - ["q3", "a2a", "three yes answers"]
+    - ["mcp", "scout"]
+    - ["a2a", "supplier", "GAP and Levi's"]
 ---
 
 ## Table of contents

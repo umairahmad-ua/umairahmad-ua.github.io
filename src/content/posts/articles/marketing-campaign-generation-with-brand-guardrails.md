@@ -14,6 +14,24 @@ sources:
   - title: "Claude memory unified across chat and Cowork"
     url: "https://claude.com/blog/claudes-memory-works-everywhere-and-you-decide-whats-in-it"
     date: 2026-08-25
+diagram:
+  caption: "Every campaign draft passes brand policies and claim checks before legal approves it for Meta ads."
+  nodes:
+    - { id: "brief", label: "Brief, signals, persona", col: 0, kind: "source" }
+    - { id: "author", label: "Campaign author agent", col: 1, kind: "agent" }
+    - { id: "policy", label: "Brand voice policy checks", col: 2, kind: "tool" }
+    - { id: "claims", label: "Gemini Flash claim extract", col: 2, kind: "model" }
+    - { id: "vais", label: "Vertex AI Search catalog", col: 3, kind: "tool" }
+    - { id: "queue", label: "Legal review queue", col: 4, kind: "human" }
+    - { id: "meta", label: "Meta ads accounts", col: 5, kind: "output" }
+  edges:
+    - ["brief", "author"]
+    - ["author", "policy", "every draft"]
+    - ["author", "claims", "factual sentences"]
+    - ["claims", "vais", "each claim"]
+    - ["policy", "queue", "block rewrites, warn"]
+    - ["vais", "queue", "source, status table"]
+    - ["queue", "meta", "approval record id"]
 ---
 
 ## Table of contents

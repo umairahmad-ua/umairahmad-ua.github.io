@@ -39,7 +39,7 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "
 <Layout title={`Start here | ${config.site.title}`} description="A guided path through the articles, grouped by the question they answer.">
   <Header />
   <Breadcrumb />
-  <Main pageTitle="Start here" pageDesc={`${articles.length} articles and a note every week. Start with the question you have.`}>
+  <Main pageTitle="Start here" pageDesc={`${articles.length} deep dives and a Sunday note every week. Start with the question you have.`}>
     <div class="grid gap-6">
       {groups.filter(g => g.items.length).map(g => (
         <section class="card">
@@ -56,7 +56,7 @@ const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", year: "
         </section>
       ))}
     </div>
-    <p class="mt-8">Prefer chronology? <a class="text-accent underline decoration-dashed underline-offset-4" href="/notes/">Read the weekly notes in order</a>, or browse by <a class="text-accent underline decoration-dashed underline-offset-4" href="/tags/">tag</a>. Every note lists dated sources, so you can check anything I claim.</p>
+    <p class="mt-8">Prefer chronology? <a class="text-accent underline decoration-dashed underline-offset-4" href="/notes/">Read the Sunday notes in order</a>, or browse by <a class="text-accent underline decoration-dashed underline-offset-4" href="/tags/">tag</a>. Every note lists dated sources, so you can check anything I claim.</p>
   </Main>
   <Footer />
 </Layout>

@@ -12,6 +12,25 @@ sources:
   - title: "OpenAI GPT-6 Astra"
     url: "https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html"
     date: 2026-09-03
+diagram:
+  caption: "The weekly note routine: read the week, source every event with a date, write 300 words, let readers check."
+  nodes:
+    - { id: "news", label: "A week of announcements", col: 0, kind: "source" }
+    - { id: "links", label: "Saved links, one hour", col: 1, kind: "store" }
+    - { id: "choose", label: "Choose two or three", col: 2, kind: "tool" }
+    - { id: "source", label: "Primary source with date", col: 3, kind: "tool" }
+    - { id: "drop", label: "Dropped if no source", col: 3, kind: "output" }
+    - { id: "write", label: "300 words on Sunday", col: 4, kind: "tool" }
+    - { id: "readers", label: "Readers correct dates", col: 5, kind: "human" }
+    - { id: "articles", label: "Runbooks and eval sets", col: 5, kind: "output" }
+  edges:
+    - ["news", "links", "read across the week"]
+    - ["links", "choose"]
+    - ["choose", "source", "every external event"]
+    - ["choose", "drop", "memory was wrong"]
+    - ["source", "write", "I think, not it is"]
+    - ["write", "readers", "no week skipped"]
+    - ["write", "articles", "most asked: evals"]
 ---
 
 ## Table of contents

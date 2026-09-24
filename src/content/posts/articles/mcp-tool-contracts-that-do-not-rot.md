@@ -12,6 +12,30 @@ sources:
   - title: "Linux Foundation announces the Agentic AI Foundation"
     url: "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation"
     date: 2025-12-09
+diagram:
+  caption: "The parts of an MCP tool contract the model reads, and the evals that catch a description gone wrong."
+  nodes:
+    - { id: "model", label: "Agent model", col: 0, kind: "model" }
+    - { id: "name", label: "Verb plus noun name", col: 1, kind: "tool" }
+    - { id: "desc", label: "Description for a stranger", col: 1, kind: "tool" }
+    - { id: "input", label: "Typed input schema", col: 2, kind: "tool" }
+    - { id: "server", label: "MCP server", col: 3, kind: "tool" }
+    - { id: "idem", label: "Idempotency key store", col: 3, kind: "store" }
+    - { id: "output", label: "Typed output, null cursor", col: 4, kind: "tool" }
+    - { id: "error", label: "Error code, hint, retryable", col: 4, kind: "tool" }
+    - { id: "evals", label: "Tool-choice evals", col: 5, kind: "tool" }
+  edges:
+    - ["model", "name", "picks a tool"]
+    - ["model", "desc", "when to call it"]
+    - ["name", "input"]
+    - ["desc", "input", "limits in plain words"]
+    - ["input", "server", "pattern, enum, const"]
+    - ["server", "idem", "request_id on writes"]
+    - ["server", "output"]
+    - ["server", "error"]
+    - ["output", "evals", "quoted, not parsed"]
+    - ["error", "evals", "split and retry"]
+    - ["desc", "evals", "description is the bug"]
 ---
 
 We had a tool called `get_data`. It took a string called `query`. It returned a string. For about two weeks it was the most called tool in the system and nobody could say what it did, because what it did depended on what the model typed into `query` that day.

@@ -5,6 +5,31 @@ pubDatetime: 2026-01-07T15:00:00Z
 kind: article
 tags: ["agents", "gcp", "infra"]
 sources: []
+diagram:
+  caption: "Two warehouses run side by side while the agent runs three layers of checks and produces a report the CFO signs."
+  nodes:
+    - { id: "legacy", label: "Legacy warehouse", col: 0, kind: "store" }
+    - { id: "bq", label: "BigQuery", col: 0, kind: "store" }
+    - { id: "finance", label: "Finance sets tolerances", col: 0, kind: "human" }
+    - { id: "agent", label: "Reconciliation agent", col: 1, kind: "agent" }
+    - { id: "counts", label: "Counts and keys", col: 2, kind: "tool" }
+    - { id: "aggs", label: "Aggregates and checksums", col: 3, kind: "tool" }
+    - { id: "rows", label: "Sampled row diffs", col: 4, kind: "tool" }
+    - { id: "invest", label: "Bisect and explain mismatch", col: 4, kind: "agent" }
+    - { id: "report", label: "Two page cutover report", col: 5, kind: "output" }
+    - { id: "cfo", label: "CFO signs page one", col: 5, kind: "human" }
+  edges:
+    - ["legacy", "agent", "schema"]
+    - ["bq", "agent", "schema"]
+    - ["finance", "agent", "tolerance rules"]
+    - ["agent", "counts", "SQL in both dialects"]
+    - ["counts", "aggs", "if counts match"]
+    - ["aggs", "rows"]
+    - ["aggs", "invest", "mismatch"]
+    - ["rows", "invest", "mismatch"]
+    - ["invest", "report", "cause and evidence"]
+    - ["rows", "report"]
+    - ["report", "cfo", "human review first"]
 ---
 
 ## Table of contents

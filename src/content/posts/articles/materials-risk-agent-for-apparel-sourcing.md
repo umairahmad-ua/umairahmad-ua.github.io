@@ -11,6 +11,28 @@ sources:
   - title: "Claude Code auto mode research preview"
     url: "https://code.claude.com/docs/en/whats-new/2026-w13"
     date: 2026-03-23
+diagram:
+  caption: "Models read supplier mail, arithmetic decides the risk, and planners see only orders they must act on."
+  nodes:
+    - { id: "comms", label: "Supplier emails and PDFs", col: 0, kind: "source" }
+    - { id: "ports", label: "Port and vessel feeds", col: 0, kind: "source" }
+    - { id: "bq", label: "BigQuery history and plan", col: 0, kind: "store" }
+    - { id: "docai", label: "Document AI", col: 1, kind: "tool" }
+    - { id: "gemini", label: "Gemini reads free text", col: 1, kind: "model" }
+    - { id: "rule", label: "Deterministic buffer rule", col: 2, kind: "tool" }
+    - { id: "summary", label: "Morning channel summary", col: 3, kind: "output" }
+    - { id: "planner", label: "Planner picks an option", col: 4, kind: "human" }
+    - { id: "writeback", label: "Planning system write-back", col: 5, kind: "store" }
+  edges:
+    - ["comms", "docai"]
+    - ["comms", "gemini"]
+    - ["docai", "rule", "dates, PO refs"]
+    - ["gemini", "rule", "new promised date"]
+    - ["ports", "rule", "queue days"]
+    - ["bq", "rule", "p80 slip, cut dates"]
+    - ["rule", "summary", "act items only"]
+    - ["summary", "planner", "three options"]
+    - ["planner", "writeback", "audit trail"]
 ---
 
 ## Table of contents

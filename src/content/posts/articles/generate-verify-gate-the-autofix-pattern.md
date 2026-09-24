@@ -14,6 +14,26 @@ sources:
   - title: "Cursor 3"
     url: "https://cursor.com/blog/cursor-3"
     date: 2026-04-02
+diagram:
+  caption: "A generator proposes a patch, an independent evaluator and a test runner verify it, and coded gates decide what a human sees."
+  nodes:
+    - { id: "finding", label: "Scanner finding (Ocular)", col: 0, kind: "source" }
+    - { id: "context", label: "Code and fix history", col: 0, kind: "store" }
+    - { id: "generator", label: "Generator agent", col: 1, kind: "agent" }
+    - { id: "evaluator", label: "Evaluator agent", col: 2, kind: "agent" }
+    - { id: "tester", label: "Tester runs suite", col: 3, kind: "tool" }
+    - { id: "escalate", label: "Escalate with reason", col: 4, kind: "output" }
+    - { id: "human", label: "Human review: patch, tests", col: 5, kind: "human" }
+  edges:
+    - ["finding", "generator"]
+    - ["context", "generator"]
+    - ["generator", "evaluator", "Gate 1: minimal diff"]
+    - ["evaluator", "generator", "retry, max 2"]
+    - ["evaluator", "tester", "Gate 2: path gone"]
+    - ["tester", "human", "Gate 3: suite green"]
+    - ["generator", "escalate", "too broad"]
+    - ["evaluator", "escalate", "rejected"]
+    - ["tester", "escalate", "regression"]
 ---
 
 ## Table of contents

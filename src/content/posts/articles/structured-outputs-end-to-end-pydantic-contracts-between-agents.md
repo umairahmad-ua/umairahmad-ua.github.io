@@ -14,6 +14,34 @@ sources:
   - title: "MCP specification 2025-11-25"
     url: "https://blog.modelcontextprotocol.io/posts/2025-11-25-first-mcp-anniversary/"
     date: 2025-11-25
+diagram:
+  caption: "Agent handoffs as typed Pydantic contracts, validated for shape and meaning, versioned, and counted when they fail."
+  nodes:
+    - { id: "user", label: "Strategist question", col: 0, kind: "source" }
+    - { id: "search", label: "Vertex AI Search results", col: 0, kind: "tool" }
+    - { id: "asst", label: "Research assistant agent", col: 1, kind: "agent" }
+    - { id: "brief", label: "ResearchBrief schema v2", col: 2, kind: "tool" }
+    - { id: "shape", label: "Pydantic shape check", col: 3, kind: "tool" }
+    - { id: "meaning", label: "Meaning check on evidence", col: 3, kind: "tool" }
+    - { id: "version", label: "schema_version check", col: 3, kind: "tool" }
+    - { id: "metric", label: "Validation failure metric", col: 4, kind: "store" }
+    - { id: "author", label: "Research author agent", col: 4, kind: "agent" }
+    - { id: "out", label: "Analysis with budget", col: 5, kind: "output" }
+  edges:
+    - ["user", "asst"]
+    - ["search", "asst", "evidence ids"]
+    - ["asst", "brief", "typed output"]
+    - ["brief", "shape"]
+    - ["brief", "meaning"]
+    - ["brief", "version"]
+    - ["shape", "asst", "one retry"]
+    - ["meaning", "asst", "one retry"]
+    - ["shape", "metric", "by agent and field"]
+    - ["meaning", "metric"]
+    - ["shape", "author"]
+    - ["meaning", "author"]
+    - ["version", "author", "accepted versions"]
+    - ["author", "out", "budget_usd required"]
 ---
 
 ## Table of contents

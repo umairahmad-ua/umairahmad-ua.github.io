@@ -11,6 +11,29 @@ sources:
   - title: "xAI Grok 4.5"
     url: "https://x.ai/news/grok-4-5"
     date: 2026-07-08
+diagram:
+  caption: "One decision splits agents between Claude Managed Agents and our own harness, with evals owed either way."
+  nodes:
+    - { id: "def", label: "Agent, tools, instructions", col: 0, kind: "source" }
+    - { id: "decide", label: "Is the loop the product?", col: 1, kind: "human" }
+    - { id: "managed", label: "Claude Managed Agents", col: 2, kind: "agent" }
+    - { id: "harness", label: "Own harness on Cloud Run", col: 2, kind: "agent" }
+    - { id: "mcp", label: "MCP server, three tools", col: 3, kind: "tool" }
+    - { id: "firestore", label: "Firestore session state", col: 3, kind: "store" }
+    - { id: "region", label: "Client region, approval gate", col: 3, kind: "tool" }
+    - { id: "bq", label: "BigQuery cost per task", col: 4, kind: "store" }
+    - { id: "evals", label: "Eval suite and CI gates", col: 4, kind: "tool" }
+  edges:
+    - ["def", "decide"]
+    - ["decide", "managed", "loop is plumbing"]
+    - ["decide", "harness", "loop is the product"]
+    - ["managed", "mcp"]
+    - ["managed", "bq", "usage export join"]
+    - ["harness", "firestore"]
+    - ["harness", "region"]
+    - ["harness", "bq", "tracing middleware"]
+    - ["managed", "evals", "unchanged"]
+    - ["harness", "evals", "unchanged"]
 ---
 
 ## Table of contents

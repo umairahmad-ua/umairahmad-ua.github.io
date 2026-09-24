@@ -12,6 +12,37 @@ sources:
   - title: "LangChain 1.0 and LangGraph 1.0 generally available"
     url: "https://changelog.langchain.com/announcements/langchain-1-0-now-generally-available"
     date: 2025-10-22
+diagram:
+  caption: "The Scout agent tree: one root routes to seven specialists, one of them a sequential research pair."
+  nodes:
+    - { id: "user", label: "Brand strategist", col: 0, kind: "human" }
+    - { id: "vais", label: "Vertex AI Search data store", col: 0, kind: "store" }
+    - { id: "root", label: "Root response agent", col: 1, kind: "agent" }
+    - { id: "da", label: "Data analysis (sequential)", col: 2, kind: "agent" }
+    - { id: "big", label: "Big idea agent", col: 2, kind: "agent" }
+    - { id: "strategy", label: "General strategy agent", col: 2, kind: "agent" }
+    - { id: "persona", label: "Persona agent", col: 2, kind: "agent" }
+    - { id: "role", label: "Role author agent", col: 2, kind: "agent" }
+    - { id: "help", label: "Help desk agent", col: 2, kind: "agent" }
+    - { id: "ra", label: "Research assistant", col: 3, kind: "agent" }
+    - { id: "camp", label: "Campaign author", col: 3, kind: "agent" }
+    - { id: "author", label: "Research author", col: 4, kind: "agent" }
+  edges:
+    - ["user", "root", "only sees raw message"]
+    - ["root", "da", "any question with data"]
+    - ["root", "big"]
+    - ["root", "strategy"]
+    - ["root", "persona"]
+    - ["root", "role"]
+    - ["root", "help"]
+    - ["da", "ra"]
+    - ["ra", "author", "findings in state"]
+    - ["big", "camp", "handoff_to"]
+    - ["root", "camp"]
+    - ["vais", "ra", "grounded chunks"]
+    - ["vais", "big"]
+    - ["vais", "persona"]
+    - ["vais", "camp"]
 ---
 
 A brand strategist opens a dashboard full of short-form video trends and asks one question. "Which of these matters for our spring launch, and what would a campaign look like?" The dashboard cannot answer that. It has the data. It has no opinion.

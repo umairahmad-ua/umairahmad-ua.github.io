@@ -1,0 +1,92 @@
+---
+/** Renders a small architecture sketch from a post's `diagram` frontmatter. */
+type Node = { id: string; label: string; col: number; kind: string };
+type Props = { diagram: { caption: string; nodes: Node[]; edges: (string[])[] } };
+const { diagram } = Astro.props;
+const { nodes, edges, caption } = diagram;
+
+const cols = Math.max(...nodes.map(n => n.col)) + 1;
+const byCol: Node[][] = [...Array(cols)].map(() => []);
+nodes.forEach(n => byCol[n.col].push(n));
+const maxRows = Math.max(...byCol.map(c => c.length));
+const NW = 136, NH = 46, GX = 52, GY = 20, PAD = 12;
+const W = PAD * 2 + cols * NW + (cols - 1) * GX;
+const H = PAD * 2 + maxRows * NH + (maxRows - 1) * GY;
+const pos = new Map<string, { x: number; y: number }>();
+byCol.forEach((colNodes, c) => {
+  const total = colNodes.length * NH + (colNodes.length - 1) * GY;
+  const y0 = (H - total) / 2;
+  colNodes.forEach((n, r) => pos.set(n.id, { x: PAD + c * (NW + GX), y: y0 + r * (NH + GY) }));
+});
+const style: Record<string, { fill: string; stroke: string; dash?: string; rx: number }> = {
+  source: { fill: "var(--muted)", stroke: "var(--muted-foreground)", rx: 8 },
+  agent: { fill: "var(--tint)", stroke: "var(--accent)", rx: 10 },
+  tool: { fill: "var(--card)", stroke: "var(--primary)", rx: 6 },
+  model: { fill: "var(--card)", stroke: "var(--accent)", dash: "5 4", rx: 23 },
+  store: { fill: "var(--card)", stroke: "var(--muted-foreground)", rx: 4 },
+  human: { fill: "var(--card)", stroke: "var(--accent-2)", rx: 23 },
+  output: { fill: "var(--primary)", stroke: "var(--primary)", rx: 8 },
+};
+const wrap = (s: string, max = 19) => {
+  const words = s.split(" "); const lines: string[] = []; let cur = "";
+  for (const w of words) { if ((cur + " " + w).trim().length > max && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim(); }
+  if (cur) lines.push(cur); return lines.slice(0, 2);
+};
+const outDeg = new Map<string, number>();
+for (const e of edges) outDeg.set(e[0], (outDeg.get(e[0]) ?? 0) + 1);
+const path = (a: string, b: string) => {
+  const A = pos.get(a)!, B = pos.get(b)!;
+  const sameCol = A.x === B.x;
+  if (sameCol) { const x = A.x + NW / 2; return `M${x} ${A.y + NH} L${x} ${B.y}`; }
+  const x1 = A.x + NW, y1 = A.y + NH / 2, x2 = B.x, y2 = B.y + NH / 2;
+  const back = x2 < x1;
+  if (back) { const mx = Math.min(x1, x2 + NW) - 20; return `M${A.x} ${y1} C ${A.x - 40} ${y1}, ${B.x + NW + 40} ${y2}, ${B.x + NW} ${y2}`; }
+  const cx = (x1 + x2) / 2;
+  return `M${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`;
+};
+---
+<figure class="my-8 overflow-x-auto">
+  <svg viewBox={`0 0 ${W} ${H}`} class="mx-auto" style={`width:${W}px; min-width:${Math.min(W, 860)}px; max-width:100%`} role="img" aria-label={caption}>
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" fill="var(--muted-foreground)" />
+      </marker>
+    </defs>
+    {edges.map(e => {
+      const d = path(e[0], e[1]);
+      const A = pos.get(e[0])!, B = pos.get(e[1])!;
+      const lx = (A.x + NW + B.x) / 2, ly = (A.y + B.y) / 2 + NH / 2 - 6;
+      return (
+        <g>
+          <path d={d} fill="none" stroke="var(--muted-foreground)" stroke-width="1.4" marker-end="url(#arrow)" />
+          {e[2] && (outDeg.get(e[0]) ?? 0) <= 2 && (
+            <g>
+              <rect x={lx - e[2].length * 3.1 - 4} y={ly - 9} width={e[2].length * 6.2 + 8} height="16" rx="3" fill="var(--background)" />
+              <text x={lx} y={ly + 3} text-anchor="middle" font-size="10" fill="var(--muted-foreground)" style="font-family: var(--font-inter)">{e[2]}</text>
+            </g>
+          )}
+        </g>
+      );
+    })}
+    {nodes.map(n => {
+      const p = pos.get(n.id)!; const st = style[n.kind] ?? style.tool; const lines = wrap(n.label);
+      const textFill = n.kind === "output" ? "var(--accent-foreground)" : "var(--foreground)";
+      return (
+        <g>
+          <rect x={p.x} y={p.y} width={NW} height={NH} rx={st.rx} fill={st.fill} stroke={st.stroke} stroke-width="1.5" stroke-dasharray={st.dash} />
+          {lines.map((l, i) => (
+            <text x={p.x + NW / 2} y={p.y + NH / 2 + (lines.length === 1 ? 4 : i === 0 ? -3 : 11)} text-anchor="middle" font-size="12" font-weight={n.kind === "agent" ? "600" : "500"} fill={textFill} style="font-family: var(--font-inter)">{l}</text>
+          ))}
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption class="text-muted-foreground mt-2 text-center text-sm">{caption}</figcaption>
+  <p class="text-muted-foreground mt-1 flex flex-wrap justify-center gap-x-3 text-[10px] uppercase tracking-wide">
+    <span><span class="inline-block size-2 rounded-sm border" style="border-color:var(--accent);background:var(--tint)"></span> agent</span>
+    <span><span class="inline-block size-2 rounded-sm border" style="border-color:var(--primary)"></span> tool</span>
+    <span><span class="inline-block size-2 rounded-full border border-dashed" style="border-color:var(--accent)"></span> model</span>
+    <span><span class="inline-block size-2 rounded-full border" style="border-color:var(--accent-2)"></span> human</span>
+    <span><span class="inline-block size-2 rounded-sm" style="background:var(--primary)"></span> output</span>
+  </p>
+</figure>

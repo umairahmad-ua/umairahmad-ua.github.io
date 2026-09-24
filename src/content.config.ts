@@ -11,6 +11,18 @@ const source = z.object({
   date: z.coerce.date(),
 });
 
+const diagramNode = z.object({
+  id: z.string(),
+  label: z.string(),
+  col: z.number().int().min(0).max(5),
+  kind: z.enum(["source", "agent", "tool", "model", "store", "human", "output"]).default("tool"),
+});
+const diagram = z.object({
+  caption: z.string(),
+  nodes: z.array(diagramNode).min(3).max(14),
+  edges: z.array(z.tuple([z.string(), z.string()]).or(z.tuple([z.string(), z.string(), z.string()]))).default([]),
+});
+
 const posts = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
   schema: ({ image }) =>
@@ -34,6 +46,8 @@ const posts = defineCollection({
       // Every dated external claim in the body must have an entry here.
       // scripts/qa.mjs fails the build if any source.date > pubDatetime.
       sources: z.array(source).default([]),
+      // Architecture sketch rendered by src/components/Diagram.astro (essays)
+      diagram: diagram.optional(),
     }),
 });
 

@@ -11,6 +11,29 @@ sources:
   - title: "Google Gemini 3.8 Flash"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2026-09-02
+diagram:
+  caption: "How a cache read price cut flows through a cached prefix into cost per task and then into the routing decision."
+  nodes:
+    - { id: "price", label: "Fable 5.1 cache read cut", col: 0, kind: "source" }
+    - { id: "volatile", label: "Alert and recent results", col: 0, kind: "source" }
+    - { id: "prefix", label: "Stable cached prefix", col: 1, kind: "store" }
+    - { id: "call", label: "Claude agent step cost", col: 2, kind: "model" }
+    - { id: "gemini", label: "Gemini Flash steps", col: 2, kind: "model" }
+    - { id: "cpt", label: "Cost per task dashboard", col: 3, kind: "store" }
+    - { id: "evals", label: "Re-run eval sets", col: 3, kind: "tool" }
+    - { id: "routing", label: "Routing table re-priced", col: 4, kind: "tool" }
+    - { id: "team", label: "Quarterly re-pricing review", col: 4, kind: "human" }
+    - { id: "decision", label: "Move steps or hold", col: 5, kind: "output" }
+  edges:
+    - ["price", "prefix", "75 pct cheaper reads"]
+    - ["prefix", "call", "88 pct of ops input"]
+    - ["volatile", "call", "full rate"]
+    - ["call", "cpt", "ops 100 to 41"]
+    - ["gemini", "cpt", "no change this week"]
+    - ["cpt", "routing"]
+    - ["evals", "routing", "scores within noise"]
+    - ["routing", "team"]
+    - ["team", "decision", "re-baseline first"]
 ---
 
 ## Table of contents

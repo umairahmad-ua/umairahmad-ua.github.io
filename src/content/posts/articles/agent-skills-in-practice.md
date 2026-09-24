@@ -11,6 +11,27 @@ sources:
   - title: "Anthropic releases Claude Fable 5 and Claude Mythos 5"
     url: "https://www.anthropic.com/news/claude-fable-5-mythos-5"
     date: 2026-06-09
+diagram:
+  caption: "One versioned incident triage skill loads into the ops agent, stops at Slack, and leaves remediation to a gated skill."
+  nodes:
+    - { id: "alert", label: "Alert from Cloud Monitoring", col: 0, kind: "source" }
+    - { id: "tests", label: "tests/cases.yaml on PR", col: 0, kind: "tool" }
+    - { id: "skillmd", label: "SKILL.md v2.3.0", col: 1, kind: "store" }
+    - { id: "agent", label: "Claude Agent SDK ops agent", col: 2, kind: "agent" }
+    - { id: "scripts", label: "fetch_alert_context, redact", col: 2, kind: "tool" }
+    - { id: "refs", label: "Severity matrix references", col: 2, kind: "store" }
+    - { id: "slack", label: "Triage posted to Slack", col: 3, kind: "output" }
+    - { id: "human", label: "Human approves action", col: 4, kind: "human" }
+    - { id: "remed", label: "Remediation skill", col: 5, kind: "agent" }
+  edges:
+    - ["alert", "agent"]
+    - ["tests", "skillmd", "gates version bump"]
+    - ["skillmd", "agent", "load when relevant"]
+    - ["agent", "scripts"]
+    - ["agent", "refs"]
+    - ["agent", "slack", "stop, never execute"]
+    - ["slack", "human"]
+    - ["human", "remed", "separate scope"]
 ---
 
 ## Table of contents

@@ -8,6 +8,30 @@ sources:
   - title: "OpenAI and AWS multi-year compute partnership"
     url: "https://openai.com/index/aws-and-openai-partnership/"
     date: 2025-11-03
+diagram:
+  caption: "The agent run publishes sequenced events to Redis and a thin forwarder owns the socket so reconnects replay what was missed."
+  nodes:
+    - { id: "client", label: "Browser WebSocket client", col: 0, kind: "source" }
+    - { id: "run", label: "Agent run on Cloud Run", col: 1, kind: "agent" }
+    - { id: "labels", label: "Tool label templates", col: 1, kind: "tool" }
+    - { id: "events", label: "StreamEvent with seq", col: 2, kind: "tool" }
+    - { id: "redis", label: "Redis pub/sub channel", col: 3, kind: "store" }
+    - { id: "buf", label: "Last 200 events buffer", col: 3, kind: "store" }
+    - { id: "fs", label: "Firestore done event", col: 3, kind: "store" }
+    - { id: "fwd", label: "Thin forwarder instance", col: 4, kind: "tool" }
+    - { id: "ui", label: "Agent and tool progress", col: 5, kind: "output" }
+  edges:
+    - ["client", "run", "question"]
+    - ["labels", "events", "safe labels only"]
+    - ["run", "events", "token, agent, tool"]
+    - ["events", "redis", "publish"]
+    - ["events", "buf", "10 minute expiry"]
+    - ["events", "fs", "done"]
+    - ["redis", "fwd", "subscribe"]
+    - ["buf", "fwd", "replay after last_seq"]
+    - ["fwd", "ui"]
+    - ["fs", "ui", "finished answer"]
+    - ["client", "fwd", "reconnect, last_seq"]
 ---
 
 ## Table of contents

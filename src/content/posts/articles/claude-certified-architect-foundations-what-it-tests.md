@@ -14,6 +14,31 @@ sources:
   - title: "A2A Protocol v1.0"
     url: "https://a2a-protocol.org/latest/blog/2026/03/12/a2a-protocol-ships-v10-production-ready-standard-for-agent-to-agent-communication/"
     date: 2026-03-12
+diagram:
+  caption: "What the architect exam tests, failure paths, MCP, evals and safety, and what only production teaches after it."
+  nodes:
+    - { id: "study", label: "Agent SDK docs, small agent", col: 0, kind: "source" }
+    - { id: "mcp", label: "Write an MCP server", col: 1, kind: "tool" }
+    - { id: "ctx", label: "Context compaction", col: 1, kind: "tool" }
+    - { id: "safety", label: "Hooks and permissions", col: 1, kind: "tool" }
+    - { id: "evals", label: "Eval design, LLM judge", col: 1, kind: "tool" }
+    - { id: "exam", label: "CCAR-F, 60 scenarios", col: 2, kind: "tool" }
+    - { id: "pass", label: "Credential, 12 months", col: 3, kind: "output" }
+    - { id: "gaps", label: "Not tested: cost, tracing", col: 3, kind: "output" }
+    - { id: "prod", label: "Run it in production", col: 4, kind: "human" }
+  edges:
+    - ["study", "mcp"]
+    - ["study", "ctx"]
+    - ["study", "safety"]
+    - ["study", "evals"]
+    - ["mcp", "exam"]
+    - ["ctx", "exam"]
+    - ["safety", "exam"]
+    - ["evals", "exam", "gate a release"]
+    - ["exam", "pass", "720 of 1000"]
+    - ["exam", "gaps"]
+    - ["pass", "prod"]
+    - ["gaps", "prod", "learn after"]
 ---
 
 Anthropic held its first Partner Summit in Carlsbad on March 12 and 13. It launched the Claude Partner Network with a $100 million commitment, and with it the first Claude certifications. The architect track opens with Claude Certified Architect – Foundations. Pearson VUE lists it as CCAR-F. I booked a slot for the following week and sat it on a Thursday morning from my desk.

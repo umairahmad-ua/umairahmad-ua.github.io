@@ -11,6 +11,28 @@ sources:
   - title: "The next evolution of the Agents SDK"
     url: "https://openai.com/index/the-next-evolution-of-the-agents-sdk/"
     date: 2026-04-15
+diagram:
+  caption: "A PR carries a human intent comment, an agent share label and an eval diff, and the reviewer reads writes line by line."
+  nodes:
+    - { id: "engineer", label: "Engineer with Claude Code", col: 0, kind: "human" }
+    - { id: "pr", label: "Pull request diff", col: 1, kind: "source" }
+    - { id: "intent", label: "Hand-written intent comment", col: 1, kind: "output" }
+    - { id: "label", label: "Agent share label", col: 1, kind: "output" }
+    - { id: "evaldiff", label: "Eval diff before and after", col: 2, kind: "tool" }
+    - { id: "hot", label: "Writes, permissions, errors", col: 2, kind: "tool" }
+    - { id: "reviewer", label: "Reviewer asks questions", col: 3, kind: "human" }
+    - { id: "merge", label: "Merge or send back", col: 4, kind: "output" }
+  edges:
+    - ["engineer", "pr"]
+    - ["engineer", "intent", "not the agent"]
+    - ["engineer", "label"]
+    - ["pr", "evaldiff", "if prompt or tool"]
+    - ["pr", "hot", "read line by line"]
+    - ["intent", "reviewer"]
+    - ["label", "reviewer"]
+    - ["evaldiff", "reviewer", "cost per task"]
+    - ["hot", "reviewer"]
+    - ["reviewer", "merge"]
 ---
 
 ## Table of contents

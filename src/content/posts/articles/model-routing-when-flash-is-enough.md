@@ -11,6 +11,26 @@ sources:
   - title: "OpenAI releases GPT-5.2"
     url: "https://en.wikipedia.org/wiki/GPT-5.2"
     date: 2025-12-11
+diagram:
+  caption: "Each step runs on the cheapest model that passes its eval, with a pricier fallback and the choice on the trace."
+  nodes:
+    - { id: "evals", label: "Step eval sets", col: 0, kind: "tool" }
+    - { id: "config", label: "Routing YAML per step", col: 1, kind: "store" }
+    - { id: "input", label: "Step input", col: 1, kind: "source" }
+    - { id: "router", label: "route(step, input)", col: 2, kind: "tool" }
+    - { id: "flash", label: "Gemini 3 Flash", col: 3, kind: "model" }
+    - { id: "pro", label: "Gemini 3 Pro fallback", col: 3, kind: "model" }
+    - { id: "trace", label: "Trace with model id", col: 4, kind: "store" }
+    - { id: "dash", label: "Cost and fallback rate", col: 5, kind: "output" }
+  edges:
+    - ["evals", "config", "cheapest that passes"]
+    - ["config", "router"]
+    - ["input", "router", "length, confidence"]
+    - ["router", "flash", "under 2k tokens"]
+    - ["router", "pro", "timeout or unsure"]
+    - ["flash", "trace"]
+    - ["pro", "trace"]
+    - ["trace", "dash", "per step, per model"]
 ---
 
 ## Table of contents

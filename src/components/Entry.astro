@@ -2,22 +2,27 @@
 import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { toTransitionName } from "@/utils/toTransitionName";
+import Cover from "./Cover.astro";
 
 type Props = { post: CollectionEntry<"posts">; showYear?: boolean; showExcerpt?: boolean };
 const { post, showYear = false, showExcerpt = false } = Astro.props;
 const { title, description, kind, week, tags, pubDatetime } = post.data;
 const d = pubDatetime;
 const date = d.toLocaleDateString("en-US", { month: "short", day: "2-digit", ...(showYear ? { year: "numeric" } : {}), timeZone: "UTC" });
+const primaryTag = tags.find(t => t !== "weekly") ?? "";
 const cleanTitle = kind === "note" ? title.replace(/^Week \d+\/\d+:\s*/, "") : title;
 ---
 
 <li class="entry">
   <time class="entry-date" datetime={d.toISOString()}>{date}</time>
+  <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)} aria-hidden="true" tabindex="-1" class="hidden shrink-0 sm:block">
+    <Cover seed={post.id} kind={kind} tag={primaryTag} compact class="size-11 rounded-md" />
+  </a>
   <div class="min-w-0">
     <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)} class="text-primary hover:text-accent font-medium decoration-dashed underline-offset-4 hover:underline">
       <span transition:name={toTransitionName(post.id)}>{cleanTitle}</span>
     </a>
-    <span class="text-muted-foreground ms-2 text-xs">{kind === "note" ? "weekly note" : "essay"}</span>
+    <span class="text-muted-foreground ms-2 text-xs">{kind === "note" ? "sunday note" : "deep dive"}</span>
     {showExcerpt && <p class="text-muted-foreground mt-0.5 text-sm">{description}</p>}
   </div>
 </li>

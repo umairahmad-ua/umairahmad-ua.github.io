@@ -11,6 +11,25 @@ sources:
   - title: "Google Agent Development Kit documentation"
     url: "https://google.github.io/adk-docs/"
     date: 2025-06-01
+diagram:
+  caption: "An ADK root agent routes by instruction to a sequential pair whose handoff passes through session state, not a drawn path."
+  nodes:
+    - { id: "user", label: "User request", col: 0, kind: "source" }
+    - { id: "root", label: "Root agent (routes)", col: 1, kind: "agent" }
+    - { id: "analysis", label: "data_analysis sequential", col: 2, kind: "agent" }
+    - { id: "direct", label: "Direct product answer", col: 2, kind: "output" }
+    - { id: "researcher", label: "Researcher agent", col: 3, kind: "agent" }
+    - { id: "tool", label: "query_dashboard (BigQuery)", col: 4, kind: "tool" }
+    - { id: "state", label: "Session state", col: 4, kind: "store" }
+    - { id: "author", label: "Author agent, cites", col: 5, kind: "agent" }
+  edges:
+    - ["user", "root"]
+    - ["root", "analysis", "analysis questions"]
+    - ["root", "direct", "product questions"]
+    - ["analysis", "researcher"]
+    - ["researcher", "tool", "typed dict back"]
+    - ["researcher", "state", "writes finding"]
+    - ["state", "author", "reads named key"]
 ---
 
 In July I sat in a review with a client team and drew a box diagram on the whiteboard. Ingest, retrieve, rerank, answer. Four boxes, three arrows. Someone asked what happens when the user asks a follow-up that needs a different data source. I started drawing a fifth box. Then a sixth. By the time I stopped, the diagram had eleven boxes and I no longer believed in it.

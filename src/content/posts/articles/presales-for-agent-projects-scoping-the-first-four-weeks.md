@@ -11,6 +11,30 @@ sources:
   - title: "Google Gemini 3.1 Pro"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2026-02-19
+diagram:
+  caption: "The four week presales flow from discovery questions through an eval set to a narrow pilot with agreed exit numbers."
+  nodes:
+    - { id: "q", label: "Six discovery questions", col: 0, kind: "source" }
+    - { id: "data", label: "Data access check", col: 1, kind: "tool" }
+    - { id: "cases", label: "100 to 200 real cases", col: 1, kind: "source" }
+    - { id: "rubric", label: "Client scoring rubric", col: 2, kind: "human" }
+    - { id: "evals", label: "Eval set and judge", col: 2, kind: "store" }
+    - { id: "stake", label: "Security, finance, staff", col: 3, kind: "human" }
+    - { id: "pilot", label: "Narrow ADK pilot", col: 3, kind: "agent" }
+    - { id: "review", label: "Human reads every reply", col: 4, kind: "human" }
+    - { id: "exit", label: "Three exit numbers", col: 5, kind: "output" }
+  edges:
+    - ["q", "data"]
+    - ["q", "cases"]
+    - ["cases", "rubric", "in their words"]
+    - ["rubric", "evals", "judge prompt"]
+    - ["cases", "evals"]
+    - ["evals", "pilot", "job description"]
+    - ["data", "pilot", "typed tools"]
+    - ["stake", "pilot", "met before pilot"]
+    - ["pilot", "review"]
+    - ["review", "exit", "override rate"]
+    - ["pilot", "exit", "cost per task"]
 ---
 
 ## Table of contents

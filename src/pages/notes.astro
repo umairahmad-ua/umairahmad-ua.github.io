@@ -11,10 +11,10 @@ import { isNote } from "@/utils/byKind";
 import config from "@/config";
 const posts = getSortedPosts(await getCollection("posts")).filter(isNote);
 ---
-<Layout title={`Weekly notes | ${config.site.title}`}>
+<Layout title={`Sunday notes | ${config.site.title}`}>
   <Header />
   <Breadcrumb />
-  <Main pageTitle="Weekly notes" pageDesc="One short note every Sunday since September 2025. What changed in AI that week, and what I make of it from inside client work.">
+  <Main pageTitle="Sunday notes" pageDesc="One short note every Sunday since September 2025. What changed in AI that week, and what I make of it from inside client work.">
     <PostStream {posts} showExcerpt />
   </Main>
   <Footer />

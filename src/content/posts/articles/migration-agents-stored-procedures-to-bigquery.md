@@ -15,6 +15,29 @@ sources:
   - title: "Google: Gemini 3 Flash"
     url: "https://en.wikipedia.org/wiki/Gemini_(language_model)"
     date: 2025-12-17
+diagram:
+  caption: "Three narrow agents translate, reconcile and document each object, and finance approves every cutover."
+  nodes:
+    - { id: "legacy", label: "SQL Server procedures", col: 0, kind: "source" }
+    - { id: "schema", label: "Schemas and style guide", col: 0, kind: "store" }
+    - { id: "translate", label: "Translation agent", col: 1, kind: "agent" }
+    - { id: "validate", label: "Validation agent", col: 2, kind: "agent" }
+    - { id: "bq", label: "BigQuery shadow dataset", col: 3, kind: "store" }
+    - { id: "docs", label: "Documentation agent", col: 3, kind: "agent" }
+    - { id: "recon", label: "Reconciliation report", col: 4, kind: "output" }
+    - { id: "rollback", label: "Rollback plan", col: 4, kind: "output" }
+    - { id: "finance", label: "Finance approves cutover", col: 5, kind: "human" }
+  edges:
+    - ["legacy", "translate", "Gemini 3 Pro"]
+    - ["schema", "translate"]
+    - ["translate", "validate", "SQL plus assumptions"]
+    - ["validate", "bq", "dual run, two closes"]
+    - ["bq", "recon", "nightly deltas"]
+    - ["validate", "docs"]
+    - ["docs", "recon", "lineage entry"]
+    - ["docs", "rollback"]
+    - ["recon", "finance"]
+    - ["rollback", "finance"]
 ---
 
 The client's finance close runs on the last three working days of every month. It has run on the same SQL Server estate for over a decade. Thousands of stored procedures, SSIS packages and reporting views feed it. Nobody on the current team wrote most of them. Some of the authors have retired. The mandate we received in the autumn was simple to say and hard to do. Move all of it onto BigQuery, and do not miss a close.

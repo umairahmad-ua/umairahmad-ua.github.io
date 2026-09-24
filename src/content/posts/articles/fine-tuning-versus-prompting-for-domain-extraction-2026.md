@@ -8,6 +8,29 @@ sources:
   - title: "Moonshot releases Kimi K2.5"
     url: "https://huggingface.co/blog/mlabonne/kimik25"
     date: 2026-01-27
+diagram:
+  caption: "Three candidates run against one frozen labeled set, and the per-field eval decides which fields prompt and which fine-tune."
+  nodes:
+    - { id: "docs", label: "Legacy loan documents", col: 0, kind: "source" }
+    - { id: "labeled", label: "Analyst-labeled 200 docs", col: 1, kind: "store" }
+    - { id: "table", label: "Decision table", col: 1, kind: "tool" }
+    - { id: "frontier", label: "Frontier model + schema", col: 2, kind: "model" }
+    - { id: "small", label: "Smaller hosted model", col: 2, kind: "model" }
+    - { id: "qlora", label: "QLoRA Llama 3 on Vertex AI", col: 2, kind: "model" }
+    - { id: "eval", label: "Per-field eval, cost, ms", col: 3, kind: "tool" }
+    - { id: "hybrid", label: "Hybrid extractor routes", col: 4, kind: "agent" }
+    - { id: "out", label: "Structured fields", col: 5, kind: "output" }
+  edges:
+    - ["docs", "labeled", "held out, frozen"]
+    - ["docs", "table"]
+    - ["table", "frontier", "first pass"]
+    - ["labeled", "qlora", "train minus 200"]
+    - ["frontier", "eval"]
+    - ["small", "eval"]
+    - ["qlora", "eval"]
+    - ["labeled", "eval", "ground truth"]
+    - ["eval", "hybrid", "winner per field"]
+    - ["hybrid", "out"]
 ---
 
 ## Table of contents

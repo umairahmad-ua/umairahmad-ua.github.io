@@ -11,6 +11,31 @@ sources:
   - title: "Claude Enterprise inference hooks beta"
     url: "https://github.com/jqueryscript/anthropic-claude-timeline"
     date: 2026-08-05
+diagram:
+  caption: "Gemini handles volume steps and Claude handles judgment steps over one MCP tool layer, judged cross-family."
+  nodes:
+    - { id: "claims", label: "Claims PDFs and emails", col: 0, kind: "source" }
+    - { id: "vais", label: "Vertex AI Search grounding", col: 1, kind: "tool" }
+    - { id: "classify", label: "Gemini 3.7 Flash routing", col: 1, kind: "model" }
+    - { id: "extract", label: "Gemini 3.6 Flash extraction", col: 2, kind: "model" }
+    - { id: "mcp", label: "MCP servers: policy, claims", col: 2, kind: "tool" }
+    - { id: "policy", label: "Claude Opus 5 policy read", col: 3, kind: "model" }
+    - { id: "draft", label: "Claude Sonnet 5 drafting", col: 4, kind: "model" }
+    - { id: "summary", label: "Gemini Flash summary", col: 4, kind: "model" }
+    - { id: "adjuster", label: "Adjuster on hard cases", col: 5, kind: "human" }
+    - { id: "judge", label: "Cross-family judge evals", col: 5, kind: "tool" }
+  edges:
+    - ["claims", "classify"]
+    - ["classify", "extract"]
+    - ["vais", "extract"]
+    - ["extract", "policy", "typed fields"]
+    - ["mcp", "policy", "get_policy_terms"]
+    - ["policy", "draft"]
+    - ["policy", "summary", "hard cases"]
+    - ["mcp", "draft", "email sender"]
+    - ["summary", "adjuster"]
+    - ["draft", "judge", "judged by Gemini"]
+    - ["summary", "judge", "judged by Claude"]
 ---
 
 ## Table of contents

@@ -8,6 +8,29 @@ sources:
   - title: "Amazon Bedrock AgentCore Harness generally available"
     url: "https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-agentcore-harness-generally-available/"
     date: 2026-06-17
+diagram:
+  caption: "After the incident, a fleet circuit breaker, a spend rate limit and a parked queue sit between the agent and the slow API."
+  nodes:
+    - { id: "queue", label: "Intake document queue", col: 0, kind: "source" }
+    - { id: "spend", label: "Spend rate limit, $/min", col: 0, kind: "tool" }
+    - { id: "chaos", label: "Weekly chaos eval in CI", col: 0, kind: "tool" }
+    - { id: "agent", label: "Intake agent, 1 alt retry", col: 1, kind: "agent" }
+    - { id: "breaker", label: "Fleet circuit breaker", col: 2, kind: "tool" }
+    - { id: "tool", label: "Claims lookup tool", col: 3, kind: "tool" }
+    - { id: "parked", label: "Parked queue with reason", col: 3, kind: "store" }
+    - { id: "api", label: "Client claims API (slow)", col: 4, kind: "tool" }
+    - { id: "alert", label: "Alert, pause new sessions", col: 5, kind: "output" }
+  edges:
+    - ["queue", "agent"]
+    - ["chaos", "agent", "slow tool, ceiling"]
+    - ["agent", "breaker", "tool call"]
+    - ["breaker", "tool", "closed: pass"]
+    - ["breaker", "parked", "open: park, no alts"]
+    - ["tool", "api", "10s timeout"]
+    - ["tool", "breaker", "record ok or fail"]
+    - ["parked", "agent", "resume on close"]
+    - ["spend", "alert", "3x trailing avg"]
+    - ["spend", "queue", "pause intake"]
 ---
 
 ## Table of contents

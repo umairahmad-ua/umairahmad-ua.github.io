@@ -9,6 +9,30 @@ sources:
   - title: "Anthropic: introducing Claude Fable 5 and Claude Mythos 5"
     url: "https://www.anthropic.com/news/claude-fable-5-mythos-5"
     date: 2026-06-09
+diagram:
+  caption: "What a year taught: the model is a fifth of the work, and the system around it is what reaches production."
+  nodes:
+    - { id: "demo", label: "Two-week demo", col: 0, kind: "source" }
+    - { id: "model", label: "Model, swappable config", col: 1, kind: "model" }
+    - { id: "tools", label: "Tool contracts and MCP", col: 2, kind: "tool" }
+    - { id: "state", label: "Fewer agents, named state", col: 2, kind: "store" }
+    - { id: "evals", label: "Eval suite in CI", col: 3, kind: "tool" }
+    - { id: "cost", label: "Cost per completed task", col: 3, kind: "tool" }
+    - { id: "human", label: "Human review gate", col: 4, kind: "human" }
+    - { id: "audit", label: "Permissions and audit trail", col: 4, kind: "store" }
+    - { id: "prod", label: "The thousandth input", col: 5, kind: "output" }
+  edges:
+    - ["demo", "model", "works once, watched"]
+    - ["model", "tools"]
+    - ["model", "state", "handoffs lose context"]
+    - ["tools", "evals", "prompt fails quietly"]
+    - ["state", "evals"]
+    - ["tools", "cost", "trace every call"]
+    - ["evals", "human"]
+    - ["cost", "audit"]
+    - ["evals", "audit", "cross-family judge"]
+    - ["human", "prod"]
+    - ["audit", "prod"]
 ---
 
 ## Table of contents

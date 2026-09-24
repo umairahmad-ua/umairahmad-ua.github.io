@@ -5,6 +5,29 @@ pubDatetime: 2026-03-11T15:00:00Z
 kind: article
 tags: ["gcp", "agents", "evals"]
 sources: []
+diagram:
+  caption: "Prompt versions move through eval gated labels from dev to candidate to canary to prod, with rollback as a label move."
+  nodes:
+    - { id: "editor", label: "Engineer or brand team", col: 0, kind: "human" }
+    - { id: "pm", label: "Vertex AI Prompt Management", col: 1, kind: "store" }
+    - { id: "eval", label: "CI eval suite and judge", col: 2, kind: "tool" }
+    - { id: "down", label: "Downstream agent evals", col: 2, kind: "tool" }
+    - { id: "cand", label: "candidate label", col: 3, kind: "store" }
+    - { id: "canary", label: "Canary on 10 pct traffic", col: 4, kind: "agent" }
+    - { id: "watch", label: "Score, cost, override rate", col: 4, kind: "tool" }
+    - { id: "owner", label: "Named owner moves label", col: 5, kind: "human" }
+    - { id: "prod", label: "prod label, all sessions", col: 5, kind: "output" }
+  edges:
+    - ["editor", "pm", "new version, dev"]
+    - ["pm", "eval", "every save"]
+    - ["pm", "down"]
+    - ["eval", "cand", "pass required"]
+    - ["down", "cand"]
+    - ["cand", "canary"]
+    - ["canary", "watch", "2 to 3 days"]
+    - ["watch", "owner"]
+    - ["owner", "prod", "label move"]
+    - ["owner", "canary", "rollback in a minute"]
 ---
 
 ## Table of contents
