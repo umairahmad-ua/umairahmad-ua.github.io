@@ -39,13 +39,15 @@
 }
 
 /* ---- Site personality: quiet, text first ---- */
-h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.005em; }
+h1, h2, h3, h4 { font-family: var(--font-heading); letter-spacing: -0.005em; color: var(--primary); }
+a { color: inherit; }
+.app-prose a { color: var(--accent); }
 pre, code, kbd { font-family: var(--font-mono); }
 @utility max-w-app { @apply max-w-[44rem]; }
 @utility pill { @apply text-muted-foreground inline-block text-xs tracking-wide uppercase; }
 @utility entry { @apply flex flex-col gap-0.5 py-2 sm:flex-row sm:items-baseline sm:gap-4; }
-@utility entry-date { @apply text-muted-foreground w-24 shrink-0 text-sm tabular-nums; }
-@utility month-head { @apply font-heading text-muted-foreground mt-10 mb-2 text-sm font-semibold tracking-wide uppercase first:mt-4; }
+@utility entry-date { @apply text-accent-2 w-24 shrink-0 text-sm font-medium tabular-nums; }
+@utility month-head { @apply font-heading text-accent mt-10 mb-2 text-sm font-semibold tracking-wide uppercase first:mt-4; }
 @utility btn-primary { @apply bg-accent text-accent-foreground inline-flex items-center gap-2 rounded-md px-4 py-2 font-medium hover:opacity-90; }
 @utility card { @apply border-border rounded-lg border p-5; }
 @utility card-hover { @apply hover:border-accent/60; }

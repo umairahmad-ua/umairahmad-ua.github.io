@@ -20,8 +20,8 @@ const homePath = url("");
 <Layout>
   <Header />
   <main id="main-content" data-layout="index" data-home-path={homePath} class="app-layout my-1">
-    <section id="intro" class="flex items-start gap-5 pt-8 pb-8">
-      <img src="/avatar.png" alt="Umair Ahmad" width="72" height="72" class="size-16 shrink-0 rounded-full sm:size-[72px]" />
+    <section id="intro" class="bg-tint border-border -mx-4 mt-6 mb-2 flex items-start gap-5 rounded-xl border px-5 py-6 sm:mx-0">
+      <img src="/avatar.png" alt="Umair Ahmad" width="72" height="72" class="ring-accent/40 size-16 shrink-0 rounded-full ring-2 ring-offset-2 ring-offset-(--tint) sm:size-[72px]" />
       <div class="text-[1.05rem] leading-relaxed">
         <p>Hi, I'm Umair. I build AI agents for companies that have to trust them, and I write about it here.</p>
         <p class="text-muted-foreground mt-2">A short <a class="text-accent underline decoration-dashed underline-offset-4" href={url("notes")}>note every Sunday</a> on what changed in AI that week, and a longer <a class="text-accent underline decoration-dashed underline-offset-4" href={url("articles")}>essay most Wednesdays</a> on something I built or broke. Every claim has a dated source. New here? <a class="text-accent underline decoration-dashed underline-offset-4" href={url("start-here")}>Start here</a>.</p>

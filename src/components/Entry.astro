@@ -14,7 +14,7 @@ const cleanTitle = kind === "note" ? title.replace(/^Week \d+\/\d+:\s*/, "") : t
 <li class="entry">
   <time class="entry-date" datetime={d.toISOString()}>{date}</time>
   <div class="min-w-0">
-    <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)} class="hover:text-accent font-medium decoration-dashed underline-offset-4 hover:underline">
+    <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)} class="text-primary hover:text-accent font-medium decoration-dashed underline-offset-4 hover:underline">
       <span transition:name={toTransitionName(post.id)}>{cleanTitle}</span>
     </a>
     <span class="text-muted-foreground ms-2 text-xs">{kind === "note" ? "weekly note" : "essay"}</span>
