@@ -18,6 +18,25 @@ sources:
   - title: "OpenAI: introducing GPT-6 Sol and Luna"
     url: "https://openai.com/index/introducing-gpt-6-sol-and-luna/"
     date: 2026-09-22
+diagram:
+  caption: "Traces and a hand-edited price table feed a cost per task view, which with eval scores decides the routing table and each model switch."
+  nodes:
+    - { id: "traces", label: "Agent traces, 30 days", col: 0, kind: "source" }
+    - { id: "prices", label: "Price table, edited Tue", col: 0, kind: "store" }
+    - { id: "view", label: "Cost per task view, BigQuery", col: 1, kind: "tool" }
+    - { id: "evals", label: "Eval set per step", col: 1, kind: "tool" }
+    - { id: "compare", label: "Score over cost comparison", col: 2, kind: "agent" }
+    - { id: "table", label: "Routing table", col: 3, kind: "store" }
+    - { id: "review", label: "Client weekly review", col: 4, kind: "human" }
+    - { id: "switch", label: "Model switch in config", col: 5, kind: "output" }
+  edges:
+    - ["traces", "view"]
+    - ["prices", "view"]
+    - ["view", "compare"]
+    - ["evals", "compare"]
+    - ["compare", "table", "update defaults"]
+    - ["table", "review"]
+    - ["review", "switch", "approve"]
 ---
 
 ## Table of contents
