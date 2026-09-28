@@ -28,3 +28,13 @@ Anthropic opened the [Claude Marketplace](https://claude.com/blog/claude-marketp
 
 Until last week, the MCP servers my team built lived in client repositories. Each client had its own copy of the BigQuery server, its own CRM connector, its own ops tools. The question was always "does this work for this client". A public directory changes the question to "which of these is a product, and which is a client's private plumbing". This piece is how we answered it, and how we now package the ones that travel.
 
+## The three servers
+
+We have built many MCP servers. Three of them appear in almost every engagement.
+
+**The BigQuery server.** Tools for listing datasets a user can see, describing a table, running a read-only query under a byte limit, and fetching a named metric from a semantic layer. The semantic layer is the part that makes it safe for finance users.
+
+**The CRM connector.** Tools for looking up an account, listing recent interactions and drafting a note, against whichever CRM the client runs. The tool contracts are identical across clients. The adapters behind them are not.
+
+**The ops toolkit.** Read-only logs, metrics and deploy history, plus the scoped execution tools that the operations agent uses after a human approves. The approval loop I described two weeks ago is built on this.
+
