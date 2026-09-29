@@ -278,3 +278,14 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-09-18 — Anthropic and Accenture each commit $1B over five years to embedded third-party model evaluators — https://www.cnbc.com/2026/09/18/anthropic-accenture-ai-safety.html
 - 2026-09-18 — Moonshot Kimi K3 (2.8T open weights) GA on Amazon Bedrock with explicit prompt caching — https://www.cloudscoop.io/updates/aws-2026-09-18-kimi-k3-by-moonshot-ai-is-now-generally-available-
 
+## Week of 2026-09-21
+- 2026-09-21 — xAI (SpaceXAI) Grok 4.7 ($2/$6 per MTok) — https://x.ai/news/grok-4-7
+- 2026-09-21 — AWS open-sources Strands harness (Apache 2.0 agent harness, 28% lower token cost) — https://strandsagents.com/blog/introducing-strands-harness/
+- 2026-09-22 — Anthropic releases Claude Opus 5.5 ($4/$20 per MTok, 40% cheaper than Opus 5; first of the Claude 5.5 family) — https://www.anthropic.com/claude-opus-5-5
+- 2026-09-22 — OpenAI GPT-6 Sol and GPT-6 Luna at 50% lower API prices than GPT-5.6 (Sol $2/$10, Luna $0.10/$0.50) — https://openai.com/index/introducing-gpt-6-sol-and-luna/
+- 2026-09-22 — Google Gemini 3.8 Flash TTS and Flash-Lite TTS GA — https://ai.google.dev/gemini-api/docs/changelog
+- 2026-09-23 — Anthropic launches Claude Marketplace (2,000+ connectors and plugins, agents and products, service partners); plugin directory submission portal opens Sep 25 — https://claude.com/blog/claude-marketplace ; https://claude.com/blog/build-plugins-for-claude
+- 2026-09-24 — Google DeepMind's Kavukcuoglu says Gemini 4 is in post-training, release "as soon as possible" — https://9to5google.com/2026/09/24/google-says-gemini-4-release-is-coming-as-soon-as-possible/
+- 2026-09-25 — Microsoft relaunches Copilot with Home, Code and Autopilot (persistent agents with Entra ID identity) — https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/
+- 2026-09-25 — DC Circuit upholds (2-1) Pentagon supply-chain-risk designation of Anthropic — https://www.cnbc.com/2026/09/25/pentagon-anthropic-ai-risk-appeals-court.html
+
