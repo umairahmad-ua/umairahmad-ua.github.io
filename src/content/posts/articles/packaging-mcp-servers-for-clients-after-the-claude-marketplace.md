@@ -62,21 +62,3 @@ We sorted every server into one of three tiers.
 
 The test we used: if a stranger installed this and something went wrong, would the fault be theirs or ours. Public plugins must make the answer theirs, through scopes and configuration. If we cannot make it so, the plugin is not public.
 
-## The packaging work nobody budgets for
-
-Turning a server into a plugin took about two weeks per server for the first two. Most of that was not code.
-
-Writing the skill properly was the first week. The server already worked. What did not exist was a clear statement of when to use the metric tool versus the query tool, what to do when a table is not visible to the user, and how to phrase a refusal. All of that lived in prompts scattered across client agents. The skill collects it in one place.
-
-Eval fixtures were the second week. We had evals for the agents that used the server. We did not have evals for the server alone. Recording forty tool calls with expected outputs, scrubbing them, and writing a runner that an installer can execute was new work. It was also the work that found two bugs in schema handling that three clients had been living with.
-
-## Versioning across clients
-
-Before the marketplace, each client was on whatever version of the server we last deployed. Now there is one version number and a changelog, and the question "which version are you on" has an answer. We moved every client to the current major version before listing. Two of them needed a one-line change in an agent prompt where a tool output had been renamed. That is the kind of drift a directory forces you to clean up.
-
-## Models, briefly
-
-[Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5) arrived on Monday at Sonnet 5 pricing and noticeably faster. The plugins do not care which model calls them, which is the point of the contract. We did re-run the plugin eval fixtures with Sonnet 5.5 as the caller. Everything passed. One tool that returns a long table got called with a tighter row limit than before, which is the model being sensible about context, and it changed nothing downstream.
-
-[Claude for Government](https://claude.com/blog/claude-for-government-is-now-generally-available) also went GA today with FedRAMP High. We have no government clients. The partner listing now gets questions from people who do, and the packaging work above is what makes it possible to say yes to a conversation.
-
