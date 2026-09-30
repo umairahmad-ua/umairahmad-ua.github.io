@@ -74,3 +74,14 @@ Eval fixtures were the second week. We had evals for the agents that used the se
 
 Before the marketplace, each client was on whatever version of the server we last deployed. Now there is one version number and a changelog, and the question "which version are you on" has an answer. We moved every client to the current major version before listing. Two of them needed a one-line change in an agent prompt where a tool output had been renamed. That is the kind of drift a directory forces you to clean up.
 
+## Models, briefly
+
+[Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5) arrived on Monday at Sonnet 5 pricing and noticeably faster. The plugins do not care which model calls them, which is the point of the contract. We did re-run the plugin eval fixtures with Sonnet 5.5 as the caller. Everything passed. One tool that returns a long table got called with a tighter row limit than before, which is the model being sensible about context, and it changed nothing downstream.
+
+[Claude for Government](https://claude.com/blog/claude-for-government-is-now-generally-available) also went GA today with FedRAMP High. We have no government clients. The partner listing now gets questions from people who do, and the packaging work above is what makes it possible to say yes to a conversation.
+
+## What to do if you have a pile of MCP servers
+
+Sort them by who would be at fault if they broke in someone else's hands. Give each one a version number today, even if you never publish. Write the skill before the listing, because the skill is where you find out what the server actually does. Record eval fixtures and make them runnable by an installer. And keep anything that executes against production private, no matter how clean the contract looks.
+
+A directory is a good forcing function. It does not make a server a product. It makes you decide whether it is one.
