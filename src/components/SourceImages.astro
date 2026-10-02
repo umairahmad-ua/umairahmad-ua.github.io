@@ -1,0 +1,40 @@
+---
+/** Preview images published by the cited sources, linked and credited. Sources without a usable image get a text card. */
+import imagesJson from "../../data/source-images.json";
+type Source = { title: string; url: string; date: Date };
+type Props = { sources: Source[]; max?: number };
+const { sources, max = 6 } = Astro.props;
+const images = imagesJson as Record<string, { file: string; w: number; h: number; site: string } | null>;
+const hidden = (u: string) => /wikipedia\.org/.test(u);
+const siteOf = (u: string) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return u; } };
+const items = sources
+  .filter(s => !hidden(s.url))
+  .map(s => ({ s, img: images[s.url] ?? null }))
+  .slice(0, max);
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+---
+{items.length > 0 && (
+  <section class="my-8">
+    <h2 class="text-muted-foreground mb-3 text-xs font-semibold tracking-wide uppercase">From the sources</h2>
+    <ul class:list={["grid gap-3", items.length === 1 ? "grid-cols-1" : "grid-cols-2 sm:grid-cols-3"]}>
+      {items.map(({ s, img }) => (
+        <li class="min-w-0">
+          <a href={s.url} target="_blank" rel="noopener noreferrer" class="group block">
+            {img ? (
+              <img src={img.file} width={img.w} height={img.h} alt={s.title} loading="lazy" class="border-border aspect-[1.9/1] w-full rounded-lg border object-cover transition group-hover:opacity-90" />
+            ) : (
+              <div class="bg-tint border-border flex aspect-[1.9/1] w-full flex-col justify-between rounded-lg border p-3 transition group-hover:border-accent" aria-hidden="true">
+                <span class="text-accent text-[10px] font-semibold tracking-wide uppercase">{siteOf(s.url)}</span>
+                <span class="text-primary line-clamp-3 text-xs leading-snug font-medium">{s.title}</span>
+                <span class="text-muted-foreground text-[10px]">{fmt(s.date)}</span>
+              </div>
+            )}
+            <p class="text-primary group-hover:text-accent mt-1.5 line-clamp-2 text-sm leading-snug">{s.title}</p>
+            <p class="text-muted-foreground text-xs">{img ? img.site : siteOf(s.url)} · {fmt(s.date)}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="text-muted-foreground mt-2 text-xs">Images are the preview images published by each source and belong to their owners. Click through for the original.</p>
+  </section>
+)}
