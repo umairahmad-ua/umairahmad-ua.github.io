@@ -18,6 +18,29 @@ sources:
   - title: "Claude for Government is now generally available"
     url: "https://claude.com/blog/claude-for-government-is-now-generally-available"
     date: 2026-09-30
+diagram:
+  caption: "Each MCP server is bundled with a skill, scopes, eval fixtures and a version, then sorted into public, partner or private distribution."
+  nodes:
+    - { id: "server", label: "MCP server and manifest", col: 0, kind: "tool" }
+    - { id: "skill", label: "Skill: when and how", col: 1, kind: "store" }
+    - { id: "scopes", label: "Permission scopes per tool", col: 1, kind: "tool" }
+    - { id: "fixtures", label: "Eval fixtures, runnable", col: 1, kind: "tool" }
+    - { id: "version", label: "Version and changelog", col: 1, kind: "store" }
+    - { id: "plugin", label: "Versioned plugin bundle", col: 2, kind: "agent" }
+    - { id: "triage", label: "Whose fault if it breaks", col: 3, kind: "human" }
+    - { id: "public", label: "Claude Marketplace, public", col: 4, kind: "output" }
+    - { id: "partner", label: "Partner listing, per client", col: 4, kind: "output" }
+    - { id: "private", label: "Client project only", col: 4, kind: "store" }
+  edges:
+    - ["server", "plugin"]
+    - ["skill", "plugin"]
+    - ["scopes", "plugin"]
+    - ["fixtures", "plugin"]
+    - ["version", "plugin"]
+    - ["plugin", "triage"]
+    - ["triage", "public", "BigQuery server"]
+    - ["triage", "partner", "CRM connector"]
+    - ["triage", "private", "ops toolkit"]
 ---
 
 ## Table of contents
