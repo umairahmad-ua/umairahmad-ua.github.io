@@ -289,3 +289,24 @@ Method: dates come from primary sources (company blogs, GitHub, spec sites) or r
 - 2026-09-25 — Microsoft relaunches Copilot with Home, Code and Autopilot (persistent agents with Entra ID identity) — https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/
 - 2026-09-25 — DC Circuit upholds (2-1) Pentagon supply-chain-risk designation of Anthropic — https://www.cnbc.com/2026/09/25/pentagon-anthropic-ai-risk-appeals-court.html
 
+## Week of 2026-09-28
+- 2026-09-28 — Anthropic releases Claude Sonnet 5.5 (Sonnet 5 pricing $2/$10, 30%+ faster, 70.6% Terminal-Bench 4.0) — https://www.anthropic.com/claude-sonnet-5-5
+- 2026-09-28 — Reuters reports Anthropic IPO prospectus: $42B 2025 net loss, ~$4.6B 2025 revenue, $2T valuation target (not yet on EDGAR as of report) — https://www.cnbc.com/2026/09/29/anthropic-warns-ai-existential-risks-ipo-filing-reuters.html
+- 2026-09-29 — OpenAI DevDay 2026 (San Francisco): dots always-on agents, GPT-6.1 Sol ($2/$10, ~1M context), Ultrafast speed tier, ChatGPT Space and Pages, Pro 500 tier, Codex in the cloud — https://openai.com/index/devday-2026-recap/ ; https://openai.com/index/introducing-gpt-6-1-sol/ ; https://www.cnbc.com/2026/09/29/openai-devday-2026-live-updates.html
+- 2026-09-30 — Claude for Government GA (FedRAMP High; Claude Code CLI early access) — https://claude.com/blog/claude-for-government-is-now-generally-available
+- 2026-09-30 — Claude Sonnet 4.5 deprecated (retirement 2026-11-30) — https://docs.claude.com/en/release-notes/overview
+- 2026-10-01 — Claude Code mods: TypeScript hooks that rewrite prompts, tool calls, UI; ship inside plugins (v2.1.287) — https://claude.com/blog/claude-code-mods
+
+## Flags for backdating checks
+- No "Claude Haiku 5" exists as of 2026-10-02. Haiku 4.5 (2025-10-15) is the current Haiku.
+- Claude 5.5 family: Opus 5.5 on 2026-09-22, Sonnet 5.5 on 2026-09-28. No Haiku 5.5, Fable 5.5 or Mythos 5.5 as of 2026-10-02.
+- GPT-6 Sol/Luna (2026-09-22) are the GPT-6 re-tiering of GPT-5.6 Sol/Luna; GPT-6.1 Sol shipped at DevDay 2026-09-29. GPT-6 Astra remains the top tier. No GPT-7.
+- Gemini 4 has NOT shipped as of 2026-10-02 (post-training confirmed 2026-09-24). Gemini 3.8 Flash (2026-09-02) is the latest Gemini.
+- Anthropic S-1: confidential filing 2026-06-01, prospectus reported by Reuters 2026-09-28; no IPO has priced as of 2026-10-02.
+- "Llama 5" is unverified. Meta's 2026 flagship is Muse Spark (2026-04-08). Do not reference Llama 5.
+- Grok 4.20 date is inconsistent across sources. Grok 4.7 shipped 2026-09-21; Grok 5 has not shipped as of 2026-10-02.
+- A2A 1.0: spec shipped 2026-03-12, publicly celebrated 2026-04-09, 1.0.1 followed May 2026.
+- MCP: 2025-11-25 spec stable, 2026-07-28 RC on 2026-05-21, final on 2026-07-28.
+- Google Cloud Next 2026 was Apr 22 to 24. Google I/O 2026 was May 19 to 20.
+- OpenAI DevDay 2025 was Oct 6. OpenAI Agents SDK "next evolution" was 2026-04-15. Agents API beta 2026-09-10.
+- Fable 5 was unavailable to non-US users Jun 12 to Jun 30, 2026 and redeployed Jul 1.
